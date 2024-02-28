@@ -1168,6 +1168,7 @@ public class PlayerController : MonoBehaviour
                 health -= damageAmount;
                 playerUI.ChangeHealth(-damageAmount);
                 SoundManager.Instance().PlaySFX("PlayerHurt");
+                playerAnimator.Play("Base Layer.BC_Injured");
             }
             ApplyKnockback(knockback);
             if (health <= 0)
