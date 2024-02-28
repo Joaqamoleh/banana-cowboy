@@ -10,8 +10,10 @@ public class CherryBomb : LassoableEnemy
     {
         if (thrown)
         {
-            print("Boom");
-            // Add sound here
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().PlaySFX("CherryBombExplode");
+            }
             SpawnExplosion();
             Destroy(gameObject);
         }
