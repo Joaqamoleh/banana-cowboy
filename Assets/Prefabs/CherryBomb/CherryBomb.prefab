@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa7ed5c6a19ea84bbc4bac4aa8781ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialRenderer: {fileID: 0}
-  originalMaterial: {fileID: 2100000, guid: 827c827b1faf70d45af97d3fc616f334, type: 2}
+  materialRenderer: {fileID: 8628216896902834634}
+  originalMaterial: {fileID: 2100000, guid: f2057e92f258d164ba3ab89a0f197faa, type: 2}
   selectedMaterial: {fileID: 2100000, guid: 4bb0ce82ebf5b144cb380b5fdf8e9a73, type: 2}
   thrown: 0
   explosion: {fileID: 5669016145455679879, guid: ad58d7c04cb40224cbbc76cb00d16ec4, type: 3}
@@ -302,11 +302,11 @@ PrefabInstance:
     - target: {fileID: -4929363789341574723, guid: 9b70ce1cb9296924a961702a84e82a87, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 827c827b1faf70d45af97d3fc616f334, type: 2}
+      objectReference: {fileID: 2100000, guid: f2057e92f258d164ba3ab89a0f197faa, type: 2}
     - target: {fileID: -2163644622240469123, guid: 9b70ce1cb9296924a961702a84e82a87, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b9a00ff2bbb336547a6758785e8511b7, type: 2}
+      objectReference: {fileID: 2100000, guid: 83cb888aaadbf6d47aacd968f5a8e884, type: 2}
     - target: {fileID: 919132149155446097, guid: 9b70ce1cb9296924a961702a84e82a87, type: 3}
       propertyPath: m_Name
       value: cherrybomb
@@ -319,5 +319,10 @@ PrefabInstance:
 --- !u!4 &5449440421191677852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9b70ce1cb9296924a961702a84e82a87, type: 3}
+  m_PrefabInstance: {fileID: 5488467710397747319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8628216896902834634 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4929363789341574723, guid: 9b70ce1cb9296924a961702a84e82a87, type: 3}
   m_PrefabInstance: {fileID: 5488467710397747319}
   m_PrefabAsset: {fileID: 0}
