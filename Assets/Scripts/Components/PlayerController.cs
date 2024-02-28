@@ -1090,10 +1090,26 @@ public class PlayerController : MonoBehaviour
         float forceMult = 0.4f;
         switch(strength)
         {
+            case ThrowStrength.WEAK:
+                if (SoundManager.Instance() != null)
+                {
+                    SoundManager.Instance().PlaySFX("SwingBad");
+                }
+                break;
             case ThrowStrength.MEDIUM:
-                forceMult = 0.7f; break;
-            case ThrowStrength.STRONG: 
-                forceMult = 1.0f; break;
+                if (SoundManager.Instance() != null)
+                {
+                    SoundManager.Instance().PlaySFX("SwingGood");
+                }
+                forceMult = 0.7f; 
+                break;
+            case ThrowStrength.STRONG:
+                if (SoundManager.Instance() != null)
+                {
+                    SoundManager.Instance().PlaySFX("SwingGreat");
+                }
+                forceMult = 1.0f; 
+                break;
         }
 
         // change enemies state different so it hurts the boss

@@ -38,14 +38,26 @@ public class CherryBombExplosion : MonoBehaviour
                     boss.Damage(1);
                 }
             }
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().PlaySFX("CherryBombExplode");
+            }
         }
         else if (other.name.Contains("Body"))
         {
             Destroy(other.gameObject.transform.root.gameObject);
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().PlaySFX("CherryBombExplode");
+            }
         }
         else if (other.CompareTag("Breakable"))
         {
             Destroy(other.gameObject);
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().PlaySFX("CherryBombExplode");
+            }
         }
     }
 }
