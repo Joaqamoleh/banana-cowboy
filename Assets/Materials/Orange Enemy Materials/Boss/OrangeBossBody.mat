@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3621577624260208070
+--- !u!114 &-5876590230792273629
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Orange Helmet Mat
+  m_Name: OrangeBossBody
   m_Shader: {fileID: -6465566751694194690, guid: 9e455f76d3227404796aadbb8449fb16, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -111,41 +111,37 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeDiffuse: 0.211
-    - _EdgeDistanceAttenuation: 0.001
-    - _EdgeRim: 0.462
-    - _EdgeShadowAttenuation: 1
-    - _EdgeSpecular: 0.802
+    - _EdgeDiffuse: 0.001
+    - _EdgeDistanceAttenuation: 0
+    - _EdgeRim: 0
+    - _EdgeShadowAttenuation: 0
+    - _EdgeSpecular: 1
     - _EnvironmentReflections: 1
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
     - _Metallic: 0
-    - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimAmount: 0.552
-    - _RimStrength: 1
-    - _RimThreshold: 0.1
+    - _RimAmount: 0.595
+    - _RimStrength: 0.561
+    - _RimThreshold: 0.15
     - _SkyMultiplier: 0
-    - _Smoothness: 0.18
+    - _Smoothness: 10
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.2603773, g: 0.25263175, b: 0.2490779, a: 1}
-    - _BaseColor: {r: 0.2603773, g: 0.25374502, b: 0.24711278, a: 1}
-    - _Color: {r: 0.3735848, g: 0.36888647, b: 0.36583117, a: 1}
+    - _AmbientColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0}
+    - _BaseColor: {r: 0.6301887, g: 0.2636906, b: 0.041616146, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   m_BuildTextureStacks: []

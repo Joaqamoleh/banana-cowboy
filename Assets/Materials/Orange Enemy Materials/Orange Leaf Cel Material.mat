@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3621577624260208070
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Orange Helmet Mat
+  m_Name: Orange Leaf Cel Material
   m_Shader: {fileID: -6465566751694194690, guid: 9e455f76d3227404796aadbb8449fb16, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -111,11 +98,11 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeDiffuse: 0.211
-    - _EdgeDistanceAttenuation: 0.001
-    - _EdgeRim: 0.462
-    - _EdgeShadowAttenuation: 1
-    - _EdgeSpecular: 0.802
+    - _EdgeDiffuse: 0.844
+    - _EdgeDistanceAttenuation: 0
+    - _EdgeRim: 0.136
+    - _EdgeShadowAttenuation: 0
+    - _EdgeSpecular: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -127,11 +114,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimAmount: 0.552
-    - _RimStrength: 1
-    - _RimThreshold: 0.1
+    - _RimAmount: 0.231
+    - _RimStrength: 0.359
+    - _RimThreshold: 0.01
     - _SkyMultiplier: 0
-    - _Smoothness: 0.18
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -141,11 +128,24 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.2603773, g: 0.25263175, b: 0.2490779, a: 1}
-    - _BaseColor: {r: 0.2603773, g: 0.25374502, b: 0.24711278, a: 1}
-    - _Color: {r: 0.3735848, g: 0.36888647, b: 0.36583117, a: 1}
+    - _AmbientColor: {r: 0.23773581, g: 0.23773581, b: 0.23773581, a: 1}
+    - _BaseColor: {r: 0.105624735, g: 0.2603773, b: 0.14114171, a: 1}
+    - _Color: {r: 0.21624058, g: 0.4566037, b: 0.27252355, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+    - _SpecularColor: {r: 0.2961463, g: 0.5051811, b: 0.5188679, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &6718476847790807047
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
