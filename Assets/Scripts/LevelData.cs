@@ -26,7 +26,7 @@ public class LevelData : MonoBehaviour
             new Vector3(38.2f,37.6f,32.7f)
         };*/
 
-    private static int checkpointReached; // stores latest checkpoint reached
+    private static int checkpointReached = 0; // stores latest checkpoint reached
 
     // player related data
     public static int starsparkleCount;
@@ -34,6 +34,13 @@ public class LevelData : MonoBehaviour
     private void Start()
     {
         instance = this;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            checkpointReached++;
+        }
     }
 
     // resets temporary data. Do this when loading into a level or leaving a level.
