@@ -37,6 +37,11 @@ public class LassoableEnemy : LassoObject
             {
                 DestroySelf();
             }
+            // TODO: Clean this up later
+            if (collision.collider.CompareTag("Breakable"))
+            {
+                Destroy(collision.collider.gameObject);
+            }
         }
     }
 

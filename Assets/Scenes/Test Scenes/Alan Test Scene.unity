@@ -2691,8 +2691,8 @@ Transform:
   m_GameObject: {fileID: 566627457}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2, y: 0.78, z: -19.2}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalPosition: {x: -90, y: 0.78, z: -19.2}
+  m_LocalScale: {x: 27.59, y: 27.59, z: 27.59}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 729192955}
@@ -4905,10 +4905,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4556485446633655030, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_Height
+      value: 3.7947195
+      objectReference: {fileID: 0}
+    - target: {fileID: 4556485446633655030, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_Center.y
+      value: 1.1026403
+      objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cinemachineCamController
       value: 
       objectReference: {fileID: 792779788}
+    - target: {fileID: 7365846526864489973, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9187660138696086715, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: swingSpeed
       value: 1
@@ -8115,7 +8127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1429045485
 Transform:
   m_ObjectHideFlags: 0
