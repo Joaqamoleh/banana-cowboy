@@ -10,6 +10,9 @@ public class ComicCutsceneManager : MonoBehaviour
     public float fadeTime = 0.5f;
     public float timeBetweenBoxes = 1.5f;
     public string nextScene;
+    public bool changeMusic;
+    public string previousMusic;
+    public string currentMusic;
     public GameObject skipButton;
 
     public List<GameObject> panelGroups = new List<GameObject>();
@@ -30,6 +33,11 @@ public class ComicCutsceneManager : MonoBehaviour
         foreach (GameObject panel in panelGroups)
         {
             panel.SetActive(false);
+        }
+
+        if (changeMusic)
+        {
+            ChangeMusic();
         }
 
         // fade in skip button
@@ -109,5 +117,14 @@ public class ComicCutsceneManager : MonoBehaviour
         StopAllCoroutines();
         FadeOut(currPanel);
         StartCoroutine("ChangeScene");
+    }
+
+    public void ChangeMusic()
+    {
+        if (SoundManager.Instance() != null)
+        {
+            SoundManager.Instance().StopMusic(previousMusic);
+            SoundManager.Instance().PlayMusic(currentMusic);
+        }
     }
 }

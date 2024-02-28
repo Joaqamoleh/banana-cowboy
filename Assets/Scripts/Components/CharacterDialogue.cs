@@ -13,7 +13,10 @@ public class CharacterDialogue : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 DialogueManager.Instance().DisplayDialog(dialog);
-                NPC_Animator.Play("Base Layer.B_OD_Talk_Start");
+                if (NPC_Animator != null)
+                {
+                    NPC_Animator.Play("Base Layer.B_OD_Talk_Start");
+                }
             }
         }
     }
@@ -25,7 +28,10 @@ public class CharacterDialogue : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 DialogueManager.Instance().HideDialog(dialog);
-                NPC_Animator.Play("Base Layer.B_OD_Idle");
+                if (NPC_Animator != null)
+                {
+                    NPC_Animator.Play("Base Layer.B_OD_Idle");
+                }
             }
         }
     }
