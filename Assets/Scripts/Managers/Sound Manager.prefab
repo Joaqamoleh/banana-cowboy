@@ -1,0 +1,234 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4819560341029275328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5990537195988232781}
+  - component: {fileID: 8841741469219348181}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5990537195988232781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819560341029275328}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9132011, y: 15.718561, z: -5.556293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8841741469219348181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819560341029275328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed664d42564b92e4b980cac9723e20b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: PlayerRun
+    audioClip: {fileID: 8300000, guid: 8042d2069ed60104ea4bf6ea406ae720, type: 3}
+    volume: 0.4
+    pitch: 1
+    pitchVariance: 0.25
+    loop: 1
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerWalk
+    audioClip: {fileID: 8300000, guid: b401237eb46fbd14e8b98bae92b2b234, type: 3}
+    volume: 0.3
+    pitch: 1
+    pitchVariance: 0.25
+    loop: 1
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerJump
+    audioClip: {fileID: 8300000, guid: c2890ee6703e3a54ab10007153ee4697, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerLand
+    audioClip: {fileID: 8300000, guid: 0d38a4cfaa147d1459cdf49f586de138, type: 3}
+    volume: 0.6
+    pitch: 1.4
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerHurt
+    audioClip: {fileID: 8300000, guid: 4f6fb3cd7128a4c46b98ddc6d1f79fed, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: LassoThrow
+    audioClip: {fileID: 8300000, guid: 5762e2dcb9e988b47aec3a1d82f939fc, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: LassoMiss
+    audioClip: {fileID: 8300000, guid: a78aa5e3ecd92aa4193225e1c070641d, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: LassoSwing
+    audioClip: {fileID: 8300000, guid: bebdc4ba740e332419cab5b743df8620, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: LassoSpin
+    audioClip: {fileID: 8300000, guid: e9fc70bb02b3cff428f166dbd3dd890b, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    type: 0
+    src: {fileID: 0}
+  - name: LassoWindUp
+    audioClip: {fileID: 8300000, guid: 143817a1771d7e8429aaa93391d5b05f, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: EnemySplat
+    audioClip: {fileID: 8300000, guid: 8f08076c9536c5e4ab9aa08b46b4f9b3, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeRevUp
+    audioClip: {fileID: 8300000, guid: 42a6d270fe780f147af57800bf27906d, type: 3}
+    volume: 0.3
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeCharge
+    audioClip: {fileID: 8300000, guid: 476a0f8d507590d41803460c74053a09, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: Boss Hurt
+    audioClip: {fileID: 8300000, guid: 67490cd2aa818c64ba69f60538015a4b, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeBossBoomerangs
+    audioClip: {fileID: 8300000, guid: 093e9e07ad9029a47b75bcf192163d5d, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeBossSummon
+    audioClip: {fileID: 8300000, guid: fcf0f45b6daa41543a5eaf3af7d6db78, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeBossPeelSlam
+    audioClip: {fileID: 8300000, guid: c8e930362c4701841a255c00171ef4d5, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeBossBoomerangStartup
+    audioClip: {fileID: 8300000, guid: 7270f05ac9ed6fe45ab621633775cdf5, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0.25
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeDizzy
+    audioClip: {fileID: 8300000, guid: 61017e58d5e4ad94cbbfa379e5b4a852, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: OrangeHitWall
+    audioClip: {fileID: 8300000, guid: 624888070d817e34882657d9d1ece3fa, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  music:
+  - name: Main Menu
+    audioClip: {fileID: 8300000, guid: 999e7316a58c7d948a214205bc5d2170, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: Orange Planet
+    audioClip: {fileID: 8300000, guid: 04f99ae264fc0d94d96367ea7411f440, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: Orange Boss
+    audioClip: {fileID: 8300000, guid: b0ae1fb3b6c35d248ba93766b787b3c6, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  m_sfxvolume: 1
+  m_musicvolume: 1
