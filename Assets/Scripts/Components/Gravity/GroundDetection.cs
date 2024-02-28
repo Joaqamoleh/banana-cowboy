@@ -8,11 +8,12 @@ public class GroundDetection : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if ((transform.position - other.ClosestPoint(transform.position)).magnitude == 0 || 
+        /*if ((transform.position - other.ClosestPoint(transform.position)).magnitude == 0 || 
             Vector3.Dot(transform.up, (transform.position - other.ClosestPoint(transform.position)).normalized) > 0.1f) {
             Debug.DrawLine(other.ClosestPoint(transform.position), transform.position, Color.green);
             _onGround = true;
-        }
+        }*/
+        _onGround = true;
     }
 
     private void OnTriggerExit(Collider other)
