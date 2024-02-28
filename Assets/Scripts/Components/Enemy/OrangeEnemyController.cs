@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [RequireComponent(typeof(GravityObject))]
@@ -120,6 +121,7 @@ public class OrangeEnemyController : EnemyController
             {
                 case OrangeState.PLAYER_SPOTTED:
                     spottedParam = 0.0f;
+                    GetComponent<Rigidbody>().velocity = Vector3.zero + _gravObject.GetFallingVelocity();
                     Invoke("EndPlayerSpotted", timeToBeginRev);
                     break;
                 case OrangeState.REV_UP:
@@ -217,6 +219,10 @@ public class OrangeEnemyController : EnemyController
         if (playerInView)
         {
             UpdateState(OrangeState.PLAYER_SPOTTED);
+        } 
+        else
+        {
+            UpdateState(OrangeState.IDLE);
         }
         //UpdateState(OrangeState.DIZZY);
     }
