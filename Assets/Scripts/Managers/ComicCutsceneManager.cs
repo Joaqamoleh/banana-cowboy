@@ -100,20 +100,7 @@ public class ComicCutsceneManager : MonoBehaviour
     IEnumerator ChangeScene()
     {
         yield return new WaitForSeconds(1.2f);
-        switch (nextScene)
-        {
-            case "Tutorial Level":
-                break;
-            case "Orange Level":
-                if (SoundManager.Instance() != null)
-                {
-                    SoundManager.Instance().StopMusic("Main Menu");
-                    SoundManager.Instance().PlayMusic("Orange Planet");
-                }
-                break;
-
-        }
-        SceneManager.LoadScene(nextScene);
+        LevelSwitch.ChangeScene(nextScene);
     }
 
     public void SkipCutscene()

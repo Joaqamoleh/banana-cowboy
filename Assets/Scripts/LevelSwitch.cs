@@ -37,11 +37,19 @@ public class LevelSwitch : MonoBehaviour
                 SoundManager.Instance().PlayMusic("Main Menu");
             }
         }
+        else if (scene == "Orange Level")
+        {
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().StopAllMusic();
+                SoundManager.Instance().PlayMusic("Orange Planet");
+            }
+        }
         else if (scene == "Orange Boss Scene")
         {
             if (SoundManager.Instance() != null)
             {
-                SoundManager.Instance().StopMusic("Orange Planet");
+                SoundManager.Instance().StopAllMusic();
                 SoundManager.Instance().PlayMusic("Orange Boss");
             }
         }

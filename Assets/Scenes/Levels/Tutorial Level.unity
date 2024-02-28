@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.017225567, g: 0.037343066, b: 0.08813346, a: 1}
+  m_IndirectSpecularColor: {r: 0.016900655, g: 0.037343066, b: 0.087850146, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2231,6 +2231,7 @@ Transform:
   - {fileID: 957597786}
   - {fileID: 113579468}
   - {fileID: 1518438879}
+  - {fileID: 753635969}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 22.352, y: 268.059, z: 276.437}
 --- !u!1001 &249067038
@@ -2399,41 +2400,21 @@ MonoBehaviour:
     width: 0.2
   m_Looped: 0
   m_Waypoints:
-  - position: {x: -10.766445, y: 3.8221436, z: 0.83636856}
+  - position: {x: 194.13412, y: 2.5964928, z: -17.209766}
     roll: 0
-  - position: {x: -1.7318497, y: 0, z: -4.3329163}
+  - position: {x: 90.021576, y: 8.710104, z: -107.66537}
     roll: 0
-  - position: {x: 3.5393066, y: -2.0621357, z: -6.763687}
+  - position: {x: 20.106266, y: -8.092049, z: -109.66106}
     roll: 0
-  - position: {x: 9.18948, y: -7.1455593, z: -2.4844131}
+  - position: {x: -10.857288, y: -28.398565, z: -83.2162}
     roll: 0
-  - position: {x: 15.704109, y: -15.240501, z: 1.399498}
+  - position: {x: -18.657795, y: -46.452503, z: -50.17001}
     roll: 0
-  - position: {x: 54.83526, y: -45.777588, z: 5.756031}
+  - position: {x: -22.789562, y: 29.751081, z: -63.586124}
     roll: 0
-  - position: {x: 109.704765, y: -17.667332, z: -19.177519}
+  - position: {x: 24.559288, y: 46.33232, z: -63.61431}
     roll: 0
-  - position: {x: 121.754486, y: -5.6346645, z: -47.923275}
-    roll: 0
-  - position: {x: 105.56589, y: 6.3980007, z: -70.19602}
-    roll: 0
-  - position: {x: 88.17456, y: 18.430666, z: -88.08298}
-    roll: 0
-  - position: {x: 65.12631, y: 30.463331, z: -103.07862}
-    roll: 0
-  - position: {x: 34.509148, y: 15.680101, z: -96.77969}
-    roll: 0
-  - position: {x: -3.0718727, y: -5.9231052, z: -93.373764}
-    roll: 0
-  - position: {x: -22.63631, y: -27.526312, z: -54.049152}
-    roll: 0
-  - position: {x: -0.52511215, y: -2.4940662, z: -47.076214}
-    roll: 0
-  - position: {x: 21.586086, y: 22.53818, z: -40.103275}
-    roll: 0
-  - position: {x: 40.885487, y: 25.885862, z: -53.720486}
-    roll: 0
-  - position: {x: 52.528194, y: 20.89062, z: -55.50495}
+  - position: {x: 47.956852, y: 38.75553, z: -57.72901}
     roll: 0
 --- !u!4 &255790985
 Transform:
@@ -3670,8 +3651,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487763867}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0741851, y: 0.88766694, z: -0.15401001, w: 0.42758045}
-  m_LocalPosition: {x: -64.77279, y: 29.635859, z: 51.634712}
+  m_LocalRotation: {x: 0.060176056, y: -0.7814896, z: 0.07630483, w: 0.6163039}
+  m_LocalPosition: {x: 140.12778, y: 28.410208, z: 33.588577}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4824,7 +4805,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654135069}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0741851, y: 0.88766694, z: -0.15401001, w: 0.42758045}
+  m_LocalRotation: {x: 0.060176056, y: -0.7814896, z: 0.07630483, w: 0.6163039}
   m_LocalPosition: {x: -20.188267, y: 4.370268, z: 12.701748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5556,6 +5537,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742097760}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &753635968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 753635969}
+  - component: {fileID: 753635971}
+  - component: {fileID: 753635970}
+  m_Layer: 10
+  m_Name: End Level Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &753635969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753635968}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.15743785, y: -0.000000089406946, z: -0.00000005960463, w: 0.9875289}
+  m_LocalPosition: {x: -135.26, y: 17.84, z: -22.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 237227826}
+  m_LocalEulerAnglesHint: {x: -18.116, y: 0, z: 0}
+--- !u!65 &753635970
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753635968}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 10, z: 20}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &753635971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753635968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446ce9d6724a8af4c9b1bec39f030961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuScene: Orange Level
 --- !u!1001 &766399237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6667,7 +6715,7 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Pricky Pete
+      speakerName: Prickly Pete
       speakerDialog: Howdy! My name's Prickly Pete and I'll show ya the ropes to
         be a proper Banana Cowboy!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
@@ -6682,7 +6730,7 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Pricky Pete
+      speakerName: Prickly Pete
       speakerDialog: Now first things first, let me tell ya how to move around. You're
         gonna be using WASD for walkin, Space for jumpin, and Shift for runnin
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
@@ -6697,8 +6745,8 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Pricky Pete
-      speakerDialog: Follow me over these rocks and I'll teach you some more
+      speakerName: Prickly Pete
+      speakerDialog: Follow me over these crates and I'll teach you some more
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 0
       dialogFullyDisplayed: 0
@@ -7305,7 +7353,7 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: 7519660080409007948, guid: 9f8085cf958573c46b5ac7c94a90eec4, type: 2}
+  - key: {fileID: 6012917407360782456, guid: 9f8085cf958573c46b5ac7c94a90eec4, type: 2}
     value: {fileID: 654135071}
   m_ExposedReferences:
     m_References: []
