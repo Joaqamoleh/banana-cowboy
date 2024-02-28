@@ -45,6 +45,11 @@ public class LevelSwitch : MonoBehaviour
                 SoundManager.Instance().PlayMusic("Orange Boss");
             }
         }
+        else if (scene == "Tutorial Level")
+        {
+            SoundManager.Instance().StopAllMusic();
+            SoundManager.Instance().PlayMusic("Tutorial");
+        }
         PlayerCameraController.ShowCursor();
         LevelData.resetLevelData();
         SoundManager.Instance().StopAllSFX();
