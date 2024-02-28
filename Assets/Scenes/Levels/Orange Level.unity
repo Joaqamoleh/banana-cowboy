@@ -328,29 +328,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 79.265
       objectReference: {fileID: 0}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: dialog.speakerName
-      value: Joe
-      objectReference: {fileID: 0}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: dialog.speakerImage
-      value: 
-      objectReference: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: dialog.speakerDialog
-      value: Don't split! This checkpoint's just ripe.
-      objectReference: {fileID: 0}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: dialog.typeOfCharacter
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 652579411970667215, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 9190606815457315027, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1830810207}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
 --- !u!1 &37187018
@@ -7447,11 +7427,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
---- !u!4 &736544711 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9190606815457315027, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-  m_PrefabInstance: {fileID: 33704693}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &763403127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8622,82 +8597,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 8.422043, z: 7.5705776}
   m_Center: {x: -0.000007044462, y: 3.9419231, z: -2.7817678}
---- !u!1001 &887650570
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 736544711}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -5205802864250506986, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 440df321c3383b8489f44353b7295e38, type: 2}
-    - target: {fileID: -4604286779627339403, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
-    - target: {fileID: 919132149155446097, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_Name
-      value: NPC_Banana_OD_Rigged_Model
-      objectReference: {fileID: 0}
-    - target: {fileID: 5721266627582528864, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
-    - target: {fileID: 7088667163886667005, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 07bff04b89ede3f439b1d3893db194e4, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1830810208}
-  m_SourcePrefab: {fileID: 100100000, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
 --- !u!1001 &889391306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14722,6 +14621,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
+      propertyPath: NPC_Animator
+      value: 
+      objectReference: {fileID: 1114704518}
+    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
       value: Bill
       objectReference: {fileID: 0}
@@ -14740,6 +14643,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 652579411970667215, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
+    - {fileID: 1750136645681061663, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9190606815457315027, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       insertIndex: -1
@@ -16337,6 +16241,10 @@ PrefabInstance:
       value: 16.163
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
+      propertyPath: NPC_Animator
+      value: 
+      objectReference: {fileID: 2035507710}
+    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
       value: Bob
       objectReference: {fileID: 0}
@@ -16355,6 +16263,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 652579411970667215, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
+    - {fileID: 1750136645681061663, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9190606815457315027, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       insertIndex: -1
@@ -23442,37 +23351,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 8.422043, z: 7.5705776}
   m_Center: {x: -0.000007044462, y: 3.9419231, z: -2.7817678}
---- !u!1 &1830810206 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-  m_PrefabInstance: {fileID: 887650570}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1830810207 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2b11dff9bf136ee4a8eb9e15e23ff180, type: 3}
-  m_PrefabInstance: {fileID: 887650570}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1830810208
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830810206}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a5349af6ead42d04098ac0fa57814489, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1835854002
 GameObject:
   m_ObjectHideFlags: 0
@@ -25548,6 +25426,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
+      propertyPath: NPC_Animator
+      value: 
+      objectReference: {fileID: 461125751}
+    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
       value: Brad
       objectReference: {fileID: 0}
@@ -25566,6 +25448,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 652579411970667215, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
+    - {fileID: 1750136645681061663, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9190606815457315027, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       insertIndex: -1
