@@ -32,7 +32,11 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature
             // initialize settings
             this.textureSettings = s;
             // initalize normals texture material
-            this.normalsMat = new Material(Shader.Find("Hidden/BananaCowboyCustom/ViewSpaceNormalsShader"));
+            Shader shader = Shader.Find("Hidden/BananaCowboyCustom/ViewSpaceNormalsShader");
+            if (shader != null)
+            {
+                this.normalsMat = new Material(shader);
+            }
             // initialize renderer target handle
             this.normals.Init("_SceneViewSpaceNormals");
             // create shader tag list
@@ -92,7 +96,11 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature
         public ScreenSpaceOutlinesPass(RenderPassEvent e)
         {
             this.renderPassEvent = e;
-            this.outlineMat = new Material(Shader.Find("Hidden/BananaCowboyCustom/OutlineShader"));
+            Shader s = Shader.Find("Hidden/BananaCowboyCustom/OutlineShader");
+            if (s != null)
+            {
+                this.outlineMat = new Material(s);
+            }
         }
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
@@ -134,16 +142,25 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature
     /// <inheritdoc/>
     public override void Create()
     {
-        viewSpaceNormalsTexturePass = new ViewSpaceNormalsTexturePass(renderPassEvent, textureSettings, outlinesLayerMask);
-        screenSpaceOutlinesPass = new ScreenSpaceOutlinesPass(renderPassEvent);
+        if (textureSettings != null)
+        {
+            viewSpaceNormalsTexturePass = new ViewSpaceNormalsTexturePass(renderPassEvent, textureSettings, outlinesLayerMask);
+            screenSpaceOutlinesPass = new ScreenSpaceOutlinesPass(renderPassEvent);
+        }
     }
 
     // Here you can inject one or multiple render passes in the renderer.
     // This method is called when setting up the renderer once per-camera.
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        renderer.EnqueuePass(viewSpaceNormalsTexturePass);
-        renderer.EnqueuePass(screenSpaceOutlinesPass);
+        if (viewSpaceNormalsTexturePass != null)
+        {
+            renderer.EnqueuePass(viewSpaceNormalsTexturePass);
+        }
+        if (screenSpaceOutlinesPass != null)
+        {
+            renderer.EnqueuePass(screenSpaceOutlinesPass);
+        }
     }
 }
 
