@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.037241355, g: 0.055941746, b: 0.106525935, a: 1}
+  m_IndirectSpecularColor: {r: 0.03891472, g: 0.05775453, b: 0.10647496, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12039,7 +12039,7 @@ GameObject:
   - component: {fileID: 926659191}
   - component: {fileID: 926659190}
   - component: {fileID: 926659194}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Soda Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14548,10 +14548,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1114704518}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: NPC_Animator
-      value: 
-      objectReference: {fileID: 1114704518}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
       value: Bill
       objectReference: {fileID: 0}
@@ -16167,10 +16163,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 16.163
       objectReference: {fileID: 0}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: NPC_Animator
-      value: 
-      objectReference: {fileID: 2035507710}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: NPC_Animator
       value: 
@@ -19480,11 +19472,11 @@ MonoBehaviour:
   - prefab: {fileID: 0}
     Prefab: {fileID: 2945023933233744496, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
     probability: 0
-    Probability: 50
+    Probability: 30
   - prefab: {fileID: 0}
     Prefab: {fileID: 6011049995931013419, guid: b83ebd1fb5315c348b8a97fdea15c4b6, type: 3}
     probability: 0
-    Probability: 50
+    Probability: 70
   m_Method: 1
   m_Space: 0
   m_Spacing: {x: 10, y: 100}
@@ -25287,10 +25279,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: NPC_Animator
-      value: 
-      objectReference: {fileID: 461125751}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: NPC_Animator
       value: 
