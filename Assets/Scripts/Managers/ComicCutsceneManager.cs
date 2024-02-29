@@ -13,6 +13,7 @@ public class ComicCutsceneManager : MonoBehaviour
     public bool changeMusic;
     public string previousMusic;
     public string currentMusic;
+    public GameObject continueButton;
     public GameObject skipButton;
 
     public List<GameObject> panelGroups = new List<GameObject>();
@@ -34,6 +35,7 @@ public class ComicCutsceneManager : MonoBehaviour
         {
             panel.SetActive(false);
         }
+        continueButton.SetActive(false);
 
         if (changeMusic)
         {
@@ -66,6 +68,9 @@ public class ComicCutsceneManager : MonoBehaviour
             box.GetComponent<Image>().color -= new Color(0, 0, 0, 1);
         }
 
+        // button
+        continueButton.GetComponent<Image>().color -= new Color(0, 0, 0, 1);
+
         // wait before starting
         yield return new WaitForSeconds(1f);
 
@@ -78,12 +83,22 @@ public class ComicCutsceneManager : MonoBehaviour
             box.GetComponent<Image>().DOColor(endColor, fadeTime).SetEase(Ease.OutExpo);
             yield return new WaitForSeconds(timeBetweenBoxes);
         }
+
+        continueButton.SetActive(true);
+        // button
+        Color buttonEndColor = continueButton.GetComponent<Image>().color + new Color(0, 0, 0, 1);
+        // box.transform.DOScale(1f, fadeTime).SetEase(Ease.OutSine);
+        continueButton.GetComponent<Image>().DOColor(buttonEndColor, fadeTime).SetEase(Ease.OutExpo);
+        yield return new WaitForSeconds(timeBetweenBoxes);
     }
 
     public void FadeOut(int currPanel)
     {
         panelGroups[currPanel].GetComponent<CanvasGroup>().alpha = 1f;
         panelGroups[currPanel].GetComponent<CanvasGroup>().DOFade(0f, fadeTime);
+
+        continueButton.GetComponent<Image>().DOFade(0f, fadeTime);
+        continueButton.SetActive(false);
     }
     
     // continue button is pressed, should fade out the entire panel and start the next one 
