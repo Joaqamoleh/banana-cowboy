@@ -132,6 +132,12 @@ public class GravityObject : MonoBehaviour
         vel.z = 0;
         return characterOrientation.TransformDirection(vel);
     }
+    public void SetFallingVelocity(float fallingVel)
+    {
+        Vector3 vel = characterOrientation.InverseTransformDirection(_rigidBody.velocity);
+        vel.y = fallingVel;
+        _rigidBody.velocity = characterOrientation.TransformDirection(vel);
+    }
 
     /**
      * Get the vector for the direction the object is moving
@@ -148,6 +154,7 @@ public class GravityObject : MonoBehaviour
         vel.y = 0;
         return characterOrientation.TransformDirection(vel);
     }
+
 
     public Vector3 GetGravityDirection()
     {

@@ -1044,6 +1044,7 @@ GameObject:
   - component: {fileID: 882788133774039684}
   - component: {fileID: 260809472872354011}
   - component: {fileID: 5577803411208878517}
+  - component: {fileID: 8476664753565799702}
   m_Layer: 14
   m_Name: Player Prefab
   m_TagString: Player
@@ -1130,6 +1131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e59a7e0bfea3a4e95f65975b37484a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 7838862824688470847}
   walkSpeed: 10
   runSpeed: 19
   accelSpeed: 2.631579
@@ -1162,6 +1164,22 @@ MonoBehaviour:
   _orbitDistance: 10
   invertY: 1
   invertZoom: 0
+--- !u!114 &8476664753565799702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879603049845090681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3801ea34dcd16fa46bdc37d1b7d7ee8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAnimator: {fileID: 2504003000073130486}
+  walkAnimSpeed: 1
+  runAnimSpeed: 1
+  airAnimSpeed: 1.5
 --- !u!1 &3991381366261144897
 GameObject:
   m_ObjectHideFlags: 0

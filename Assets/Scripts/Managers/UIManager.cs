@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
         );
     }
 
-    public PlayerController.ThrowStrength GetThrowIndicatorStrength()
+    public PlayerController.TossStrength GetThrowIndicatorStrength()
     {
         float lowPowerWidth = (throwLowPower.rect.width / 2f) * throwLowPower.localScale.x;
         float medPowerWidth = (throwMedPower.rect.width / 2f) * throwMedPower.localScale.x;
@@ -95,14 +95,14 @@ public class UIManager : MonoBehaviour
         if ((throwBarIndicator.localPosition.x > 0 && throwBarIndicator.localPosition.x < (highPowerWidth)) || 
             (throwBarIndicator.localPosition.x < 0 && throwBarIndicator.localPosition.x > -(highPowerWidth)))
         {
-            return PlayerController.ThrowStrength.STRONG;
+            return PlayerController.TossStrength.STRONG;
         }
         if (throwBarIndicator.localPosition.x > 0 && throwBarIndicator.localPosition.x < medPowerWidth ||
             (throwBarIndicator.localPosition.x < 0 && throwBarIndicator.localPosition.x > -medPowerWidth))
         {
-            return PlayerController.ThrowStrength.MEDIUM;
+            return PlayerController.TossStrength.MEDIUM;
         }
-        return PlayerController.ThrowStrength.WEAK;
+        return PlayerController.TossStrength.WEAK;
     }
     
     public void HideUIForCutscene()

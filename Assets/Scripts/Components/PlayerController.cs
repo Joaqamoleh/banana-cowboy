@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
@@ -5,37 +6,70 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 [RequireComponent(typeof(GravityObject))]
 public class PlayerController : MonoBehaviour
 {
+    public enum State
+    {
+        IDLE,   // Accept move input
+        AIR,    // Accept move input, air control ratio applied
+        WALK,   // Accept move input
+        RUN,    // Accept move input
+        SWING,  // Accept move input, jump or click to cancel
+    }
+    State _state = State.IDLE;
     bool disabledForCutscene = false;
-    public enum ThrowStrength
+
+    public delegate void PlayerStateChange(State newState);
+    public event PlayerStateChange OnStateChanged;
+
+    public delegate void PlayerLanded();
+    public event PlayerLanded OnLanded;
+
+    public enum LassoState
+    {
+        NONE,       // Hangs by the player's hip
+        THROWN,     // Lasso is being thrown at a target. Can be canceled?
+        SWING,      // Lasso is locked onto a swing object.
+        PULL,       // Pulling object towards player
+        HOLD,       // Holding object
+        TOSS,       // Tossing object out
+        RETRACT     // Retracting back to the hip. Acts as the recharge time to use the lasso again
+    }
+    LassoState _lassoState = LassoState.NONE;
+    LassoState _transitionState = LassoState.NONE; // The state to change to
+
+    public delegate void LassoStateChange(LassoState newState);
+    public event LassoStateChange OnLassoStateChange;
+
+    public enum TossStrength
     {
         WEAK,
         MEDIUM,
         STRONG
     }
-    bool lassoObjectHeld = false;
-    [Header("References")]
-    Transform playerCamera;
 
+    [Header("References")]
+    [SerializeField]
+    Transform model;
+
+    private Transform _camera;
     private GravityObject _gravObject;
     private Rigidbody _rigidbody;
 
     [Header("Movement")]
-    [SerializeField]
+    [SerializeField, Min(0f)]
     float walkSpeed = 10f;
-    [SerializeField]
-    float runSpeed = 19f, accelSpeed = (50f * 1f) / 19f, deccelSpeed = (50f * 1f) / 19f, airControlRatio = 0.8f;
-
+    [SerializeField, Min(0f)]
+    float runSpeed = 19f, accelSpeed = (50f * 1f) / 19f, deccelSpeed = (50f * 1f) / 19f, jumpImpulseForce = 30f;
+    [SerializeField, Range(0f, 1f)]
+    float airControlRatio = 0.8f;
 
     private Vector3 _moveInput = Vector3.zero;
-
-    private bool _running = false;
+    private bool _jumpHeld = false, _jumping = false, _running = false, _detectLanding = false;
     private float _lastTimeOnGround = 0f;
 
     [Header("Input")]
     [SerializeField]
-    KeyCode lassoKey = KeyCode.Mouse0;
-    [SerializeField]
-    KeyCode runKey = KeyCode.LeftShift;
+    KeyCode lassoKey = KeyCode.Mouse0, runKey = KeyCode.LeftShift, jumpKey = KeyCode.Space;
+
 
     private void Awake()
     {
@@ -47,9 +81,9 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        if (playerCamera == null)
+        if (_camera == null)
         {
-            playerCamera = Camera.main.transform;
+            _camera = Camera.main.transform;
         }
         _gravObject = GetComponent<GravityObject>();
         Debug.Assert(_gravObject != null);
@@ -62,18 +96,88 @@ public class PlayerController : MonoBehaviour
         {
             GetMoveInput();
             GetLassoInput();
+            DetectStateChange();
         }
     }
     private void FixedUpdate()
     {
         Run();
+        Jump();
     }
     private void LateUpdate()
     {
     }
 
-    // ************************* INPUT ************************ //
+    // ************************* State Updates ************************ //
+    void UpdateState(State newState)
+    {
+        if (_state != newState)
+        {
+            OnStateChanged?.Invoke(newState);
+            if (newState == State.AIR)
+            {
+                _detectLanding = true;
+            }
 
+            _state = newState;
+        }
+    }
+
+    void UpdateLassoState(LassoState newState)
+    {
+        if (_lassoState != newState)
+        {
+            OnLassoStateChange?.Invoke(newState);
+            _lassoState = newState;
+        }
+    }
+
+    void DetectStateChange()
+    {
+        _lastTimeOnGround -= Time.deltaTime;
+        if (_gravObject.IsOnGround())
+        {
+            if (_detectLanding)
+            {
+                OnLand();
+            }
+            _lastTimeOnGround = 0.3f;
+        }
+        if (_lastTimeOnGround < 0)
+        {
+            if (_state != State.SWING)
+            {
+                UpdateState(State.AIR);
+            }
+        } 
+        else
+        {
+            if (_moveInput.magnitude > 0)
+            {
+                if (_running)
+                {
+                    UpdateState(State.RUN);
+                }
+                else
+                {
+                    UpdateState(State.WALK);
+                }
+            }
+            else
+            {
+                UpdateState(State.IDLE);
+            }
+        }
+    }
+
+    void OnLand()
+    {
+        _detectLanding = false;
+        _jumping = false;
+        OnLanded?.Invoke();
+    }
+
+    // ************************* INPUT ************************ //
     void GetMoveInput()
     {
     #if UNITY_IOS || UNITY_ANDROID
@@ -91,36 +195,66 @@ public class PlayerController : MonoBehaviour
         {
             _running = false;
         }
-        _lastTimeOnGround -= Time.deltaTime;
-        if (_gravObject.IsOnGround())
+
+        if (Input.GetKeyDown(jumpKey))
         {
-            _lastTimeOnGround = 0.1f;
+            _jumpHeld = true;
+        } 
+        else if (Input.GetKeyUp(jumpKey))
+        {
+            _jumpHeld = false;
         }
+
     #endif
     }
+
     void GetLassoInput()
     {
     #if UNITY_IOS || UNITY_ANDROID
 
     #else
+        if (_moveInput.magnitude > 0)
+        {
+            // Cancel lasso thrown state.
+            // Took out b/c probably not intuitive
+            //if (_lassoState == LassoState.THROWN)
+            //{
+            //    UpdateLassoState(LassoState.RETRACT);
+            //}
+        }
+
         if (Input.GetKeyDown(lassoKey))
         {
-            if (lassoObjectHeld)
+            switch (_lassoState)
             {
-            } 
-            else
-            {
+                case LassoState.NONE: 
+                    // Do lasso action based on what is selected, update to thrown
+                    break;
+                case LassoState.THROWN: 
+                    // Do nothing
+                    break;
+                case LassoState.SWING: 
+                    // End the swing
+                    break;
+                case LassoState.PULL:
+                    // Do nothing
+                    break;
+                case LassoState.HOLD:
+                    break;
+                case LassoState.RETRACT: 
+                    // Do nothing
+                    break;
+
             }
         }
     #endif
     }
 
     // ********************** INPUT PROCESSING ************************* //
-
     void Run()
     {
         // Transform the move input relative to the camera
-        _moveInput = playerCamera.TransformDirection(_moveInput);
+        _moveInput = _camera.TransformDirection(_moveInput);
         // Transform the move input relative to the player
         _moveInput =
             Vector3.Dot(_gravObject.characterOrientation.right, _moveInput) * _gravObject.characterOrientation.right
@@ -157,10 +291,22 @@ public class PlayerController : MonoBehaviour
         //}
 
         //// Spin player model and orientation to right direction to face
-        //if (_moveInput.magnitude > 0 && model != null)
-        //{
-        //    model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(targetVelocity.normalized, model.transform.up), Time.deltaTime * 8);
-        //}
+        if (_moveInput.magnitude > 0 && model != null)
+        {
+            model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(targetVelocity.normalized, model.transform.up), Time.deltaTime * 8);
+        }
+    }
+
+    void Jump()
+    {
+        if (_jumpHeld && _lastTimeOnGround > 0.0f && !_jumping) {
+            if (_gravObject.GetFallingVelocity().magnitude > 0)
+            {
+                _gravObject.SetFallingVelocity(0);
+            }
+            _rigidbody.AddForce(_gravObject.characterOrientation.up * jumpImpulseForce, ForceMode.Impulse);
+            _jumping = true;
+        }
     }
 
     void DisableCharacterForCutscene(CutsceneObject activeScene)
