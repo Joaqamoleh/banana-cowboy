@@ -58,7 +58,7 @@ public class CircularMovement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             print(other.name);
-            other.GetComponentInParent<PlayerController>().Damage(1, knockback);
+            other.GetComponentInParent<Health>().Damage(1, knockback);
         }
     }
 

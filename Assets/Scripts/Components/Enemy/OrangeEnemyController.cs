@@ -83,7 +83,7 @@ public class OrangeEnemyController : EnemyController
                 if (_model != null)
                 {
                     _model.rotation = Quaternion.Slerp(_model.rotation,
-                        Quaternion.LookRotation(_chargeDirection, _gravObject.gravityOrientation.up),
+                        Quaternion.LookRotation(_chargeDirection, _gravObject.characterOrientation.up),
                         spottedParam);
                 }
                 break;
@@ -91,7 +91,7 @@ public class OrangeEnemyController : EnemyController
                 _chargeDirection = (_spottedPlayerTransform.position - transform.position).normalized;
                 if (_model != null)
                 {
-                    _model.rotation = Quaternion.LookRotation(_chargeDirection, _gravObject.gravityOrientation.up);
+                    _model.rotation = Quaternion.LookRotation(_chargeDirection, _gravObject.characterOrientation.up);
                 }
                 break;
             case OrangeState.CHARGE:
@@ -257,7 +257,7 @@ public class OrangeEnemyController : EnemyController
             }
             else if (collision.gameObject.tag == "Player" && _state == OrangeState.CHARGE)
             {
-                collision.gameObject.GetComponentInParent<PlayerController>().Damage(1, (collision.gameObject.transform.position - transform.position).normalized * knockbackForce);
+                collision.gameObject.GetComponentInParent<Health>().Damage(1, (collision.gameObject.transform.position - transform.position).normalized * knockbackForce);
                 StartCoroutine("ChangeCollisionInteraction", collision.collider);
             }
 /*            else if (collision.gameObject.GetComponent<Obstacle>() != null && _state == OrangeState.DIZZY)

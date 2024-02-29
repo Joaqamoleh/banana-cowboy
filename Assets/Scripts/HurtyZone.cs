@@ -21,12 +21,12 @@ public class HurtyZone : MonoBehaviour
             {
                 // kill the player
                 // hopefully doesnt bug out lmao
-                other.GetComponentInParent<PlayerController>().Damage(999, Vector3.zero);
+                other.GetComponentInParent<Health>().Damage(999, Vector3.zero);
             }
             else
             {
                 // damage the player
-                other.GetComponentInParent<PlayerController>().Damage(damage, knockback);
+                other.GetComponentInParent<Health>().Damage(damage, knockback);
             }
         }
 

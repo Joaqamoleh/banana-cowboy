@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(GravityObject))]
 public class OldPlayerController : MonoBehaviour
 {
+    /*
     [Header("Debug")]
 
 
@@ -226,8 +227,8 @@ public class OldPlayerController : MonoBehaviour
         //_lassoThrowCooldown = SoundManager.S_Instance().GetSound("LassoThrow").src.clip.length;
         _lassoThrowCooldown = 0.5f;
 
-        /*        StartCoroutine(SetSpawnPos());
-        */
+        //        StartCoroutine(SetSpawnPos());
+        
         health = maxHealth;
         _canTakeDamage = true;
         playerUI.SetAbsHealth(health);
@@ -492,16 +493,16 @@ public class OldPlayerController : MonoBehaviour
             {
                 StartJump();
             }
-            /*            else if (false)
-                        {
-                            // this is here for jump buffering
-                        }*/
+                        //else if (false)
+                        //{
+                        //    // this is here for jump buffering
+                        //}
 
         }
-        /*        else if (false)
-                {
-                    // Again, this is here for jump buffering
-                }*/
+        //        else if (false)
+                //{
+                //    // Again, this is here for jump buffering
+                //}
         else if (Input.GetKeyUp(jumpKey))
         {
             EndJump();
@@ -581,9 +582,9 @@ public class OldPlayerController : MonoBehaviour
         }
     }
 
-    /**
-     * Code for running momentum used from https://github.com/DawnosaurDev/platformer-movement/blob/main/Scripts/Run%20Only/PlayerRun.cs#L79
-     */
+    
+     // Code for running momentum used from https://github.com/DawnosaurDev/platformer-movement/blob/main/Scripts/Run%20Only/PlayerRun.cs#L79
+     
     void Run()
     {
         // Transform the move input relative to the camera
@@ -1476,4 +1477,5 @@ public class LassoRenderer
     {
         lineRenderer.positionCount = 0;
     }
+    */
 }
