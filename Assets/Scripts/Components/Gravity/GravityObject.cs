@@ -84,6 +84,12 @@ public class GravityObject : MonoBehaviour
             float t = reorientT / reorientTime;
             print("T is: " + t);
             Quaternion targetRot = Quaternion.FromToRotation(characterOrientation.up, targetGravUp) * characterOrientation.rotation;
+            if (attractor.GetGravityForce() < 0)
+            {
+                // If gravity force is negative, treat gravity as a weird pushing gravity and reorient appropriately
+                // This is mainly used when the attractor is a cylinder and pushing towards a curve rather than pulling towards one
+                targetRot = Quaternion.FromToRotation(characterOrientation.up, -targetGravUp) * characterOrientation.rotation;
+            }
             characterOrientation.rotation = Quaternion.Slerp(characterOrientation.rotation, targetRot, t);
             reorientT += Time.deltaTime;
 
