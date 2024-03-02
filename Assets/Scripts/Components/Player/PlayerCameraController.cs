@@ -15,28 +15,35 @@ public class PlayerCameraController : MonoBehaviour
     GravityObject _playerGravity;
     Transform _characterOrientation;
 
+    [Header("Parameters")]
     [SerializeField, Range(0f, 1f)]
     float bottomBorder = 0.25f, topBorder = 0.85f;
     [SerializeField, Range(0f, 30f)]
     float camReorientTime = 0.5f, camMaxSpeed = 5f;
     private Vector3 camVel = Vector3.zero;
 
-
-    [SerializeField, Range(0.0f, 4.0f)]
+    public const float orbitSensitivityMin = 0.01f, orbitSensitivityMax = 4f; // For the slider in menu
+    [SerializeField, Range(orbitZoomSensitivityMin, orbitZoomSensitivityMax)]
     public float orbitSensitivity = 0.2f;
 
-    //float _orbitRotationSpeed = 10.0f, _tiltRotationSpeed = 10.0f, _orbitZoomSpeed = 10.0f;
+    public const float orbitZoomSensitivityMin = 5f, orbitZoomSensitivityMax = 50f; // For the slider in menu
+    [SerializeField, Range(orbitZoomSensitivityMin, orbitZoomSensitivityMax)]
+    public float orbitZoomSensitivity = 10f;
 
-    //[SerializeField, Range(1.0f, 20.0f)]
-    //float _reorientSpeed = 8.0f;
-
-
-    //[SerializeField, Range(0f, 100f)]
-    //float _orbitMinDist = 15f, _orbitMaxDist = 50f, _orbitDistance = 30f;
-
+    [SerializeField, Min(0f)]
+    float orbitMinRadius = 20f, orbitMaxRadius = 60f, orbitRadius = 30f;
 
     public bool invertY = true, invertZoom = false;
-    float mouseX, mouseY;
+
+
+    [Header("Input")]
+    [SerializeField]
+    KeyCode rotationKey = KeyCode.Mouse1;
+    
+    private float mouseX, mouseY, mouseScroll;
+    private bool rotationHeld = false;
+    List<CameraHint> activeHints = new List<CameraHint>();
+    int highestHintPrioIndex = -1;
 
     private int _validTouchID = -1;
     public static int uiTouching;
@@ -47,6 +54,16 @@ public class PlayerCameraController : MonoBehaviour
         HideCursor();
         _playerGravity = GetComponent<GravityObject>();
         _characterOrientation = _playerGravity.characterOrientation;
+
+        // Overrides the camera's default radius
+        if (_cinemachineCamController != null)
+        {
+            Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            if (ccb != null)
+            {
+                ccb.CameraDistance = orbitRadius;
+            }
+        }
     }
 
     void Update()
@@ -57,6 +74,25 @@ public class PlayerCameraController : MonoBehaviour
 #if !UNITY_IOS && !UNITY_ANDROID
             mouseX = Input.GetAxisRaw("Mouse X");
             mouseY = Input.GetAxisRaw("Mouse Y");
+            mouseScroll = -Input.GetAxisRaw("Mouse ScrollWheel");
+            if (invertY)
+            {
+                mouseY = -mouseY;
+            }
+            
+            if (invertZoom)
+            {
+                mouseScroll = -mouseScroll;
+            }
+
+            if (Input.GetKeyDown(rotationKey))
+            {
+                rotationHeld = true;
+            } 
+            else if (Input.GetKeyUp(rotationKey))
+            {
+                rotationHeld = false;
+            }
 #else
             CameraMovementMobile();
 #endif
@@ -65,7 +101,15 @@ public class PlayerCameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ApplyInputRotation();
+        if (rotationHeld)
+        {
+            ApplyInputRotation();
+        } 
+        else if (highestHintPrioIndex != -1)
+        {
+            // Apply camera hints
+            activeHints[highestHintPrioIndex].ApplyHint(_cameraCurrent, _characterOrientation, ref camVel, _cinemachineCamController);
+        }
         BlendToTarget();
     }
 
@@ -119,16 +163,6 @@ public class PlayerCameraController : MonoBehaviour
 
     //void GetRotationInput()
     //{
-    //    float mouseScroll = -Input.GetAxisRaw("Mouse ScrollWheel");
-
-    //    if (invertY)
-    //    {
-    //        mouseY = -mouseY;
-    //    }
-    //    if (invertZoom)
-    //    {
-    //        mouseScroll = -mouseScroll;
-    //    }
 
     //    _cameraPivot.localRotation *= Quaternion.AngleAxis(mouseX * _orbitRotationSpeed, Vector3.up);
     //    _cameraTarget.localRotation *= Quaternion.AngleAxis(mouseY * _tiltRotationSpeed, Vector3.right);
@@ -150,7 +184,7 @@ public class PlayerCameraController : MonoBehaviour
 
     //    _cameraTarget.localEulerAngles = angles;
 
-    //    _orbitDistance = Mathf.Clamp(_orbitDistance + mouseScroll * _orbitZoomSpeed, _orbitMinDist, _orbitMaxDist);
+    //    
     //    if (_cinemachineCamController != null)
     //    {
     //        Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
@@ -164,6 +198,15 @@ public class PlayerCameraController : MonoBehaviour
     void ApplyInputRotation()
     {
         _cameraTarget.Rotate(Vector3.up, orbitSensitivity * mouseX);
+        orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
+        if (_cinemachineCamController != null)
+        {
+            Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            if (ccb != null)
+            {
+                ccb.CameraDistance = Mathf.Lerp(ccb.CameraDistance, orbitRadius, 0.02f);
+            }
+        }
     }
 
     void BlendToTarget()
@@ -222,6 +265,39 @@ public class PlayerCameraController : MonoBehaviour
         {
             _cinemachineCamController.gameObject.SetActive(true);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null) {
+            activeHints.Add(other.gameObject.GetComponent<CameraHint>());
+            highestHintPrioIndex = GetHighestPrioIndex();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null)
+        {
+            other.gameObject.GetComponent<CameraHint>().ResetHintTime();
+            activeHints.Remove(other.gameObject.GetComponent<CameraHint>());
+            highestHintPrioIndex = GetHighestPrioIndex();
+        }
+    }
+
+    int GetHighestPrioIndex()
+    {
+        int index = -1;
+        int highest_prio = int.MinValue;
+        for (int i = 0; i < activeHints.Count; i++)
+        {
+            if (activeHints[i].GetPriority() > highest_prio)
+            {
+                highest_prio = activeHints[i].GetPriority();
+                index = i;
+            }
+        }
+        return index;
     }
 
     void OnDrawGizmosSelected()

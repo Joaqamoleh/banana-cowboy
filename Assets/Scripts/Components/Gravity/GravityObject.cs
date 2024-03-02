@@ -40,6 +40,10 @@ public class GravityObject : MonoBehaviour
     float _gravityIncreaseOnFall = 1.5f;
 
     public Transform characterOrientation = null;
+    [SerializeField, Min(0.001f)]
+    float reorientTime = 0.5f;
+
+    private float reorientT = 0f;
 
     [SerializeField, Tooltip("Freeze rotation for the rigid-body")]
     bool _freezeRotation = true;
@@ -77,7 +81,11 @@ public class GravityObject : MonoBehaviour
             Vector3 targetGravUp = -attractor.GetGravityDirection(characterOrientation);
 
             // Reorient transform
-            characterOrientation.rotation = Quaternion.FromToRotation(characterOrientation.up, targetGravUp) * characterOrientation.rotation;
+            float t = reorientT / reorientTime;
+            print("T is: " + t);
+            Quaternion targetRot = Quaternion.FromToRotation(characterOrientation.up, targetGravUp) * characterOrientation.rotation;
+            characterOrientation.rotation = Quaternion.Slerp(characterOrientation.rotation, targetRot, t);
+            reorientT += Time.deltaTime;
 
 
             // We are not on the ground yet, so pull to the nearest attractor
@@ -222,7 +230,12 @@ public class GravityObject : MonoBehaviour
         if (collision != null && collision.gameObject != null && collision.gameObject.GetComponentInParent<GravityAttractor>() != null)
         {
             _attractors.Add(collision.gameObject.GetComponentInParent<GravityAttractor>());
+            int prev = _highestPrioAttractorIndex;
             _highestPrioAttractorIndex = GetHighestPrioAttractorIndex();
+            if (prev <= _highestPrioAttractorIndex)
+            {
+                reorientT = 0f;
+            }
         }
     }
 
@@ -231,7 +244,12 @@ public class GravityObject : MonoBehaviour
         if (collision != null && collision.gameObject != null && collision.gameObject.GetComponentInParent<GravityAttractor>() != null)
         {
             _attractors.Remove(collision.gameObject.GetComponentInParent<GravityAttractor>());
+            int prev = _highestPrioAttractorIndex;
             _highestPrioAttractorIndex = GetHighestPrioAttractorIndex();
+            if (prev >= _highestPrioAttractorIndex)
+            {
+                reorientT = 0f;
+            }
         }
     }
 }

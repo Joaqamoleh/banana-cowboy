@@ -521,7 +521,7 @@ Transform:
   m_GameObject: {fileID: 2735932402447661493}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.513, z: 0}
+  m_LocalPosition: {x: 0, y: 0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -957,6 +957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6813649770092441984}
   - component: {fileID: 7176623233015971798}
+  - component: {fileID: 8280369340423387152}
   m_Layer: 14
   m_Name: Character Collider
   m_TagString: Player
@@ -996,10 +997,33 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 1.1, z: 0}
+--- !u!136 &8280369340423387152
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3456765873816777312}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!1 &3879603049845090681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,9 +1106,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravityIncreaseOnFall: 1.5
   characterOrientation: {fileID: 5503662033258183763}
+  reorientTime: 0.5
   _freezeRotation: 1
   footPosition: {fileID: 1824780013112630551}
-  footCheckRadius: 0.25
+  footCheckRadius: 0.92
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1128,8 +1153,16 @@ MonoBehaviour:
   _cameraCurrent: {fileID: 0}
   bottomBorder: 0.25
   topBorder: 0.85
+  camReorientTime: 0.5
+  camMaxSpeed: 5
+  orbitSensitivity: 0.2
+  orbitZoomSensitivity: 10
+  orbitMinRadius: 20
+  orbitMaxRadius: 60
+  orbitRadius: 30
   invertY: 1
   invertZoom: 0
+  rotationKey: 324
 --- !u!114 &8476664753565799702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,6 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b3e358552ff2541a0b5e4107c464df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUI: {fileID: 0}
 --- !u!1 &3991381366261144897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,7 +1389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2453400843903261348
 RectTransform:
   m_ObjectHideFlags: 0
