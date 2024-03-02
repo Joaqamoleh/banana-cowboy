@@ -85,72 +85,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 50, y: 7, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1436214144720959830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6081423879174714477}
-  - component: {fileID: 3549976459434604110}
-  - component: {fileID: 1314729055629273112}
-  m_Layer: 9
-  m_Name: Feet Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6081423879174714477
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436214144720959830}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.000000014901161, y: -0, z: -0.000000041909516, w: 1}
-  m_LocalPosition: {x: 0, y: 0.15000106, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7266123389711490642}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3549976459434604110
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436214144720959830}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4, y: 1.82, z: 4}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1314729055629273112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436214144720959830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30a3139387d730144b201c4c6e84cb5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6463939426268983136
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,8 +177,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityIncreaseOnFall: 1.5
-  gravityOrientation: {fileID: 7266123389711490642}
+  characterOrientation: {fileID: 7266123389711490642}
   _freezeRotation: 1
+  footPosition: {fileID: 9117223604197075953}
+  footCheckRadius: 0.25
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &8344437055072087473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +198,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 4115535371960722218}
   body: {fileID: 8840307380029692700}
-  feet: {fileID: 1436214144720959830}
   knockbackForce: 20
   chargeSpeed: 30
   maxChargeDistance: 50
@@ -270,6 +208,37 @@ MonoBehaviour:
   dizzyTime: 4
   playerInView: 0
   orangeEnemyAnimator: {fileID: 3427894436404194328}
+--- !u!1 &8040212875507771727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9117223604197075953}
+  m_Layer: 0
+  m_Name: Feet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9117223604197075953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8040212875507771727}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7266123389711490642}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8840307380029692700
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,8 +290,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.81
-  m_Center: {x: 0, y: -1.19, z: 0}
+  m_Radius: 2.19
+  m_Center: {x: 0, y: -0.62, z: 0.78}
 --- !u!1 &9110357491282975244
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,8 +321,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6081423879174714477}
   - {fileID: 4677478680374795018}
+  - {fileID: 9117223604197075953}
   - {fileID: 4115535371960722218}
   - {fileID: 4649061867434933926}
   m_Father: {fileID: 2379062788576937066}

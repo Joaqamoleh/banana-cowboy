@@ -20,22 +20,33 @@ public class OrangeEnemyController : EnemyController
         THROWN
     }
 
+    public enum OrangeSubStates
+    {
+        WALK,
+        TALK, 
+        SLEEP,
+        SWAY
+    }
+
     private OrangeState _state;
+    public OrangeSubStates subState;
+    public GameObject[] destinationPoints = null;
 
     [SerializeField]
     Transform _model = null;
 
     public GameObject body;
-    public GameObject feet;
 
-    public float knockbackForce = 4.0f;
-    public float chargeSpeed = 30.0f;
+    public float knockbackForce;
+    public float chargeSpeed;
     public float maxChargeDistance = 70.0f;
     public float walkSpeed = 10.0f;
 
     public float timeToBeginRev = 0.4f;
     public float timeToBeginCharge = 0.3f;
     public float timeSpentCharging = 0.8f;
+    public float timeSpentWalking;
+    public float walkTimer;
     public float dizzyTime = 1.0f;
 
     private float spottedParam = 0.0f;
@@ -56,6 +67,10 @@ public class OrangeEnemyController : EnemyController
         _lassoComp = GetComponent<LassoableEnemy>();
         _lassoComp.isLassoable = false;
         _gravObject = GetComponent<GravityObject>();
+        if (destinationPoints != null)
+        {
+            destinationPoint = destinationPoints[0];
+        }
     }
 
     // TODO: Changed from Update. Make sure things still work
@@ -101,7 +116,7 @@ public class OrangeEnemyController : EnemyController
                 }
                 break;
             case OrangeState.IDLE:
-
+                PlayDifferentIdle();
                 break;
             default:
 
@@ -158,6 +173,41 @@ public class OrangeEnemyController : EnemyController
                 print("Not lassoable");
                 _lassoComp.isLassoable = false;
             }
+        }
+    }
+    public GameObject destinationPoint;
+    Vector3 temp;
+    void PlayDifferentIdle()
+    {
+        switch (subState)
+        {
+            case OrangeSubStates.WALK:
+                walkTimer += Time.deltaTime;
+                print(walkTimer+", "+timeSpentWalking);
+                if (walkTimer >= timeSpentWalking)
+                {
+                    EndWalk();
+                    walkTimer = 0;
+                }
+                temp = (destinationPoint.transform.position - transform.position).normalized;
+                if (destinationPoint.transform.position != transform.position)
+                {
+                    _model.rotation = Quaternion.Slerp(_model.rotation,
+                                    Quaternion.LookRotation(temp, _gravObject.characterOrientation.up),
+                                    spottedParam);
+                    spottedParam += Time.deltaTime;
+                    if (_gravObject.GetMoveVelocity().magnitude < chargeSpeed)
+                    {
+                        GetComponent<Rigidbody>().AddForce(temp * 4);
+                    }
+                }
+                break;
+            case OrangeSubStates.TALK: 
+                break;
+            case OrangeSubStates.SLEEP: 
+                break;
+            case OrangeSubStates.SWAY: 
+                break;
         }
     }
 
@@ -228,6 +278,14 @@ public class OrangeEnemyController : EnemyController
         //UpdateState(OrangeState.DIZZY);
     }
 
+    int rand;
+    void EndWalk()
+    {
+        rand = UnityEngine.Random.Range(0,destinationPoints.Length);
+        destinationPoint = destinationPoints[rand];
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
     void EndDizzy()
     {
         if (_state != OrangeState.DIZZY) { return; }
@@ -257,7 +315,7 @@ public class OrangeEnemyController : EnemyController
             }
             else if (collision.gameObject.tag == "Player" && _state == OrangeState.CHARGE)
             {
-                collision.gameObject.GetComponentInParent<Health>().Damage(1, (collision.gameObject.transform.position - transform.position).normalized * knockbackForce);
+                collision.gameObject.GetComponentInParent<Health>().Damage(1, knockbackForce * ((transform.position - collision.gameObject.transform.position).normalized + Vector3.up));
                 StartCoroutine("ChangeCollisionInteraction", collision.collider);
             }
 /*            else if (collision.gameObject.GetComponent<Obstacle>() != null && _state == OrangeState.DIZZY)
@@ -280,10 +338,8 @@ public class OrangeEnemyController : EnemyController
     private IEnumerator ChangeCollisionInteraction(Collider collider)
     {
         Physics.IgnoreCollision(body.GetComponent<Collider>(), collider, true);
-        Physics.IgnoreCollision(feet.GetComponent<Collider>(), collider, true);
         yield return new WaitForSeconds(0.5f);
         Physics.IgnoreCollision(body.GetComponent<Collider>(), collider, false);
-        Physics.IgnoreCollision(feet.GetComponent<Collider>(), collider, false);
     }
 
     private void OnTriggerEnter(Collider other)

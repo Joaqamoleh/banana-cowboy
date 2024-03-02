@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ChangeHealth(int change)
+/*    public void ChangeHealth(int change)
     {
         int newHealth = Mathf.Clamp(_health + change, 0, 4);
         if (newHealth != _health)
@@ -40,15 +40,23 @@ public class UIManager : MonoBehaviour
             _health = newHealth;
             SetAbsHealth(_health);
         }
-    }
+    }*/
 
-    public void SetAbsHealth(int health)
+    public void SetHealthUI(int health)
     {
         if (health >= 0 && health < 4)
         {
-            _health = health;
-            healthSprite.GetComponent<Image>().sprite = healthSprites[health];
+            healthAnimator.SetTrigger("Damaged");
+            StartCoroutine(HealthIconTransition(health));
         }
+    }
+
+    IEnumerator HealthIconTransition(int health)
+    {
+        healthSprite.GetComponent<Image>().sprite = healthBlinkSprites[health];
+        yield return new WaitForSeconds(0.5f);
+        healthSprite.GetComponent<Image>().sprite = healthSprites[health];
+
     }
 
     public void ReticleOverLassoable()
