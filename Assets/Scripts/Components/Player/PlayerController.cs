@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private Transform _camera;
     private GravityObject _gravObject;
     private Rigidbody _rigidbody;
+    private Health _health;
 
     [Header("Movement")]
     [SerializeField, Min(0f)]
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (!disabledForCutscene && !PauseManager.pauseActive)
+        if (!disabledForCutscene && !PauseManager.pauseActive && _health.health > 0)
         {
             GetMoveInput();
             GetLassoInput();
