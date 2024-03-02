@@ -552,15 +552,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 772500138546620337, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -47.482643
+      value: -0.72
       objectReference: {fileID: 0}
     - target: {fileID: 772500138546620337, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.4586987
+      value: 39.21
       objectReference: {fileID: 0}
     - target: {fileID: 772500138546620337, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.510388
+      value: -15.199999
       objectReference: {fileID: 0}
     - target: {fileID: 772500138546620337, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -589,6 +589,10 @@ PrefabInstance:
     - target: {fileID: 772500138546620337, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706404283180673647, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
+      propertyPath: CameraDistance
+      value: 19.71
       objectReference: {fileID: 0}
     - target: {fileID: 7718313800771442755, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
       propertyPath: m_Name
@@ -660,6 +664,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 260809472872354011, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: accelSpeed
+      value: 4.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 260809472872354011, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: deccelSpeed
+      value: 4.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 260809472872354011, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1735498534}
@@ -716,9 +728,29 @@ PrefabInstance:
       value: Player Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: topBorder
+      value: 0.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: camMaxSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cameraCurrent
       value: 
       objectReference: {fileID: 2137218376}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: camReorientTime
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: orbitSensitivity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: _reorientDistance
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cinemachineCamController
       value: 
@@ -3782,7 +3814,7 @@ Transform:
   m_GameObject: {fileID: 1735498531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.482643, y: 5.4586987, z: -10.510388}
+  m_LocalPosition: {x: -0.72, y: 39.21, z: -15.199999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4584,7 +4616,7 @@ Transform:
   m_GameObject: {fileID: 2137218375}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.482643, y: 5.4586987, z: 0.009612238}
+  m_LocalPosition: {x: -0.72, y: 39.21, z: 4.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
