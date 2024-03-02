@@ -82,7 +82,7 @@ public class GravityObject : MonoBehaviour
 
             // Reorient transform
             float t = reorientT / reorientTime;
-            print("T is: " + t);
+            //print("T is: " + t);
             Quaternion targetRot = Quaternion.FromToRotation(characterOrientation.up, targetGravUp) * characterOrientation.rotation;
             if (attractor.GetGravityForce() < 0)
             {

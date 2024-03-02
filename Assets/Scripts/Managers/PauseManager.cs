@@ -10,7 +10,7 @@ public class PauseManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject settingScreen;
     public GameObject confirmationScreen;
-    public static bool pauseActive;
+    public static bool pauseActive = false;
 
     public Slider musicSlider = null;
     public Slider sfxSlider = null;
