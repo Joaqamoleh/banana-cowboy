@@ -22,7 +22,7 @@ public class PlayerCameraController : MonoBehaviour
     float camReorientTime = 0.5f, camMaxSpeed = 5f;
     private Vector3 camVel = Vector3.zero;
 
-    public const float orbitSensitivityMin = 0.01f, orbitSensitivityMax = 4f; // For the slider in menu
+    public const float orbitSensitivityMin = 0.5f, orbitSensitivityMax = 4f; // For the slider in menu
     [SerializeField, Range(orbitZoomSensitivityMin, orbitZoomSensitivityMax)]
     public float orbitSensitivity = 0.2f;
 
@@ -199,14 +199,7 @@ public class PlayerCameraController : MonoBehaviour
     {
         _cameraTarget.Rotate(Vector3.up, orbitSensitivity * mouseX);
         orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
-        if (_cinemachineCamController != null)
-        {
-            Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            if (ccb != null)
-            {
-                ccb.CameraDistance = Mathf.Lerp(ccb.CameraDistance, orbitRadius, 0.02f);
-            }
-        }
+        print("Sensitivity is: " + orbitSensitivity + " For zoom: " + orbitZoomSensitivity);
     }
 
     void BlendToTarget()
@@ -233,8 +226,17 @@ public class PlayerCameraController : MonoBehaviour
 
         _cameraCurrent.position = Vector3.SmoothDamp(_cameraCurrent.position, desiredPos, ref camVel, camReorientTime, camMaxSpeed);
 
-        // Bend to look down at player?
+        // Blend to the rotation of the target
         _cameraCurrent.rotation = Quaternion.Slerp(_cameraCurrent.rotation, _cameraTarget.rotation, 0.1f);
+
+        if (_cinemachineCamController != null)
+        {
+            Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            if (ccb != null)
+            {
+                ccb.CameraDistance = Mathf.Lerp(ccb.CameraDistance, orbitRadius, 0.02f);
+            }
+        }
     }
 
     public static void HideCursor()

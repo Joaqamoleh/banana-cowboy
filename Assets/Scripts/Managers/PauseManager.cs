@@ -12,32 +12,83 @@ public class PauseManager : MonoBehaviour
     public GameObject confirmationScreen;
     public static bool pauseActive;
 
-    public Slider musicSlider = null;
-    public Slider sfxSlider = null;
+    public static float mouseSliderPercent = 0.5f, scrollSliderPercent = 0.5f;
+
+    [SerializeField]
+    public Slider musicSlider = null, sfxSlider = null, mouseSensitivitySlider = null, scrollSensitivitySlider;
+    PlayerCameraController camController;
+
+
 
     private void Start()
     {
         if (musicSlider != null)
         {
             musicSlider.value = SoundManager.Instance().MusicVolume;
-            musicSlider.onValueChanged.AddListener(delegate { MusicValueChanged(); });
+            musicSlider.onValueChanged.AddListener(delegate { OnMusicValueChanged(); });
         }
 
         if (sfxSlider != null)
         {
             sfxSlider.value = SoundManager.Instance().SFXVolume;
-            sfxSlider.onValueChanged.AddListener(delegate { SFXValueChanged(); });
+            sfxSlider.onValueChanged.AddListener(delegate { OnSFXValueChanged(); });
+        }
+
+        if (mouseSensitivitySlider != null)
+        {
+            mouseSensitivitySlider.value = mouseSliderPercent;
+            mouseSensitivitySlider.onValueChanged.AddListener(delegate { OnMouseSensitivityChanged(); });
+        }
+
+        if (scrollSensitivitySlider != null)
+        {
+            scrollSensitivitySlider.value = scrollSliderPercent;
+            scrollSensitivitySlider.onValueChanged.AddListener(delegate { OnScrollSensitivityChanged(); });
+        }
+
+        camController = FindAnyObjectByType<PlayerCameraController>();
+        if (camController != null)
+        {
+            camController.orbitSensitivity = mouseSliderPercent *
+                (PlayerCameraController.orbitSensitivityMax - PlayerCameraController.orbitSensitivityMin)
+                + PlayerCameraController.orbitSensitivityMin;
+
+            camController.orbitZoomSensitivity = scrollSliderPercent *
+                (PlayerCameraController.orbitZoomSensitivityMax - PlayerCameraController.orbitZoomSensitivityMin)
+                + PlayerCameraController.orbitZoomSensitivityMin;
         }
     }
 
-    public void MusicValueChanged()
+    public void OnMusicValueChanged()
     {
         SoundManager.Instance().MusicVolume = musicSlider.value;
     }
 
-    public void SFXValueChanged()
+    public void OnSFXValueChanged()
     {
         SoundManager.Instance().SFXVolume = sfxSlider.value;
+    }
+
+    public void OnMouseSensitivityChanged()
+    {
+        mouseSliderPercent = mouseSensitivitySlider.value;
+        if (camController != null)
+        {
+            camController.orbitSensitivity = mouseSliderPercent * 
+                (PlayerCameraController.orbitSensitivityMax - PlayerCameraController.orbitSensitivityMin) 
+                + PlayerCameraController.orbitSensitivityMin;
+        }
+    }
+
+    public void OnScrollSensitivityChanged()
+    {
+        scrollSliderPercent = scrollSensitivitySlider.value;
+        if (camController != null)
+        {
+            camController.orbitZoomSensitivity = scrollSliderPercent * 
+                (PlayerCameraController.orbitZoomSensitivityMax - PlayerCameraController.orbitZoomSensitivityMin) 
+                + PlayerCameraController.orbitZoomSensitivityMin;
+        }
     }
 
     // Update is called once per frame

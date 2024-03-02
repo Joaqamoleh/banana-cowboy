@@ -93,6 +93,8 @@ public class PlayerController : MonoBehaviour
         Debug.Assert(_gravObject != null);
         _rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(_rigidbody != null);
+        _health = GetComponent<Health>();
+        Debug.Assert(_health != null);
     }
     private void Update()
     {
