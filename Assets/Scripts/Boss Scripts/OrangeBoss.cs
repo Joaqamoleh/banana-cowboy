@@ -47,7 +47,9 @@ public class OrangeBoss : MonoBehaviour
     private void Start()
     {
         state = BossStates.NONE;
-        StartCoroutine(BoomerangStartUpHelper()); // Give a pause before boss battle starts
+
+        // start beginning cutscene first 
+        //StartCoroutine(BoomerangStartUpHelper()); // Give a pause before boss battle starts
 
         //state = BossStates.PEEL;
 
