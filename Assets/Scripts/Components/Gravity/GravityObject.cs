@@ -26,6 +26,7 @@ public class GravityObject : MonoBehaviour
     // This determines terminal velocity to prevent gravity
     // from completely taking over and flinging things out into
     // the middle of nowhere
+    [SerializeField]
     public float maxFallSpeed { get; set; } = 30.0f;
     public bool disabled { get; set; } = false;
 
@@ -70,7 +71,7 @@ public class GravityObject : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_highestPrioAttractorIndex != -1 && !_rigidBody.isKinematic && footPosition != null)
+        if (_highestPrioAttractorIndex != -1 && !_rigidBody.isKinematic)
         {
             GravityAttractor attractor = _attractors[_highestPrioAttractorIndex];
             Vector3 targetGravUp = -attractor.GetGravityDirection(characterOrientation);
@@ -182,8 +183,15 @@ public class GravityObject : MonoBehaviour
 
     public bool IsOnGround()
     {
-
+        if (footPosition == null) { return false; }
         return Physics.CheckSphere(footPosition.position, footCheckRadius, groundMask);
+    }
+
+    public Rigidbody GetGround()
+    {
+        RaycastHit hit;
+        Physics.SphereCast(footPosition.position, footCheckRadius, -characterOrientation.up, out hit, 0.4f, groundMask, QueryTriggerInteraction.Ignore);
+        return hit.rigidbody;
     }
 
     void OnDrawGizmosSelected()
@@ -196,7 +204,10 @@ public class GravityObject : MonoBehaviour
         {
             Gizmos.color = Color.blue;
         }
-        Gizmos.DrawSphere(footPosition.position, footCheckRadius);
+        if (footPosition != null)
+        {
+            Gizmos.DrawSphere(footPosition.position, footCheckRadius);
+        }
     }
 
     public bool IsInSpace()

@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &580561625516227255
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2321862978866353591}
-  m_Layer: 0
-  m_Name: CameraCurrent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2321862978866353591
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580561625516227255}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1526105572669686172}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &928329164210492016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1035,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5503662033258183763}
-  - {fileID: 2321862978866353591}
   - {fileID: 6693983800380792935}
   - {fileID: 5509548602144535539}
   - {fileID: 3772615315241428882}
@@ -1136,9 +1104,11 @@ MonoBehaviour:
   runSpeed: 19
   accelSpeed: 2.631579
   deccelSpeed: 2.631579
+  jumpImpulseForce: 30
   airControlRatio: 0.8
   lassoKey: 323
   runKey: 304
+  jumpKey: 32
 --- !u!114 &5577803411208878517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1154,14 +1124,15 @@ MonoBehaviour:
   _cinemachineCamController: {fileID: 0}
   _cameraPivot: {fileID: 7239246675022263076}
   _cameraTarget: {fileID: 3537890142686293665}
-  _cameraCurrent: {fileID: 2321862978866353591}
+  _cameraCurrent: {fileID: 0}
   _orbitRotationSpeed: 10
   _tiltRotationSpeed: 10
   _orbitZoomSpeed: 10
   _reorientSpeed: 8
-  _orbitMinDist: 3
-  _orbitMaxDist: 20
-  _orbitDistance: 10
+  _orbitMinDist: 16
+  _orbitMaxDist: 50.6
+  _orbitDistance: 28.7
+  _reorientDistance: 0.4
   invertY: 1
   invertZoom: 0
 --- !u!114 &8476664753565799702

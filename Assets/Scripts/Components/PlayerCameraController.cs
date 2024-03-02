@@ -18,9 +18,13 @@ public class PlayerCameraController : MonoBehaviour
 
     [SerializeField, Range(1.0f, 20.0f)]
     float _reorientSpeed = 8.0f;
+    
 
-    [SerializeField, Range(0f, 30f)]
-    float _orbitMinDist = 3f, _orbitMaxDist = 20f, _orbitDistance = 10f;
+    [SerializeField, Range(0f, 100f)]
+    float _orbitMinDist = 15f, _orbitMaxDist = 50f, _orbitDistance = 30f;
+
+    [SerializeField, Range(0f, 1f)]
+    float _reorientDistance = 0.4f;
 
     public bool invertY = true, invertZoom = false;
     float mouseX, mouseY;
@@ -144,8 +148,15 @@ public class PlayerCameraController : MonoBehaviour
 
     void BlendToTarget()
     {
+        Vector3 targetInViewSpace = Camera.main.WorldToViewportPoint(_cameraTarget.position);
+        targetInViewSpace.z = 0;
+        Vector3 currentInViewSpace = Camera.main.WorldToViewportPoint(_cameraCurrent.position);
+        currentInViewSpace.z = 0;
+        if (Vector3.Distance(targetInViewSpace, currentInViewSpace) > _reorientDistance)
+        {
+            _cameraCurrent.position = Vector3.Lerp(_cameraCurrent.position, _cameraTarget.position, Time.deltaTime * _reorientSpeed);
+        }
         _cameraCurrent.rotation = Quaternion.Slerp(_cameraCurrent.rotation, _cameraTarget.rotation, Time.deltaTime * _reorientSpeed);
-        _cameraCurrent.position = Vector3.Lerp(_cameraCurrent.position, _cameraTarget.position, Time.deltaTime * _reorientSpeed);
     }
 
     public static void HideCursor()

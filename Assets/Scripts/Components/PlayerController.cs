@@ -20,8 +20,11 @@ public class PlayerController : MonoBehaviour
     public delegate void PlayerStateChange(State newState);
     public event PlayerStateChange OnStateChanged;
 
-    public delegate void PlayerLanded();
+    public delegate void PlayerLanded(Rigidbody hitGround);
     public event PlayerLanded OnLanded;
+    public delegate void PlayerLeftGround();
+    public event PlayerLeftGround OnLeftGround;
+
 
     public enum LassoState
     {
@@ -58,7 +61,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Min(0f)]
     float walkSpeed = 10f;
     [SerializeField, Min(0f)]
-    float runSpeed = 19f, accelSpeed = (50f * 1f) / 19f, deccelSpeed = (50f * 1f) / 19f, jumpImpulseForce = 30f;
+    float runSpeed = 19f, accelSpeed = (50f * 1f) / 19f, deccelSpeed = (50f * 1f) / 19f, jumpImpulseForce = 30f, coyoteTime = 0.2f;
     [SerializeField, Range(0f, 1f)]
     float airControlRatio = 0.8f;
 
@@ -141,7 +144,7 @@ public class PlayerController : MonoBehaviour
             {
                 OnLand();
             }
-            _lastTimeOnGround = 0.3f;
+            _lastTimeOnGround = coyoteTime;
         }
         if (_lastTimeOnGround < 0)
         {
@@ -174,7 +177,7 @@ public class PlayerController : MonoBehaviour
     {
         _detectLanding = false;
         _jumping = false;
-        OnLanded?.Invoke();
+        OnLanded?.Invoke(_gravObject.GetGround());
     }
 
     // ************************* INPUT ************************ //
