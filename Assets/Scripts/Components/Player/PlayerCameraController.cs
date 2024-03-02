@@ -10,7 +10,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     CinemachineVirtualCamera _cinemachineCamController;
     [SerializeField]
-    Transform _cameraTarget = null, _cameraCurrent = null;
+    Transform _cameraPivot = null, _cameraTarget = null, _cameraCurrent = null;
     
     GravityObject _playerGravity;
     Transform _characterOrientation;
@@ -159,47 +159,26 @@ public class PlayerCameraController : MonoBehaviour
         }
     }
 
-
-
-    //void GetRotationInput()
-    //{
-
-    //    _cameraPivot.localRotation *= Quaternion.AngleAxis(mouseX * _orbitRotationSpeed, Vector3.up);
-    //    _cameraTarget.localRotation *= Quaternion.AngleAxis(mouseY * _tiltRotationSpeed, Vector3.right);
-
-    //    var angles = _cameraTarget.localEulerAngles;
-    //    angles.z = 0;
-    //    angles.y = 0;
-
-    //    var angle = _cameraTarget.localEulerAngles.x;
-
-    //    if (angle < 180 && angle > 60)
-    //    {
-    //        angles.x = 60;
-    //    }
-    //    else if (angle > 60 && angle < 290)
-    //    {
-    //        angles.x = 290;
-    //    }
-
-    //    _cameraTarget.localEulerAngles = angles;
-
-    //    
-    //    if (_cinemachineCamController != null)
-    //    {
-    //        Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-    //        if (ccb != null)
-    //        {
-    //            ccb.CameraDistance = _orbitDistance;
-    //        }
-    //    }
-    //}
-
     void ApplyInputRotation()
     {
-        _cameraTarget.Rotate(Vector3.up, orbitSensitivity * mouseX);
+        _cameraPivot.Rotate(Vector3.up, orbitSensitivity * mouseX);
+        _cameraTarget.Rotate(Vector3.right, orbitSensitivity * mouseY);
+        var angles = _cameraTarget.localEulerAngles;
+        angles.z = 0;
+        angles.y = 0;
+        var angle = _cameraTarget.localEulerAngles.x;
+        if (angle < 180 && angle > 60)
+        {
+            angles.x = 60;
+        }
+        else if (angle > 60 && angle < 290)
+        {
+            angles.x = 290;
+        }
+        _cameraTarget.localEulerAngles = angles;
+
+
         orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
-        print("Sensitivity is: " + orbitSensitivity + " For zoom: " + orbitZoomSensitivity);
     }
 
     void BlendToTarget()
