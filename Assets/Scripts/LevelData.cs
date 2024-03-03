@@ -14,6 +14,10 @@ public class LevelData : MonoBehaviour
     public GameObject[] checkpoints = null;
     public static LevelData instance;
 
+    public static int starSparkleTotal;
+    public static int starSparkleCheckpoint;
+    public static int starSparkleTemp;
+
     // set these manually
     /*    private static Vector3[] OrangeRespawnArray = new[] {
             new Vector3(-40.4f, 26.1f, 38.65f),
@@ -28,45 +32,45 @@ public class LevelData : MonoBehaviour
 
     private static int checkpointReached = 0; // stores latest checkpoint reached
 
-    // player related data
-    public static int starsparkleCount;
-
     private void Start()
     {
         instance = this;
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            checkpointReached++;
-        }
-    }
 
     // resets temporary data. Do this when loading into a level or leaving a level.
-    public static void resetLevelData()
+    public static void ResetLevelData()
     {
         checkpointReached = 0;
+
+        starSparkleTemp = 0;
+        starSparkleCheckpoint = 0;
+        UIManager.UpdateStars();
     }
 
-    // specifically for when loading to a checkpoint. This is so the player
-    // cant farm star sparkles by dying over and over again.
-    // TODO - Implemnent this when star sparkles are moved from game jam build
-    public static void resetSparkles()
+    public static void ResetCheckpointData()
     {
-        starsparkleCount = 0;
+        starSparkleTemp = 0;
+        UIManager.UpdateStars();
+    }
+
+    public static void BeatLevel()
+    {
+        starSparkleTotal += starSparkleCheckpoint;
+        UIManager.UpdateStars();
     }
 
     // get respawn position for player based on last checkpoint reached.
     // TODO - works for the base level rn, expand to other levels as they are made
-    public static Vector3 getRespawnPos()
+    public static Vector3 GetRespawnPos()
     {
         Debug.Log("GIVING RESPAWN POSITION TO PLAYER CONTROLLER: "+ checkpointReached);
         return instance.checkpoints[checkpointReached].transform.position;
     }
 
-    public static void setCheckpoint(int c)
+    public static void SetCheckpoint(int c)
     {
+        starSparkleCheckpoint = starSparkleTemp;
+        starSparkleTemp = 0;
         /* prevent player from setting themselves back
          * by only storing if they've found a "greater"
          * checkpoint. */

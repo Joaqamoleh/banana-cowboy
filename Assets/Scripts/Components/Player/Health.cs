@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +19,17 @@ public class Health : MonoBehaviour
 
     public void Damage(int damage, Vector3 knockback)
     {
+        if (damage < 0) // Got healed
+        {
+            health = Mathf.Clamp(health - damage, 0, 3);
+            playerUI.SetHealthUI(health, true);
+            return;
+        }
         if (_canTakeDamage && health > 0)
         {
             StartCoroutine(InvincibleFrames());
             health = Mathf.Clamp(health - damage, 0, 3);
-            playerUI.SetHealthUI(health);
+            playerUI.SetHealthUI(health, false);
             if (health <= 0)
             {
                 // Death
