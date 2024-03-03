@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// PRE-ALPHA VERSION
-/* stores level checkpoint/default spawn locations and keeps track of
- *  the number of checkpoints reached. Can be used to store data that
- *  is PER LEVEL like stardust counts for the current level.
- */
 public class LevelData : MonoBehaviour
 {
 
     public GameObject[] checkpoints = null;
     public static LevelData instance;
 
-    public static int starSparkleTotal;
-    public static int starSparkleCheckpoint;
-    public static int starSparkleTemp;
+    public static int starSparkleTotal = 0;
+    public static int starSparkleCheckpoint = 0;
+    public static int starSparkleTemp = 0;
+
+    public static Dictionary<Vector3, bool> starSparkleObjectCheckpoint = new Dictionary<Vector3, bool>();
+    public static Dictionary<Vector3, bool> starSparkleObject= new Dictionary<Vector3, bool>();
+
 
     // set these manually
     /*    private static Vector3[] OrangeRespawnArray = new[] {
@@ -44,6 +43,8 @@ public class LevelData : MonoBehaviour
 
         starSparkleTemp = 0;
         starSparkleCheckpoint = 0;
+        starSparkleObjectCheckpoint.Clear();
+        starSparkleObject.Clear();
         UIManager.UpdateStars();
     }
 
@@ -51,11 +52,18 @@ public class LevelData : MonoBehaviour
     {
         starSparkleTemp = 0;
         UIManager.UpdateStars();
+        starSparkleObjectCheckpoint.Clear();
+        foreach (var item in starSparkleObject)
+        {
+            starSparkleObjectCheckpoint.Add(item.Key, item.Value);
+        }
     }
 
     public static void BeatLevel()
     {
         starSparkleTotal += starSparkleCheckpoint;
+        starSparkleObjectCheckpoint.Clear();
+        starSparkleObject.Clear();
         UIManager.UpdateStars();
     }
 
@@ -70,6 +78,10 @@ public class LevelData : MonoBehaviour
     public static void SetCheckpoint(int c)
     {
         starSparkleCheckpoint = starSparkleTemp;
+        foreach (var item in starSparkleObjectCheckpoint)
+        {
+            starSparkleObject.Add(item.Key, item.Value);
+        }
         starSparkleTemp = 0;
         /* prevent player from setting themselves back
          * by only storing if they've found a "greater"
