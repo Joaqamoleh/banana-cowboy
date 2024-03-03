@@ -7,9 +7,19 @@ using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject pauseMenu;
-    public GameObject settingScreen;
-    public GameObject confirmationScreen;
+    [SerializeField]
+    GameObject pauseScreen, defaultMenu, settingsMenu, confirmationMenu;
+
+    public enum PauseMenus
+    {
+        NONE,
+        DEAFULT,
+        SETTINGS,
+        CONFIRMATION,
+    }
+    private PauseMenus activeMenu, previouslyActive;
+
+
     public static bool pauseActive;
 
     public static float mouseSliderPercent = 0.5f, scrollSliderPercent = 0.5f;
@@ -96,7 +106,7 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (pauseMenu.activeSelf)
+            if (pauseScreen.activeSelf)
             {
                 ResumeGame();
             }
@@ -109,7 +119,9 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
-        pauseMenu.SetActive(true);
+        pauseScreen.SetActive(true);
+        SetActiveMenu(PauseMenus.DEAFULT);
+
         pauseActive = true;
         Time.timeScale = 0f;
         PlayerCameraController.ShowCursor();
@@ -117,57 +129,113 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseMenu.SetActive(false);
-        settingScreen.SetActive(false);
+        pauseScreen.SetActive(false);
+        SetActiveMenu(PauseMenus.NONE);
+
         pauseActive = false;
         Time.timeScale = 1.0f;
         PlayerCameraController.HideCursor();
     }
 
-    public void ChangeScreen(Button button)
+    public void SetActiveMenu(PauseMenus menu)
     {
-        switch (button.name)
+        previouslyActive = activeMenu;
+        activeMenu = menu;
+        defaultMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        confirmationMenu.SetActive(false);
+        switch(menu)
         {
-            case "Continue":
-                pauseMenu.SetActive(false);
-                pauseActive = false;
-                Time.timeScale = 1.0f;
-                PlayerCameraController.HideCursor();
+            case PauseMenus.DEAFULT:
+                defaultMenu.SetActive(true);
                 break;
-            case "Checkpoint Restart":
-                pauseActive = false;
-                Time.timeScale = 1.0f;
-                SoundManager.Instance().StopAllSFX();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            case PauseMenus.SETTINGS:
+                settingsMenu.SetActive(true);
                 break;
-            case "Settings":
-                settingScreen.SetActive(true);
+            case PauseMenus.CONFIRMATION:
+                confirmationMenu.SetActive(true);
                 break;
-            case "Back":
-            case "Cancel":
-                settingScreen.SetActive(false);
-                confirmationScreen.SetActive(false);
-                break;
-            case "Restart":
-                pauseActive = false;
-                LevelData.resetLevelData();
-                SoundManager.Instance().StopAllSFX();
-                Time.timeScale = 1.0f;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                break;
-            case "Quit":
-                confirmationScreen.SetActive(true);
-                break;
-            case "Confirm":
-                pauseActive = false;
-                LevelData.resetLevelData();
-                SoundManager.Instance().StopAllSFX();
-                SoundManager.Instance().StopAllMusic();
-                SoundManager.Instance().PlayMusic("Menu Music");
-                Time.timeScale = 1.0f;
-                SceneManager.LoadScene(0);
+            default:
+            case PauseMenus.NONE:
                 break;
         }
     }
+
+    public void SetToLastActiveMenu()
+    {
+        SetActiveMenu(previouslyActive);
+    }
+
+    public void OnSettingsPressed()
+    {
+        SetActiveMenu(PauseMenus.SETTINGS);
+    }
+
+    public void OnBackPressed()
+    {
+        SetActiveMenu(PauseMenus.DEAFULT);
+    }
+
+    public void OnQuitPressed()
+    {
+        SetActiveMenu(PauseMenus.CONFIRMATION);
+    }
+
+    public void OnCheckpointRestartPressed()
+    {
+        ResumeGame();
+        SoundManager.Instance().StopAllSFX();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OnRestartLevelPressed()
+    {
+        LevelData.resetLevelData();
+        OnCheckpointRestartPressed();
+    }
+
+    public void OnConfirmQuitPressed()
+    {
+        pauseActive = false;
+        Time.timeScale = 1.0f;
+        LevelData.resetLevelData();
+        SoundManager.Instance().StopAllSFX();
+        SoundManager.Instance().StopAllMusic();
+        SoundManager.Instance().PlayMusic("Menu Music");
+        SceneManager.LoadScene(0);
+    }
+
+    //public void ChangeScreen(Button button)
+    //{
+    //    switch (button.name)
+    //    {
+    //        case "Continue":
+    //            ResumeGame();
+    //            break;
+    //        case "Checkpoint Restart":
+    //            pauseActive = false;
+    //            Time.timeScale = 1.0f;
+    //            break;
+    //        case "Settings":
+    //            settingScreen.SetActive(true);
+    //            break;
+    //        case "Back":
+    //        case "Cancel":
+    //            settingScreen.SetActive(false);
+    //            confirmationScreen.SetActive(false);
+    //            break;
+    //        case "Restart":
+    //            pauseActive = false;
+    //            Time.timeScale = 1.0f;
+    //            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //            break;
+    //        case "Quit":
+    //            confirmationScreen.SetActive(true);
+    //            break;
+    //        case "Confirm":
+
+    //            break;
+    //    }
+    //}
 
 }
