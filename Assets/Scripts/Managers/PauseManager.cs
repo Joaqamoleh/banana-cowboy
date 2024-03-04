@@ -22,10 +22,10 @@ public class PauseManager : MonoBehaviour
 
     public static bool pauseActive;
 
-    public static float mouseSliderPercent = 0.5f, scrollSliderPercent = 0.5f;
+    public static float mouseSliderPercent = 0.5f, scrollSliderPercent = 0.5f, panSliderPercent = 0.5f;
 
     [SerializeField]
-    public Slider musicSlider = null, sfxSlider = null, mouseSensitivitySlider = null, scrollSensitivitySlider;
+    public Slider musicSlider = null, sfxSlider = null, mouseSensitivitySlider = null, scrollSensitivitySlider = null, panSensitivitySlider = null;
     PlayerCameraController camController;
 
     private void Start()
@@ -54,6 +54,12 @@ public class PauseManager : MonoBehaviour
             scrollSensitivitySlider.onValueChanged.AddListener(delegate { OnScrollSensitivityChanged(); });
         }
 
+        if (panSensitivitySlider != null)
+        {
+            panSensitivitySlider.value = panSliderPercent;
+            panSensitivitySlider.onValueChanged.AddListener (delegate { OnPanSensitivityChanged(); });
+        }
+
         camController = FindAnyObjectByType<PlayerCameraController>();
         if (camController != null)
         {
@@ -65,6 +71,10 @@ public class PauseManager : MonoBehaviour
                 (PlayerCameraController.orbitZoomSensitivityMax - PlayerCameraController.orbitZoomSensitivityMin)
                 + PlayerCameraController.orbitZoomSensitivityMin;
         }
+
+        PlayerCursor.cursorSensitivity = mouseSliderPercent *
+            (PlayerCursor.maxCursorSensitivity - PlayerCursor.minCursorSensitivity)
+            + PlayerCursor.minCursorSensitivity;
     }
 
     public void OnMusicValueChanged()
@@ -80,12 +90,9 @@ public class PauseManager : MonoBehaviour
     public void OnMouseSensitivityChanged()
     {
         mouseSliderPercent = mouseSensitivitySlider.value;
-        if (camController != null)
-        {
-            camController.orbitSensitivity = mouseSliderPercent * 
-                (PlayerCameraController.orbitSensitivityMax - PlayerCameraController.orbitSensitivityMin) 
-                + PlayerCameraController.orbitSensitivityMin;
-        }
+        PlayerCursor.cursorSensitivity = mouseSliderPercent *
+            (PlayerCursor.maxCursorSensitivity - PlayerCursor.minCursorSensitivity)
+            + PlayerCursor.minCursorSensitivity;
     }
 
     public void OnScrollSensitivityChanged()
@@ -96,6 +103,17 @@ public class PauseManager : MonoBehaviour
             camController.orbitZoomSensitivity = scrollSliderPercent * 
                 (PlayerCameraController.orbitZoomSensitivityMax - PlayerCameraController.orbitZoomSensitivityMin) 
                 + PlayerCameraController.orbitZoomSensitivityMin;
+        }
+    }
+
+    public void OnPanSensitivityChanged()
+    {
+        panSliderPercent = panSensitivitySlider.value;
+        if (camController != null)
+        {
+            camController.orbitSensitivity = panSliderPercent *
+                (PlayerCameraController.orbitSensitivityMax - PlayerCameraController.orbitSensitivityMin)
+                + PlayerCameraController.orbitSensitivityMin;
         }
     }
 

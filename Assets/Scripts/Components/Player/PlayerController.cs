@@ -491,6 +491,8 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    // ************************ Callbacks / Event Handlers *************************** //
     void OnLassoableEnterHover(LassoObject hovered)
     {
         if (_hoveredObject != null)
