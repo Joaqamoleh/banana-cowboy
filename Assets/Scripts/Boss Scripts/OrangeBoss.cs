@@ -48,8 +48,9 @@ public class OrangeBoss : MonoBehaviour
     {
         state = BossStates.NONE;
 
+        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
         // start beginning cutscene first 
-        //StartCoroutine(BoomerangStartUpHelper()); // Give a pause before boss battle starts
+        //
 
         //state = BossStates.PEEL;
 
@@ -60,6 +61,11 @@ public class OrangeBoss : MonoBehaviour
         indicating = false;
         boomerangSpinning = false;
 
+    }
+
+    void CutsceneEnd(CutsceneObject o)
+    {
+        StartCoroutine(BoomerangStartUpHelper()); // Give a pause before boss battle starts
     }
 
     private void Update()
