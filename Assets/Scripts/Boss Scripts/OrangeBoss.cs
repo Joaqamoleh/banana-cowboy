@@ -179,17 +179,49 @@ public class OrangeBoss : MonoBehaviour
     {
         // add animation here
         indicating = true;
-        modelAnimator.SetTrigger("Peel Attack");
+        
+        StartCoroutine(PeelSlamAnimation()); // want time between slices
         StartCoroutine(PeelSlamCooldown());
         cooldownTimer = peelAnimationTime + peelCooldown;
         state = BossStates.COOLDOWN;
     }
 
+    IEnumerator PeelSlamAnimation()
+    {
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Front Slice"), 1.0f);
+        modelAnimator.SetTrigger("LF Peel Attack");
+        print("LF");
+        yield return new WaitForSeconds(1.0f);
+
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Back Slice"), 1.0f);
+        modelAnimator.SetTrigger("LB Peel Attack");
+        print("LB");
+        yield return new WaitForSeconds(1.0f);
+
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Front Slice"), 1.0f);
+        modelAnimator.SetTrigger("RF Peel Attack");
+        print("RF");
+        yield return new WaitForSeconds(1.0f);
+
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Back Slice"), 1.0f);
+        modelAnimator.SetTrigger("RB Peel Attack");
+        print("RB");
+        yield return new WaitForSeconds(1.0f);
+    }
+
     IEnumerator PeelSlamCooldown()
     {
         yield return new WaitForSeconds(peelAnimationTime + peelCooldown);
-        modelAnimator.SetTrigger("Peel Reset");
+        modelAnimator.SetTrigger("LF Peel Reset");
+        modelAnimator.SetTrigger("LB Peel Reset");
+        modelAnimator.SetTrigger("RF Peel Reset");
+        modelAnimator.SetTrigger("RB Peel Reset");
         indicating = false;
+        yield return new WaitForSeconds(1.5f); // set weight to 0 after animation is done playing
+        modelAnimator.SetLayerWeight(1, 0.0f);
+        modelAnimator.SetLayerWeight(2, 0.0f);
+        modelAnimator.SetLayerWeight(3, 0.0f);
+        modelAnimator.SetLayerWeight(4, 0.0f);
     }
 
     private GameObject SpawnBoomerang(Vector3 position, int radiusAdd)
