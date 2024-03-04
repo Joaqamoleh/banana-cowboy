@@ -85,11 +85,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (CutsceneManager.Instance() != null)
-        {
-            CutsceneManager.Instance().OnCutsceneStart += DisableCharacterForCutscene;
-            CutsceneManager.Instance().OnCutsceneEnd += EnableCharacterAfterCutscene;
-        }
+
     }
     private void Start()
     {
@@ -109,6 +105,12 @@ public class PlayerController : MonoBehaviour
         _cursor.OnHoverLassoableExit += OnLassoableExitHovered;
         _playerUI = GetComponentInChildren<UIManager>();
         Debug.Assert(_playerUI != null);
+
+        if (CutsceneManager.Instance() != null)
+        {
+            CutsceneManager.Instance().OnCutsceneStart += DisableCharacterForCutscene;
+            CutsceneManager.Instance().OnCutsceneEnd += EnableCharacterAfterCutscene;
+        }
     }
     private void Update()
     {
