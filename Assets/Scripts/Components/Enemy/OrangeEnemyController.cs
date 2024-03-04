@@ -160,6 +160,7 @@ public class OrangeEnemyController : EnemyController
                 case OrangeState.DIZZY:
                     GetComponent<Rigidbody>().velocity = Vector3.zero + _gravObject.GetFallingVelocity();
                     SoundManager.Instance().PlaySFX("OrangeDizzy");
+                    GetComponentInChildren<ParticleSystem>().Play();
                     Invoke("EndDizzy", dizzyTime);
                     break;
                 case OrangeState.IDLE:
