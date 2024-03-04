@@ -24,7 +24,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (playerAnimator == null) { return; }
         // This handles the changes to the animimations based on the player state
-        print("Player state signal: New state: " + updatedState);
+        //print("Player state signal: New state: " + updatedState);
         switch (updatedState)
         {
             case PlayerController.State.IDLE:

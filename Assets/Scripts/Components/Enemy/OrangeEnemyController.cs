@@ -173,12 +173,12 @@ public class OrangeEnemyController : EnemyController
             }
             if (newState == OrangeState.DIZZY || newState == OrangeState.HELD)
             {
-                print("Lassoable");
+                //print("Lassoable");
                 _lassoComp.isLassoable = true;
             }
             else
             {
-                print("Not lassoable");
+                //print("Not lassoable");
                 _lassoComp.isLassoable = false;
             }
         }
@@ -376,7 +376,7 @@ public class OrangeEnemyController : EnemyController
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.name);
+        //print(other.name);
         if (other != null && other.gameObject != null)
         {
             if (other.gameObject.tag == "Player")

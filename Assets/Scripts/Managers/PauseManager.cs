@@ -28,8 +28,6 @@ public class PauseManager : MonoBehaviour
     public Slider musicSlider = null, sfxSlider = null, mouseSensitivitySlider = null, scrollSensitivitySlider;
     PlayerCameraController camController;
 
-
-
     private void Start()
     {
         if (musicSlider != null)
@@ -124,7 +122,7 @@ public class PauseManager : MonoBehaviour
 
         pauseActive = true;
         Time.timeScale = 0f;
-        PlayerCameraController.ShowCursor();
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
     }
 
     public void ResumeGame()
@@ -134,7 +132,7 @@ public class PauseManager : MonoBehaviour
 
         pauseActive = false;
         Time.timeScale = 1.0f;
-        PlayerCameraController.HideCursor();
+        PlayerCursor.GoBackToPreviousCursorType();
     }
 
     public void SetActiveMenu(PauseMenus menu)

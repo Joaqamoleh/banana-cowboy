@@ -41,7 +41,7 @@ public class PlayerCameraController : MonoBehaviour
     KeyCode rotationKey = KeyCode.Mouse1;
     
     private float mouseX, mouseY, mouseScroll;
-    private bool rotationHeld = false;
+    private bool rotationHeld = false, ignoreActiveHint = false;
     List<CameraHint> activeHints = new List<CameraHint>();
     int highestHintPrioIndex = -1;
 
@@ -51,7 +51,6 @@ public class PlayerCameraController : MonoBehaviour
     void Start()
     {
         // Removes cursor from screen and keeps it locked to center
-        HideCursor();
         _playerGravity = GetComponent<GravityObject>();
         _characterOrientation = _playerGravity.characterOrientation;
 
@@ -87,10 +86,13 @@ public class PlayerCameraController : MonoBehaviour
 
             if (Input.GetKeyDown(rotationKey))
             {
+                PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.CAMERA_PAN);
+                ignoreActiveHint = true;
                 rotationHeld = true;
             } 
             else if (Input.GetKeyUp(rotationKey))
             {
+                PlayerCursor.GoBackToPreviousCursorType();
                 rotationHeld = false;
             }
 #else
@@ -105,10 +107,18 @@ public class PlayerCameraController : MonoBehaviour
         {
             ApplyInputRotation();
         } 
-        else if (highestHintPrioIndex != -1)
+        else if (highestHintPrioIndex != -1 && !ignoreActiveHint)
         {
             // Apply camera hints
             activeHints[highestHintPrioIndex].ApplyHint(_cameraCurrent, _characterOrientation, ref camVel, _cinemachineCamController);
+            var localIgnoreTilt = _cameraCurrent.localEulerAngles;
+            localIgnoreTilt.y = 0;
+            localIgnoreTilt.z = 0;
+            _cameraTarget.localEulerAngles = localIgnoreTilt;
+            var localIgnorePan = _cameraCurrent.localEulerAngles;
+            localIgnorePan.x = 0;
+            localIgnorePan.z = 0;
+            _cameraPivot.localEulerAngles = localIgnorePan;
         }
         BlendToTarget();
     }
@@ -218,20 +228,6 @@ public class PlayerCameraController : MonoBehaviour
         }
     }
 
-    public static void HideCursor()
-    {
-#if !UNITY_IOS && !UNITY_ANDROID
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
-#endif
-    }
-
-    public static void ShowCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        UnityEngine.Cursor.visible = true;
-    }
-
     public void DisableForCutscene()
     {
         if (_cinemachineCamController != null)
@@ -253,6 +249,7 @@ public class PlayerCameraController : MonoBehaviour
         if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null) {
             activeHints.Add(other.gameObject.GetComponent<CameraHint>());
             highestHintPrioIndex = GetHighestPrioIndex();
+            ignoreActiveHint = false;
         }
     }
 
@@ -263,6 +260,7 @@ public class PlayerCameraController : MonoBehaviour
             other.gameObject.GetComponent<CameraHint>().ResetHintTime();
             activeHints.Remove(other.gameObject.GetComponent<CameraHint>());
             highestHintPrioIndex = GetHighestPrioIndex();
+            ignoreActiveHint = false;
         }
     }
 
