@@ -63,6 +63,7 @@ Transform:
   m_Children:
   - {fileID: 9190606815457315027}
   - {fileID: 3837552301989598086}
+  - {fileID: 1421385818289145085}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -187.93, z: 0}
 --- !u!1 &868118778594070022
@@ -76,7 +77,6 @@ GameObject:
   - component: {fileID: 3837552301989598086}
   - component: {fileID: 7681066512378368039}
   - component: {fileID: 4522955207488432433}
-  - component: {fileID: 1111547986019136607}
   m_Layer: 10
   m_Name: Dialog Trigger
   m_TagString: Untagged
@@ -140,13 +140,67 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1111547986019136607
+--- !u!1 &4788768513184048506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1421385818289145085}
+  - component: {fileID: 3956047788800581197}
+  - component: {fileID: 5040685756122349629}
+  m_Layer: 10
+  m_Name: Checkpoint Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1421385818289145085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4788768513184048506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.04, y: 3.12, z: 0.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5189294841936727178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &3956047788800581197
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4788768513184048506}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5040685756122349629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868118778594070022}
+  m_GameObject: {fileID: 4788768513184048506}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b777273eff8a0bc40bd53ac76c0ae183, type: 3}

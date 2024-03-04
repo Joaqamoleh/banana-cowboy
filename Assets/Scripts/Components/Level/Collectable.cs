@@ -39,6 +39,7 @@ public class Collectable : MonoBehaviour
         if (pickedUp)
         {
             transform.GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
         }
     }
 
@@ -65,6 +66,7 @@ public class Collectable : MonoBehaviour
             {
                 pickedUp = true;
                 transform.GetComponent<Renderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
                 LevelData.starSparkleObjectCheckpoint[positionKey] = true;
             }
         }
