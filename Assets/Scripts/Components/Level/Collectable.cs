@@ -38,8 +38,9 @@ public class Collectable : MonoBehaviour
         }
         if (pickedUp)
         {
-            transform.GetComponent<Renderer>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
             GetComponent<Collider>().enabled = false;
+            transform.root.GetComponent<CollectableFollow>().follow = false;
         }
     }
 
@@ -65,9 +66,10 @@ public class Collectable : MonoBehaviour
             else if (SOURCE.LEVEL == locationCameFrom)
             {
                 pickedUp = true;
-                transform.GetComponent<Renderer>().enabled = false;
+                GetComponent<Renderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
                 LevelData.starSparkleObjectCheckpoint[positionKey] = true;
+                transform.root.GetComponent<CollectableFollow>().follow = false;
             }
         }
     }
