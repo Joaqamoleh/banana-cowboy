@@ -1344,7 +1344,7 @@ MonoBehaviour:
   _cinemachineCamController: {fileID: 0}
   _cameraPivot: {fileID: 3537890142686293665}
   _cameraTarget: {fileID: 80384122500788780}
-  _cameraCurrent: {fileID: 0}
+  _emptyGameObjectPrefab: {fileID: 4070204132712235945, guid: d076296c76109af44991ebf6823031f4, type: 3}
   bottomBorder: 0.25
   topBorder: 0.85
   camReorientTime: 0.5
@@ -1630,8 +1630,6 @@ RectTransform:
   - {fileID: 3291562478582822228}
   - {fileID: 4509026538082345567}
   - {fileID: 4239679806363491457}
-  - {fileID: 5186692679713727849}
-  - {fileID: 3601929976241607925}
   m_Father: {fileID: 5509548602144535539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1734,7 +1732,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4733455987032938418}
-  m_Father: {fileID: 2453400843903261348}
+  m_Father: {fileID: 5509548602144535539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1970,7 +1968,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4206451210062268687}
-  m_Father: {fileID: 2453400843903261348}
+  m_Father: {fileID: 5509548602144535539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

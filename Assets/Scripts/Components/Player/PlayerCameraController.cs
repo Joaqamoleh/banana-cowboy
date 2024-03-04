@@ -10,8 +10,10 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     CinemachineVirtualCamera _cinemachineCamController;
     [SerializeField]
-    Transform _cameraPivot = null, _cameraTarget = null, _cameraCurrent = null;
-    
+    Transform _cameraPivot = null, _cameraTarget = null, _emptyGameObjectPrefab;
+    Transform _cameraCurrent = null;
+
+
     GravityObject _playerGravity;
     Transform _characterOrientation;
 
@@ -53,10 +55,13 @@ public class PlayerCameraController : MonoBehaviour
         // Removes cursor from screen and keeps it locked to center
         _playerGravity = GetComponent<GravityObject>();
         _characterOrientation = _playerGravity.characterOrientation;
+        _cameraCurrent = Instantiate(_emptyGameObjectPrefab);
+        _cameraCurrent.position = _cameraTarget.position;
 
         // Overrides the camera's default radius
         if (_cinemachineCamController != null)
         {
+            _cinemachineCamController.Follow = _cameraCurrent;
             Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
             if (ccb != null)
             {
