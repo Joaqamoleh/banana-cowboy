@@ -226,6 +226,7 @@ public class OrangeBoss : MonoBehaviour
         if (health == 0)
         {
             print("BOSS DEFEATED");
+            LevelData.BeatLevel();
             // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
             LevelSwitch.ChangeScene("Menu");
         }

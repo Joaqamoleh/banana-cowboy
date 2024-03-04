@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LassoableEnemy : LassoObject
+public class LassoableEnemy : LassoTossable
 {
     bool isDestroyed = false;
-    public bool thrown = false;
 
     private void OnCollisionEnter(Collision collision)
     {
         // TODO: Handle orange, blueberry, strawberry enemies and bosses, and blender
-        if (thrown && !isDestroyed)
+        if (IsTossed() && !isDestroyed)
         {
             if (collision.collider.CompareTag("Boss"))
             {

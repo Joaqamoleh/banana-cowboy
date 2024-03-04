@@ -8,7 +8,7 @@ public class CherryBomb : LassoableEnemy
 
    private void OnCollisionEnter(Collision collision)
     {
-        if (thrown)
+        if (IsTossed())
         {
             if (SoundManager.Instance() != null)
             {

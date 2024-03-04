@@ -26,6 +26,7 @@ public class GravityObject : MonoBehaviour
     // This determines terminal velocity to prevent gravity
     // from completely taking over and flinging things out into
     // the middle of nowhere
+    [SerializeField]
     public float maxFallSpeed { get; set; } = 30.0f;
     public bool disabled { get; set; } = false;
 
@@ -38,12 +39,22 @@ public class GravityObject : MonoBehaviour
     [SerializeField, Range(1f, 10f)]
     float _gravityIncreaseOnFall = 1.5f;
 
-    public Transform gravityOrientation = null;
+    public Transform characterOrientation = null;
+    [SerializeField, Min(0.001f)]
+    float reorientTime = 0.5f;
+
+    private float reorientT = 0f;
 
     [SerializeField, Tooltip("Freeze rotation for the rigid-body")]
     bool _freezeRotation = true;
 
-    GroundDetection _groundDetector;
+    [Header("Ground Detection")]
+    [SerializeField]
+    Transform footPosition;
+    [SerializeField]
+    float footCheckRadius = 0.1f;
+    [SerializeField]
+    LayerMask groundMask;
 
 
     void Awake()
@@ -56,34 +67,46 @@ public class GravityObject : MonoBehaviour
         }
         _attractors = new List<GravityAttractor>();
 
-        if (gravityOrientation == null)
+        if (characterOrientation == null)
         {
-            gravityOrientation = transform;
+            characterOrientation = transform;
         }
-        _groundDetector = GetComponentInChildren<GroundDetection>();
     }
 
     void FixedUpdate()
     {
-        if (_highestPrioAttractorIndex != -1 && !_rigidBody.isKinematic && _groundDetector != null)
+        if (_highestPrioAttractorIndex != -1 && !_rigidBody.isKinematic)
         {
             GravityAttractor attractor = _attractors[_highestPrioAttractorIndex];
-            Vector3 targetGravUp = attractor.GetGravityDirection(gravityOrientation);
+            Vector3 targetGravUp = -attractor.GetGravityDirection(characterOrientation);
 
             // Reorient transform
-            gravityOrientation.rotation = Quaternion.FromToRotation(gravityOrientation.up, targetGravUp) * gravityOrientation.rotation;
+            float t = reorientT / reorientTime;
+            Quaternion targetRot = Quaternion.FromToRotation(characterOrientation.up, targetGravUp) * characterOrientation.rotation;
+            if (attractor.GetGravityForce() < 0)
+            {
+                // If gravity force is negative, treat gravity as a weird pushing gravity and reorient appropriately
+                // This is mainly used when the attractor is a cylinder and pushing towards a curve rather than pulling towards one
+                targetRot = Quaternion.FromToRotation(characterOrientation.up, -targetGravUp) * characterOrientation.rotation;
+            }
+            characterOrientation.rotation = Quaternion.Slerp(characterOrientation.rotation, targetRot, t);
+            reorientT += Time.deltaTime;
 
 
             // We are not on the ground yet, so pull to the nearest attractor
-            Vector3 grav = attractor.GetGravityDirection(gravityOrientation) * attractor.GetGravityForce();
+            Vector3 grav = attractor.GetGravityDirection(characterOrientation) * attractor.GetGravityForce();
             Vector3 fallingVec = GetFallingVelocity();
 
-            if (!_groundDetector.OnGround())
+            if (IsOnGround())
             {
-                Debug.DrawRay(transform.position, grav, Color.yellow);
-                if (fallingVec.magnitude < maxFallSpeed || Vector3.Dot(fallingVec, -targetGravUp) < 0.5f)
+                Debug.DrawRay(transform.position, grav, Color.green);
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, grav, Color.red);
+                if (fallingVec.magnitude < maxFallSpeed || Vector3.Dot(fallingVec, -targetGravUp) < 0f)
                 {
-                    if (gravityOrientation.InverseTransformDirection(fallingVec).y < 0)
+                    if (characterOrientation.InverseTransformDirection(fallingVec).y < 0)
                     {
                         // We are falling down, so increase gravity
                         _rigidBody.AddForce(_gravityIncreaseOnFall * gravityMult * grav);
@@ -92,13 +115,6 @@ public class GravityObject : MonoBehaviour
                     {
                         _rigidBody.AddForce(gravityMult * grav);
                     }
-                }
-            }
-            else
-            {
-                if (gravityOrientation.InverseTransformDirection(_rigidBody.velocity).y < 0)
-                {
-                    _rigidBody.velocity = GetMoveVelocity();
                 }
             }
         }
@@ -125,10 +141,16 @@ public class GravityObject : MonoBehaviour
      */
     public Vector3 GetFallingVelocity()
     {
-        Vector3 vel = gravityOrientation.InverseTransformDirection(_rigidBody.velocity);
+        Vector3 vel = characterOrientation.InverseTransformDirection(_rigidBody.velocity);
         vel.x = 0;
         vel.z = 0;
-        return gravityOrientation.TransformDirection(vel);
+        return characterOrientation.TransformDirection(vel);
+    }
+    public void SetFallingVelocity(float fallingVel)
+    {
+        Vector3 vel = characterOrientation.InverseTransformDirection(_rigidBody.velocity);
+        vel.y = fallingVel;
+        _rigidBody.velocity = characterOrientation.TransformDirection(vel);
     }
 
     /**
@@ -137,28 +159,68 @@ public class GravityObject : MonoBehaviour
      */
     public Vector3 GetMoveVelocity()
     {
-        if (gravityOrientation == null || _rigidBody == null)
+        if (characterOrientation == null || _rigidBody == null)
         {
             return Vector3.zero;
         }
 
-        Vector3 vel = gravityOrientation.InverseTransformDirection(_rigidBody.velocity);
+        Vector3 vel = characterOrientation.InverseTransformDirection(_rigidBody.velocity);
         vel.y = 0;
-        return gravityOrientation.TransformDirection(vel);
+        return characterOrientation.TransformDirection(vel);
     }
+
 
     public Vector3 GetGravityDirection()
     {
         if (_highestPrioAttractorIndex != -1)
         {
-            return _attractors[_highestPrioAttractorIndex].GetGravityDirection(gravityOrientation);
+            return _attractors[_highestPrioAttractorIndex].GetGravityDirection(characterOrientation);
         }
         return Vector3.zero;
     }
 
+    public void SetCharacterForward(Vector3 newForward)
+    {
+        
+        if (!IsInSpace())
+        {
+            newForward = Vector3.ProjectOnPlane(newForward, -GetGravityDirection());
+        }
+        characterOrientation.rotation = Quaternion.FromToRotation(characterOrientation.forward, newForward) * characterOrientation.rotation;
+    }
+
+    public Vector3 GetCharacterForward()
+    {
+        return characterOrientation.forward;
+    }
+
     public bool IsOnGround()
     {
-        return _groundDetector.OnGround();
+        if (footPosition == null) { return false; }
+        return Physics.CheckSphere(footPosition.position, footCheckRadius, groundMask);
+    }
+
+    public Rigidbody GetGround()
+    {
+        RaycastHit hit;
+        Physics.SphereCast(footPosition.position, footCheckRadius, -characterOrientation.up, out hit, 0.4f, groundMask, QueryTriggerInteraction.Ignore);
+        return hit.rigidbody;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (IsOnGround())
+        {
+            Gizmos.color = Color.green;
+        } 
+        else
+        {
+            Gizmos.color = Color.blue;
+        }
+        if (footPosition != null)
+        {
+            Gizmos.DrawSphere(footPosition.position, footCheckRadius);
+        }
     }
 
     public bool IsInSpace()
@@ -173,7 +235,12 @@ public class GravityObject : MonoBehaviour
         if (collision != null && collision.gameObject != null && collision.gameObject.GetComponentInParent<GravityAttractor>() != null)
         {
             _attractors.Add(collision.gameObject.GetComponentInParent<GravityAttractor>());
+            int prev = _highestPrioAttractorIndex;
             _highestPrioAttractorIndex = GetHighestPrioAttractorIndex();
+            if (prev <= _highestPrioAttractorIndex)
+            {
+                reorientT = 0f;
+            }
         }
     }
 
@@ -182,7 +249,12 @@ public class GravityObject : MonoBehaviour
         if (collision != null && collision.gameObject != null && collision.gameObject.GetComponentInParent<GravityAttractor>() != null)
         {
             _attractors.Remove(collision.gameObject.GetComponentInParent<GravityAttractor>());
+            int prev = _highestPrioAttractorIndex;
             _highestPrioAttractorIndex = GetHighestPrioAttractorIndex();
+            if (prev >= _highestPrioAttractorIndex)
+            {
+                reorientT = 0f;
+            }
         }
     }
 }

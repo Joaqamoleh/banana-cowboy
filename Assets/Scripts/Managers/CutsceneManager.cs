@@ -21,12 +21,13 @@ public class CutsceneManager : MonoBehaviour
 
     private Cutscene activeCutscene = null;
 
-    private PlayerController _player = null;
+    public delegate void CutsceneEventCallback(CutsceneObject activeCutscene);
+    public event CutsceneEventCallback OnCutsceneStart;
+    public event CutsceneEventCallback OnCutsceneEnd;
 
     void Start()
     {
         s_instance = this;
-        _player = FindAnyObjectByType<PlayerController>();
         s_instance.PlayStartCutscene();
     }
 
@@ -60,12 +61,12 @@ public class CutsceneManager : MonoBehaviour
         activeCutscene = cs;
         activeCutscene.cutscene.OnCutsceneComplete += CutsceneFinished;
         activeCutscene.cutscene.Play();
-        _player.DisableForCutscene();
+        OnCutsceneStart?.Invoke(activeCutscene.cutscene);
     }
 
     void CutsceneFinished(CutsceneObject completedScene)
     {
-        _player.EnableAfterCutscene();
+        OnCutsceneEnd?.Invoke(completedScene);
     }
 
     public static CutsceneManager Instance()

@@ -12,7 +12,6 @@ public class CharacterDialogue : MonoBehaviour
         if (dialog.speakerDialog != string.Empty) { 
             if (collision.CompareTag("Player"))
             {
-                print(DialogueManager.Instance());
                 DialogueManager.Instance().DisplayDialog(dialog);
                 if (NPC_Animator != null)
                 {

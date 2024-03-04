@@ -8,9 +8,9 @@ public class LevelDeathBorder : MonoBehaviour
     {
         if (other != null && other.gameObject != null)
         {
-            if (other.gameObject.GetComponentInParent<PlayerController>() != null)
+            if (other.gameObject.GetComponentInParent<Health>() != null)
             {
-                other.gameObject.GetComponentInParent<PlayerController>().Damage(999, Vector3.zero);
+                other.gameObject.GetComponentInParent<Health>().Damage(999, Vector3.zero);
             }
             else
             {

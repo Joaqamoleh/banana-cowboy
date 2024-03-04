@@ -18,22 +18,24 @@ using UnityEngine.UIElements;
  * 
  * A Trigger CollisionObject must be placed on the G
  */
-[RequireComponent(typeof(Rigidbody))]
 public class GravityAttractor : MonoBehaviour
 {
-
-    public float gravity = -20.0f;
-    public int priority = 0; // Higher priority overrides lower priority
-    public enum AttractDirection
+    public enum GravityType
     {
-        RADIAL,
-        OBJECT_X,
-        OBJECT_Y,
-        OBJECT_Z
+        SPHERE,
+        PARALLEL,
+        CYLINDER,
     }
 
-    public AttractDirection attractDirection = AttractDirection.RADIAL;
-    public Transform centerOfGravity = null; // Only really matters for radial
+    public float gravity = 60;
+    public int priority = 0; // Higher priority overrides lower priority
+    [Tooltip("Types are: Sphere, Parallel, and Cylinder. Parallel will pull striaght down in y, " +
+        "sphere will pull towards the center of gravity in all directions, cylinder will pull only in relative X and Z (Cylinder lays along Y)," +
+        "ignoring how far up Y the object is")]
+    public GravityType type = GravityType.PARALLEL;
+    [Tooltip("This is only required for sphere and cylinder when you want to change the center of gravity from the center of the trigger" +
+        "transform. Otherwise ignore it")]
+    public Transform centerOfGravity = null;
 
     public void Awake()
     {
@@ -43,24 +45,18 @@ public class GravityAttractor : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-    }
-
     public Vector3 GetGravityDirection(Transform body)
     {
-        switch (attractDirection)
+        switch (type)
         {
-            case AttractDirection.OBJECT_X:
-                return transform.right;
-            case AttractDirection.OBJECT_Y:
-                return transform.up;
-            case AttractDirection.OBJECT_Z:
-                return transform.forward;
-            case AttractDirection.RADIAL:
+            case GravityType.SPHERE:
+                return (centerOfGravity.position - body.position).normalized;
+            case GravityType.PARALLEL:
+                return -transform.up;
+            case GravityType.CYLINDER:
+                return Vector3.ProjectOnPlane((centerOfGravity.position - body.position).normalized, transform.up).normalized;
             default:
-                return (body.position - centerOfGravity.position).normalized;
+                return -transform.up;
         }
     }
 

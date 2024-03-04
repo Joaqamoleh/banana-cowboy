@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,18 +10,23 @@ public class UIManager : MonoBehaviour
     private static UIManager instance;
 
     public Animator healthAnimator = null;
-    public Sprite[] healthSprites;
-    public Sprite[] healthBlinkSprites;
-    public GameObject healthSprite;
-    public Sprite[] reticuleSprites;
-    public GameObject reticuleSprite;
-    public GameObject throwBarSpriteRoot;
+
+    [SerializeField]
+    Canvas hudElementsCanvas;
+    [SerializeField]
+    Sprite[] healthSprites, healthBlinkSprites, reticleSprites;
+    [SerializeField]
+    Image healthSprite, reticleSprite, panHandSprite;
+    [SerializeField]
+    GameObject throwBarSpriteRoot;
 
     [SerializeField]
     RectTransform throwBarContainer, throwLowPower, throwMedPower, throwHighPow, throwBarIndicator;
     private int _health = 3;
 
     Vector3 indicatorStartingPos;
+
+    public TMP_Text starSparkles;
 
     private void Awake()
     {
@@ -29,36 +35,89 @@ public class UIManager : MonoBehaviour
         {
             indicatorStartingPos = throwBarIndicator.localPosition;
         }
+        UpdateStars();
     }
-
-    public void ChangeHealth(int change)
+    public static void UpdateStars()
     {
-        int newHealth = Mathf.Clamp(_health + change, 0, 4);
-        if (newHealth != _health)
-        {
-            healthAnimator.SetTrigger("Damaged");
-            _health = newHealth;
-            SetAbsHealth(_health);
-        }
+        instance.starSparkles.text = "X " + (LevelData.starSparkleTotal + LevelData.starSparkleCheckpoint + LevelData.starSparkleTemp);    
     }
 
-    public void SetAbsHealth(int health)
+    /*    public void ChangeHealth(int change)
+        {
+            int newHealth = Mathf.Clamp(_health + change, 0, 4);
+            if (newHealth != _health)
+            {
+                healthAnimator.SetTrigger("Damaged");
+                _health = newHealth;
+                SetAbsHealth(_health);
+            }
+        }*/
+
+    public void SetHealthUI(int health, bool healed)
     {
         if (health >= 0 && health < 4)
         {
-            _health = health;
-            healthSprite.GetComponent<Image>().sprite = healthSprites[health];
+            if (healed)
+            {
+
+            }
+            else
+            {
+                healthAnimator.SetTrigger("Damaged");
+            }
+            StartCoroutine(HealthIconTransition(health, healed));
         }
+    }
+
+    IEnumerator HealthIconTransition(int health, bool healed)
+    {
+        if (!healed)
+        {
+            healthSprite.GetComponent<Image>().sprite = healthBlinkSprites[health];
+            yield return new WaitForSeconds(0.5f);
+        }
+        healthSprite.GetComponent<Image>().sprite = healthSprites[health];
+
+    }
+
+    public void SetReticlePosition(Vector3 screenSpacePosition)
+    {
+        reticleSprite.transform.position = screenSpacePosition;
     }
 
     public void ReticleOverLassoable()
     {
-        reticuleSprite.GetComponent<Image>().sprite = reticuleSprites[1];
+        reticleSprite.GetComponent<Image>().sprite = reticleSprites[1];
     }
 
-    public void ReticleReset()
+    public void ReticleOverNone()
     {
-        reticuleSprite.GetComponent<Image>().sprite = reticuleSprites[0];
+        reticleSprite.GetComponent<Image>().sprite = reticleSprites[0];
+    }
+    public void ShowReticle()
+    {
+        reticleSprite.gameObject.SetActive(true);
+    }
+
+    public void HideReticle()
+    {
+        reticleSprite.gameObject.SetActive(false);
+    }
+
+    public void SetPanHandPosition(Vector3 screenSpacePosition)
+    {
+        panHandSprite.transform.position = screenSpacePosition;
+    }
+
+    public void ShowPanHand()
+    {
+        panHandSprite.transform.position = reticleSprite.transform.position;
+        panHandSprite.gameObject.SetActive(true);
+    }
+
+    public void HidePanHand()
+    {
+        panHandSprite.gameObject.SetActive(false);
     }
 
     public void ShowThrowBar()
@@ -86,7 +145,7 @@ public class UIManager : MonoBehaviour
         );
     }
 
-    public PlayerController.ThrowStrength GetThrowIndicatorStrength()
+    public LassoTossable.TossStrength GetThrowIndicatorStrength()
     {
         float lowPowerWidth = (throwLowPower.rect.width / 2f) * throwLowPower.localScale.x;
         float medPowerWidth = (throwMedPower.rect.width / 2f) * throwMedPower.localScale.x;
@@ -95,26 +154,24 @@ public class UIManager : MonoBehaviour
         if ((throwBarIndicator.localPosition.x > 0 && throwBarIndicator.localPosition.x < (highPowerWidth)) || 
             (throwBarIndicator.localPosition.x < 0 && throwBarIndicator.localPosition.x > -(highPowerWidth)))
         {
-            return PlayerController.ThrowStrength.STRONG;
+            return LassoTossable.TossStrength.STRONG;
         }
         if (throwBarIndicator.localPosition.x > 0 && throwBarIndicator.localPosition.x < medPowerWidth ||
             (throwBarIndicator.localPosition.x < 0 && throwBarIndicator.localPosition.x > -medPowerWidth))
         {
-            return PlayerController.ThrowStrength.MEDIUM;
+            return LassoTossable.TossStrength.MEDIUM;
         }
-        return PlayerController.ThrowStrength.WEAK;
+        return LassoTossable.TossStrength.WEAK;
     }
     
     public void HideUIForCutscene()
     {
-        healthSprite.SetActive(false);
-        reticuleSprite.SetActive(false);
+        hudElementsCanvas.gameObject.SetActive(false);
     }
 
     public void ShowUIPostCutscene()
     {
-        healthSprite.SetActive(true);
-        reticuleSprite.SetActive(true);
+        hudElementsCanvas.gameObject.SetActive(true);
     }
 
     public static UIManager Instance()

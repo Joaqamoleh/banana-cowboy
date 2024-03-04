@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 [RequireComponent(typeof(GravityObject))]
 public class OrangeEnemyController : EnemyController
@@ -20,25 +22,40 @@ public class OrangeEnemyController : EnemyController
         THROWN
     }
 
+    public enum OrangeSubStates
+    {
+        WALK,
+        TALK, 
+        SLEEP,
+        SWAY
+    }
+
     private OrangeState _state;
+    public OrangeSubStates subState;
+    public GameObject[] destinationPoints = null;
 
     [SerializeField]
     Transform _model = null;
 
     public GameObject body;
-    public GameObject feet;
 
-    public float knockbackForce = 4.0f;
-    public float chargeSpeed = 30.0f;
+    public float knockbackForce;
+    public float chargeSpeed;
     public float maxChargeDistance = 70.0f;
     public float walkSpeed = 10.0f;
 
     public float timeToBeginRev = 0.4f;
     public float timeToBeginCharge = 0.3f;
     public float timeSpentCharging = 0.8f;
+/*    public float timeSpentWalking;
+    public float walkTimer;*/
     public float dizzyTime = 1.0f;
 
     private float spottedParam = 0.0f;
+
+    public float timeSpentWalking;
+    public float walkTimer;
+    private float _distanceFromPartner = 11f;
 
     private Transform _spottedPlayerTransform = null;
     private GravityObject _gravObject = null;
@@ -56,6 +73,12 @@ public class OrangeEnemyController : EnemyController
         _lassoComp = GetComponent<LassoableEnemy>();
         _lassoComp.isLassoable = false;
         _gravObject = GetComponent<GravityObject>();
+        if (destinationPoints.Length > 1)
+        {
+            destinationPoint = destinationPoints[0];
+        }
+        UpdateAnimState();
+        _distanceFromPartner = Mathf.Pow(_distanceFromPartner, 2);
     }
 
     // TODO: Changed from Update. Make sure things still work
@@ -83,7 +106,7 @@ public class OrangeEnemyController : EnemyController
                 if (_model != null)
                 {
                     _model.rotation = Quaternion.Slerp(_model.rotation,
-                        Quaternion.LookRotation(_chargeDirection, _gravObject.gravityOrientation.up),
+                        Quaternion.LookRotation(_chargeDirection, _gravObject.characterOrientation.up),
                         spottedParam);
                 }
                 break;
@@ -91,7 +114,7 @@ public class OrangeEnemyController : EnemyController
                 _chargeDirection = (_spottedPlayerTransform.position - transform.position).normalized;
                 if (_model != null)
                 {
-                    _model.rotation = Quaternion.LookRotation(_chargeDirection, _gravObject.gravityOrientation.up);
+                    _model.rotation = Quaternion.LookRotation(_chargeDirection, _gravObject.characterOrientation.up);
                 }
                 break;
             case OrangeState.CHARGE:
@@ -101,7 +124,7 @@ public class OrangeEnemyController : EnemyController
                 }
                 break;
             case OrangeState.IDLE:
-
+                PlayDifferentIdle();
                 break;
             default:
 
@@ -150,23 +173,88 @@ public class OrangeEnemyController : EnemyController
             }
             if (newState == OrangeState.DIZZY || newState == OrangeState.HELD)
             {
-                print("Lassoable");
+                //print("Lassoable");
                 _lassoComp.isLassoable = true;
             }
             else
             {
-                print("Not lassoable");
+                //print("Not lassoable");
                 _lassoComp.isLassoable = false;
             }
+        }
+    }
+    public GameObject destinationPoint;
+    Vector3 _directionOfPartner;
+    public GameObject partner;
+    void PlayDifferentIdle()
+    {
+        switch (subState)
+        {
+            case OrangeSubStates.WALK:
+                walkTimer += Time.deltaTime;
+                if (walkTimer >= timeSpentWalking)
+                {
+                    EndWalk();
+                    walkTimer = 0;
+                }
+                _directionOfPartner = (destinationPoint.transform.position - transform.position).normalized;
+                _directionOfPartner.y = 0;
+                _model.rotation = Quaternion.Slerp(_model.rotation,
+                                Quaternion.LookRotation(_directionOfPartner, _gravObject.characterOrientation.up),
+                                spottedParam);
+                spottedParam += Time.deltaTime;
+                if (_gravObject.GetMoveVelocity().magnitude < chargeSpeed)
+                {
+                    GetComponent<Rigidbody>().AddForce(_directionOfPartner * 4);
+                }
+                
+                break;
+            case OrangeSubStates.TALK:
+                if (partner != null)
+                {
+                    _directionOfPartner = (partner.transform.position - transform.position).normalized;
+
+                    _model.rotation = Quaternion.Slerp(_model.rotation,
+                                    Quaternion.LookRotation(_directionOfPartner, _gravObject.characterOrientation.up),
+                                    spottedParam);
+                    spottedParam += Time.deltaTime;
+                }
+                break;
+            case OrangeSubStates.SLEEP:
+                break;
+            case OrangeSubStates.SWAY:
+                break;
         }
     }
 
     void UpdateAnimState()
     {
         if (orangeEnemyAnimator == null) { return; }
+
         if (_state == OrangeState.IDLE)
         {
-            orangeEnemyAnimator.Play("Base Layer.OE_Idle");
+            //orangeEnemyAnimator.Play("Base Layer.OE_Idle");
+            switch (subState)
+            {
+                case OrangeSubStates.WALK:
+                    orangeEnemyAnimator.Play("Base Layer.OE_Move_Start");
+                    break;
+                case OrangeSubStates.TALK:
+                    if (partner != null) {
+                        orangeEnemyAnimator.Play("Base Layer.OE_Talk_Wave");
+                    }
+                    else
+                    {
+                        orangeEnemyAnimator.Play("Base Layer.OE_Idle_Dance");
+                    }
+                    break;
+                case OrangeSubStates.SLEEP:
+                    orangeEnemyAnimator.Play("Base Layer.OE_Idle_Laying_Start");
+                    break;
+                case OrangeSubStates.SWAY:
+                    orangeEnemyAnimator.Play("Base Layer.OE_Idle_Dance");
+                    break;
+            }
         }
         if (_state == OrangeState.PLAYER_SPOTTED)
         {
@@ -187,12 +275,6 @@ public class OrangeEnemyController : EnemyController
         if (_state == OrangeState.REV_UP)
         {
             orangeEnemyAnimator.Play("Base Layer.OE_Rev_Up"); // CHANGE
-        }
-        if (_state == OrangeState.ROAM)
-        {
-        }
-        if (_state == OrangeState.SLOW_DOWN)
-        {
         }
         if (_state == OrangeState.THROWN)
         {
@@ -228,6 +310,14 @@ public class OrangeEnemyController : EnemyController
         //UpdateState(OrangeState.DIZZY);
     }
 
+    int rand;
+    void EndWalk()
+    {
+        rand = UnityEngine.Random.Range(0,destinationPoints.Length);
+        destinationPoint = destinationPoints[rand];
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
     void EndDizzy()
     {
         if (_state != OrangeState.DIZZY) { return; }
@@ -255,11 +345,6 @@ public class OrangeEnemyController : EnemyController
                 SoundManager.Instance().PlaySFX("OrangeHitWall");
                 UpdateState(OrangeState.DIZZY);
             }
-            else if (collision.gameObject.tag == "Player" && _state == OrangeState.CHARGE)
-            {
-                collision.gameObject.GetComponentInParent<PlayerController>().Damage(1, (collision.gameObject.transform.position - transform.position).normalized * knockbackForce);
-                StartCoroutine("ChangeCollisionInteraction", collision.collider);
-            }
 /*            else if (collision.gameObject.GetComponent<Obstacle>() != null && _state == OrangeState.DIZZY)
             {
                 StartCoroutine("ChangeCollisionInteraction", collision.collider);
@@ -276,14 +361,17 @@ public class OrangeEnemyController : EnemyController
         {
             StartCoroutine("ChangeCollisionInteraction", collision.collider);
         }
+        else if (collision.gameObject.tag == "Player" && _state == OrangeState.CHARGE)
+        {
+            collision.gameObject.GetComponentInParent<Health>().Damage(1, knockbackForce * ((transform.position - collision.gameObject.transform.position).normalized + Vector3.up));
+            StartCoroutine("ChangeCollisionInteraction", collision.collider);
+        }
     }
     private IEnumerator ChangeCollisionInteraction(Collider collider)
     {
         Physics.IgnoreCollision(body.GetComponent<Collider>(), collider, true);
-        Physics.IgnoreCollision(feet.GetComponent<Collider>(), collider, true);
         yield return new WaitForSeconds(0.5f);
         Physics.IgnoreCollision(body.GetComponent<Collider>(), collider, false);
-        Physics.IgnoreCollision(feet.GetComponent<Collider>(), collider, false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -304,6 +392,35 @@ public class OrangeEnemyController : EnemyController
         }
     }
 
+    Vector3 distance;
+    float sqrDistance;
+    private void OnTriggerStay(Collider other)
+    {
+        if (partner == null && other.gameObject.CompareTag("Enemy"))
+        {
+            distance = other.transform.position - transform.position;
+            sqrDistance = distance.sqrMagnitude;
+
+            if (sqrDistance <= _distanceFromPartner)
+            {
+                partner = other.gameObject;
+                UpdateAnimState();
+            }
+        }
+        else if (partner != null && other.gameObject == partner)
+        {
+            distance = other.transform.position - transform.position;
+            sqrDistance = distance.sqrMagnitude;
+
+            if (sqrDistance > _distanceFromPartner)
+            {
+                partner = null;
+                UpdateAnimState();
+            }
+        }
+    }
+
+
     private void OnTriggerExit(Collider other)
     {
         if (other != null && other.gameObject != null)
@@ -312,6 +429,10 @@ public class OrangeEnemyController : EnemyController
             {
                 playerInView = false;
             }
+/*            else if (other.gameObject.tag == "Enemy")
+            {
+                partner = null;
+            }*/
         }
     }
 }

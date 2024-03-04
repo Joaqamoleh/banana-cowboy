@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(GravityObject))]
-public class PlayerController : MonoBehaviour
+public class OldPlayerController : MonoBehaviour
 {
+    /*
     [Header("Debug")]
 
 
@@ -36,9 +37,9 @@ public class PlayerController : MonoBehaviour
     public float accelerationRate = (50f * 0.5f) / 8.0f;  // The rate of speed increase
     [Tooltip("The rate of speed decrease when slowing the player down to no movement input")]
     public float deccelerationRate = (50f * 0.5f) / 8.0f; // The rate of speed decrease (when no input is pressed)
-    [Range(0.0f, 1.0f),Tooltip("The ratio for the player to control the player while in the air relative to ground movement. Scale [0, 1.0]. 0.5 means 50% the effective acceleration in the air relative to the ground.")]
+    [Range(0.0f, 1.0f), Tooltip("The ratio for the player to control the player while in the air relative to ground movement. Scale [0, 1.0]. 0.5 means 50% the effective acceleration in the air relative to the ground.")]
     public float accelAirControlRatio = 0.8f;       // The ability for the player to re-orient themselves in the air while accelerating
-    [Range(0.0f, 1.0f),Tooltip("The ratio for the player to control the player while in the air relative to ground movement, same as Accel Air Control Ratio, but how much is lost when the player is slowing down in the air.")]
+    [Range(0.0f, 1.0f), Tooltip("The ratio for the player to control the player while in the air relative to ground movement, same as Accel Air Control Ratio, but how much is lost when the player is slowing down in the air.")]
     public float deccelAirControlRatio = 0.8f;      // The ability for the player to move themselves while in the air and deccelerating (range [0.0,1.0])
     public float jumpImpulseForce = 10.0f;
     [Tooltip("Determines how much the force of gravity is increased when the jump key is released.")]
@@ -54,9 +55,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 _moveInput;
     private float _lastTimeOnGround = 0.0f;
     private bool _isRunning = false;
-    
+
     // This tracks the velocity of the player's lateral movement at the time of jumping so we restore it when landing
-    private Vector3 _jumpMoveVelocity; 
+    private Vector3 _jumpMoveVelocity;
     private bool _detectLanding = false;
 
     [Header("Lasso Throw")]
@@ -161,7 +162,7 @@ public class PlayerController : MonoBehaviour
         HOLD,
         TOSS,
     };
-    
+
 
     private PlayerState _state = PlayerState.AIR;
 
@@ -226,8 +227,8 @@ public class PlayerController : MonoBehaviour
         //_lassoThrowCooldown = SoundManager.S_Instance().GetSound("LassoThrow").src.clip.length;
         _lassoThrowCooldown = 0.5f;
 
-/*        StartCoroutine(SetSpawnPos());
-*/
+        //        StartCoroutine(SetSpawnPos());
+        
         health = maxHealth;
         _canTakeDamage = true;
         playerUI.SetAbsHealth(health);
@@ -236,10 +237,10 @@ public class PlayerController : MonoBehaviour
     {
         // Later, we will need to ignore input to the player controller
         // when in the UI or when in cutscenes
-        
+
         if (!PauseManager.pauseActive && !_disableForCutscene)
         {
-            switch(_state)
+            switch (_state)
             {
                 case PlayerState.THROW_LASSO:
                     GetThrowLassoInput();
@@ -271,10 +272,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        switch(_state)
+        switch (_state)
         {
             case PlayerState.GRAPPLE:
-                Grapple(); 
+                Grapple();
                 break;
             case PlayerState.SWING:
                 Swing();
@@ -380,7 +381,7 @@ public class PlayerController : MonoBehaviour
             playerAnimator.speed = 1.5f;
             print("TOSSSSSS");
         }
-        
+
     }
 
     void UpdateMoveHoldAnim()
@@ -433,7 +434,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(sprintKey))
         {
             _isRunning = true;
-        } 
+        }
         else if (Input.GetKeyUp(sprintKey))
         {
             _isRunning = false;
@@ -464,7 +465,7 @@ public class PlayerController : MonoBehaviour
             if (_moveInput == Vector3.zero)
             {
                 UpdateState(PlayerState.IDLE);
-            } 
+            }
             else if (_isRunning)
             {
                 // Important to note, checking isRunning only works here b/c we first check that _moveInput is non-zero
@@ -476,14 +477,14 @@ public class PlayerController : MonoBehaviour
             {
                 UpdateState(PlayerState.WALK);
             }
-        } 
+        }
         else if (_lastTimeOnGround <= 0)
         {
             // We are no longer on the ground, change state to air
             UpdateState(PlayerState.AIR);
         }
 #if !UNITY_IOS && !UNITY_ANDROID
-        if (Input.GetKeyDown(jumpKey)) 
+        if (Input.GetKeyDown(jumpKey))
         {
             // Last time on ground acts as a coyote timer for jumping
             _jumpBufferTimer = _jumpBuffer;
@@ -492,16 +493,16 @@ public class PlayerController : MonoBehaviour
             {
                 StartJump();
             }
-/*            else if (false)
-            {
-                // this is here for jump buffering
-            }*/
+                        //else if (false)
+                        //{
+                        //    // this is here for jump buffering
+                        //}
 
-        } 
-/*        else if (false)
-        {
-            // Again, this is here for jump buffering
-        }*/
+        }
+        //        else if (false)
+                //{
+                //    // Again, this is here for jump buffering
+                //}
         else if (Input.GetKeyUp(jumpKey))
         {
             EndJump();
@@ -570,7 +571,7 @@ public class PlayerController : MonoBehaviour
 
     public void RunMobile()
     {
-        _isRunning = _isRunning ? false: true;
+        _isRunning = _isRunning ? false : true;
         if (_isRunning)
         {
             GameObject.Find("Run").GetComponent<UnityEngine.UI.Image>().color = Color.red;
@@ -581,16 +582,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /**
-     * Code for running momentum used from https://github.com/DawnosaurDev/platformer-movement/blob/main/Scripts/Run%20Only/PlayerRun.cs#L79
-     */
+    
+     // Code for running momentum used from https://github.com/DawnosaurDev/platformer-movement/blob/main/Scripts/Run%20Only/PlayerRun.cs#L79
+     
     void Run()
     {
         // Transform the move input relative to the camera
         _moveInput = _cameraTransform.TransformDirection(_moveInput);
         // Transform the move input relative to the player
-        _moveInput = 
-            Vector3.Dot(_gravityObject.gravityOrientation.right, _moveInput) * _gravityObject.gravityOrientation.right 
+        _moveInput =
+            Vector3.Dot(_gravityObject.gravityOrientation.right, _moveInput) * _gravityObject.gravityOrientation.right
             + Vector3.Dot(_gravityObject.gravityOrientation.forward, _moveInput) * _gravityObject.gravityOrientation.forward;
         Vector3 targetVelocity = _moveInput.normalized * (_state == PlayerState.RUN ? runSpeed : walkSpeed);
 
@@ -621,7 +622,7 @@ public class PlayerController : MonoBehaviour
             _rigidBody.AddForce(movement);
             Debug.DrawRay(transform.position, targetVelocity, Color.blue);
             Debug.DrawRay(transform.position, movement, Color.magenta);
-        } 
+        }
         else
         {
             _rigidBody.velocity = Vector3.zero + _gravityObject.GetFallingVelocity();
@@ -640,7 +641,7 @@ public class PlayerController : MonoBehaviour
         // Do a simple raycast from the camera out forward where the camera is looking
         RaycastHit hit;
         if (Physics.SphereCast(_cameraTransform.position, _cameraRaycastRadius, _cameraTransform.forward,
-            out hit, lassoAimRange + Vector3.Distance(_cameraTransform.position, transform.position), 
+            out hit, lassoAimRange + Vector3.Distance(_cameraTransform.position, transform.position),
             lassoLayerMask, QueryTriggerInteraction.Ignore) &&
             hit.collider != null && hit.collider.gameObject != null &&
             hit.collider.gameObject.GetComponentInParent<LassoObject>() != null &&
@@ -668,7 +669,7 @@ public class PlayerController : MonoBehaviour
                 float raycastRadius = _aimAssistMinRadius + deltaRadius * i;
                 RaycastHit raycastHit;
                 if (Physics.SphereCast(_cameraTransform.position, raycastRadius, _cameraTransform.forward,
-                    out raycastHit, lassoAimRange + Vector3.Distance(_cameraTransform.position, transform.position), 
+                    out raycastHit, lassoAimRange + Vector3.Distance(_cameraTransform.position, transform.position),
                     lassoLayerMask, QueryTriggerInteraction.Ignore) &&
                     raycastHit.collider != null && raycastHit.collider.gameObject != null &&
                     raycastHit.collider.gameObject.GetComponentInParent<LassoObject>() != null &&
@@ -763,7 +764,7 @@ public class PlayerController : MonoBehaviour
             if (_hitLassoTarget == HitLassoTarget.SWINGABLE)
             {
                 Invoke("StartSwing", lassoTimeToHit);
-            } 
+            }
             else if (_hitLassoTarget == HitLassoTarget.ENEMY)
             {
                 Invoke("StartPull", lassoTimeToHit);
@@ -801,7 +802,8 @@ public class PlayerController : MonoBehaviour
 
 #if !UNITY_IOS && !UNITY_ANDROID
         // Cancel on lift lmb
-        if (Input.GetKeyUp(lassoKey)) {
+        if (Input.GetKeyUp(lassoKey))
+        {
             CancelLasso();
         }
 #endif
@@ -822,7 +824,7 @@ public class PlayerController : MonoBehaviour
 
     void DrawLasso()
     {
-        switch(_state)
+        switch (_state)
         {
             case PlayerState.GRAPPLE:
                 _lassoRenderer.RenderSwing(_lassoHitObjectTransform); // Might make a RenderGrapple later
@@ -933,7 +935,7 @@ public class PlayerController : MonoBehaviour
         if (_gravityObject.IsInSpace())
         {
             model.rotation = Quaternion.Slerp(model.rotation, Quaternion.FromToRotation(model.up, _cameraTransform.up) * model.rotation, Time.deltaTime * 8);
-        } 
+        }
         else
         {
             if (_moveInput.magnitude > 0 && model != null)
@@ -983,9 +985,10 @@ public class PlayerController : MonoBehaviour
         _moveInput = new Vector3(horizontal, 0, vertical).normalized; // Re-using _moveInput, cause why not
 
 #if !UNITY_IOS && !UNITY_ANDROID
-        if (Input.GetKeyUp(lassoKey)) {
+        if (Input.GetKeyUp(lassoKey))
+        {
             _lassoSelectedObject.currentlyLassoed = false;
-            EndSwing(); 
+            EndSwing();
         }
 #endif
 
@@ -1048,7 +1051,7 @@ public class PlayerController : MonoBehaviour
     {
         // Display UI rectangle for variable throw range
         _accumHoldTime += Time.deltaTime;
-        _lassoHitObjectRigidBody.transform.position = transform.position 
+        _lassoHitObjectRigidBody.transform.position = transform.position
             + _gravityObject.gravityOrientation.right * Mathf.Cos(_accumHoldTime * holdSwingSpeed) * holdSwingRadius
             + _gravityObject.gravityOrientation.forward * Mathf.Sin(_accumHoldTime * holdSwingSpeed) * holdSwingRadius
             + _gravityObject.gravityOrientation.up * holdHeight;
@@ -1088,7 +1091,7 @@ public class PlayerController : MonoBehaviour
 
 
         float forceMult = 0.4f;
-        switch(strength)
+        switch (strength)
         {
             case ThrowStrength.WEAK:
                 if (SoundManager.Instance() != null)
@@ -1101,14 +1104,14 @@ public class PlayerController : MonoBehaviour
                 {
                     SoundManager.Instance().PlaySFX("SwingGood");
                 }
-                forceMult = 0.7f; 
+                forceMult = 0.7f;
                 break;
             case ThrowStrength.STRONG:
                 if (SoundManager.Instance() != null)
                 {
                     SoundManager.Instance().PlaySFX("SwingGreat");
                 }
-                forceMult = 1.0f; 
+                forceMult = 1.0f;
                 break;
         }
 
@@ -1127,7 +1130,7 @@ public class PlayerController : MonoBehaviour
 
     void EndToss()
     {
-        
+
         UpdateState(PlayerState.IDLE);
 
         playerUI.HideThrowBar();
@@ -1304,7 +1307,7 @@ public class LassoRenderer
 
         for (int i = 0; i < lassoLoopSegments; i++)
         {
-            float theta = ((float) i /  (float) lassoLoopSegments) * Mathf.PI * 2;
+            float theta = ((float)i / (float)lassoLoopSegments) * Mathf.PI * 2;
             Vector3 pos = lassoCenterPos
                 + Mathf.Cos(theta) * -lassoRadius * (_accumThrowTime / _timeToHitTarget) * _forward
                 + Mathf.Sin(theta) * lassoRadius * (_accumThrowTime / _timeToHitTarget) * _right
@@ -1315,8 +1318,8 @@ public class LassoRenderer
             if (i + 1 == lassoLoopSegments || i == 0)
             {
                 // To ensure a loop is complete
-                pos = lassoCenterPos 
-                    + Mathf.Cos(0) * -lassoRadius * _forward 
+                pos = lassoCenterPos
+                    + Mathf.Cos(0) * -lassoRadius * _forward
                     + Mathf.Sin(0) * lassoRadius * _right;
             }
             lineRenderer.SetPosition(i + lassoRopeSegments, pos);
@@ -1329,11 +1332,11 @@ public class LassoRenderer
         if (num == 0.0f)
         {
             return 0.0f;
-        } 
+        }
         else if (num == 1.0f)
         {
             return 1.0f;
-        } 
+        }
         else
         {
             return Mathf.Pow(2, -10 * num) * Mathf.Sin((num * 10 - 0.75f) * constant) + 1;
@@ -1350,7 +1353,7 @@ public class LassoRenderer
         else if (num == 1.0f)
         {
             return 1.0f;
-        } 
+        }
         else
         {
             return -Mathf.Pow(2, 10 * num - 10) * Mathf.Sin((num * 10 - 10.75f) * constant);
@@ -1374,7 +1377,7 @@ public class LassoRenderer
         // Render the lasso rope
         for (int i = 0; i < lassoRopeSegments; i++)
         {
-            float percentageAlongRope = ((float) i / (float) lassoRopeSegments);
+            float percentageAlongRope = ((float)i / (float)lassoRopeSegments);
             Vector3 pos = percentageAlongRope * length * dir + _start.position;
             lineRenderer.SetPosition(i, pos);
         }
@@ -1416,11 +1419,11 @@ public class LassoRenderer
         {
             float percentageAlongRope = ((float)i / (float)lassoRopeSegments);
             Vector3 pos = percentageAlongRope * length * dir + _start.position;
-                //+ right * EaseInElastic(percentageAlongRope) * 5.0f * Mathf.Sin(_accumHoldTime);
+            //+ right * EaseInElastic(percentageAlongRope) * 5.0f * Mathf.Sin(_accumHoldTime);
             lineRenderer.SetPosition(i, pos);
         }
 
-        
+
         _accumHoldTime += Time.deltaTime;
     }
 
@@ -1457,7 +1460,7 @@ public class LassoRenderer
             else
             {
                 // An Estimation since we didn't hit the mesh
-                pos = center 
+                pos = center
                     + Mathf.Cos(theta) * wrapMult * forward
                     + Mathf.Sin(theta) * wrapMult * right;
             }
@@ -1474,4 +1477,5 @@ public class LassoRenderer
     {
         lineRenderer.positionCount = 0;
     }
+    */
 }

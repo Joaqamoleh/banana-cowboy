@@ -7,37 +7,96 @@ using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject pauseMenu;
-    public GameObject settingScreen;
-    public GameObject confirmationScreen;
+    [SerializeField]
+    GameObject pauseScreen, defaultMenu, settingsMenu, confirmationMenu;
+
+    public enum PauseMenus
+    {
+        NONE,
+        DEAFULT,
+        SETTINGS,
+        CONFIRMATION,
+    }
+    private PauseMenus activeMenu, previouslyActive;
+
+
     public static bool pauseActive;
 
-    public Slider musicSlider = null;
-    public Slider sfxSlider = null;
+    public static float mouseSliderPercent = 0.5f, scrollSliderPercent = 0.5f;
+
+    [SerializeField]
+    public Slider musicSlider = null, sfxSlider = null, mouseSensitivitySlider = null, scrollSensitivitySlider;
+    PlayerCameraController camController;
 
     private void Start()
     {
         if (musicSlider != null)
         {
             musicSlider.value = SoundManager.Instance().MusicVolume;
-            musicSlider.onValueChanged.AddListener(delegate { MusicValueChanged(); });
+            musicSlider.onValueChanged.AddListener(delegate { OnMusicValueChanged(); });
         }
 
         if (sfxSlider != null)
         {
             sfxSlider.value = SoundManager.Instance().SFXVolume;
-            sfxSlider.onValueChanged.AddListener(delegate { SFXValueChanged(); });
+            sfxSlider.onValueChanged.AddListener(delegate { OnSFXValueChanged(); });
+        }
+
+        if (mouseSensitivitySlider != null)
+        {
+            mouseSensitivitySlider.value = mouseSliderPercent;
+            mouseSensitivitySlider.onValueChanged.AddListener(delegate { OnMouseSensitivityChanged(); });
+        }
+
+        if (scrollSensitivitySlider != null)
+        {
+            scrollSensitivitySlider.value = scrollSliderPercent;
+            scrollSensitivitySlider.onValueChanged.AddListener(delegate { OnScrollSensitivityChanged(); });
+        }
+
+        camController = FindAnyObjectByType<PlayerCameraController>();
+        if (camController != null)
+        {
+            camController.orbitSensitivity = mouseSliderPercent *
+                (PlayerCameraController.orbitSensitivityMax - PlayerCameraController.orbitSensitivityMin)
+                + PlayerCameraController.orbitSensitivityMin;
+
+            camController.orbitZoomSensitivity = scrollSliderPercent *
+                (PlayerCameraController.orbitZoomSensitivityMax - PlayerCameraController.orbitZoomSensitivityMin)
+                + PlayerCameraController.orbitZoomSensitivityMin;
         }
     }
 
-    public void MusicValueChanged()
+    public void OnMusicValueChanged()
     {
         SoundManager.Instance().MusicVolume = musicSlider.value;
     }
 
-    public void SFXValueChanged()
+    public void OnSFXValueChanged()
     {
         SoundManager.Instance().SFXVolume = sfxSlider.value;
+    }
+
+    public void OnMouseSensitivityChanged()
+    {
+        mouseSliderPercent = mouseSensitivitySlider.value;
+        if (camController != null)
+        {
+            camController.orbitSensitivity = mouseSliderPercent * 
+                (PlayerCameraController.orbitSensitivityMax - PlayerCameraController.orbitSensitivityMin) 
+                + PlayerCameraController.orbitSensitivityMin;
+        }
+    }
+
+    public void OnScrollSensitivityChanged()
+    {
+        scrollSliderPercent = scrollSensitivitySlider.value;
+        if (camController != null)
+        {
+            camController.orbitZoomSensitivity = scrollSliderPercent * 
+                (PlayerCameraController.orbitZoomSensitivityMax - PlayerCameraController.orbitZoomSensitivityMin) 
+                + PlayerCameraController.orbitZoomSensitivityMin;
+        }
     }
 
     // Update is called once per frame
@@ -45,7 +104,7 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (pauseMenu.activeSelf)
+            if (pauseScreen.activeSelf)
             {
                 ResumeGame();
             }
@@ -58,65 +117,124 @@ public class PauseManager : MonoBehaviour
 
     public void PauseGame()
     {
-        pauseMenu.SetActive(true);
+        pauseScreen.SetActive(true);
+        SetActiveMenu(PauseMenus.DEAFULT);
+
         pauseActive = true;
         Time.timeScale = 0f;
-        PlayerCameraController.ShowCursor();
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
     }
 
     public void ResumeGame()
     {
-        pauseMenu.SetActive(false);
-        settingScreen.SetActive(false);
+        pauseScreen.SetActive(false);
+        SetActiveMenu(PauseMenus.NONE);
+
         pauseActive = false;
         Time.timeScale = 1.0f;
-        PlayerCameraController.HideCursor();
+        PlayerCursor.GoBackToPreviousCursorType();
     }
 
-    public void ChangeScreen(Button button)
+    public void SetActiveMenu(PauseMenus menu)
     {
-        switch (button.name)
+        previouslyActive = activeMenu;
+        activeMenu = menu;
+        defaultMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        confirmationMenu.SetActive(false);
+        switch(menu)
         {
-            case "Continue":
-                pauseMenu.SetActive(false);
-                pauseActive = false;
-                Time.timeScale = 1.0f;
-                PlayerCameraController.HideCursor();
+            case PauseMenus.DEAFULT:
+                defaultMenu.SetActive(true);
                 break;
-            case "Checkpoint Restart":
-                pauseActive = false;
-                Time.timeScale = 1.0f;
-                SoundManager.Instance().StopAllSFX();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            case PauseMenus.SETTINGS:
+                settingsMenu.SetActive(true);
                 break;
-            case "Settings":
-                settingScreen.SetActive(true);
+            case PauseMenus.CONFIRMATION:
+                confirmationMenu.SetActive(true);
                 break;
-            case "Back":
-            case "Cancel":
-                settingScreen.SetActive(false);
-                confirmationScreen.SetActive(false);
-                break;
-            case "Restart":
-                pauseActive = false;
-                LevelData.resetLevelData();
-                SoundManager.Instance().StopAllSFX();
-                Time.timeScale = 1.0f;
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                break;
-            case "Quit":
-                confirmationScreen.SetActive(true);
-                break;
-            case "Confirm":
-                pauseActive = false;
-                LevelData.resetLevelData();
-                SoundManager.Instance().StopAllSFX();
-                SoundManager.Instance().StopAllMusic();
-                SoundManager.Instance().PlayMusic("Menu Music");
-                Time.timeScale = 1.0f;
-                SceneManager.LoadScene(0);
+            default:
+            case PauseMenus.NONE:
                 break;
         }
     }
+
+    public void SetToLastActiveMenu()
+    {
+        SetActiveMenu(previouslyActive);
+    }
+
+    public void OnSettingsPressed()
+    {
+        SetActiveMenu(PauseMenus.SETTINGS);
+    }
+
+    public void OnBackPressed()
+    {
+        SetActiveMenu(PauseMenus.DEAFULT);
+    }
+
+    public void OnQuitPressed()
+    {
+        SetActiveMenu(PauseMenus.CONFIRMATION);
+    }
+
+    public void OnCheckpointRestartPressed()
+    {
+        ResumeGame();
+        LevelData.ResetCheckpointData();
+        SoundManager.Instance().StopAllSFX();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OnRestartLevelPressed()
+    {
+        LevelData.ResetLevelData();
+        OnCheckpointRestartPressed();
+    }
+
+    public void OnConfirmQuitPressed()
+    {
+        pauseActive = false;
+        Time.timeScale = 1.0f;
+        LevelData.ResetLevelData();
+        SoundManager.Instance().StopAllSFX();
+        SoundManager.Instance().StopAllMusic();
+        SoundManager.Instance().PlayMusic("Menu Music");
+        SceneManager.LoadScene(0);
+    }
+
+    //public void ChangeScreen(Button button)
+    //{
+    //    switch (button.name)
+    //    {
+    //        case "Continue":
+    //            ResumeGame();
+    //            break;
+    //        case "Checkpoint Restart":
+    //            pauseActive = false;
+    //            Time.timeScale = 1.0f;
+    //            break;
+    //        case "Settings":
+    //            settingScreen.SetActive(true);
+    //            break;
+    //        case "Back":
+    //        case "Cancel":
+    //            settingScreen.SetActive(false);
+    //            confirmationScreen.SetActive(false);
+    //            break;
+    //        case "Restart":
+    //            pauseActive = false;
+    //            Time.timeScale = 1.0f;
+    //            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //            break;
+    //        case "Quit":
+    //            confirmationScreen.SetActive(true);
+    //            break;
+    //        case "Confirm":
+
+    //            break;
+    //    }
+    //}
 
 }
