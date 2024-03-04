@@ -18,7 +18,6 @@ public class CherryBombExplosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.name);
         if (other.CompareTag("Boss"))
         {
             // Will fix to handle more bosses (for orange, handle weak spots too)

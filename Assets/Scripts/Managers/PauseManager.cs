@@ -182,13 +182,14 @@ public class PauseManager : MonoBehaviour
     public void OnCheckpointRestartPressed()
     {
         ResumeGame();
+        LevelData.ResetCheckpointData();
         SoundManager.Instance().StopAllSFX();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OnRestartLevelPressed()
     {
-        LevelData.resetLevelData();
+        LevelData.ResetLevelData();
         OnCheckpointRestartPressed();
     }
 
@@ -196,7 +197,7 @@ public class PauseManager : MonoBehaviour
     {
         pauseActive = false;
         Time.timeScale = 1.0f;
-        LevelData.resetLevelData();
+        LevelData.ResetLevelData();
         SoundManager.Instance().StopAllSFX();
         SoundManager.Instance().StopAllMusic();
         SoundManager.Instance().PlayMusic("Menu Music");

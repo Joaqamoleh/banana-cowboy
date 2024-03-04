@@ -345,11 +345,6 @@ public class OrangeEnemyController : EnemyController
                 SoundManager.Instance().PlaySFX("OrangeHitWall");
                 UpdateState(OrangeState.DIZZY);
             }
-            else if (collision.gameObject.tag == "Player" && _state == OrangeState.CHARGE)
-            {
-                collision.gameObject.GetComponentInParent<Health>().Damage(1, knockbackForce * ((transform.position - collision.gameObject.transform.position).normalized + Vector3.up));
-                StartCoroutine("ChangeCollisionInteraction", collision.collider);
-            }
 /*            else if (collision.gameObject.GetComponent<Obstacle>() != null && _state == OrangeState.DIZZY)
             {
                 StartCoroutine("ChangeCollisionInteraction", collision.collider);
@@ -366,6 +361,11 @@ public class OrangeEnemyController : EnemyController
         {
             StartCoroutine("ChangeCollisionInteraction", collision.collider);
         }
+        else if (collision.gameObject.tag == "Player" && _state == OrangeState.CHARGE)
+        {
+            collision.gameObject.GetComponentInParent<Health>().Damage(1, knockbackForce * ((transform.position - collision.gameObject.transform.position).normalized + Vector3.up));
+            StartCoroutine("ChangeCollisionInteraction", collision.collider);
+        }
     }
     private IEnumerator ChangeCollisionInteraction(Collider collider)
     {
@@ -376,7 +376,6 @@ public class OrangeEnemyController : EnemyController
 
     private void OnTriggerEnter(Collider other)
     {
-        //print(other.name);
         if (other != null && other.gameObject != null)
         {
             if (other.gameObject.tag == "Player")

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ public class UIManager : MonoBehaviour
 
     Vector3 indicatorStartingPos;
 
+    public TMP_Text starSparkles;
+
     private void Awake()
     {
         instance = this;
@@ -32,32 +35,47 @@ public class UIManager : MonoBehaviour
         {
             indicatorStartingPos = throwBarIndicator.localPosition;
         }
+        UpdateStars();
+    }
+    public static void UpdateStars()
+    {
+        instance.starSparkles.text = "X " + (LevelData.starSparkleTotal + LevelData.starSparkleCheckpoint + LevelData.starSparkleTemp);    
     }
 
-/*    public void ChangeHealth(int change)
-    {
-        int newHealth = Mathf.Clamp(_health + change, 0, 4);
-        if (newHealth != _health)
+    /*    public void ChangeHealth(int change)
         {
-            healthAnimator.SetTrigger("Damaged");
-            _health = newHealth;
-            SetAbsHealth(_health);
-        }
-    }*/
+            int newHealth = Mathf.Clamp(_health + change, 0, 4);
+            if (newHealth != _health)
+            {
+                healthAnimator.SetTrigger("Damaged");
+                _health = newHealth;
+                SetAbsHealth(_health);
+            }
+        }*/
 
-    public void SetHealthUI(int health)
+    public void SetHealthUI(int health, bool healed)
     {
         if (health >= 0 && health < 4)
         {
-            healthAnimator.SetTrigger("Damaged");
-            StartCoroutine(HealthIconTransition(health));
+            if (healed)
+            {
+
+            }
+            else
+            {
+                healthAnimator.SetTrigger("Damaged");
+            }
+            StartCoroutine(HealthIconTransition(health, healed));
         }
     }
 
-    IEnumerator HealthIconTransition(int health)
+    IEnumerator HealthIconTransition(int health, bool healed)
     {
-        healthSprite.GetComponent<Image>().sprite = healthBlinkSprites[health];
-        yield return new WaitForSeconds(0.5f);
+        if (!healed)
+        {
+            healthSprite.GetComponent<Image>().sprite = healthBlinkSprites[health];
+            yield return new WaitForSeconds(0.5f);
+        }
         healthSprite.GetComponent<Image>().sprite = healthSprites[health];
 
     }

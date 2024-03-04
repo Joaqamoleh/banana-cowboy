@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// PRE-ALPHA VERSION
-/* stores level checkpoint/default spawn locations and keeps track of
- *  the number of checkpoints reached. Can be used to store data that
- *  is PER LEVEL like stardust counts for the current level.
- */
 public class LevelData : MonoBehaviour
 {
 
     public GameObject[] checkpoints = null;
     public static LevelData instance;
+
+    public static int starSparkleTotal = 0;
+    public static int starSparkleCheckpoint = 0;
+    public static int starSparkleTemp = 0;
+
+    public static Dictionary<Vector3, bool> starSparkleObjectCheckpoint = new Dictionary<Vector3, bool>();
+    public static Dictionary<Vector3, bool> starSparkleObject= new Dictionary<Vector3, bool>();
+
 
     // set these manually
     /*    private static Vector3[] OrangeRespawnArray = new[] {
@@ -28,45 +31,58 @@ public class LevelData : MonoBehaviour
 
     private static int checkpointReached = 0; // stores latest checkpoint reached
 
-    // player related data
-    public static int starsparkleCount;
-
     private void Start()
     {
         instance = this;
     }
-    private void Update()
+
+    // resets temporary data. Do this when loading into a level or leaving a level.
+    public static void ResetLevelData()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        checkpointReached = 0;
+
+        starSparkleTemp = 0;
+        starSparkleCheckpoint = 0;
+        starSparkleObjectCheckpoint.Clear();
+        starSparkleObject.Clear();
+        UIManager.UpdateStars();
+    }
+
+    public static void ResetCheckpointData()
+    {
+        starSparkleTemp = 0;
+        UIManager.UpdateStars();
+        starSparkleObjectCheckpoint.Clear();
+        foreach (var item in starSparkleObject)
         {
-            checkpointReached++;
+            starSparkleObjectCheckpoint.Add(item.Key, item.Value);
         }
     }
 
-    // resets temporary data. Do this when loading into a level or leaving a level.
-    public static void resetLevelData()
+    public static void BeatLevel()
     {
-        checkpointReached = 0;
-    }
-
-    // specifically for when loading to a checkpoint. This is so the player
-    // cant farm star sparkles by dying over and over again.
-    // TODO - Implemnent this when star sparkles are moved from game jam build
-    public static void resetSparkles()
-    {
-        starsparkleCount = 0;
+        starSparkleTotal += starSparkleCheckpoint;
+        starSparkleObjectCheckpoint.Clear();
+        starSparkleObject.Clear();
+        UIManager.UpdateStars();
     }
 
     // get respawn position for player based on last checkpoint reached.
     // TODO - works for the base level rn, expand to other levels as they are made
-    public static Vector3 getRespawnPos()
+    public static Vector3 GetRespawnPos()
     {
         Debug.Log("GIVING RESPAWN POSITION TO PLAYER CONTROLLER: "+ checkpointReached);
         return instance.checkpoints[checkpointReached].transform.position;
     }
 
-    public static void setCheckpoint(int c)
+    public static void SetCheckpoint(int c)
     {
+        starSparkleCheckpoint = starSparkleTemp;
+        foreach (var item in starSparkleObjectCheckpoint)
+        {
+            starSparkleObject.Add(item.Key, item.Value);
+        }
+        starSparkleTemp = 0;
         /* prevent player from setting themselves back
          * by only storing if they've found a "greater"
          * checkpoint. */

@@ -11,7 +11,7 @@ public class RespawnPoint : MonoBehaviour
         {
             Debug.Log("Set checkpoint " + checkpointNum + ".");
             // set game managers respawn coords to set coordinates
-            LevelData.setCheckpoint(checkpointNum);
+            LevelData.SetCheckpoint(checkpointNum);
         }
     }
 }
