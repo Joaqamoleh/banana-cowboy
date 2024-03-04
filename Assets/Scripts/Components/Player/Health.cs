@@ -30,6 +30,7 @@ public class Health : MonoBehaviour
             StartCoroutine(InvincibleFrames());
             health = Mathf.Clamp(health - damage, 0, 3);
             playerUI.SetHealthUI(health, false);
+            ScreenShakeManager.Instance.ShakeCamera(2, 3, 0.1f);
             if (health <= 0)
             {
                 // Death

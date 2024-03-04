@@ -77,6 +77,10 @@ public class OrangeEnemyController : EnemyController
         {
             destinationPoint = destinationPoints[0];
         }
+        else
+        {
+            subState = OrangeSubStates.SLEEP;
+        }
         UpdateAnimState();
         _distanceFromPartner = Mathf.Pow(_distanceFromPartner, 2);
     }

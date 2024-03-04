@@ -222,7 +222,14 @@ public class OrangeBoss : MonoBehaviour
         healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
         healthUI.fillAmount = health / (1.0f * maxHealth);
         StartCoroutine(FlashDamage());
-
+        if (dmg == 1)
+        {
+            ScreenShakeManager.Instance.ShakeCamera(2, 1, 0.1f);
+        }
+        else
+        {
+            ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
+        }
         if (health == 0)
         {
             print("BOSS DEFEATED");
