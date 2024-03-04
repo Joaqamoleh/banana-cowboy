@@ -37,6 +37,15 @@ public class UIManager : MonoBehaviour
         }
         UpdateStars();
     }
+
+    private void Start()
+    {
+        if (CutsceneManager.Instance() != null)
+        {
+            CutsceneManager.Instance().OnCutsceneStart += HideUIForCutscene;
+            CutsceneManager.Instance().OnCutsceneEnd += ShowUIPostCutscene;
+        }
+    }
     public static void UpdateStars()
     {
         instance.starSparkles.text = "X " + (LevelData.starSparkleTotal + LevelData.starSparkleCheckpoint + LevelData.starSparkleTemp);    
@@ -164,12 +173,12 @@ public class UIManager : MonoBehaviour
         return LassoTossable.TossStrength.WEAK;
     }
     
-    public void HideUIForCutscene()
+    void HideUIForCutscene(CutsceneObject s)
     {
         hudElementsCanvas.gameObject.SetActive(false);
     }
 
-    public void ShowUIPostCutscene()
+    void ShowUIPostCutscene(CutsceneObject s)
     {
         hudElementsCanvas.gameObject.SetActive(true);
     }
