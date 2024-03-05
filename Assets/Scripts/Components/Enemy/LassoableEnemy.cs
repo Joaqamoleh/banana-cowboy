@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class LassoableEnemy : LassoTossable
 {
@@ -77,7 +78,8 @@ public class LassoableEnemy : LassoTossable
                 if (item1 != null)
                 {
                     print("Item 1 dropped");
-                    Instantiate(item1, transform.position, Quaternion.identity);
+                    GameObject item = Instantiate(item1, transform.position, Quaternion.identity);
+                    item.GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
                 }
             }
             else
@@ -85,7 +87,8 @@ public class LassoableEnemy : LassoTossable
                 print("Item 2 dropped");
                 if (item2 != null)
                 {
-                    Instantiate(item2, transform.position, Quaternion.identity);
+                    GameObject item = Instantiate(item2, transform.position, Quaternion.identity);
+                    item.GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
                 }
             }
         }

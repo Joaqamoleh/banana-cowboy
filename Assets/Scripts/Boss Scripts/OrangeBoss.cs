@@ -55,7 +55,7 @@ public class OrangeBoss : MonoBehaviour
         //
 
         //state = BossStates.PEEL;
-
+        resetAnimations = new List<string>();
         health = maxHealth;
         currMove = 0;
 
@@ -173,6 +173,7 @@ public class OrangeBoss : MonoBehaviour
             */
             Vector3 spawnPosition = spawnPoints[i].transform.position;
             Instantiate(minions, spawnPosition, transform.rotation);
+            // TODO: Make substate random
         }
         cooldownTimer = spawnCooldown;
         state = BossStates.COOLDOWN;
@@ -182,49 +183,86 @@ public class OrangeBoss : MonoBehaviour
     {
         // add animation here
         indicating = true;
-        
+        for (int i = 0; i < reset.Length; i++)
+        {
+            if (!resetAnimations.Contains(reset[i]))
+            {
+                resetAnimations.Add(reset[i]);
+            }
+        }
         StartCoroutine(PeelSlamAnimation()); // want time between slices
-        StartCoroutine(PeelSlamCooldown());
         cooldownTimer = peelAnimationTime + peelCooldown;
         state = BossStates.COOLDOWN;
     }
 
+    int[] nums = { 0, 1, 2, 3 }; // doing this for shuffle
+    string[] triggerNames = { "LF Peel Attack", "LB Peel Attack", "RF Peel Attack", "RB Peel Attack" };
+    string[] layerNames = { "Left Front Slice", "Left Back Slice", "Right Front Slice", "Right Back Slice" };
+    List<string> resetAnimations;
+    string[] reset = { "LF Peel Reset", "LB Peel Reset", "RF Peel Reset", "RB Peel Reset" };
     IEnumerator PeelSlamAnimation()
     {
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Front Slice"), 1.0f);
-        modelAnimator.SetTrigger("LF Peel Attack");
-        print("LF");
-        yield return new WaitForSeconds(1.0f);
+        ShuffleArray(nums);
 
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Back Slice"), 1.0f);
-        modelAnimator.SetTrigger("LB Peel Attack");
-        print("LB");
-        yield return new WaitForSeconds(1.0f);
+        for (int i = 0; i < nums.Length; i++)
+        {
+            modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[i]]), 1.0f);
+            modelAnimator.SetTrigger(triggerNames[nums[i]]);
+            yield return new WaitForSeconds(3.0f);
+        }
+        /*       modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[0]]), 1.0f);
+               modelAnimator.SetTrigger(triggerNames[nums[0]]);
+               yield return new WaitForSeconds(3.0f);
 
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Front Slice"), 1.0f);
-        modelAnimator.SetTrigger("RF Peel Attack");
-        print("RF");
-        yield return new WaitForSeconds(1.0f);
+               modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[1]]), 1.0f);
+               modelAnimator.SetTrigger(triggerNames[nums[1]]);
+               yield return new WaitForSeconds(3.0f);
 
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Back Slice"), 1.0f);
-        modelAnimator.SetTrigger("RB Peel Attack");
-        print("RB");
-        yield return new WaitForSeconds(1.0f);
+               modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[2]]), 1.0f);
+               modelAnimator.SetTrigger(triggerNames[nums[2]]);
+               yield return new WaitForSeconds(3.0f);
+
+               modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[3]]), 1.0f);
+               modelAnimator.SetTrigger(triggerNames[nums[3]]);
+               yield return new WaitForSeconds(3.0f);*/
+        StartCoroutine(PeelSlamCooldown());
+    }
+
+    void ShuffleArray(int[] array)
+    {
+        int randomIndex;
+        int temp;
+        // Fisher-Yates shuffle algorithm
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            randomIndex = Random.Range(0, i + 1);
+            temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
     }
 
     IEnumerator PeelSlamCooldown()
     {
-        yield return new WaitForSeconds(peelAnimationTime + peelCooldown);
-        modelAnimator.SetTrigger("LF Peel Reset");
-        modelAnimator.SetTrigger("LB Peel Reset");
-        modelAnimator.SetTrigger("RF Peel Reset");
-        modelAnimator.SetTrigger("RB Peel Reset");
+        yield return new WaitForSeconds(peelCooldown); // TODO: Create a list then remove if player touches peel. If still in dictionary, loop and call reset.
+        foreach (string temp in resetAnimations)
+        {
+            modelAnimator.SetTrigger(temp);
+        }
         indicating = false;
-        yield return new WaitForSeconds(1.5f); // set weight to 0 after animation is done playing
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Front Slice"), 0.0f);
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Back Slice"), 0.0f);
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Front Slice"), 0.0f);
-        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Back Slice"), 0.0f);
+        yield return new WaitForSeconds(1.5f); // set weight to 0 after animation is done playing // TODO: Maybe do same thing here
+        modelAnimator.SetLayerWeight(1, 0.0f);
+        modelAnimator.SetLayerWeight(2, 0.0f);
+        modelAnimator.SetLayerWeight(3, 0.0f);
+        modelAnimator.SetLayerWeight(4, 0.0f);
+    }
+
+    public void ResetPeel(int index, string nameOfCondition)
+    {
+        modelAnimator.SetTrigger(nameOfCondition);
+        resetAnimations.Remove(nameOfCondition);
+        //modelAnimator.SetLayerWeight(index, 0.0f); // this messes it up maybe somehow?
+        HideWeakSpot(index);
     }
 
     private GameObject SpawnBoomerang(Vector3 position, int radiusAdd)
@@ -320,5 +358,10 @@ public class OrangeBoss : MonoBehaviour
         {
             o.SetActive(false);
         }
+    }
+
+    public void HideWeakSpot(int weakSpotIndex)
+    {
+        weakSpots[weakSpotIndex].SetActive(false);
     }
 }

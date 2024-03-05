@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
             ScreenShakeManager.Instance.ShakeCamera(2, 3, 0.1f);
             if (health <= 0)
             {
-                // Death
+                // Death, make player disappear and splat effects here
             }
             else
             {
