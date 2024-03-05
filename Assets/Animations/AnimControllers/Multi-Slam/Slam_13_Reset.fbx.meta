@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bbfd913277121974ebdfad0e0d5d57b0
+guid: 942bae5740529864aa601357e8b35693
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: OB_Slam_2
+      name: OB_Reset
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 174
-      lastFrame: 193
+      firstFrame: 330
+      lastFrame: 370
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -57,26 +57,12 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.42195126
-        functionName: ShowWeakSpot
+      - time: 0.50094163
+        functionName: HideWeakSpots
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.52908605
-        functionName: PlaySlamSFX
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.5508472
-        functionName: ShakeCamera
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3
@@ -141,15 +127,15 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 3000
-    rootMotionBoneName: 
+    rootMotionBoneName: OrangeBoss_Rig:Root_Joint
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 3cad2528850a41247a57f82ecaed1105, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

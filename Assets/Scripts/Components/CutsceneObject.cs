@@ -53,7 +53,10 @@ public class CutsceneObject : MonoBehaviour
 
         if (scene.isTimelineScene)
         {
-            scene.cinemachineCamController.gameObject.SetActive(true);
+            if (scene.cinemachineCamController != null)
+            {
+                scene.cinemachineCamController.gameObject.SetActive(true);
+            }
             scene.timelinePlayable.extrapolationMode = DirectorWrapMode.Hold;
             scene.timelinePlayable.Play();
         }
@@ -72,7 +75,10 @@ public class CutsceneObject : MonoBehaviour
         }
         if (scene.isTimelineScene)
         {
-            scene.cinemachineCamController.gameObject.SetActive(false);
+            if (scene.cinemachineCamController != null)
+            {
+                scene.cinemachineCamController.gameObject.SetActive(false);
+            }
             scene.timelinePlayable.Stop();
         }
     }

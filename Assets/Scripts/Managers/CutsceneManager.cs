@@ -25,9 +25,13 @@ public class CutsceneManager : MonoBehaviour
     public event CutsceneEventCallback OnCutsceneStart;
     public event CutsceneEventCallback OnCutsceneEnd;
 
-    void Start()
+    private void Awake()
     {
         s_instance = this;
+    }
+
+    void Start()
+    {
         s_instance.PlayStartCutscene();
     }
 

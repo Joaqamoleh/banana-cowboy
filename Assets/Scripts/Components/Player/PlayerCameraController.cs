@@ -68,6 +68,12 @@ public class PlayerCameraController : MonoBehaviour
                 ccb.CameraDistance = orbitRadius;
             }
         }
+
+        if (CutsceneManager.Instance() != null)
+        {
+            CutsceneManager.Instance().OnCutsceneStart += DisableForCutscene;
+            CutsceneManager.Instance().OnCutsceneEnd += EnableAfterCutscene;
+        }
     }
 
     void Update()
@@ -233,7 +239,7 @@ public class PlayerCameraController : MonoBehaviour
         }
     }
 
-    public void DisableForCutscene()
+    void DisableForCutscene(CutsceneObject s)
     {
         if (_cinemachineCamController != null)
         {
@@ -241,7 +247,7 @@ public class PlayerCameraController : MonoBehaviour
         }
     }
 
-    public void EnableAfterCutscene()
+    void EnableAfterCutscene(CutsceneObject s)
     {
         if (_cinemachineCamController != null)
         {

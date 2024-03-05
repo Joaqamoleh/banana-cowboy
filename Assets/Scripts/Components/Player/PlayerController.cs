@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Min(0f)]
     float lassoRange = 20f;
     [SerializeField, Min(0f)]
-    float timeToHitTarget = 1f, timeToPullTarget = 1f, timeToToss = 0.1f;
+    float timeToHitTarget = 0.2f, timeToPullTarget = 1f, timeToToss = 0.1f, timeToRetract = 1.0f;
 
     private bool _hasStartedTransition = false; // This initializes a transition. When set to false, will perform the initial action for the transition.
     private float _lassoParamT = 0f, _lassoParamAccumTime = 0f;
@@ -85,11 +85,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (CutsceneManager.Instance() != null)
-        {
-            CutsceneManager.Instance().OnCutsceneStart += DisableCharacterForCutscene;
-            CutsceneManager.Instance().OnCutsceneEnd += EnableCharacterAfterCutscene;
-        }
+
     }
     private void Start()
     {
@@ -109,6 +105,12 @@ public class PlayerController : MonoBehaviour
         _cursor.OnHoverLassoableExit += OnLassoableExitHovered;
         _playerUI = GetComponentInChildren<UIManager>();
         Debug.Assert(_playerUI != null);
+
+        if (CutsceneManager.Instance() != null)
+        {
+            CutsceneManager.Instance().OnCutsceneStart += DisableCharacterForCutscene;
+            CutsceneManager.Instance().OnCutsceneEnd += EnableCharacterAfterCutscene;
+        }
     }
     private void Update()
     {
@@ -281,7 +283,6 @@ public class PlayerController : MonoBehaviour
                     // Do lasso action based on what is selected, update to thrown
                     if (_hoveredObject != null) // TODO: Also check range relative to the player
                     {
-                        print("Updating transition state to thrown");
                         UpdateLassoTransitionState(LassoState.THROWN);
                         _lassoObject = _hoveredObject;
                     }
@@ -386,11 +387,18 @@ public class PlayerController : MonoBehaviour
         switch (_transitionState)
         {
             case LassoState.NONE:
-            case LassoState.RETRACT:
                 if (!_hasStartedTransition)
                 {
                     _hasStartedTransition = true;
                     UpdateLassoState(_transitionState); // Nothing to do here for now, just go to the state
+                }
+                break;
+            case LassoState.RETRACT:
+                if (!_hasStartedTransition)
+                {
+                    _hasStartedTransition = true;
+                    UpdateLassoState(_transitionState);
+                    Invoke("EndLassoRetractState", timeToRetract);
                 }
                 break;
             case LassoState.THROWN:
@@ -489,6 +497,8 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    // ************************ Callbacks / Event Handlers *************************** //
     void OnLassoableEnterHover(LassoObject hovered)
     {
         if (_hoveredObject != null)
@@ -537,6 +547,11 @@ public class PlayerController : MonoBehaviour
     void EndLassoTossState()
     {
         UpdateLassoTransitionState(LassoState.RETRACT);
+    }
+
+    void EndLassoRetractState()
+    {
+        UpdateLassoTransitionState(LassoState.NONE);
     }
 
     void DisableCharacterForCutscene(CutsceneObject activeScene)
