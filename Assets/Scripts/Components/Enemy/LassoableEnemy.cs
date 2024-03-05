@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class LassoableEnemy : LassoTossable
 {
     bool isDestroyed = false;
 
-    public ParticleSystem deathJuiceEffect;
+    [Header("Item Drops")]
     public GameObject item1;
     public GameObject item2;
+
+    [Header("Death Juice Prefab")]
+    public GameObject deathJuiceEffect;
 
     int shouldDropItem;
     int whichItem;
@@ -54,7 +58,10 @@ public class LassoableEnemy : LassoTossable
         isDestroyed = true;
         DropItem();
         SoundManager.Instance().PlaySFX("EnemySplat");
-        deathJuiceEffect.Play();
+        // initiate juice explosion
+        if (deathJuiceEffect != null) {
+            Instantiate(deathJuiceEffect, transform.position, transform.rotation);
+        }
         ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
         Destroy(gameObject);
     }
