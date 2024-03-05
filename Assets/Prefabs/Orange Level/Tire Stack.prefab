@@ -1,0 +1,285 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &893227259616661373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5508006854127718448}
+  m_Layer: 0
+  m_Name: Tire Stack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5508006854127718448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893227259616661373}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 127.902, y: 18.931, z: 390.967}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1551073258551859620}
+  - {fileID: 6015624877345636823}
+  - {fileID: 7967532707408523102}
+  - {fileID: 8640102355695803355}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &774903082164224354
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5508006854127718448}
+    m_Modifications:
+    - target: {fileID: 2945023933233744496, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_Name
+      value: Tire Obstacle (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.23193122
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.93122125
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.04211851
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.27795866
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 27.089
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -214.023
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -183.251
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+--- !u!4 &8640102355695803355 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+  m_PrefabInstance: {fileID: 774903082164224354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1419919930264303079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5508006854127718448}
+    m_Modifications:
+    - target: {fileID: 2945023933233744496, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_Name
+      value: Tire Obstacle (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.168007
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.33099937
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.3929749
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.19282074
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.9618763
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.13559583
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.1386649
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 19.471
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -160.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -160.525
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+--- !u!4 &7967532707408523102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+  m_PrefabInstance: {fileID: 1419919930264303079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3340834865069300590
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5508006854127718448}
+    m_Modifications:
+    - target: {fileID: 2945023933233744496, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_Name
+      value: Tire Obstacle (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.7280045
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.78100014
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1829834
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.19282074
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.9618763
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.13559583
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.1386649
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 19.471
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -160.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -160.525
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+--- !u!4 &6015624877345636823 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+  m_PrefabInstance: {fileID: 3340834865069300590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7539106620137390877
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5508006854127718448}
+    m_Modifications:
+    - target: {fileID: 2945023933233744496, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_Name
+      value: Tire Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3080063
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2210007
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.9869995
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.19282074
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.9618763
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.13559583
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.1386649
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 19.471
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -160.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -160.525
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+--- !u!4 &1551073258551859620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
+  m_PrefabInstance: {fileID: 7539106620137390877}
+  m_PrefabAsset: {fileID: 0}
