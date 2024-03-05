@@ -232,7 +232,7 @@ public class LassoRenderer : MonoBehaviour
 
         Vector3 up = lassoSwingCenter.up;
         Vector3 forward = Vector3.ProjectOnPlane((o.transform.position - lassoSwingCenter.position).normalized, up);
-        float dist = Abs(Vector3.Project(o.transform.position, up).magnitude - Vector3.Project(lassoSwingCenter.position, up).magnitude);
+        float dist = Vector3.Distance(o.transform.position, lassoHandJointPos.position);
         print("Up is " + up + " forward " + forward);
         for (int i = 0; i < numberOfLineSegments; i++)
         {
@@ -246,13 +246,14 @@ public class LassoRenderer : MonoBehaviour
             }
             else
             {
-                float percentAlongLine = EasingsLibrary.EaseOutBack((float) i / (numberOfLineSegments - 1));
+                //float percentAlongLine = EasingsLibrary.EaseOutBack((float) i / (numberOfLineSegments - 1));
+                float percentAlongLine = (float) i / (numberOfLineSegments - 1);
                 float radius = o.GetSwingRadius();
                 lassoLinePositions[i] = dist * percentAlongLine * up + lassoSwingCenter.position + 2f * radius * EasingsLibrary.EaseInOutBack(percentAlongLine) * forward;
-                if (t != 0)
-                {
-                    lassoLinePositions[i - 1] = (1f - percentAlongLine) * lassoLinePositions[i - 1] + percentAlongLine * lassoLinePositions[i];
-                }
+                lassoLinePositions[i - 1] = (1f - percentAlongLine) * lassoLinePositions[i - 1] + percentAlongLine * lassoLinePositions[i];
+                //if (t != 0)
+                //{
+                //}
             }
             lineRenderer.SetPosition(i, lassoLinePositions[i]);
         }
