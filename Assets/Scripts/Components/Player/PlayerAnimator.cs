@@ -49,6 +49,7 @@ public class PlayerAnimator : MonoBehaviour
                 break;
             case PlayerController.State.SWING:
                 playerAnimator.Play("Base Layer.BC_Swing");
+                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
         }
     }

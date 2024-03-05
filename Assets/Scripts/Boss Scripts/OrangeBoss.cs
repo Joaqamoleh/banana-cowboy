@@ -22,12 +22,15 @@ public class OrangeBoss : MonoBehaviour
 
     public Animator modelAnimator;
     public Animator healthAnimator;
+    public Animator playerAnimator;
 
     public GameObject[] spawnPoints;
     public GameObject origin;
     public GameObject player;
+    public GameObject playerModel;
     public List<GameObject> boomerangObjects;
     public List<GameObject> weakSpots;
+    public GameObject playerWinLocation;
 
     public BossStates state;
 
@@ -207,12 +210,17 @@ public class OrangeBoss : MonoBehaviour
     IEnumerator PeelSlamAnimation()
     {
         ShuffleArray(nums);
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Body and Arms"), 1.0f);
 
         for (int i = 0; i < nums.Length; i++)
         {
+            modelAnimator.SetTrigger("Peel Attack"); // body and arms only
+
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[i]]), 1.0f);
             modelAnimator.SetTrigger(triggerNames[nums[i]]);
+
             yield return new WaitForSeconds(3.0f);
+            modelAnimator.ResetTrigger("Peel Attack");
         }
         /*       modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[0]]), 1.0f);
                modelAnimator.SetTrigger(triggerNames[nums[0]]);
@@ -249,6 +257,7 @@ public class OrangeBoss : MonoBehaviour
     IEnumerator PeelSlamCooldown()
     {
         yield return new WaitForSeconds(peelCooldown); // TODO: Create a list then remove if player touches peel. If still in dictionary, loop and call reset.
+        modelAnimator.SetTrigger("Peel Reset");
         foreach (string temp in resetAnimations)
         {
             modelAnimator.SetTrigger(temp);
@@ -259,10 +268,12 @@ public class OrangeBoss : MonoBehaviour
         modelAnimator.SetLayerWeight(2, 0.0f);
         modelAnimator.SetLayerWeight(3, 0.0f);
         modelAnimator.SetLayerWeight(4, 0.0f);
+        modelAnimator.SetLayerWeight(5, 0.0f);
     }
 
     public void ResetPeel(int index, string nameOfCondition)
     {
+        modelAnimator.SetTrigger("Peel Reset");
         modelAnimator.SetTrigger(nameOfCondition);
         resetAnimations.Remove(nameOfCondition);
         //modelAnimator.SetLayerWeight(index, 0.0f); // this messes it up maybe somehow?
@@ -328,15 +339,26 @@ public class OrangeBoss : MonoBehaviour
 
             // play cutscene
             CutsceneManager.Instance().PlayCutsceneByName("Win");
-            
-            // disable player controls
+
+            // disable player controls and move player to a specific spot
+            playerModel.transform.position = playerWinLocation.transform.position;
+            playerModel.transform.rotation = playerWinLocation.transform.rotation;
+            playerAnimator.SetLayerWeight(1, 0.0f);
+            playerAnimator.Play("Base Layer.BC_Idle");
+
 
             // play boss animations
             modelAnimator.SetTrigger("Death");
             enabled = false;
             // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
             // LevelSwitch.ChangeScene("Menu");
+            CutsceneManager.Instance().OnCutsceneEnd += FinalCutsceneEnd;
         }
+    }
+
+    void FinalCutsceneEnd(CutsceneObject o)
+    {
+        LevelSwitch.ChangeScene("Menu");
     }
 
     // might be over kill. might 

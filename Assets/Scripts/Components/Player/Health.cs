@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class Health : MonoBehaviour
             if (health <= 0)
             {
                 // Death, make player disappear and splat effects here
+
+                // reset checkpoint data
+                LevelData.ResetCheckpointData();
+                SceneManager.LoadScene("Orange Boss Scene");
             }
             else
             {
