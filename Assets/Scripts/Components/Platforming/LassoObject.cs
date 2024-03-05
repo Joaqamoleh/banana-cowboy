@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.UI;
 using UnityEngine;
 
@@ -16,6 +17,13 @@ public class LassoObject : MonoBehaviour
 
     [SerializeField]
     SpriteRenderer lassoIndicatorSprite;
+
+    [SerializeField]
+    Transform lassoCenterBasis;
+
+    [Min(0f)]
+    public float lassoThrowRadius = 4f, appoximateLassoRadius = 2f;
+
 
     private bool m_isLassoable = true;
     public bool isLassoable { 
@@ -51,6 +59,10 @@ public class LassoObject : MonoBehaviour
 
     public void Start()
     {
+        if (lassoCenterBasis == null)
+        {
+            lassoCenterBasis = transform;
+        }
         foreach (LassoRenderHighlight h in renderHighlights)
         {
             h.InitOriginalMaterials();
@@ -84,6 +96,27 @@ public class LassoObject : MonoBehaviour
         {
             h.Deselect();
         }
+    }
+
+    public Vector3 GetLassoCenterPos()
+    {
+        return lassoCenterBasis.position;
+    }
+
+    public Transform GetLassoCenterBasis()
+    {
+        return lassoCenterBasis;
+    }
+
+    public float GetAppoximateLassoRadius()
+    {
+        return appoximateLassoRadius;
+    }
+
+    public void Grab()
+    {
+        isLassoable = false;
+        currentlyLassoed = true;
     }
 }
 

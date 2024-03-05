@@ -5,6 +5,8 @@ using UnityEngine;
 public class LassoableEnemy : LassoTossable
 {
     bool isDestroyed = false;
+
+    public ParticleSystem deathJuiceEffect;
     public GameObject item1;
     public GameObject item2;
 
@@ -51,6 +53,7 @@ public class LassoableEnemy : LassoTossable
         isDestroyed = true;
         DropItem();
         SoundManager.Instance().PlaySFX("EnemySplat");
+        deathJuiceEffect.Play();
         ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
         Destroy(gameObject);
     }
