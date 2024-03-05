@@ -77,6 +77,10 @@ public class OrangeEnemyController : EnemyController
         {
             destinationPoint = destinationPoints[0];
         }
+        else
+        {
+            subState = OrangeSubStates.SLEEP;
+        }
         UpdateAnimState();
         _distanceFromPartner = Mathf.Pow(_distanceFromPartner, 2);
     }
@@ -170,6 +174,7 @@ public class OrangeEnemyController : EnemyController
                     break;
                 case OrangeState.HELD:
                     SoundManager.Instance().StopSFX("OrangeDizzy");
+                    GetComponentInChildren<ParticleSystem>().Stop();
                     break;
             }
             if (newState == OrangeState.DIZZY || newState == OrangeState.HELD)
