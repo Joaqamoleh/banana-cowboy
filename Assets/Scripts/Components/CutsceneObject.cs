@@ -85,11 +85,8 @@ public class CutsceneObject : MonoBehaviour
 
     IEnumerator EndTimelinePlayable(Scene s)
     {
-        float t = 0;
-        while (t <= 0.001f)
-        {
-            t += Time.deltaTime;
-        }
+
+        yield return new WaitForSeconds(0.01f);
         if (s.cinemachineCamController != null)
         {
             Camera.main.GetComponent<CinemachineBrain>().enabled = false;
@@ -137,7 +134,7 @@ public class CutsceneObject : MonoBehaviour
         bool done = false;
         while (!done)
         {
-            if (Input.GetKeyDown(CutsceneManager.Instance().cutsceneInput))
+            if (Input.GetKeyDown(CutsceneManager.Instance().cutsceneInput) && !PauseManager.pauseActive)
             {
                 if (s.isDialogScene && !s.dialog.dialogFullyDisplayed)
                 {

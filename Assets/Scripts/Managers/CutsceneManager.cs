@@ -39,7 +39,7 @@ public class CutsceneManager : MonoBehaviour
     {
         if (activeCutscene != null && !activeCutscene.cutscene.IsCutsceneComplete())
         {
-            if (Input.GetKeyDown(cutsceneInput))
+            if (Input.GetKeyDown(cutsceneInput) && !PauseManager.pauseActive)
             {
                 activeCutscene.cutscene.SkipActiveScene();
             }

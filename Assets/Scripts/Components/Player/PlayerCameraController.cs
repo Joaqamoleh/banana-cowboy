@@ -10,8 +10,8 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     CinemachineVirtualCamera _cinemachineCamController;
     [SerializeField]
-    Transform _cameraPivot = null, _cameraTarget = null, _emptyGameObjectPrefab;
-    Transform _cameraCurrent = null;
+    Transform _cameraPivot = null, _cameraTilt = null, _emptyGameObjectPrefab;
+    Transform _cameraCurrent = null, _cameraTarget = null;
 
 
     GravityObject _playerGravity;
@@ -56,7 +56,11 @@ public class PlayerCameraController : MonoBehaviour
         _playerGravity = GetComponent<GravityObject>();
         _characterOrientation = _playerGravity.characterOrientation;
         _cameraCurrent = Instantiate(_emptyGameObjectPrefab);
-        _cameraCurrent.position = _cameraTarget.position;
+        _cameraCurrent.position = _cameraTilt.position;
+
+        _cameraTarget = Instantiate(_emptyGameObjectPrefab);
+        _cameraTarget.position = _cameraTilt.position;
+
 
         // Overrides the camera's default radius
         if (_cinemachineCamController != null)
@@ -78,7 +82,7 @@ public class PlayerCameraController : MonoBehaviour
 
     void Update()
     {
-        if (_cameraTarget == null) { return; }
+        if (_cameraTilt == null) { return; }
         if (!PauseManager.pauseActive)
         {
 #if !UNITY_IOS && !UNITY_ANDROID
@@ -121,14 +125,15 @@ public class PlayerCameraController : MonoBehaviour
         else if (highestHintPrioIndex != -1 && !ignoreActiveHint)
         {
             // Apply camera hints
-            activeHints[highestHintPrioIndex].ApplyHint(_cameraCurrent, _characterOrientation, ref camVel, _cinemachineCamController);
+            activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
             var localIgnoreTilt = _cameraCurrent.localEulerAngles;
             localIgnoreTilt.y = 0;
             localIgnoreTilt.z = 0;
-            _cameraTarget.localEulerAngles = localIgnoreTilt;
+            _cameraTilt.localEulerAngles = localIgnoreTilt;
             var localIgnorePan = _cameraCurrent.localEulerAngles;
             localIgnorePan.x = 0;
             localIgnorePan.z = 0;
+            localIgnorePan.y = -localIgnorePan.y;
             _cameraPivot.localEulerAngles = localIgnorePan;
         }
         BlendToTarget();
@@ -183,11 +188,11 @@ public class PlayerCameraController : MonoBehaviour
     void ApplyInputRotation()
     {
         _cameraPivot.Rotate(Vector3.up, orbitSensitivity * mouseX);
-        _cameraTarget.Rotate(Vector3.right, orbitSensitivity * mouseY);
-        var angles = _cameraTarget.localEulerAngles;
+        _cameraTilt.Rotate(Vector3.right, orbitSensitivity * mouseY);
+        var angles = _cameraTilt.localEulerAngles;
         angles.z = 0;
         angles.y = 0;
-        var angle = _cameraTarget.localEulerAngles.x;
+        var angle = _cameraTilt.localEulerAngles.x;
         if (angle < 180 && angle > 60)
         {
             angles.x = 60;
@@ -196,8 +201,8 @@ public class PlayerCameraController : MonoBehaviour
         {
             angles.x = 290;
         }
-        _cameraTarget.localEulerAngles = angles;
-
+        _cameraTilt.localEulerAngles = angles;
+        _cameraTarget.rotation = _cameraTilt.rotation;
 
         orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
     }
@@ -212,15 +217,15 @@ public class PlayerCameraController : MonoBehaviour
         {
             // Our character moved outside the bounds of the screen borders defined,
             // thus, we change the y position of the target local y
-            targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTarget.position).y;
+            targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTilt.position).y;
         } 
         else if (_playerGravity.IsOnGround())
         {
-            targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTarget.position).y;
+            targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTilt.position).y;
         }
 
         // Get the final position for camera current
-        Vector3 localPoint = _characterOrientation.InverseTransformPoint(_cameraTarget.position);
+        Vector3 localPoint = _characterOrientation.InverseTransformPoint(_cameraTilt.position);
         localPoint.y = targetLocalY;
         Vector3 desiredPos = _characterOrientation.TransformPoint(localPoint);
 
