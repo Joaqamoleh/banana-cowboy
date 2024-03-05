@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class LassoableEnemy : LassoTossable
 {
     bool isDestroyed = false;
-    int shouldDropItem;
-    int whichItem;
 
+    public ParticleSystem deathJuiceEffect;
     public GameObject item1;
     public GameObject item2;
+
+    int shouldDropItem;
+    int whichItem;
     private void OnCollisionEnter(Collision collision)
     {
         // TODO: Handle orange, blueberry, strawberry enemies and bosses, and blender
@@ -19,14 +20,15 @@ public class LassoableEnemy : LassoTossable
             if (collision.collider.CompareTag("Boss"))
             {
                 // Will fix to handle more bosses (for orange, handle weak spots too)
-                if (collision.transform.name == "Orange Boss" || collision.transform.parent.parent.name == "Orange Boss" || collision.transform.name.Contains("Peel")){
+                if (collision.transform.name == "Orange Boss" || collision.transform.parent.parent.name == "Orange Boss" || collision.transform.name.Contains("Peel"))
+                {
                     OrangeBoss boss = GameObject.Find("Orange Boss").GetComponent<OrangeBoss>();
                     if (collision.transform.name.Contains("Weak Spot"))
                     {
                         print("Weak Spot Damage");
                         boss.Damage(2);
                         DestroySelf(); // TODO: There's a bug where sometimes you hit multiple collision. Need a better(?) way to fix. Test isDestroyed
-                    } 
+                    }
                     else
                     {
                         print("Normal Damage");
@@ -52,6 +54,7 @@ public class LassoableEnemy : LassoTossable
         isDestroyed = true;
         DropItem();
         SoundManager.Instance().PlaySFX("EnemySplat");
+        deathJuiceEffect.Play();
         ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
         Destroy(gameObject);
     }
