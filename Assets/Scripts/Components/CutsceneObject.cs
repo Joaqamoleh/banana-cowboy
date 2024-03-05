@@ -86,9 +86,16 @@ public class CutsceneObject : MonoBehaviour
     IEnumerator EndTimelinePlayable(Scene s)
     {
         float t = 0;
-        while (t <= 0.3f)
+        while (t <= 0.001f)
         {
             t += Time.deltaTime;
+        }
+        if (s.cinemachineCamController != null)
+        {
+            Camera.main.GetComponent<CinemachineBrain>().enabled = false;
+            Camera.main.transform.position = s.cinemachineCamController.transform.position;
+            Camera.main.transform.rotation = s.cinemachineCamController.transform.rotation;
+            Camera.main.GetComponent<CinemachineBrain>().enabled = true;
         }
         s.timelinePlayable.Stop();
         yield return null;
