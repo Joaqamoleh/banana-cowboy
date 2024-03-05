@@ -79,8 +79,19 @@ public class CutsceneObject : MonoBehaviour
             {
                 scene.cinemachineCamController.gameObject.SetActive(false);
             }
-            scene.timelinePlayable.Stop();
+            StartCoroutine(EndTimelinePlayable(scene));
         }
+    }
+
+    IEnumerator EndTimelinePlayable(Scene s)
+    {
+        float t = 0;
+        while (t <= 0.3f)
+        {
+            t += Time.deltaTime;
+        }
+        s.timelinePlayable.Stop();
+        yield return null;
     }
 
     public void SkipActiveScene()
@@ -99,7 +110,7 @@ public class CutsceneObject : MonoBehaviour
         switch (scene.completionType)
         {
             case Scene.CompletionType.ON_INPUT:
-                yield return WaitForInput();
+                yield return WaitForInput(scene);
                 break;
             case Scene.CompletionType.ON_DIALOG_COMPLETE:
                 yield return WaitForDialog(scene.dialog);
@@ -114,63 +125,41 @@ public class CutsceneObject : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForInput()
+    IEnumerator WaitForInput(Scene s)
     {
         bool done = false;
-        while (!done && !_skip)
+        while (!done)
         {
             if (Input.GetKeyDown(CutsceneManager.Instance().cutsceneInput))
             {
-                done = true;
+                if (s.isDialogScene && !s.dialog.dialogFullyDisplayed)
+                {
+                    DialogueManager.Instance().DisplayDialog(s.dialog, false);
+                }
+                else
+                {
+                    done = true;
+                }
             }
             yield return null;
         }
     }
-
-    /*
-         IEnumerator WaitForSceneCompletion(Scene scene)
-    {
-        switch (scene.completionType)
-        {
-            case Scene.CompletionType.ON_INPUT:
-                yield return WaitForInput(scene.dialog);
-                break;
-            case Scene.CompletionType.ON_DIALOG_COMPLETE:
-                yield return WaitForDialog(scene.dialog);
-                break;
-            case Scene.CompletionType.ON_PLAYABLE_COMPLETE:
-                yield return WaitForPlayable(scene.timelinePlayable);
-                break;
-        }
-        if (!_skip)
-        {
-            yield return new WaitForSeconds(scene.completionDelay);
-        }
-    }
-
-    IEnumerator WaitForInput(Dialog dialog)
-    {
-        bool done = false;
-        while (!done && !_skip)
-        {
-            if (Input.GetKeyDown(CutsceneManager.Instance().cutsceneInput) && dialog.dialogFullyDisplayed)
-            {
-                done = true;
-            }
-            yield return null;
-        }
-    }*/
 
     IEnumerator WaitForDialog(Dialog dialog)
     {
         if (dialog != null)
         {            
             bool done = false;
-            while (!done && !_skip)
+            while (!done)
             {
                 if (dialog.dialogFullyDisplayed)
                 {
                     done = true;
+                }
+                if (_skip)
+                {
+                    DialogueManager.Instance().DisplayDialog(dialog, false);
+                    _skip = false;
                 }
                 yield return null;
             }
@@ -187,6 +176,11 @@ public class CutsceneObject : MonoBehaviour
                 if (playable.time >= playable.duration)
                 {
                     done = true;
+                }
+                if (_skip)
+                {
+                    playable.time = playable.duration;
+                    _skip = false;
                 }
                 yield return null;
             }

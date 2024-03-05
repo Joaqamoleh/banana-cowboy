@@ -70,6 +70,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             _typingDone = true;
+            dialog.dialogFullyDisplayed = true;
             _currentDisplayText.Append(dialog.speakerDialog);
         }
 
@@ -94,6 +95,7 @@ public class DialogueManager : MonoBehaviour
         {
             nameTagDisplay.gameObject.SetActive(false);
         }
+        dialogTextDisplay.text = _currentDisplayText.ToString();
     }
 
     public bool IsTypingDone()
@@ -137,14 +139,6 @@ public class DialogueManager : MonoBehaviour
     {
         return s_instance;
     }
-
-    //public static void DisplayDialog(Dialog dialog, bool playTypingAnim = true)
-    //{
-    //    if (s_instance != null)
-    //    {
-    //        s_instance.DisplayDialog(dialog, playTypingAnim);
-    //    }
-    //}
 }
 
 [System.Serializable]
