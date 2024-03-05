@@ -56,6 +56,9 @@ public class OrangeEnemyController : EnemyController
     public float timeSpentWalking;
     public float walkTimer;
     private float _distanceFromPartner = 11f;
+    public GameObject destinationPoint;
+    Vector3 _directionOfPartner;
+    public GameObject partner;
 
     private Transform _spottedPlayerTransform = null;
     private GravityObject _gravObject = null;
@@ -77,10 +80,10 @@ public class OrangeEnemyController : EnemyController
         {
             destinationPoint = destinationPoints[0];
         }
-        else
+/*        else
         {
             subState = OrangeSubStates.SLEEP;
-        }
+        }*/
         UpdateAnimState();
         _distanceFromPartner = Mathf.Pow(_distanceFromPartner, 2);
     }
@@ -189,9 +192,7 @@ public class OrangeEnemyController : EnemyController
             }
         }
     }
-    public GameObject destinationPoint;
-    Vector3 _directionOfPartner;
-    public GameObject partner;
+
     void PlayDifferentIdle()
     {
         switch (subState)
