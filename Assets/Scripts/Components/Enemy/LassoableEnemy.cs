@@ -5,11 +5,7 @@ using UnityEngine;
 public class LassoableEnemy : LassoTossable
 {
     bool isDestroyed = false;
-
     public ParticleSystem deathJuiceEffect;
-    public GameObject item1;
-    public GameObject item2;
-
     int shouldDropItem;
     int whichItem;
     private void OnCollisionEnter(Collision collision)
@@ -53,37 +49,9 @@ public class LassoableEnemy : LassoTossable
         isDestroyed = true;
         DropItem();
         SoundManager.Instance().PlaySFX("EnemySplat");
-        deathJuiceEffect.Play();
         ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
         Destroy(gameObject);
-    }
-
-    void DropItem()
-    {
-        shouldDropItem = Random.Range(1, 100);
-        if (shouldDropItem <= 60) // 60% to drop something
-        {
-            whichItem = Random.Range(1, 100);
-            if (whichItem <= 80) // 80% to drop item1
-            {
-                if (item1 != null)
-                {
-                    print("Item 1 dropped");
-                    Instantiate(item1, transform.position, Quaternion.identity);
-                }
-            }
-            else
-            {
-                print("Item 2 dropped");
-                if (item2 != null)
-                {
-                    Instantiate(item2, transform.position, Quaternion.identity);
-                }
-            }
-        }
-        else
-        {
-            print("Didn't drop anything");
-        }
+        SoundManager.Instance().PlaySFX("EnemySplat");
+        deathJuiceEffect.Play();
     }
 }
