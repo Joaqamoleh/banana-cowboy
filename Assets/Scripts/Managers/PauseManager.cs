@@ -222,37 +222,4 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    //public void ChangeScreen(Button button)
-    //{
-    //    switch (button.name)
-    //    {
-    //        case "Continue":
-    //            ResumeGame();
-    //            break;
-    //        case "Checkpoint Restart":
-    //            pauseActive = false;
-    //            Time.timeScale = 1.0f;
-    //            break;
-    //        case "Settings":
-    //            settingScreen.SetActive(true);
-    //            break;
-    //        case "Back":
-    //        case "Cancel":
-    //            settingScreen.SetActive(false);
-    //            confirmationScreen.SetActive(false);
-    //            break;
-    //        case "Restart":
-    //            pauseActive = false;
-    //            Time.timeScale = 1.0f;
-    //            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    //            break;
-    //        case "Quit":
-    //            confirmationScreen.SetActive(true);
-    //            break;
-    //        case "Confirm":
-
-    //            break;
-    //    }
-    //}
-
 }

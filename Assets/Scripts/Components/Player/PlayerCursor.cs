@@ -14,8 +14,8 @@ public class PlayerCursor : MonoBehaviour
         CAMERA_PAN,
         HIDDEN
     }
-    public static CursorType activeType;
-    static CursorType prevType;
+    public static CursorType activeType = CursorType.LASSO_AIM;
+    static CursorType prevType = CursorType.LASSO_AIM;
 
     private static PlayerCursor instance;
 

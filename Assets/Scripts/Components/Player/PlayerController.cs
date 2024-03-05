@@ -404,7 +404,6 @@ public class PlayerController : MonoBehaviour
                 case LassoState.RETRACT:
                     _lassoParamAccumTime = 0f;
                     _lassoParamMaxTime = timeToRetract;
-                    Invoke("EndLassoRetractState", timeToRetract);
                     break;
                 case LassoState.THROWN:
                     _lassoParamAccumTime = 0f;
@@ -429,11 +428,11 @@ public class PlayerController : MonoBehaviour
                     else if (!toss.IsTossed())
                     {
                         Ray r = _cursor.GetCursorRay();
-                        Vector3 tossDir = Vector3.ProjectOnPlane(r.direction, _gravObject.characterOrientation.up).normalized;
+                        Vector3 tossDir = _camera.forward;
                         RaycastHit hit;
                         if (Physics.Raycast(r, out hit, 100f, clickTossMask, QueryTriggerInteraction.Ignore))
                         {
-                            tossDir = Vector3.ProjectOnPlane((hit.point - transform.position), _gravObject.characterOrientation.up).normalized;
+                            tossDir = (hit.point - transform.position).normalized;
                         }
                         toss.TossInDirection(tossDir, _gravObject.characterOrientation.up, _playerUI.GetThrowIndicatorStrength());
                     }
@@ -509,6 +508,12 @@ public class PlayerController : MonoBehaviour
                 {
                     held.SwingLassoTossableAround(lassoSwingCenter, _lassoParamAccumTime);
                     _playerUI.SetThrowIndicatorPos(Mathf.Sin(_lassoParamAccumTime * lassoTossMinigameSpeed));
+                }
+                break;
+            case LassoState.RETRACT:
+                if (_lassoParamAccumTime > _lassoParamMaxTime)
+                {
+                    UpdateLassoTransitionState(LassoState.NONE);
                 }
                 break;
         }
