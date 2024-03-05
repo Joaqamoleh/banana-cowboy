@@ -57,7 +57,7 @@ public class OrangeBoss : MonoBehaviour
         //state = BossStates.PEEL;
         resetAnimations = new List<string>();
         health = maxHealth;
-        currMove = 0;
+        currMove = 1;
 
         player = GameObject.FindWithTag("Player");
         indicating = false;
@@ -73,6 +73,10 @@ public class OrangeBoss : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Damage(2);
+        }
         if (player != null && !indicating)
         {
             transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
@@ -320,6 +324,8 @@ public class OrangeBoss : MonoBehaviour
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Front Slice"), 0.0f);
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Back Slice"), 0.0f);
 
+            BossDeathSetup();
+
             // play cutscene
             CutsceneManager.Instance().PlayCutsceneByName("Win");
             
@@ -327,10 +333,26 @@ public class OrangeBoss : MonoBehaviour
 
             // play boss animations
             modelAnimator.SetTrigger("Death");
-
+            enabled = false;
             // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
             // LevelSwitch.ChangeScene("Menu");
         }
+    }
+
+    // might be over kill. might 
+    void BossDeathSetup()
+    {
+        indicating = true; // Keeps boss from moving
+        boomerangSpinning = false; // stop spinning boomerangs
+        state = BossStates.NONE;// put it in a state where it does nothing
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy); // Destroy all enemies stuff
+        }
+        HideWeakSpots(); // hide all hitboxes
+        StopAllCoroutines(); // stop all coroutines 'MUST DO THIS'
+        currMove = -1; // make none of the moves work
     }
 
     IEnumerator FlashDamage()

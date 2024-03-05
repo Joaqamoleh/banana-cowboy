@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7044122359527351909}
   - component: {fileID: 5144009049096338560}
   - component: {fileID: 6760227744348547638}
+  - component: {fileID: 8483711830896660476}
   m_Layer: 0
   m_Name: Peel (1)
   m_TagString: Boss
@@ -150,7 +151,86 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  nameOfCondition: LF Peel Reset
   knockbackForce: 100
+--- !u!65 &8483711830896660476
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336838908773386184}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8, y: 1, z: 0.3}
+  m_Center: {x: -0.2, y: 0, z: 0}
+--- !u!1 &1541023241279628667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7401548062651023410}
+  - component: {fileID: 8478439280787421289}
+  m_Layer: 0
+  m_Name: Winning Path
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7401548062651023410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541023241279628667}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0078918785, y: -0.9998153, z: 0.017048666, w: -0.004067578}
+  m_LocalPosition: {x: 0.45090464, y: 13.570382, z: 36.81904}
+  m_LocalScale: {x: 0.9717305, y: 0.97173095, z: 0.9717305}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8861908713164155030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8478439280787421289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541023241279628667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 0.2
+  m_Looped: 0
+  m_Waypoints:
+  - position: {x: 0, y: -0.8827534, z: -5}
+    roll: 0
+  - position: {x: 0, y: -6.915943, z: 5}
+    roll: 0
+  - position: {x: 0, y: -11.956699, z: 15}
+    roll: 0
 --- !u!1 &2466153519696501011
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5984966974272599582
 Transform:
   m_ObjectHideFlags: 0
@@ -521,6 +601,7 @@ GameObject:
   - component: {fileID: 8216894361865320313}
   - component: {fileID: 8903483359444398070}
   - component: {fileID: 6256820920859417583}
+  - component: {fileID: 7691576270368733175}
   m_Layer: 0
   m_Name: Peel (2)
   m_TagString: Boss
@@ -627,7 +708,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 1
+  nameOfCondition: LB Peel Reset
   knockbackForce: 100
+--- !u!65 &7691576270368733175
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3502136813160873496}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8, y: 1, z: 0.3}
+  m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!1 &3728452209184757299
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1352391914796607908
 Transform:
   m_ObjectHideFlags: 0
@@ -818,7 +921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7544177253625550793
 Transform:
   m_ObjectHideFlags: 0
@@ -924,7 +1027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4159018963827810515
 Transform:
   m_ObjectHideFlags: 0
@@ -1179,6 +1282,63 @@ MonoBehaviour:
   - {fileID: 5388987265443586056}
   - {fileID: 2420808915013104238}
   - {fileID: 5754313999483156507}
+--- !u!1 &6589911797952052305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4263296422952141022}
+  - component: {fileID: 4990133741646879807}
+  m_Layer: 0
+  m_Name: Winning Path
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4263296422952141022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589911797952052305}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0078918785, y: -0.9998153, z: 0.017048666, w: -0.004067578}
+  m_LocalPosition: {x: 0.45090464, y: 13.570382, z: 36.81904}
+  m_LocalScale: {x: 0.9717305, y: 0.97173095, z: 0.9717305}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8861908713164155030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4990133741646879807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589911797952052305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a200b19ca1a9685429ed7e043c28e904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Resolution: 20
+  m_Appearance:
+    pathColor: {r: 0, g: 1, b: 0, a: 1}
+    inactivePathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    width: 0.2
+  m_Looped: 0
+  m_Waypoints:
+  - position: {x: 0, y: -0.8827534, z: -5}
+    roll: 0
+  - position: {x: 0, y: -6.915943, z: 5}
+    roll: 0
+  - position: {x: 0, y: -11.956699, z: 15}
+    roll: 0
 --- !u!1 &6760218775934478820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1458,7 @@ GameObject:
   - component: {fileID: 2969183791894012195}
   - component: {fileID: 8916658128246683875}
   - component: {fileID: 8012344061637780659}
+  - component: {fileID: 8676255774331668765}
   m_Layer: 0
   m_Name: Peel (3)
   m_TagString: Boss
@@ -1403,8 +1564,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424832fc3fb3b0c47a4026c2209c86ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 2
+  index: 3
+  nameOfCondition: 
   knockbackForce: 100
+--- !u!65 &8676255774331668765
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448847824130175884}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8, y: 1, z: 0.3}
+  m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!1 &8381960522873835919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1494,6 +1677,7 @@ GameObject:
   - component: {fileID: 8665466752447695917}
   - component: {fileID: 6453400618002448453}
   - component: {fileID: 9191102662057211537}
+  - component: {fileID: 3069565194573071303}
   m_Layer: 0
   m_Name: Peel (1)
   m_TagString: Boss
@@ -1599,8 +1783,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424832fc3fb3b0c47a4026c2209c86ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 3
+  index: 2
+  nameOfCondition: RF Peel Reset
   knockbackForce: 100
+--- !u!65 &3069565194573071303
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8575086150181200132}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8, y: 1, z: 0.3}
+  m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!1001 &3422066921192187460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2015,7 +2221,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -3060674516426371374, guid: 31d4ffed43ca8f944ac3942493fd8ecb, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 4263296422952141022}
+    - targetCorrespondingSourceObject: {fileID: -3060674516426371374, guid: 31d4ffed43ca8f944ac3942493fd8ecb, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 7401548062651023410}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 31d4ffed43ca8f944ac3942493fd8ecb, type: 3}
       insertIndex: -1
@@ -2104,5 +2316,10 @@ GameObject:
 --- !u!1 &8570354345354921462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6452985800599364530, guid: 31d4ffed43ca8f944ac3942493fd8ecb, type: 3}
+  m_PrefabInstance: {fileID: 3422066921192187460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8861908713164155030 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3060674516426371374, guid: 31d4ffed43ca8f944ac3942493fd8ecb, type: 3}
   m_PrefabInstance: {fileID: 3422066921192187460}
   m_PrefabAsset: {fileID: 0}

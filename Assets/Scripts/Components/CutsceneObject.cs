@@ -127,6 +127,40 @@ public class CutsceneObject : MonoBehaviour
         }
     }
 
+    /*
+         IEnumerator WaitForSceneCompletion(Scene scene)
+    {
+        switch (scene.completionType)
+        {
+            case Scene.CompletionType.ON_INPUT:
+                yield return WaitForInput(scene.dialog);
+                break;
+            case Scene.CompletionType.ON_DIALOG_COMPLETE:
+                yield return WaitForDialog(scene.dialog);
+                break;
+            case Scene.CompletionType.ON_PLAYABLE_COMPLETE:
+                yield return WaitForPlayable(scene.timelinePlayable);
+                break;
+        }
+        if (!_skip)
+        {
+            yield return new WaitForSeconds(scene.completionDelay);
+        }
+    }
+
+    IEnumerator WaitForInput(Dialog dialog)
+    {
+        bool done = false;
+        while (!done && !_skip)
+        {
+            if (Input.GetKeyDown(CutsceneManager.Instance().cutsceneInput) && dialog.dialogFullyDisplayed)
+            {
+                done = true;
+            }
+            yield return null;
+        }
+    }*/
+
     IEnumerator WaitForDialog(Dialog dialog)
     {
         if (dialog != null)
