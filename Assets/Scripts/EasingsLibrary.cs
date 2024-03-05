@@ -1,3 +1,4 @@
+using static UnityEngine.Mathf;
 public class EasingsLibrary
 {
     public delegate float Function(float t);
@@ -33,7 +34,8 @@ public class EasingsLibrary
         EASE_IN_OUT_ELASTIC,
         EASE_IN_BOUNCE,
         EASE_OUT_BOUNCE,
-        EASE_IN_OUT_BOUNCE
+        EASE_IN_OUT_BOUNCE,
+        NO_OP,
     }
 
     static Function[] functions = { 
@@ -46,7 +48,8 @@ public class EasingsLibrary
         EaseInCirc, EaseOutCirc, EaseInOutCirc,
         EaseInBack, EaseOutBack, EaseInOutBack,
         EaseInElastic, EaseOutElastic, EaseInOutElastic,
-        EaseInBounce, EaseOutBounce, EaseInOutBounce
+        EaseInBounce, EaseOutBounce, EaseInOutBounce,
+        NoOp
     };
     public static int FunctionCount => functions.Length;
 
@@ -84,12 +87,18 @@ public class EasingsLibrary
 
     public static float EaseInCubic(float t)
     {
-        return t;
+        if (t >= 1) { return 1f; }
+        if (t <= 0) { return 0f; }
+
+        return t * t * t;
     }
 
     public static float EaseOutCubic(float t)
     {
-        return t;
+        if (t >= 1) { return 1f; }
+        if (t <= 0) { return 0f; }
+
+        return 1 - Pow(1 - t, 3);
     }
 
     public static float EaseInOutCubic(float t)
@@ -144,12 +153,16 @@ public class EasingsLibrary
 
     public static float EaseInCirc(float t)
     {
-        return t;
+        if (t >= 1) { return 1; }
+        if (t <= 0) { return 0; }
+        return 1 - Sqrt(1 - Pow(t, 2));
     }
 
     public static float EaseOutCirc(float t)
     {
-        return t;
+        if (t >= 1) { return 1; }
+        if (t <= 0) { return 0; }
+        return Sqrt(1 - Pow(t - 1, 2));
     }
 
     public static float EaseInOutCirc(float t)
@@ -164,12 +177,26 @@ public class EasingsLibrary
 
     public static float EaseOutBack(float t)
     {
-        return t;
+        if (t >= 1f) { return 1f; }
+        if (t <= 0f) { return 0f; }
+
+        float c1 = 1.70158f;
+        float c3 = c1 + 1;
+
+        return 1 + c3 * Pow(t - 1, 3) + c1 * Pow(t - 1, 2);
     }
 
     public static float EaseInOutBack(float t)
     {
-        return t;
+        if (t >= 1f) { return 1f; }
+        if (t <= 0f) { return 0f; }
+
+        float c1 = 1.70158f;
+        float c2 = c1 * 1.525f;
+
+        return t < 0.5
+          ? (Pow(2 * t, 2) * ((c2 + 1) * 2 * t - c2)) / 2
+          : (Pow(2 * t - 2, 2) * ((c2 + 1) * (t * 2 - 2) + c2) + 2) / 2;
     }
 
     public static float EaseInElastic(float t)
@@ -198,6 +225,11 @@ public class EasingsLibrary
     }
 
     public static float EaseInOutBounce(float t)
+    {
+        return t;
+    }
+
+    public static float NoOp(float t)
     {
         return t;
     }

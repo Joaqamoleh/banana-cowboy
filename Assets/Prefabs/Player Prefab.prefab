@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4228041902140543494}
   m_Layer: 0
-  m_Name: Hand Pos
+  m_Name: Lasso Swing Center Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 699997825167069235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.94, y: 1.24, z: 0}
+  m_LocalPosition: {x: 1.71, y: 1.24, z: 0.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -427,9 +427,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2453400843903261348}
-  - {fileID: 5186692679713727849}
   - {fileID: 3601929976241607925}
+  - {fileID: 5186692679713727849}
+  - {fileID: 2453400843903261348}
   m_Father: {fileID: 1526105572669686172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1089,8 +1089,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8123677899915858526}
-  - {fileID: 4228041902140543494}
   - {fileID: 1824780013112630551}
+  - {fileID: 8269334248003281727}
+  - {fileID: 4228041902140543494}
   m_Father: {fileID: 5503662033258183763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3423473375855337316
@@ -1312,10 +1313,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 7838862824688470847}
-  lassoHand: {fileID: 4228041902140543494}
+  lassoSwingCenter: {fileID: 4228041902140543494}
   lassoKey: 323
   runKey: 304
   jumpKey: 32
+  clickTossMask:
+    serializedVersion: 2
+    m_Bits: 265
   walkSpeed: 16.35
   runSpeed: 25.2
   accelSpeed: 4.98
@@ -1325,9 +1329,11 @@ MonoBehaviour:
   jumpBufferTime: 0.3
   airControlRatio: 0.8
   lassoRange: 20
-  timeToHitTarget: 1
-  timeToPullTarget: 1
-  timeToToss: 0.1
+  lassoThrowSpeed: 24.2
+  timeToPullTarget: 0.27
+  timeToToss: 0.2
+  timeToRetract: 1
+  lassoTossMinigameSpeed: 3
 --- !u!114 &5577803411208878517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2038,6 +2044,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &5995702240377179083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8269334248003281727}
+  m_Layer: 0
+  m_Name: Lasso Hip Joint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8269334248003281727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5995702240377179083}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.47, y: 1.019, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7838862824688470847}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6435897076055692967
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,13 +2295,14 @@ GameObject:
   m_Component:
   - component: {fileID: 6693983800380792935}
   - component: {fileID: 7837729510971154766}
+  - component: {fileID: 7679435369522281677}
   m_Layer: 0
   m_Name: Lasso Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6693983800380792935
 Transform:
   m_ObjectHideFlags: 0
@@ -2301,7 +2339,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ec6948f90e10b2148a6ad41520469d7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2322,9 +2360,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -2332,8 +2368,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
+        time: 0.034745473
+        value: 0.17611976
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2384,6 +2420,35 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &7679435369522281677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7437482850590560462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2024471db61934aa6d45c0c80f86f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hipJointPos: {fileID: 8269334248003281727}
+  lassoHandJointPos: {fileID: 6578063046232034596}
+  hipMaxSway: 1
+  hipRadius: 0.4
+  numberOfLoopSegments: 10
+  numberOfLineSegments: 10
+  numCyclesOnHip: 2
+  throwT1Time: 0.8
+  throwT2Time: 0.1
+  throwT3Time: 0.1
+  lassoTossDrag: 0.2
+  lassoLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  groundLayermask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &7531275077083258553
 GameObject:
   m_ObjectHideFlags: 0
@@ -3537,6 +3602,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2504003000073130486}
   m_SourcePrefab: {fileID: 100100000, guid: d71f41b7a71509246bf15d64c446ab31, type: 3}
+--- !u!4 &6578063046232034596 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3206098950249035921, guid: d71f41b7a71509246bf15d64c446ab31, type: 3}
+  m_PrefabInstance: {fileID: 8590514581037675957}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8123677899915858526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d71f41b7a71509246bf15d64c446ab31, type: 3}
