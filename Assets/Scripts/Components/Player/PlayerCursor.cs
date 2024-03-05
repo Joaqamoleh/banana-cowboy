@@ -63,25 +63,36 @@ public class PlayerCursor : MonoBehaviour
             playerUI.SetReticlePosition(currentCursorPos);
             LassoObject hover = GetHoveredLassoObject();
 
-            if (currentlyHovered == null && hover != null) {
+            if (currentlyHovered == null && hover != null && hover.isLassoable) {
                 // New object hovered
                 OnHoverLassoableEnter?.Invoke(hover);
-            } 
-            else if (currentlyHovered != null && hover == null)
+                currentlyHovered = hover;
+
+            }
+            else if (currentlyHovered != null && hover == null && currentlyHovered.isLassoable)
             {
                 // Hovered object no longer hovered
                 OnHoverLassoableExit?.Invoke(currentlyHovered);
-            } 
+                currentlyHovered = hover;
+
+            }
             else if (currentlyHovered != null && hover != null && hover != currentlyHovered)
             {
                 // Check to see if not equal, then if they aren't, then two updates to send signals about
-                OnHoverLassoableExit?.Invoke(currentlyHovered);
-                OnHoverLassoableEnter?.Invoke(hover);
+                if (currentlyHovered.isLassoable)
+                {
+                    OnHoverLassoableExit?.Invoke(currentlyHovered);
+                }
+                if (hover.isLassoable)
+                {
+                    OnHoverLassoableEnter?.Invoke(hover);
+                }
+                currentlyHovered = hover;
             }
+
 
             if (hover != null && hover.isLassoable && !hover.currentlyLassoed)
             {
-                currentlyHovered = hover;
                 playerUI.ReticleOverLassoable();
             } 
             else
@@ -94,7 +105,7 @@ public class PlayerCursor : MonoBehaviour
     /**
      * Returns null when no lasso object is hovered over
      */
-    public LassoObject GetHoveredLassoObject()
+    LassoObject GetHoveredLassoObject()
     {
         if (activeType != CursorType.LASSO_AIM) { return null; }
 
@@ -109,6 +120,11 @@ public class PlayerCursor : MonoBehaviour
             return null;
         }
 
+    }
+
+    public Ray GetCursorRay()
+    {
+        return Camera.main.ScreenPointToRay(currentCursorPos);
     }
 
     void SetCursorType(CursorType type)

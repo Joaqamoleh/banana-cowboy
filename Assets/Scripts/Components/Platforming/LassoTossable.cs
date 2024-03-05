@@ -8,7 +8,7 @@ public class LassoTossable : LassoObject
 {
 
     [SerializeField]
-    float swingHeight = 3f, swingRadius = 4f, swingSpeed = 1f, tossForwardForce = 25f, tossUpForce = 10f, tossWeakMult = 0.3f, tossMedMult = 0.7f, tossStrongMult = 1.0f;
+    float swingHeight = 5f, swingRadius = 4f, swingSpeed = 1f, tossForwardForce = 25f, tossUpForce = 10f, tossWeakMult = 0.3f, tossMedMult = 0.7f, tossStrongMult = 1.0f;
     // Swing Height is the height above the lassoHandPos which the swing happens
     // The others are pretty obvious
     [SerializeField]
@@ -88,10 +88,15 @@ public class LassoTossable : LassoObject
             }
             _rigidbody.AddForce(dir * tossForwardForce + relativeUp * tossUpForce, ForceMode.Impulse);
             tossed = true;
-            isLassoable = false;
+            isLassoable = !oneTimeThrow;
             currentlyLassoed = false;
             OnTossableTossed?.Invoke(this, dir, relativeUp, strength);
         }
+    }
+
+    public Vector3 GetPullStart()
+    {
+        return _startingPullPos;
     }
 
     public float GetSwingHeight()
@@ -106,5 +111,10 @@ public class LassoTossable : LassoObject
 
     public bool IsTossed() { 
         return tossed; 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        tossed = false;
     }
 }

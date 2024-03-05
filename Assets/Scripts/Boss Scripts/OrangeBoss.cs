@@ -49,6 +49,8 @@ public class OrangeBoss : MonoBehaviour
         state = BossStates.NONE;
 
         CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
+        // need to disable player controls
+
         // start beginning cutscene first 
         //
 
@@ -65,6 +67,7 @@ public class OrangeBoss : MonoBehaviour
 
     void CutsceneEnd(CutsceneObject o)
     {
+        // give player controls again
         StartCoroutine(BoomerangStartUpHelper()); // Give a pause before boss battle starts
     }
 
@@ -218,10 +221,10 @@ public class OrangeBoss : MonoBehaviour
         modelAnimator.SetTrigger("RB Peel Reset");
         indicating = false;
         yield return new WaitForSeconds(1.5f); // set weight to 0 after animation is done playing
-        modelAnimator.SetLayerWeight(1, 0.0f);
-        modelAnimator.SetLayerWeight(2, 0.0f);
-        modelAnimator.SetLayerWeight(3, 0.0f);
-        modelAnimator.SetLayerWeight(4, 0.0f);
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Front Slice"), 0.0f);
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Back Slice"), 0.0f);
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Front Slice"), 0.0f);
+        modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Back Slice"), 0.0f);
     }
 
     private GameObject SpawnBoomerang(Vector3 position, int radiusAdd)
@@ -272,8 +275,23 @@ public class OrangeBoss : MonoBehaviour
         {
             print("BOSS DEFEATED");
             LevelData.BeatLevel();
+
+            // remove all other animation layer weights
+            modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Front Slice"), 0.0f);
+            modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Back Slice"), 0.0f);
+            modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Front Slice"), 0.0f);
+            modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Back Slice"), 0.0f);
+
+            // play cutscene
+            CutsceneManager.Instance().PlayCutsceneByName("Win");
+            
+            // disable player controls
+
+            // play boss animations
+            modelAnimator.SetTrigger("Death");
+
             // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
-            LevelSwitch.ChangeScene("Menu");
+            // LevelSwitch.ChangeScene("Menu");
         }
     }
 

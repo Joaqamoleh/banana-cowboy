@@ -5131,9 +5131,12 @@ MonoBehaviour:
     selectedMaterials:
     - {fileID: 2100000, guid: 6c2699d25e6484a499cb99c7fc8c9fde, type: 2}
   lassoIndicatorSprite: {fileID: 5728459280365619613}
-  swingHeight: 3
-  swingRadius: 4
-  swingSpeed: 1
+  lassoCenterBasis: {fileID: 795978242557295446}
+  lassoThrowRadius: 3.58
+  appoximateLassoRadius: 2.85
+  swingHeight: 6.21
+  swingRadius: 4.92
+  swingSpeed: 4
   tossForwardForce: 25
   tossUpForce: 10
   tossWeakMult: 0.3
@@ -5220,6 +5223,37 @@ MonoBehaviour:
   orangeEnemyAnimator: {fileID: 3427894436404194328}
   destinationPoint: {fileID: 0}
   partner: {fileID: 0}
+--- !u!1 &6791260704200328076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 795978242557295446}
+  m_Layer: 0
+  m_Name: Lasso Center  Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &795978242557295446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6791260704200328076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7266123389711490642}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8040212875507771727
 GameObject:
   m_ObjectHideFlags: 0
@@ -5339,6 +5373,7 @@ Transform:
   - {fileID: 4115535371960722218}
   - {fileID: 4649061867434933926}
   - {fileID: 8862260968118473994}
+  - {fileID: 795978242557295446}
   m_Father: {fileID: 2379062788576937066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2007853148311373163
