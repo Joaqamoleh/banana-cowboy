@@ -28,9 +28,9 @@ public class HurtyZone : MonoBehaviour
                 other.GetComponentInParent<Health>().Damage(damage, knockback);
             }
         }
-        else if (other.gameObject != null &&  other.gameObject.GetComponentInParent<LassoTossable>() != null)
+        else if (other != null && other.gameObject != null &&  other.gameObject.GetComponentInParent<LassoableEnemy>() != null)
         {
-            other.gameObject.GetComponentInParent<LassoTossable>().TossInDirection(Vector3.zero, Vector3.up, LassoTossable.TossStrength.WEAK);
+            other.gameObject.GetComponentInParent<LassoableEnemy>().TossInDirection(Vector3.zero, Vector3.up, LassoTossable.TossStrength.WEAK);
         }
 
     }

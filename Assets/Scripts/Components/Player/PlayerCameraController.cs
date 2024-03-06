@@ -229,7 +229,6 @@ public class PlayerCameraController : MonoBehaviour
     void BlendToTarget()
     {
         if (_characterOrientation == null) { return; }
-        print("Blending to target");
         Vector3 characterViewportPos = Camera.main.WorldToViewportPoint(_characterOrientation.position);
 
         float targetLocalY = _characterOrientation.InverseTransformPoint(_cameraCurrent.position).y;

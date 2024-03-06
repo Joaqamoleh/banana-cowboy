@@ -70,6 +70,8 @@ public class LassoTossable : LassoObject
     
     public void TossInDirection(Vector3 dir, Vector3 relativeUp, TossStrength strength)
     {
+        print("Tossing!");
+        if (_rigidbody == null) { return; }
         if ((oneTimeThrow && !tossed) || !oneTimeThrow)
         {
             _rigidbody.isKinematic = false;
