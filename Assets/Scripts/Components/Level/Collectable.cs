@@ -62,7 +62,7 @@ public class Collectable : MonoBehaviour
             if (SOURCE.ENEMY == locationCameFrom)
             {
                 transform.root.GetComponentInChildren<ParticleSystem>().Stop();
-                Destroy(gameObject);
+                Destroy(transform.root.gameObject);
             }
             else if (SOURCE.LEVEL == locationCameFrom)
             {
