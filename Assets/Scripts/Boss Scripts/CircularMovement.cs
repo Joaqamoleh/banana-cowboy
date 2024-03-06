@@ -18,6 +18,7 @@ public class CircularMovement : MonoBehaviour
 
     private float x = 0f;
     private float z = 0f;
+    float rotationAngle;
     public Material normalColor;
     public Material transparentColor;
     public Renderer model;
@@ -47,7 +48,7 @@ public class CircularMovement : MonoBehaviour
 
         if (ifRotateY)
         {
-            float rotationAngle = direction * rotationSpeedY * Time.deltaTime;
+            rotationAngle = direction * rotationSpeedY * Time.deltaTime;
 
             // Rotate the object around the y-axis of the target
             transform.RotateAround(target.position, Vector3.up, rotationAngle);

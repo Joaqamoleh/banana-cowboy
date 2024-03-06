@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollectableFollow : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class CollectableFollow : MonoBehaviour
     private void Start()
     {
         follow = true;
+        if (SceneManager.GetActiveScene().name.Contains("Boss"))
+        {
+            _player = GameObject.FindGameObjectWithTag("Player");
+        }
     }
 
     private void Update()

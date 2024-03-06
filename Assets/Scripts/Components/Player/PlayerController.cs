@@ -603,7 +603,7 @@ public class PlayerController : MonoBehaviour
     // ************************ Callbacks / Event Handlers *************************** //
     void OnLassoableEnterHover(LassoObject hovered)
     {
-        print("Hover enter on " + hovered);
+        //print("Hover enter on " + hovered);
         if (_hoveredObject != null)
         {
             _hoveredObject.Deselect();
@@ -614,7 +614,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnLassoableExitHovered(LassoObject hovered)
     {
-        print("Hover exit on " + hovered);
+        //print("Hover exit on " + hovered);
         if (_hoveredObject == hovered)
         {
             if (_hoveredObject != null)

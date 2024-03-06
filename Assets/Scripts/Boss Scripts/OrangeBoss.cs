@@ -37,6 +37,7 @@ public class OrangeBoss : MonoBehaviour
     [Header("Damage")]
     public int maxHealth;
     private int health;
+    public GameObject healthHolder;
     public Image healthUI;
     public Material normalColor;
     public Material hurtColor;
@@ -70,7 +71,7 @@ public class OrangeBoss : MonoBehaviour
 
     void CutsceneEnd(CutsceneObject o)
     {
-        // give player controls again
+        healthHolder.SetActive(true);
         StartCoroutine(BoomerangStartUpHelper()); // Give a pause before boss battle starts
     }
 
@@ -147,6 +148,7 @@ public class OrangeBoss : MonoBehaviour
         {
             GameObject boomerangRight = SpawnBoomerang(spawnPoints[0].transform.position + spawnPoints[0].transform.right, i);
             GameObject boomerangLeft = SpawnBoomerang(spawnPoints[1].transform.position - spawnPoints[1].transform.right, i);
+            boomerangLeft.transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
             boomerangObjects.Add(boomerangLeft);
             boomerangObjects.Add(boomerangRight);
             StartCoroutine(DestroyBoomerangs(boomerangRight, boomerangLeft));
@@ -327,6 +329,7 @@ public class OrangeBoss : MonoBehaviour
         if (health <= 0)
         {
             print("BOSS DEFEATED");
+            healthHolder.SetActive(false);
             LevelData.BeatLevel();
 
             // remove all other animation layer weights

@@ -47,7 +47,7 @@ MonoBehaviour:
   sfxs:
   - name: PlayerRun
     audioClip: {fileID: 8300000, guid: 8042d2069ed60104ea4bf6ea406ae720, type: 3}
-    volume: 0.4
+    volume: 0.2
     pitch: 1
     pitchVariance: 0.25
     loop: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
     src: {fileID: 0}
   - name: PlayerWalk
     audioClip: {fileID: 8300000, guid: b401237eb46fbd14e8b98bae92b2b234, type: 3}
-    volume: 0.3
+    volume: 0.1
     pitch: 1
     pitchVariance: 0.25
     loop: 1
@@ -240,6 +240,14 @@ MonoBehaviour:
   - name: BouncePlatform
     audioClip: {fileID: 8300000, guid: b9e82adb5c3bfed42b9a811103ddfeba, type: 3}
     volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: CollectStarSparkle
+    audioClip: {fileID: 8300000, guid: d6abe08ebed2fb34d9ed5b5f5476ca92, type: 3}
+    volume: 0.1
     pitch: 1
     pitchVariance: 0
     loop: 0
