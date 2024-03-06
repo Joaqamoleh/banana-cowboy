@@ -125,20 +125,23 @@ public class PlayerCameraController : MonoBehaviour
         {
             ApplyInputRotation();
         } 
-        else if (highestHintPrioIndex != -1 && !ignoreActiveHint)
+        else
         {
-            // Apply camera hints
-            activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
-            var localIgnoreTilt = _cameraCurrent.localEulerAngles;
-            localIgnoreTilt.y = 0;
-            localIgnoreTilt.z = 0;
-            _cameraTilt.localEulerAngles = localIgnoreTilt;
-            var localIgnorePan = _cameraCurrent.localEulerAngles;
-            localIgnorePan.x = 0;
-            localIgnorePan.z = 0;
-            localIgnorePan.y = -localIgnorePan.y;
-            _cameraPivot.localEulerAngles = localIgnorePan;
-        }
+            if (highestHintPrioIndex != -1 && !ignoreActiveHint)
+            {
+                // Apply camera hints
+                activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
+            }
+            _cameraPivot.rotation = _cameraTarget.rotation;
+            var angles = _cameraPivot.localEulerAngles;
+            angles.x = 0;
+            angles.z = 0;
+            _cameraPivot.localEulerAngles = angles;
+            _cameraTilt.rotation = _cameraTarget.rotation;
+            var tiltangles = _cameraTilt.localEulerAngles;
+            tiltangles.y = 0;
+            _cameraTilt.localEulerAngles = tiltangles;
+        } 
         BlendToTarget();
     }
 
@@ -213,6 +216,7 @@ public class PlayerCameraController : MonoBehaviour
     void BlendToTarget()
     {
         if (_characterOrientation == null) { return; }
+        print("Blending to target");
         Vector3 characterViewportPos = Camera.main.WorldToViewportPoint(_characterOrientation.position);
 
         float targetLocalY = _characterOrientation.InverseTransformPoint(_cameraCurrent.position).y;
@@ -306,6 +310,21 @@ public class PlayerCameraController : MonoBehaviour
     public void UnfreezeCamera()
     {
         frozenCam = false;
+    }
+
+    public void JumpTo(Vector3 position, Quaternion orientation)
+    {
+        Camera.main.GetComponent<CinemachineBrain>().enabled = false;
+        Camera.main.transform.position = position;
+        Camera.main.transform.rotation = orientation;
+        Camera.main.GetComponent<CinemachineBrain>().enabled = true;
+        _cameraCurrent.position = position;
+        _cameraCurrent.rotation = orientation;
+    }
+
+    public void JumpToPlayer()
+    {
+        JumpTo(_cameraTarget.position, _cameraTarget.rotation);
     }
 
     void OnDrawGizmosSelected()
