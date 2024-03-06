@@ -17,6 +17,8 @@ public class Health : MonoBehaviour
     public Material damageColor;
     public Renderer charRender;
 
+    public GameObject deathVFX;
+
     private void Start()
     {
         health = maxHealth;   
@@ -43,10 +45,7 @@ public class Health : MonoBehaviour
             if (health <= 0)
             {
                 // Death, make player disappear and splat effects here
-
-                // reset checkpoint data
-                LevelData.ResetCheckpointData();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                StartCoroutine(dyingExplosion());
             }
             else
             {
@@ -57,6 +56,17 @@ public class Health : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator dyingExplosion() {
+        if (deathVFX != null)
+        {
+            Instantiate(deathVFX, GetComponent<Rigidbody>().transform.position, GetComponent<Rigidbody>().transform.rotation);
+        }
+        yield return new WaitForSeconds(1.0f);
+        // reset checkpoint data
+        LevelData.ResetCheckpointData();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator FlashInvincibility()
