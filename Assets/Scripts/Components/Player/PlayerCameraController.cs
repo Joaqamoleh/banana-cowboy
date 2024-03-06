@@ -50,6 +50,8 @@ public class PlayerCameraController : MonoBehaviour
     private int _validTouchID = -1;
     public static int uiTouching;
 
+    bool frozenCam = false;
+
     void Start()
     {
         // Removes cursor from screen and keeps it locked to center
@@ -118,6 +120,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (frozenCam) { return; }
         if (rotationHeld)
         {
             ApplyInputRotation();
@@ -293,6 +296,16 @@ public class PlayerCameraController : MonoBehaviour
             }
         }
         return index;
+    }
+
+    public void FreezeCamera()
+    {
+        frozenCam = true;
+    }
+
+    public void UnfreezeCamera()
+    {
+        frozenCam = false;
     }
 
     void OnDrawGizmosSelected()
