@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,6 @@ using UnityEngine;
 public class HurtyZone : MonoBehaviour
 {
     // in-editor variables
-    [Header("References")]
-    public PlayerController player;
     [Header("Other")]
     public bool kill;
     public Vector3 knockback;
@@ -28,6 +27,10 @@ public class HurtyZone : MonoBehaviour
                 // damage the player
                 other.GetComponentInParent<Health>().Damage(damage, knockback);
             }
+        }
+        else if (other.gameObject != null &&  other.gameObject.GetComponentInParent<LassoTossable>() != null)
+        {
+            other.gameObject.GetComponentInParent<LassoTossable>().TossInDirection(Vector3.zero, Vector3.up, LassoTossable.TossStrength.WEAK);
         }
 
     }

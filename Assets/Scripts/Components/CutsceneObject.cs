@@ -89,10 +89,11 @@ public class CutsceneObject : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         if (s.cinemachineCamController != null && skipped)
         {
-            Camera.main.GetComponent<CinemachineBrain>().enabled = false;
-            Camera.main.transform.position = s.cinemachineCamController.transform.position;
-            Camera.main.transform.rotation = s.cinemachineCamController.transform.rotation;
-            Camera.main.GetComponent<CinemachineBrain>().enabled = true;
+            PlayerCameraController controller = FindAnyObjectByType<PlayerCameraController>();
+            if (controller != null && scenes[scenes.Length - 1] == s)
+            {
+                controller.JumpToPlayer();
+            }
         }
         s.timelinePlayable.Stop();
         yield return null;
@@ -201,6 +202,11 @@ public class CutsceneObject : MonoBehaviour
                 if (s.cinemachineCamController != null)
                 {
                     s.cinemachineCamController.gameObject.SetActive(false);
+                    PlayerCameraController controller = FindAnyObjectByType<PlayerCameraController>();
+                    if (controller != null)
+                    {
+                        controller.JumpToPlayer();
+                    }
                 }
                 s.timelinePlayable.time = s.timelinePlayable.duration;
                 s.timelinePlayable.Play();

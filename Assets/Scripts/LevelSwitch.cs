@@ -58,7 +58,14 @@ public class LevelSwitch : MonoBehaviour
             SoundManager.Instance().StopAllMusic();
             SoundManager.Instance().PlayMusic("Tutorial");
         }
-        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
+        if (scene == "Menu")
+        {
+            PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
+        }
+        else
+        {
+            PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
+        }
         LevelData.ResetLevelData();
         CutsceneManager.ResetPlayStartingCutscene();
         SoundManager.Instance().StopAllSFX();
