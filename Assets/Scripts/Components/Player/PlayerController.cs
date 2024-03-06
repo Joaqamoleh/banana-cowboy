@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -119,18 +120,28 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (!disabledForCutscene && !PauseManager.pauseActive && _health.health > 0)
+        if (!PauseManager.pauseActive && _health.health > 0)
         {
-            GetMoveInput();
-            GetLassoInput();
+            if (!disabledForCutscene)
+            {                
+                GetMoveInput();
+                GetLassoInput();
+            }
+            else
+            {
+                // Stops the buggy rotation model. IDK why it's happening, so this is a patchwork fix
+                model.rotation = Quaternion.FromToRotation(model.up, _gravObject.characterOrientation.up) * model.rotation;
+            }
             DetectStateChange();
         }
     }
     private void FixedUpdate()
     {
         Run();
-        Jump();
-        Lasso();
+        if (!disabledForCutscene && !PauseManager.pauseActive) {            
+            Jump();
+            Lasso();
+        }
     }
     private void LateUpdate()
     {
@@ -426,8 +437,16 @@ public class PlayerController : MonoBehaviour
                 case LassoState.HOLD:
                 case LassoState.PULL:
                     // Perform init for pull and hold
-                    _lassoParamAccumTime = 0f;
-                    _lassoParamMaxTime = timeToPullTarget;
+                    LassoTossable pull = _lassoObject as LassoTossable;
+                    if (pull == null)
+                    {
+                        UpdateLassoTransitionState(LassoState.NONE);
+                    } 
+                    else
+                    {
+                        _lassoParamAccumTime = 0f;
+                        _lassoParamMaxTime = timeToPullTarget;
+                    }
                     break;
                 case LassoState.TOSS:
                     LassoTossable toss = _lassoObject as LassoTossable;
@@ -524,7 +543,7 @@ public class PlayerController : MonoBehaviour
             case LassoState.RETRACT:
                 if (_lassoParamAccumTime > _lassoParamMaxTime)
                 {
-                    UpdateLassoTransitionState(LassoState.NONE);
+                    EndLassoRetractState();
                 }
                 break;
         }
@@ -584,7 +603,7 @@ public class PlayerController : MonoBehaviour
     // ************************ Callbacks / Event Handlers *************************** //
     void OnLassoableEnterHover(LassoObject hovered)
     {
-        print("Hover enter on " + hovered);
+        //print("Hover enter on " + hovered);
         if (_hoveredObject != null)
         {
             _hoveredObject.Deselect();
@@ -595,7 +614,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnLassoableExitHovered(LassoObject hovered)
     {
-        print("Hover exit on " + hovered);
+        //print("Hover exit on " + hovered);
         if (_hoveredObject == hovered)
         {
             if (_hoveredObject != null)
@@ -609,12 +628,12 @@ public class PlayerController : MonoBehaviour
     {
         if (_lassoObject != null)
         {
-            if (_lassoObject as LassoTossable != null)
+            if (_lassoObject as LassoTossable != null && _lassoObject.isLassoable)
             {
                 _lassoObject.Grab();
                 UpdateLassoTransitionState(LassoState.PULL);
             }
-            else if (_lassoObject as SwingableObject != null)
+            else if (_lassoObject as SwingableObject != null && _lassoObject.isLassoable)
             {
                 _lassoObject.Grab();
                 UpdateLassoTransitionState(LassoState.SWING);
@@ -629,6 +648,11 @@ public class PlayerController : MonoBehaviour
             UpdateLassoTransitionState(LassoState.RETRACT);
         }
     }
+
+    void EndLassoPullState()
+    {
+
+    }
     void EndLassoTossState()
     {
         UpdateLassoTransitionState(LassoState.RETRACT);
@@ -642,6 +666,7 @@ public class PlayerController : MonoBehaviour
     void DisableCharacterForCutscene(CutsceneObject activeScene)
     {
         disabledForCutscene = true;
+        UpdateState(State.IDLE);
     }
 
     void EnableCharacterAfterCutscene(CutsceneObject activeScene)

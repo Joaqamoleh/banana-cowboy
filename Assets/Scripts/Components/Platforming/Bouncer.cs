@@ -12,6 +12,10 @@ public class Bouncer : MonoBehaviour
         if (collision != null && collision.gameObject != null && collision.gameObject.GetComponent<Rigidbody>() != null)
         {
             collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.up * bounceForce, ForceMode.Impulse);
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().PlaySFX("BouncePlatform");
+            }
         }
     }
 }

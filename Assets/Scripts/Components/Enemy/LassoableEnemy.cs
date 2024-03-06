@@ -18,6 +18,7 @@ public class LassoableEnemy : LassoTossable
         // TODO: Handle orange, blueberry, strawberry enemies and bosses, and blender
         if (IsTossed() && !isDestroyed)
         {
+            print(collision.collider.name);
             if (collision.collider.CompareTag("Boss"))
             {
                 // Will fix to handle more bosses (for orange, handle weak spots too)
@@ -40,6 +41,7 @@ public class LassoableEnemy : LassoTossable
             }
             else
             {
+                ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
                 DestroySelf();
             }
             // TODO: Clean this up later
@@ -59,7 +61,6 @@ public class LassoableEnemy : LassoTossable
         if (deathJuiceEffect != null) {
             Instantiate(deathJuiceEffect, transform.position, transform.rotation);
         }
-        ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
         Destroy(gameObject);
     }
 
@@ -69,13 +70,13 @@ public class LassoableEnemy : LassoTossable
         if (shouldDropItem <= 60) // 60% to drop something
         {
             whichItem = Random.Range(1, 100);
-            if (whichItem <= 80) // 80% to drop item1
+            if (whichItem <= 100) // 80% to drop item1. Make 100 for now until health is done
             {
                 if (item1 != null)
                 {
                     print("Item 1 dropped");
                     GameObject item = Instantiate(item1, transform.position, Quaternion.identity);
-                    item.GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
+                    item.transform.GetChild(0).GetChild(0).GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
                 }
             }
             else
@@ -84,7 +85,7 @@ public class LassoableEnemy : LassoTossable
                 if (item2 != null)
                 {
                     GameObject item = Instantiate(item2, transform.position, Quaternion.identity);
-                    item.GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
+                    item.transform.GetChild(0).GetChild(0).GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
                 }
             }
         }

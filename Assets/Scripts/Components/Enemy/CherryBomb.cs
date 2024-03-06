@@ -6,6 +6,9 @@ public class CherryBomb : LassoableEnemy
 {
     public GameObject explosion;
 
+    public delegate void CherryBombExplodeEvent(Collision c);
+    public event CherryBombExplodeEvent OnExplode;
+
    private void OnCollisionEnter(Collision collision)
     {
         if (IsTossed())
@@ -15,6 +18,7 @@ public class CherryBomb : LassoableEnemy
                 SoundManager.Instance().PlaySFX("CherryBombExplode");
             }
             SpawnExplosion();
+            OnExplode?.Invoke(collision);
             Destroy(gameObject);
         }
     }
