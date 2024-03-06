@@ -103,9 +103,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3915868213036117076}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2161520939761269229}
     - targetCorrespondingSourceObject: {fileID: 5282791529987259760, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7733393028818611687}
@@ -135,6 +132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderHighlights: []
   lassoIndicatorSprite: {fileID: 0}
+  lassoCenterBasis: {fileID: 0}
+  lassoThrowRadius: 4
+  appoximateLassoRadius: 2
 --- !u!64 &9172286486911727369
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -208,17 +208,3 @@ CapsuleCollider:
   m_Height: 7.961359
   m_Direction: 1
   m_Center: {x: 0.10164452, y: 1.0850745, z: 0.00031425623}
---- !u!114 &2161520939761269229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6574469631398599321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3e6474bbab3ff4c8783abe4c860046, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderHighlights: []
-  lassoIndicatorSprite: {fileID: 0}
