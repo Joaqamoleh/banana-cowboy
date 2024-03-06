@@ -43,7 +43,7 @@ public class PlayerCameraController : MonoBehaviour
     KeyCode rotationKey = KeyCode.Mouse1;
     
     private float mouseX, mouseY, mouseScroll;
-    private bool rotationHeld = false, ignoreActiveHint = false;
+    private bool rotationHeld = false, ignoreActiveHint = false, changedHint = false;
     List<CameraHint> activeHints = new List<CameraHint>();
     int highestHintPrioIndex = -1;
 
@@ -127,10 +127,23 @@ public class PlayerCameraController : MonoBehaviour
         } 
         else
         {
-            if (highestHintPrioIndex != -1 && !ignoreActiveHint)
+            if (highestHintPrioIndex != -1)
             {
                 // Apply camera hints
-                activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
+                if (ignoreActiveHint)
+                {
+                    if (Vector3.Dot(_characterOrientation.up, _cameraCurrent.forward) > 0f && changedHint)
+                    {
+                        ignoreActiveHint = false;
+                        changedHint = false;
+                    }
+                } 
+                else
+                {
+                    activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
+                    changedHint = false;
+                }
+
             }
             _cameraPivot.rotation = _cameraTarget.rotation;
             var angles = _cameraPivot.localEulerAngles;
@@ -271,8 +284,9 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null) {
             activeHints.Add(other.gameObject.GetComponent<CameraHint>());
+            int prev = highestHintPrioIndex;
             highestHintPrioIndex = GetHighestPrioIndex();
-            ignoreActiveHint = false;
+            changedHint = prev != highestHintPrioIndex;
         }
     }
 
@@ -282,8 +296,10 @@ public class PlayerCameraController : MonoBehaviour
         {
             other.gameObject.GetComponent<CameraHint>().ResetHintTime();
             activeHints.Remove(other.gameObject.GetComponent<CameraHint>());
+            int prev = highestHintPrioIndex;
             highestHintPrioIndex = GetHighestPrioIndex();
-            ignoreActiveHint = false;
+            changedHint = prev != highestHintPrioIndex;
+
         }
     }
 

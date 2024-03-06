@@ -11,19 +11,6 @@ public class LevelSwitch : MonoBehaviour
         if (other != null && other.gameObject.tag == "Player" && !menuScene.IsUnityNull())
         {
             ChangeScene(menuScene);
-            /*UnityEngine.Cursor.lockState = CursorLockMode.None;
-            UnityEngine.Cursor.visible = true;
-            LevelData.resetLevelData();
-            SoundManager.Instance().StopAllSFX();
-            SceneManager.LoadScene(menuScene); 
-            if(menuScene == "Orange Boss Scene")
-            {
-                if (SoundManager.Instance() != null)
-                {
-                    SoundManager.Instance().StopMusic("Orange Planet");
-                    SoundManager.Instance().PlayMusic("Orange Boss");
-                }
-            }*/
         }
     }
 

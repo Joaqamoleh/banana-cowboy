@@ -22,6 +22,7 @@ public class CameraHint : MonoBehaviour
     public void ApplyHint(Transform camCurrent, Transform characterOrient, ref Vector3 camVel, CinemachineVirtualCamera cam)
     {
         Vector3 desiredPos = characterOrient.position + targetHeightAbovePlayer * characterOrient.up;
+        print("Camera target is: " + desiredPos);
         camCurrent.position = Vector3.SmoothDamp(camCurrent.position, desiredPos, ref camVel, camReorientTime, camMaxSpeed);
         camCurrent.rotation = Quaternion.Slerp(camCurrent.rotation, desiredOrientation.rotation, rotationT);
         if (cam != null)

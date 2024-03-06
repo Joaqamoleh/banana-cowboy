@@ -214,6 +214,7 @@ public class PlayerController : MonoBehaviour
             {
                 OnLand();
             }
+            _jumping = false;
             _lastTimeOnGround = coyoteTime;
         }
         if (_lastTimeOnGround < 0)
@@ -246,7 +247,6 @@ public class PlayerController : MonoBehaviour
     void OnLand()
     {
         _detectLanding = false;
-        _jumping = false;
         print("Landed " + OnLanded);
         OnLanded?.Invoke(_gravObject.GetGround());
 
