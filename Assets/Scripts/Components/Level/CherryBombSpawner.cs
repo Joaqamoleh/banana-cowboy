@@ -7,6 +7,10 @@ public class CherryBombSpawner : MonoBehaviour
     [SerializeField]
     CherryBomb cherryBombPrefab;
 
+    [SerializeField]
+    GameObject respawnVFX;
+
+    [SerializeField]
     public float spawnDelay = 3f;
     void Start()
     {
@@ -15,6 +19,11 @@ public class CherryBombSpawner : MonoBehaviour
 
     void OnCherryExplode(Collision c)
     {
+        // do respawn vfx if it exists
+        if (respawnVFX != null)
+        {
+            Instantiate(respawnVFX, transform.position, transform.rotation);
+        }
         Invoke("SpawnCherryBomb", spawnDelay);
     }
 
