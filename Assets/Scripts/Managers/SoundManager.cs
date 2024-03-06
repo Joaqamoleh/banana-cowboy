@@ -24,6 +24,7 @@ public class SoundManager : MonoBehaviour
     private float m_sfxvolume = 1.0f;
     [SerializeField]
     private float m_musicvolume = 1.0f;
+
     public float SFXVolume { 
         get { return m_sfxvolume; } 
         set
@@ -235,6 +236,7 @@ public class Sound
 {
     public string name;
     public AudioClip audioClip;
+    public AudioClip[] alternatives;
     [Range(0, 1)]
     public float volume = 1.0f;
     [Range(0.1f, 3)]

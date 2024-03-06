@@ -19,6 +19,9 @@ public class Health : MonoBehaviour
 
     public GameObject deathVFX;
 
+    public delegate void DamageEvent(int damage);
+    public DamageEvent OnDamaged;
+
     private void Start()
     {
         health = maxHealth;   
@@ -51,10 +54,10 @@ public class Health : MonoBehaviour
             {
                 if (GetComponent<Rigidbody>() != null && !GetComponent<Rigidbody>().isKinematic)
                 {
-                    SoundManager.Instance().PlaySFX("PlayerHurt");
                     GetComponent<Rigidbody>().AddForce(knockback, ForceMode.Impulse);
                 }
             }
+            OnDamaged?.Invoke(damage);
         }
     }
 

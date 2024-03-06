@@ -102,7 +102,7 @@ public class PlayerCursor : MonoBehaviour
     /**
      * Returns null when no lasso object is hovered over
      */
-    LassoObject GetHoveredLassoObject()
+    public LassoObject GetHoveredLassoObject()
     {
         if (activeType != CursorType.LASSO_AIM) { return null; }
 

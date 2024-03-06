@@ -1263,6 +1263,7 @@ GameObject:
   - component: {fileID: 5577803411208878517}
   - component: {fileID: 8476664753565799702}
   - component: {fileID: 1268935481823884108}
+  - component: {fileID: 8227121646547314032}
   m_Layer: 14
   m_Name: Player Prefab
   m_TagString: Player
@@ -1356,7 +1357,7 @@ MonoBehaviour:
   jumpKey: 32
   clickTossMask:
     serializedVersion: 2
-    m_Bits: 8457
+    m_Bits: 9
   walkSpeed: 16.35
   runSpeed: 25.2
   accelSpeed: 4.98
@@ -1432,6 +1433,83 @@ MonoBehaviour:
   damageColor: {fileID: 2100000, guid: 731fc8af25f290e43aa5c3be015cc151, type: 2}
   charRender: {fileID: 3726396360410514689}
   deathVFX: {fileID: 8615972876567255314, guid: 44056f81fc8621446a3b9232cf516390, type: 3}
+--- !u!114 &8227121646547314032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879603049845090681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe4ad4cec9ec1342935d3367393406a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lassoSfxs:
+  - name: LassoThrow
+    audioClip: {fileID: 8300000, guid: 5762e2dcb9e988b47aec3a1d82f939fc, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: LassoSpin
+    audioClip: {fileID: 8300000, guid: e9fc70bb02b3cff428f166dbd3dd890b, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 0.7
+    pitchVariance: 0.3
+    loop: 1
+    type: 0
+    src: {fileID: 0}
+  playerSfxs:
+  - name: PlayerWalk
+    audioClip: {fileID: 8300000, guid: b401237eb46fbd14e8b98bae92b2b234, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 1
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerRun
+    audioClip: {fileID: 8300000, guid: 8042d2069ed60104ea4bf6ea406ae720, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 1
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerJump
+    audioClip: {fileID: 8300000, guid: c2890ee6703e3a54ab10007153ee4697, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerLand
+    audioClip: {fileID: 8300000, guid: 0d38a4cfaa147d1459cdf49f586de138, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: PlayerHurt
+    audioClip: {fileID: 8300000, guid: 4f6fb3cd7128a4c46b98ddc6d1f79fed, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    type: 0
+    src: {fileID: 0}
 --- !u!1 &3991381366261144897
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public event PlayerLanded OnLanded;
     public delegate void PlayerLeftGround();
     public event PlayerLeftGround OnLeftGround;
+    public event PlayerLeftGround OnJumpPressed;
 
 
     public enum LassoState
@@ -172,8 +173,8 @@ public class PlayerController : MonoBehaviour
             if (newState == State.AIR)
             {
                 _detectLanding = true;
+                OnLeftGround?.Invoke();
             }
-
             _state = newState;
         }
     }
@@ -246,7 +247,7 @@ public class PlayerController : MonoBehaviour
     {
         _detectLanding = false;
         _jumping = false;
-        SoundManager.Instance().PlaySFX("PlayerLand");
+        print("Landed " + OnLanded);
         OnLanded?.Invoke(_gravObject.GetGround());
 
         // Jump buffering, have a bool flag set to true to perform it on the next Jump() call
@@ -311,19 +312,19 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(lassoKey))
         {
-            print("Hovered object is: " + _hoveredObject + " in lasso state " + _lassoState);
             switch (_lassoState)
             {
+                case LassoState.RETRACT:
                 case LassoState.NONE:
                     // Do lasso action based on what is selected, update to thrown
-                    if (_hoveredObject != null) // TODO: Also check range relative to the player
+                    _hoveredObject = _cursor.GetHoveredLassoObject();
+                    if (_hoveredObject != null && _hoveredObject.isLassoable && !_hoveredObject.currentlyLassoed) // TODO: Also check range relative to the player
                     {
                         UpdateLassoTransitionState(LassoState.THROWN);
                         _lassoObject = _hoveredObject;
                     }
                     break;
                 case LassoState.THROWN: // DO NOT DO ANYTHING, I think it will mess things up bad to accept input here
-                case LassoState.RETRACT:
                 case LassoState.TOSS:
                     // Do nothing
                     break;
@@ -346,16 +347,6 @@ public class PlayerController : MonoBehaviour
     // ********************** INPUT PROCESSING ************************* //
     void Run()
     {
-        if (_lastTimeOnGround > 0 && _moveInput != Vector3.zero) // Check if the player is on the ground and moving
-        {
-            SoundManager.Instance().PlaySFX(_running ? "PlayerRun" : "PlayerWalk");
-        }
-        else
-        {
-            SoundManager.Instance().StopSFX("PlayerRun");
-            SoundManager.Instance().StopSFX("PlayerWalk");
-        }
-
 
         // Transform the move input relative to the camera
         _moveInput = _camera.TransformDirection(_moveInput);
@@ -405,10 +396,10 @@ public class PlayerController : MonoBehaviour
                 _gravObject.SetFallingVelocity(0);
             }
             _rigidbody.AddForce(_gravObject.characterOrientation.up * jumpImpulseForce, ForceMode.Impulse);
-            SoundManager.Instance().PlaySFX("PlayerJump");
             _jumping = true;
             _jumpBuffered = false;
             _currentJumpBufferTime = 0f; // Prevents repeats of jumpBuffering if jumpBufferTime is too long
+            OnJumpPressed?.Invoke();
         }
 
     }
@@ -585,7 +576,6 @@ public class PlayerController : MonoBehaviour
                     Vector3 dirProj = Vector3.ProjectOnPlane(dir, _gravObject.characterOrientation.up).normalized;
                     angleRatio = Mathf.Abs(Vector3.Dot(dir, dirProj));
                 }
-                SoundManager.Instance().PlaySFX("LassoThrow");
                 _lassoRenderer.RenderThrowLasso(_lassoParamAccumTime / _lassoParamMaxTime, _lassoObject, angleRatio);
                 break;
             case LassoState.SWING:
@@ -601,12 +591,10 @@ public class PlayerController : MonoBehaviour
             case LassoState.HOLD:
                 LassoTossable held = (_lassoObject as LassoTossable);
                 if (held != null) {
-                    SoundManager.Instance().PlaySFX("LassoSpin");
                     _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter);
                 }
                 break;
             case LassoState.TOSS:
-                SoundManager.Instance().StopSFX("LassoSpin");
                 LassoTossable tossed = (_lassoObject as LassoTossable);
                 if (tossed != null)
                 {
@@ -664,11 +652,6 @@ public class PlayerController : MonoBehaviour
         {
             UpdateLassoTransitionState(LassoState.RETRACT);
         }
-    }
-
-    void EndLassoPullState()
-    {
-
     }
     void EndLassoTossState()
     {
