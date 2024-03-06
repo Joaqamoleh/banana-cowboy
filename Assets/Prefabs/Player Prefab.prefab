@@ -1428,6 +1428,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUI: {fileID: 574274520373564533}
+  normalColor: {fileID: 2100000, guid: 440df321c3383b8489f44353b7295e38, type: 2}
+  damageColor: {fileID: 2100000, guid: 731fc8af25f290e43aa5c3be015cc151, type: 2}
+  charRender: {fileID: 3726396360410514689}
 --- !u!1 &3991381366261144897
 GameObject:
   m_ObjectHideFlags: 0
@@ -3714,6 +3717,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2504003000073130486}
   m_SourcePrefab: {fileID: 100100000, guid: d71f41b7a71509246bf15d64c446ab31, type: 3}
+--- !u!137 &3726396360410514689 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4287019200750047052, guid: d71f41b7a71509246bf15d64c446ab31, type: 3}
+  m_PrefabInstance: {fileID: 8590514581037675957}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6578063046232034596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3206098950249035921, guid: d71f41b7a71509246bf15d64c446ab31, type: 3}

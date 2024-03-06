@@ -60,7 +60,7 @@ public class OrangeBoss : MonoBehaviour
         //state = BossStates.PEEL;
         resetAnimations = new List<string>();
         health = maxHealth;
-        currMove = 1;
+        currMove = 0;
 
         player = GameObject.FindWithTag("Player");
         indicating = false;
@@ -324,7 +324,7 @@ public class OrangeBoss : MonoBehaviour
         {
             ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
         }
-        if (health == 0)
+        if (health <= 0)
         {
             print("BOSS DEFEATED");
             LevelData.BeatLevel();

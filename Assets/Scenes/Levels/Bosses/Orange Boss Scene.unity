@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.33413506, g: 0.43104663, b: 0.869579, a: 1}
+  m_IndirectSpecularColor: {r: 0.31778386, g: 0.3083839, b: 0.5771058, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6851,6 +6851,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036199680}
     m_Modifications:
+    - target: {fileID: 2466153519696501011, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705060707681521342, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4792375295655101336, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -410.1549
@@ -6890,6 +6898,14 @@ PrefabInstance:
     - target: {fileID: 4792375295655101336, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.913
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306181837942905815, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5849678673388839962, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6369561918749010671, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: m_Name
@@ -9092,7 +9108,6 @@ Camera:
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 60.000004
-  field of view: 60.000004
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -9118,8 +9133,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623697362}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.110609636, y: -0.50064707, z: 0.0646833, w: 0.8561157}
-  m_LocalPosition: {x: 93.309525, y: 39.657764, z: -26.471943}
   m_LocalRotation: {x: 0.110609636, y: -0.50064707, z: 0.0646833, w: 0.8561157}
   m_LocalPosition: {x: 93.309525, y: 39.657764, z: -26.471943}
   m_LocalScale: {x: 1, y: 1, z: 1}

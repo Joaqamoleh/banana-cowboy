@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(GravityObject))]
 public class PlayerController : MonoBehaviour
@@ -179,6 +180,7 @@ public class PlayerController : MonoBehaviour
     void DetectStateChange()
     {
         _lastTimeOnGround -= Time.deltaTime;
+
         if (_gravObject.IsOnGround())
         {
             if (_detectLanding)
@@ -218,6 +220,7 @@ public class PlayerController : MonoBehaviour
     {
         _detectLanding = false;
         _jumping = false;
+        SoundManager.Instance().PlaySFX("PlayerLand");
         OnLanded?.Invoke(_gravObject.GetGround());
 
         // Jump buffering, have a bool flag set to true to perform it on the next Jump() call
@@ -317,6 +320,16 @@ public class PlayerController : MonoBehaviour
     // ********************** INPUT PROCESSING ************************* //
     void Run()
     {
+        if (_moveInput != Vector3.zero)
+        {
+            SoundManager.Instance().PlaySFX(_running ? "PlayerRun" : "PlayerWalk");
+        }
+        else
+        {
+            SoundManager.Instance().StopSFX("PlayerRun");
+            SoundManager.Instance().StopSFX("PlayerWalk");
+        }
+
         // Transform the move input relative to the camera
         _moveInput = _camera.TransformDirection(_moveInput);
         // Transform the move input relative to the player
@@ -365,6 +378,7 @@ public class PlayerController : MonoBehaviour
                 _gravObject.SetFallingVelocity(0);
             }
             _rigidbody.AddForce(_gravObject.characterOrientation.up * jumpImpulseForce, ForceMode.Impulse);
+            SoundManager.Instance().PlaySFX("PlayerJump");
             _jumping = true;
             _jumpBuffered = false;
             _currentJumpBufferTime = 0f; // Prevents repeats of jumpBuffering if jumpBufferTime is too long
@@ -535,7 +549,7 @@ public class PlayerController : MonoBehaviour
                     Vector3 dirProj = Vector3.ProjectOnPlane(dir, _gravObject.characterOrientation.up).normalized;
                     angleRatio = Mathf.Abs(Vector3.Dot(dir, dirProj));
                 }
-
+                SoundManager.Instance().PlaySFX("LassoThrow");
                 _lassoRenderer.RenderThrowLasso(_lassoParamAccumTime / _lassoParamMaxTime, _lassoObject, angleRatio);
                 break;
             case LassoState.SWING:
@@ -551,10 +565,12 @@ public class PlayerController : MonoBehaviour
             case LassoState.HOLD:
                 LassoTossable held = (_lassoObject as LassoTossable);
                 if (held != null) {
+                    SoundManager.Instance().PlaySFX("LassoSpin");
                     _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter);
                 }
                 break;
             case LassoState.TOSS:
+                SoundManager.Instance().StopSFX("LassoSpin");
                 LassoTossable tossed = (_lassoObject as LassoTossable);
                 if (tossed != null)
                 {

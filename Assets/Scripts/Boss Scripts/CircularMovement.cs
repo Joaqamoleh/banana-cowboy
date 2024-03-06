@@ -14,6 +14,7 @@ public class CircularMovement : MonoBehaviour
     [Header ("Orange Slice Boomerang Animation")]
     public bool ifRotateY;
     public float rotationSpeedY;
+    Vector3 offset;
 
     private float x = 0f;
     private float z = 0f;
@@ -36,7 +37,7 @@ public class CircularMovement : MonoBehaviour
         x = Mathf.Cos(angle);
         z = Mathf.Sin(angle); 
 
-        Vector3 offset = new Vector3(x, 0, z) * radius;
+        offset = new Vector3(x, 0, z) * radius;
 
         transform.position = target.position + offset;
         if (!target.GetComponentInParent<OrangeBoss>().indicating)
