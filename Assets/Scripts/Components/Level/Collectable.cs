@@ -61,6 +61,7 @@ public class Collectable : MonoBehaviour
 
             if (SOURCE.ENEMY == locationCameFrom)
             {
+                transform.root.GetComponentInChildren<ParticleSystem>().Stop();
                 Destroy(gameObject);
             }
             else if (SOURCE.LEVEL == locationCameFrom)
@@ -70,6 +71,7 @@ public class Collectable : MonoBehaviour
                 GetComponent<Collider>().enabled = false;
                 LevelData.starSparkleObjectCheckpoint[positionKey] = true;
                 transform.root.GetComponent<CollectableFollow>().follow = false;
+                transform.root.GetComponentInChildren<ParticleSystem>().Stop();
             }
         }
     }
