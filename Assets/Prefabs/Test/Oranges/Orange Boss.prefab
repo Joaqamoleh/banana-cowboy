@@ -1257,18 +1257,21 @@ MonoBehaviour:
   peelAnimationTime: 13
   modelAnimator: {fileID: 8966012252845642493}
   healthAnimator: {fileID: 7852616926638649835}
+  playerAnimator: {fileID: 0}
   spawnPoints:
   - {fileID: 6825876845152104811}
   - {fileID: 3490203331848200127}
   - {fileID: 4348830536896967959}
   origin: {fileID: 698810356747949439}
   player: {fileID: 0}
+  playerModel: {fileID: 0}
   boomerangObjects: []
   weakSpots:
   - {fileID: 5849678673388839962}
   - {fileID: 2466153519696501011}
   - {fileID: 4705060707681521342}
   - {fileID: 5306181837942905815}
+  playerWinLocation: {fileID: 0}
   state: 0
   maxHealth: 6
   healthUI: {fileID: 1489641839754729368}
@@ -1647,7 +1650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2603773, g: 0.2603773, b: 0.2603773, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

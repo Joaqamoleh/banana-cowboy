@@ -13,6 +13,10 @@ public class Health : MonoBehaviour
     private bool _canTakeDamage = true;
     public UIManager playerUI;
 
+    public Material normalColor;
+    public Material damageColor;
+    public Renderer charRender;
+
     private void Start()
     {
         health = maxHealth;   
@@ -29,6 +33,10 @@ public class Health : MonoBehaviour
         if (_canTakeDamage && health > 0)
         {
             StartCoroutine(InvincibleFrames());
+            if (damageColor != null && normalColor != null && charRender != null)
+            {
+                StartCoroutine(FlashInvincibility());
+            }
             health = Mathf.Clamp(health - damage, 0, 3);
             playerUI.SetHealthUI(health, false);
             ScreenShakeManager.Instance.ShakeCamera(2, 3, 0.1f);
@@ -38,15 +46,27 @@ public class Health : MonoBehaviour
 
                 // reset checkpoint data
                 LevelData.ResetCheckpointData();
-                SceneManager.LoadScene("Orange Boss Scene");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else
             {
                 if (GetComponent<Rigidbody>() != null && !GetComponent<Rigidbody>().isKinematic)
                 {
+                    SoundManager.Instance().PlaySFX("PlayerHurt");
                     GetComponent<Rigidbody>().AddForce(knockback, ForceMode.Impulse);
                 }
             }
+        }
+    }
+
+    IEnumerator FlashInvincibility()
+    {
+        while (!_canTakeDamage)
+        {
+            charRender.material = damageColor; // Assign damageColor material
+            yield return new WaitForSeconds(0.2f);
+            charRender.material = normalColor; // Assign normalColor material
+            yield return new WaitForSeconds(0.2f); // Add a slight delay before looping again
         }
     }
 
