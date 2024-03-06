@@ -59,9 +59,12 @@ public class Health : MonoBehaviour
     }
 
     IEnumerator dyingExplosion() {
+        // turn off renderer for Banana Cowboy
+        StartCoroutine(DisableMesh());
         if (deathVFX != null)
         {
             Instantiate(deathVFX, GetComponent<Rigidbody>().transform.position, GetComponent<Rigidbody>().transform.rotation);
+            // TODO - FREEZE CAMERA FOLLOW AT THE CURRENT TRANSFORM
         }
         yield return new WaitForSeconds(1.0f);
         // reset checkpoint data
@@ -78,6 +81,15 @@ public class Health : MonoBehaviour
             charRender.material = normalColor; // Assign normalColor material
             yield return new WaitForSeconds(0.2f); // Add a slight delay before looping again
         }
+    }
+
+    IEnumerator DisableMesh() {
+        charRender.forceRenderingOff = true;
+/*        for (int i = 0; i < charRender.transform.childCount; i++) {
+            Renderer r = charRender.transform.GetChild(i).GetComponent<Renderer>();
+            r.forceRenderingOff = true;
+        }*/
+        yield return null;
     }
 
     IEnumerator InvincibleFrames()
