@@ -204,7 +204,10 @@ public class OrangeEnemyController : EnemyController
                     EndWalk();
                     walkTimer = 0;
                 }
-                _directionOfPartner = (destinationPoint.transform.position - transform.position).normalized;
+                if (destinationPoint != null)
+                {
+                    _directionOfPartner = (destinationPoint.transform.position - transform.position).normalized;
+                }
                 _directionOfPartner.y = 0;
                 _model.rotation = Quaternion.Slerp(_model.rotation,
                                 Quaternion.LookRotation(_directionOfPartner, _gravObject.characterOrientation.up),
@@ -320,9 +323,12 @@ public class OrangeEnemyController : EnemyController
     int rand;
     void EndWalk()
     {
-        rand = UnityEngine.Random.Range(0,destinationPoints.Length);
-        destinationPoint = destinationPoints[rand];
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        if (destinationPoints.Length > 0)
+        {
+            rand = UnityEngine.Random.Range(0,destinationPoints.Length);
+            destinationPoint = destinationPoints[rand];
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
     }
 
     void EndDizzy()

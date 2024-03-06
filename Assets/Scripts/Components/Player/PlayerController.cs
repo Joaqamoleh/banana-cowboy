@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
             CutsceneManager.Instance().OnCutsceneStart += DisableCharacterForCutscene;
             CutsceneManager.Instance().OnCutsceneEnd += EnableCharacterAfterCutscene;
         }
-
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }
     private void Update()
     {
@@ -553,6 +553,7 @@ public class PlayerController : MonoBehaviour
 
     void RenderLasso()
     {
+        print("Rendering Lasso with state: " + _lassoState);
         switch(_lassoState)
         {
             case LassoState.NONE:
@@ -668,10 +669,13 @@ public class PlayerController : MonoBehaviour
     {
         disabledForCutscene = true;
         UpdateState(State.IDLE);
+        _moveInput = Vector3.zero;
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.HIDDEN);
     }
 
     void EnableCharacterAfterCutscene(CutsceneObject activeScene)
     {
         disabledForCutscene = false;
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }
 }

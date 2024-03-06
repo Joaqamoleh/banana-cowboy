@@ -150,7 +150,7 @@ public class PauseManager : MonoBehaviour
 
         pauseActive = false;
         Time.timeScale = 1.0f;
-        PlayerCursor.GoBackToPreviousCursorType();
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }
 
     public void SetActiveMenu(PauseMenus menu)

@@ -32,8 +32,7 @@ public class LassoRenderer : MonoBehaviour
     /// 1. Arc to the target, making it look like it was thrown to land on the target
     /// 2. Constrict lasso loop around the target
     /// 3. Send a ripple back down the rope to the player which ends the throw
-
-    private void Start()
+    private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         Debug.Assert(lineRenderer != null);
@@ -41,22 +40,20 @@ public class LassoRenderer : MonoBehaviour
         lassoLoopVelocities = new Vector3[numberOfLoopSegments];
         lassoLinePositions = new Vector3[numberOfLineSegments];
         lassoLineVelocities = new Vector3[numberOfLineSegments];
+        lineRenderer.positionCount = numberOfLineSegments + numberOfLoopSegments;        
+    }
+    private void Start()
+    {
     }
 
     public void StartRenderLasso()
     {
-        if (lineRenderer != null)
-        {
-            lineRenderer.positionCount = numberOfLineSegments + numberOfLoopSegments;
-        }
+        lineRenderer.positionCount = numberOfLineSegments + numberOfLoopSegments;
     }
 
     public void StopRenderLasso()
     {
-        if (lineRenderer != null)
-        {
-            lineRenderer.positionCount = 0;
-        }
+        lineRenderer.positionCount = 0;
     }
     void LoopAroundTarget(LassoObject o, ref Vector3[] loopPositions)
     {
