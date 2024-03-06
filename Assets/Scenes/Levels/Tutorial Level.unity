@@ -3232,7 +3232,7 @@ MonoBehaviour:
     dialog:
       typingSpeed: 0.02
       speakerName: Prickly Pete
-      speakerDialog: 'Nice Swings! '
+      speakerDialog: Good aim!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 0
       dialogFullyDisplayed: 0
@@ -3246,8 +3246,8 @@ MonoBehaviour:
     dialog:
       typingSpeed: 0.02
       speakerName: Prickly Pete
-      speakerDialog: See that wall over there? You'll need to break it down with
-        something.
+      speakerDialog: Now that Cherry Bomb made an explosion, but usually walls are
+        weak enough that just about anything will break them down
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 0
       dialogFullyDisplayed: 0
@@ -3261,8 +3261,8 @@ MonoBehaviour:
     dialog:
       typingSpeed: 0.02
       speakerName: Prickly Pete
-      speakerDialog: Use your lassoing skills on that cherry bomb by holding LMB
-        on it. Release LMB to launch the bomb!
+      speakerDialog: These leaves here are fragile, so be quick with your traversal
+        or else you'll fall!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 0
       dialogFullyDisplayed: 0
@@ -6880,6 +6880,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5031327551711260231, guid: e027990025ffc954d9c33a35877f547f, type: 3}
   m_PrefabInstance: {fileID: 1661721525}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &668722131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 668722134}
+  - component: {fileID: 668722133}
+  - component: {fileID: 668722132}
+  m_Layer: 10
+  m_Name: Cutscene Trigger (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &668722132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668722131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae9ee76136a7e748a900d77dba30b16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneToPlay: Cherry Bomb
+  cutscenePlayOnce: 1
+--- !u!65 &668722133
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668722131}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.05, y: 9.7, z: 25.48}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &668722134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668722131}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.07845781, y: 0.04538709, z: 0.49867874, w: 0.8620348}
+  m_LocalPosition: {x: -15.4, y: -27.5, z: 1.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 5.164, y: 9.041, z: 60.506}
 --- !u!1 &693748237
 GameObject:
   m_ObjectHideFlags: 0
@@ -21089,6 +21157,7 @@ SceneRoots:
   - {fileID: 2821030328433325685}
   - {fileID: 1574422764}
   - {fileID: 74543578}
+  - {fileID: 668722134}
   - {fileID: 774013670}
   - {fileID: 1304300147}
   - {fileID: 2084967714}
