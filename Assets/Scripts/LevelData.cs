@@ -43,8 +43,8 @@ public class LevelData : MonoBehaviour
 
         starSparkleTemp = 0;
         starSparkleCheckpoint = 0;
-        starSparkleObjectCheckpoint.Clear();
-        starSparkleObject.Clear();
+/*        starSparkleObjectCheckpoint.Clear();
+        starSparkleObject.Clear();*/
         UIManager.UpdateStars();
     }
 
@@ -52,18 +52,18 @@ public class LevelData : MonoBehaviour
     {
         starSparkleTemp = 0;
         UIManager.UpdateStars();
-        starSparkleObjectCheckpoint.Clear();
-        foreach (var item in starSparkleObject)
+        //starSparkleObjectCheckpoint.Clear();
+/*        foreach (var item in starSparkleObject)
         {
             starSparkleObjectCheckpoint.Add(item.Key, item.Value);
-        }
+        }*/
     }
 
     public static void BeatLevel()
     {
-        starSparkleTotal += starSparkleCheckpoint;
+        starSparkleTotal += starSparkleCheckpoint;/*
         starSparkleObjectCheckpoint.Clear();
-        starSparkleObject.Clear();
+        starSparkleObject.Clear();*/
         UIManager.UpdateStars();
     }
 
@@ -77,12 +77,13 @@ public class LevelData : MonoBehaviour
 
     public static void SetCheckpoint(int c)
     {
-        starSparkleCheckpoint = starSparkleTemp;
+        starSparkleCheckpoint += starSparkleTemp;
         // need to test, starSparkleObject.Clear();
-        foreach (var item in starSparkleObjectCheckpoint)
+/*        foreach (var item in starSparkleObjectCheckpoint)
         {
+            print("CALLED HERE: "+item.Key+", "+item.Value);
             starSparkleObject.Add(item.Key, item.Value);
-        }
+        }*/
         starSparkleTemp = 0;
         /* prevent player from setting themselves back
          * by only storing if they've found a "greater"

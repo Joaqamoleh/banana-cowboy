@@ -27,20 +27,24 @@ public class Collectable : MonoBehaviour
     private Vector3 positionKey;
     private void Awake()
     {
-        positionKey = transform.position;
-        if (!LevelData.starSparkleObjectCheckpoint.ContainsKey(positionKey))
+        if (SOURCE.ENEMY != locationCameFrom)
         {
-            LevelData.starSparkleObjectCheckpoint.Add(positionKey, false);
-        }
-        else
-        {
-            pickedUp = LevelData.starSparkleObjectCheckpoint[positionKey];
-        }
-        if (pickedUp)
-        {
-            GetComponent<Renderer>().enabled = false;
-            GetComponent<Collider>().enabled = false;
-            transform.root.GetComponent<CollectableFollow>().follow = false;
+            print("SHOULD NOT BE HERE");
+            positionKey = transform.position;
+            if (!LevelData.starSparkleObjectCheckpoint.ContainsKey(positionKey))
+            {
+                LevelData.starSparkleObjectCheckpoint.Add(positionKey, false);
+            }
+            else
+            {
+                pickedUp = LevelData.starSparkleObjectCheckpoint[positionKey];
+            }
+            if (pickedUp)
+            {
+                GetComponent<Renderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
+                transform.root.GetComponent<CollectableFollow>().follow = false;
+            }
         }
     }
 
