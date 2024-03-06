@@ -182,6 +182,7 @@ public class UIManager : MonoBehaviour
     void ShowUIPostCutscene(CutsceneObject s)
     {
         hudElementsCanvas.gameObject.SetActive(true);
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }
 
     public static UIManager Instance()

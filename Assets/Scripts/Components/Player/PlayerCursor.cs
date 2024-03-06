@@ -14,7 +14,7 @@ public class PlayerCursor : MonoBehaviour
         CAMERA_PAN,
         HIDDEN
     }
-    public static CursorType activeType = CursorType.LASSO_AIM;
+    CursorType activeType = CursorType.HIDDEN;
 
     private static PlayerCursor instance;
 
@@ -163,10 +163,5 @@ public class PlayerCursor : MonoBehaviour
         }
         if (instance == null || instance.playerUI == null) { return; }
         instance.SetCursorType(type);
-    }
-
-    public static CursorType GetActiveCursorType()
-    {
-        return activeType;
     }
 }
