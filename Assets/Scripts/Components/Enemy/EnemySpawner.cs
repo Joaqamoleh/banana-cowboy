@@ -6,6 +6,9 @@ public class EnemySpawner : MonoBehaviour
     LassoableEnemy enemyToSpawn;
 
     [SerializeField]
+    GameObject respawnVFX;
+
+    [SerializeField]
     float delayOfRespawnAfterDeath = 4f;
 
     [SerializeField]
@@ -21,6 +24,10 @@ public class EnemySpawner : MonoBehaviour
 
     void OnSpawnedEnemyDeath(Collision c)
     {
+        // do respawn vfx if it exists
+        if (respawnVFX != null) {
+            Instantiate(respawnVFX, transform.position, transform.rotation);
+        }
         Invoke("SpawnEnemy", delayOfRespawnAfterDeath);
     }
 
