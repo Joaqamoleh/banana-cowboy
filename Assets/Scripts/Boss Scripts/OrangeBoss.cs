@@ -334,6 +334,7 @@ public class OrangeBoss : MonoBehaviour
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Left Back Slice"), 0.0f);
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Front Slice"), 0.0f);
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Right Back Slice"), 0.0f);
+            modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex("Body and Arms"), 0.0f);
 
             BossDeathSetup();
 
@@ -343,8 +344,9 @@ public class OrangeBoss : MonoBehaviour
             // disable player controls and move player to a specific spot
             playerModel.transform.position = playerWinLocation.transform.position;
             playerModel.transform.rotation = playerWinLocation.transform.rotation;
+            playerAnimator.applyRootMotion = true;
             playerAnimator.SetLayerWeight(1, 0.0f);
-            playerAnimator.Play("Base Layer.BC_Idle");
+            playerAnimator.Play("Base Layer.BC_Cheer");
 
 
             // play boss animations
