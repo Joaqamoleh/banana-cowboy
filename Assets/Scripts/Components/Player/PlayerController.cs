@@ -331,7 +331,7 @@ public class PlayerController : MonoBehaviour
     // ********************** INPUT PROCESSING ************************* //
     void Run()
     {
-        if (_moveInput != Vector3.zero)
+        if (_lastTimeOnGround > 0 && _moveInput != Vector3.zero) // Check if the player is on the ground and moving
         {
             SoundManager.Instance().PlaySFX(_running ? "PlayerRun" : "PlayerWalk");
         }
@@ -340,6 +340,7 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance().StopSFX("PlayerRun");
             SoundManager.Instance().StopSFX("PlayerWalk");
         }
+
 
         // Transform the move input relative to the camera
         _moveInput = _camera.TransformDirection(_moveInput);
