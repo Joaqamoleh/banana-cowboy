@@ -77,6 +77,7 @@ public class Health : MonoBehaviour
         // reset checkpoint data
         LevelData.ResetCheckpointData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }
 
     IEnumerator FlashInvincibility()

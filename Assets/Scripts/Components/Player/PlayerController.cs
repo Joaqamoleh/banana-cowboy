@@ -669,7 +669,6 @@ public class PlayerController : MonoBehaviour
         UpdateState(State.IDLE);
         _moveInput = Vector3.zero;
         _jumpHeld = false;
-        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.HIDDEN);
     }
 
     void EnableCharacterAfterCutscene(CutsceneObject activeScene)
