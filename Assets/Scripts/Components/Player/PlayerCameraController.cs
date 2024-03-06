@@ -107,7 +107,7 @@ public class PlayerCameraController : MonoBehaviour
             } 
             else if (Input.GetKeyUp(rotationKey))
             {
-                PlayerCursor.GoBackToPreviousCursorType();
+                PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
                 rotationHeld = false;
             }
 #else

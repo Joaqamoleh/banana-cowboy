@@ -32,6 +32,11 @@ public class CutsceneManager : MonoBehaviour
 
     void Start()
     {
+        Invoke("PlayStartOnDelay", 0.2f);
+    }
+
+    void PlayStartOnDelay()
+    {
         s_instance.PlayStartCutscene();
     }
 

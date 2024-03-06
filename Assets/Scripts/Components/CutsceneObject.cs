@@ -79,15 +79,15 @@ public class CutsceneObject : MonoBehaviour
             {
                 scene.cinemachineCamController.gameObject.SetActive(false);
             }
-            StartCoroutine(EndTimelinePlayable(scene));
+            StartCoroutine(EndTimelinePlayable(scene, _skip));
         }
     }
 
-    IEnumerator EndTimelinePlayable(Scene s)
+    IEnumerator EndTimelinePlayable(Scene s, bool skipped)
     {
 
         yield return new WaitForSeconds(0.01f);
-        if (s.cinemachineCamController != null)
+        if (s.cinemachineCamController != null && skipped)
         {
             Camera.main.GetComponent<CinemachineBrain>().enabled = false;
             Camera.main.transform.position = s.cinemachineCamController.transform.position;
@@ -163,7 +163,7 @@ public class CutsceneObject : MonoBehaviour
                 if (_skip)
                 {
                     DialogueManager.Instance().DisplayDialog(dialog, false);
-                    _skip = false;
+                    done = true;
                 }
                 yield return null;
             }
@@ -184,7 +184,7 @@ public class CutsceneObject : MonoBehaviour
                 if (_skip)
                 {
                     playable.time = playable.duration;
-                    _skip = false;
+                    done = true;
                 }
                 yield return null;
             }

@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
     }
     public static void UpdateStars()
     {
+        if (instance == null) { return; }
         instance.starSparkles.text = "X " + (LevelData.starSparkleTotal + LevelData.starSparkleCheckpoint + LevelData.starSparkleTemp);    
     }
 

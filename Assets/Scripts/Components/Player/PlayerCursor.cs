@@ -15,7 +15,6 @@ public class PlayerCursor : MonoBehaviour
         HIDDEN
     }
     public static CursorType activeType = CursorType.LASSO_AIM;
-    static CursorType prevType = CursorType.LASSO_AIM;
 
     private static PlayerCursor instance;
 
@@ -40,8 +39,6 @@ public class PlayerCursor : MonoBehaviour
     {
         instance = this;
         Cursor.SetCursor(UICursorTexture, Vector2.zero, CursorMode.Auto);
-        SetActiveCursorType(CursorType.LASSO_AIM);
-
         currentCursorPos = new Vector2(Screen.width / 2, Screen.height / 2);
     }
 
@@ -128,26 +125,14 @@ public class PlayerCursor : MonoBehaviour
     }
 
     void SetCursorType(CursorType type)
-    { 
+    {
         if (activeType != type)
         {
-            prevType = activeType;
+
             activeType = type;
-
-            if (activeType == CursorType.UI)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            } 
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-
+            print("Setting cursor type of " + type);
             playerUI.HideReticle();
             playerUI.HidePanHand();
-
             switch (activeType)
             {
                 case CursorType.UI:
@@ -166,14 +151,18 @@ public class PlayerCursor : MonoBehaviour
     }
     public static void SetActiveCursorType(CursorType type)
     {
+        if (type == CursorType.UI)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         if (instance == null || instance.playerUI == null) { return; }
         instance.SetCursorType(type);
-    }
-
-    public static void GoBackToPreviousCursorType()
-    {
-        if (instance == null || instance.playerUI == null) { return; }
-        instance.SetCursorType(prevType);
     }
 
     public static CursorType GetActiveCursorType()

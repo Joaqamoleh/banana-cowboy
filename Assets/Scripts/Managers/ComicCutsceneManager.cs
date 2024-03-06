@@ -41,7 +41,7 @@ public class ComicCutsceneManager : MonoBehaviour
         {
             ChangeMusic();
         }
-
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
         // fade in skip button
         skipButton.GetComponent<Image>().color -= new Color(0, 0, 0, 1);
         StartCoroutine("SkipButtonAnimation");
