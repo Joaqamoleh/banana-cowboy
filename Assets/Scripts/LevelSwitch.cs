@@ -47,6 +47,9 @@ public class LevelSwitch : MonoBehaviour
         }
         else if (scene == "Orange Boss Scene")
         {
+            LevelData.SetCheckpoint(0);
+            LevelData.BeatLevel(); // save all your SS from last checkpoint
+            print(LevelData.starSparkleTotal);
             if (SoundManager.Instance() != null)
             {
                 SoundManager.Instance().StopAllMusic();
