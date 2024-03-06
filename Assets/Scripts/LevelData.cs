@@ -78,6 +78,7 @@ public class LevelData : MonoBehaviour
     public static void SetCheckpoint(int c)
     {
         starSparkleCheckpoint = starSparkleTemp;
+        // need to test, starSparkleObject.Clear();
         foreach (var item in starSparkleObjectCheckpoint)
         {
             starSparkleObject.Add(item.Key, item.Value);

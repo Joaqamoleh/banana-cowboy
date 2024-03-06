@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -87,7 +88,21 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-
+        StartCoroutine(SetSpawnPos());
+    }
+    IEnumerator SetSpawnPos()
+    {
+        yield return new WaitForEndOfFrame();
+        if (GameObject.Find("CheckpointManager") != null)
+        {
+            print("Normal Levels");
+            transform.position = LevelData.GetRespawnPos();
+        }
+        else
+        {
+            print("No checkpoints needed");
+            transform.position = Vector3.zero;
+        }
     }
     private void Start()
     {
@@ -553,7 +568,7 @@ public class PlayerController : MonoBehaviour
 
     void RenderLasso()
     {
-        print("Rendering Lasso with state: " + _lassoState);
+        //print("Rendering Lasso with state: " + _lassoState);
         switch(_lassoState)
         {
             case LassoState.NONE:
