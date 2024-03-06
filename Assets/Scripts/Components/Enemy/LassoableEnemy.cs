@@ -11,6 +11,9 @@ public class LassoableEnemy : LassoTossable
     [Header("Death Juice Prefab")]
     public GameObject deathJuiceEffect;
 
+    public delegate void LassoEnemyDeath(Collision c);
+    public event LassoEnemyDeath OnDeath;
+
     int shouldDropItem;
     int whichItem;
     private void OnCollisionEnter(Collision collision)
@@ -49,6 +52,7 @@ public class LassoableEnemy : LassoTossable
             {
                 Destroy(collision.collider.gameObject);
             }
+            OnDeath?.Invoke(collision);
         }
     }
 
