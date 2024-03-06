@@ -9,13 +9,17 @@ public class CherryBomb : LassoableEnemy
     public delegate void CherryBombExplodeEvent(Collision c);
     public event CherryBombExplodeEvent OnExplode;
 
-   private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (IsTossed())
         {
             if (SoundManager.Instance() != null)
             {
                 SoundManager.Instance().PlaySFX("CherryBombExplode");
+            }
+            if (deathJuiceEffect != null)
+            {
+                Instantiate(deathJuiceEffect, transform.position, transform.rotation);
             }
             SpawnExplosion();
             OnExplode?.Invoke(collision);
