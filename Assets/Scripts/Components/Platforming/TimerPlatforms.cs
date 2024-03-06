@@ -28,13 +28,13 @@ public class TimerPlatforms : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (_platformCoroutine != null)
+            /*if (_platformCoroutine != null)
             {
                 Debug.Log("Exited");
                 GetComponent<Renderer>().material = colors[0];
                 StopCoroutine(_platformCoroutine);
                 _platformCoroutine = null;
-            }
+            }*/
         }
     }
 
@@ -48,7 +48,7 @@ public class TimerPlatforms : MonoBehaviour
         GetComponent<Renderer>().enabled = false;
         collisionBox.enabled = false;
         //gravityBox.enabled = false;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         GetComponent<Renderer>().material = colors[0];
         GetComponent<Renderer>().enabled = true;
         collisionBox.enabled = true;
