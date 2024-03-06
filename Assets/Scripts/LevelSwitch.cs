@@ -60,6 +60,7 @@ public class LevelSwitch : MonoBehaviour
         }
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
         LevelData.ResetLevelData();
+        CutsceneManager.ResetPlayStartingCutscene();
         SoundManager.Instance().StopAllSFX();
         SceneManager.LoadScene(scene);
     }

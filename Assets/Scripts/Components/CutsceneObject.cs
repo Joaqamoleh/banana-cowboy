@@ -191,6 +191,22 @@ public class CutsceneObject : MonoBehaviour
             playable.time = playable.duration;
         }
     }
+
+    public void SkipToEndOfCutscene()
+    {
+        foreach (Scene s in scenes)
+        {
+            if (s.isTimelineScene)
+            {
+                if (s.cinemachineCamController != null)
+                {
+                    s.cinemachineCamController.gameObject.SetActive(false);
+                }
+                s.timelinePlayable.time = s.timelinePlayable.duration;
+                s.timelinePlayable.Play();
+            }
+        }
+    }
 }
 
 [System.Serializable]

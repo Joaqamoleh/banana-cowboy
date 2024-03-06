@@ -11,11 +11,13 @@ using UnityEngine.Playables;
 public class CutsceneManager : MonoBehaviour
 {
     private static CutsceneManager s_instance = null;
+    private static bool hasPlayedStartingCutscene = false;
 
     [Tooltip("The input for skipping / going to the next scene")]
     public KeyCode cutsceneInput = KeyCode.Mouse0;
     [Tooltip("The name of the cutscene to play when the scene starts")]
     public string cutsceneOnStart = string.Empty;
+    public bool repeatCutsceneOnRestart = false;
     [Tooltip("The list of cutscenes that can be played by this manager")]
     public Cutscene[] cutscenes;
 
@@ -24,6 +26,8 @@ public class CutsceneManager : MonoBehaviour
     public delegate void CutsceneEventCallback(CutsceneObject activeCutscene);
     public event CutsceneEventCallback OnCutsceneStart;
     public event CutsceneEventCallback OnCutsceneEnd;
+
+    
 
     private void Awake()
     {
@@ -55,7 +59,17 @@ public class CutsceneManager : MonoBehaviour
     {
         if (cutsceneOnStart != string.Empty)
         {
-            PlayCutsceneByName(cutsceneOnStart);
+            if (hasPlayedStartingCutscene && !repeatCutsceneOnRestart)
+            {
+                Cutscene cs = Array.Find(cutscenes, cs => cs.name == cutsceneOnStart);
+                OnCutsceneEnd?.Invoke(cs.cutscene);
+                cs.cutscene.SkipToEndOfCutscene();
+            }
+            if (repeatCutsceneOnRestart || (!repeatCutsceneOnRestart && !hasPlayedStartingCutscene))
+            {
+                PlayCutsceneByName(cutsceneOnStart);
+                hasPlayedStartingCutscene = true;
+            }
         }
     }
 
@@ -81,6 +95,11 @@ public class CutsceneManager : MonoBehaviour
     public static CutsceneManager Instance()
     {
         return s_instance;
+    }
+
+    public static void ResetPlayStartingCutscene()
+    {
+        hasPlayedStartingCutscene = false;
     }
 }
 

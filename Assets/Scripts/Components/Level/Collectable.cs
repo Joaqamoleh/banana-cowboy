@@ -69,7 +69,10 @@ public class Collectable : MonoBehaviour
                 pickedUp = true;
                 GetComponent<Renderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
-                LevelData.starSparkleObjectCheckpoint[positionKey] = true;
+                if (LevelData.starSparkleObjectCheckpoint != null && LevelData.starSparkleObjectCheckpoint.ContainsKey(positionKey))
+                {
+                    LevelData.starSparkleObjectCheckpoint[positionKey] = true;
+                }
                 transform.root.GetComponent<CollectableFollow>().follow = false;
                 transform.root.GetComponentInChildren<ParticleSystem>().Stop();
             }
