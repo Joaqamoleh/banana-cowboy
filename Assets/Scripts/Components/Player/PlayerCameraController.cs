@@ -333,13 +333,15 @@ public class PlayerCameraController : MonoBehaviour
         Camera.main.transform.position = position;
         Camera.main.transform.rotation = orientation;
         Camera.main.GetComponent<CinemachineBrain>().enabled = true;
+        _cameraTarget.position = position;
+        _cameraTarget.rotation = orientation;
         _cameraCurrent.position = position;
         _cameraCurrent.rotation = orientation;
     }
 
     public void JumpToPlayer()
     {
-        JumpTo(_cameraTarget.position, _cameraTarget.rotation);
+        JumpTo(_cameraTilt.position, _cameraTilt.rotation);
     }
 
     void OnDrawGizmosSelected()

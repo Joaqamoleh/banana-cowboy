@@ -206,7 +206,7 @@ public class CutsceneObject : MonoBehaviour
                     if (controller != null)
                     {
                         controller.JumpToPlayer();
-                    }
+                    } 
                 }
                 s.timelinePlayable.time = s.timelinePlayable.duration;
                 s.timelinePlayable.Play();
