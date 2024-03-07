@@ -38,7 +38,7 @@ public class CherryBombExplosion : MonoBehaviour
                 }
             }
         }
-        else if (other.name.Contains("Body"))
+        else if (other.name.Contains("Body") && other.CompareTag("Enemy")) // TODO: Change to compare tag 'enemy'
         {
             Destroy(other.gameObject.transform.root.gameObject);
         }

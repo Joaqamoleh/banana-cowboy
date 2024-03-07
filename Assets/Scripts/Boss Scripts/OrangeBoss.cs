@@ -77,10 +77,6 @@ public class OrangeBoss : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Damage(2);
-        }
         if (player != null && !indicating)
         {
             transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
@@ -217,7 +213,7 @@ public class OrangeBoss : MonoBehaviour
         for (int i = 0; i < nums.Length; i++)
         {
             modelAnimator.SetTrigger("Peel Attack"); // body and arms only
-
+            print("CURRENTLY ON "+ layerNames[nums[i]]);
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[i]]), 1.0f);
             modelAnimator.SetTrigger(triggerNames[nums[i]]);
 
