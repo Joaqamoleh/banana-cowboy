@@ -64,7 +64,7 @@ public class LevelData : MonoBehaviour
     public static void BeatLevel()
     {
         starSparkleTotal += starSparkleCheckpoint;
-        UIManager.UpdateStars();
+        ResetLevelData();
     }
 
     // get respawn position for player based on last checkpoint reached.
