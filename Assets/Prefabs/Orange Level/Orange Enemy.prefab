@@ -5071,6 +5071,62 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &3027878667605693053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8346167492275445556}
+  - component: {fileID: 5154116643796362864}
+  m_Layer: 0
+  m_Name: Blob Shadow Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8346167492275445556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027878667605693053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 4.23, z: 0.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7266123389711490642}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &5154116643796362864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027878667605693053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: ecee61e47a05b47ca91f89049a9cb014, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 1
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 7.5}
+  m_Size: {x: 3.5, y: 3.5, z: 15}
+  m_FadeFactor: 1
 --- !u!1 &6463939426268983136
 GameObject:
   m_ObjectHideFlags: 0
@@ -5367,6 +5423,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8346167492275445556}
   - {fileID: 2238096932519866502}
   - {fileID: 4677478680374795018}
   - {fileID: 9117223604197075953}
@@ -5509,6 +5566,10 @@ PrefabInstance:
       value: -3.0971613
       objectReference: {fileID: 0}
     - target: {fileID: -3242198171734335436, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3242198171734335436, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6515281b77ab40441976452b149b719e, type: 2}
@@ -5531,6 +5592,10 @@ PrefabInstance:
     - target: {fileID: -1122625450515308330, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 3.5277062e-20
+      objectReference: {fileID: 0}
+    - target: {fileID: -1079567908545060892, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -1079567908545060892, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5575,6 +5640,10 @@ PrefabInstance:
     - target: {fileID: 694778505227766197, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -89.22051
+      objectReference: {fileID: 0}
+    - target: {fileID: 858333564892313233, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 870293211523625411, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5623,6 +5692,10 @@ PrefabInstance:
     - target: {fileID: 2252519803286240449, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3083504262309093072, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3083504262309093072, guid: 516f69377678e454cb8fd9139f59123b, type: 3}
       propertyPath: m_Materials.Array.data[0]
