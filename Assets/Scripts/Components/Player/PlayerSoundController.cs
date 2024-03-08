@@ -71,9 +71,16 @@ public class PlayerSoundController : MonoBehaviour
         PlaySFX("PlayerLand", playerSfxs);
     }
 
-    void PlayerDamaged(int damage)
+    void PlayerDamaged(int damage, bool hasDied)
     {
-        PlaySFX("PlayerHurt", playerSfxs);
+        if (hasDied)
+        {
+            PlaySFX("PlayerDeath", playerSfxs);
+        }
+        else
+        {
+            PlaySFX("PlayerHurt", playerSfxs);
+        }
     }
 
     void PlayerStateUpdate(PlayerController.State updated)
@@ -113,6 +120,12 @@ public class PlayerSoundController : MonoBehaviour
                 PlaySFX("LassoSpin", lassoSfxs);
                 break;
         }
+    }
+
+    // TODO: Might need to clean up. Use Callbacks(?)
+    public void LassoThrow(string lassoStrength)
+    {
+        PlaySFX(lassoStrength, lassoSfxs);
     }
 
     void PlaySFX(string name, Sound[] sfxs)

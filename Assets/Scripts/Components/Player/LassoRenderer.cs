@@ -152,7 +152,7 @@ public class LassoRenderer : MonoBehaviour
                 float T = (t - throwT1Time) / throwT2Time;
                 float ease = EasingsLibrary.EaseInCirc(T);
                 loopWorldPos = (1f - ease) * loopWorldPos + lassoLoopPositions[i] * ease;
-                print("Easing with T: " + T + " and ease " + ease + " to current: " + loopWorldPos);
+                //print("Easing with T: " + T + " and ease " + ease + " to current: " + loopWorldPos);
             }
 
             if (i == 0)
@@ -226,7 +226,7 @@ public class LassoRenderer : MonoBehaviour
         Vector3 up = lassoSwingCenter.up;
         Vector3 forward = Vector3.ProjectOnPlane((o.transform.position - lassoSwingCenter.position).normalized, up);
         float dist = Vector3.Distance(o.transform.position, lassoHandJointPos.position);
-        print("Up is " + up + " forward " + forward);
+        //print("Up is " + up + " forward " + forward);
         for (int i = 0; i < numberOfLineSegments; i++)
         {
             if (i ==  numberOfLineSegments - 1)

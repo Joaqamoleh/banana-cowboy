@@ -113,7 +113,7 @@ MonoBehaviour:
     alternatives: []
     volume: 1
     pitch: 0.99
-    pitchVariance: 0.3
+    pitchVariance: 0.1
     loop: 1
     type: 0
     src: {fileID: 0}
@@ -153,7 +153,7 @@ MonoBehaviour:
     loop: 0
     type: 0
     src: {fileID: 0}
-  - name: Boss Hurt
+  - name: BossHurt
     audioClip: {fileID: 8300000, guid: 67490cd2aa818c64ba69f60538015a4b, type: 3}
     alternatives: []
     volume: 1
@@ -216,33 +216,6 @@ MonoBehaviour:
     loop: 0
     type: 0
     src: {fileID: 0}
-  - name: SwingGreat
-    audioClip: {fileID: 8300000, guid: 63a1059ea6423bd47b14ce9e51f41730, type: 3}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    type: 0
-    src: {fileID: 0}
-  - name: SwingGood
-    audioClip: {fileID: 8300000, guid: 16a936bd1c413de498e8ce7891f7c26a, type: 3}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    type: 0
-    src: {fileID: 0}
-  - name: SwingBad
-    audioClip: {fileID: 8300000, guid: 56e0d700021f93c4c94164c1b7894936, type: 3}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    type: 0
-    src: {fileID: 0}
   - name: CherryBombExplode
     audioClip: {fileID: 8300000, guid: 8f129c0c81b37514f992f2ab77367006, type: 3}
     alternatives: []
@@ -261,10 +234,46 @@ MonoBehaviour:
     loop: 0
     type: 0
     src: {fileID: 0}
+  - name: BreakableCrackFirst
+    audioClip: {fileID: 8300000, guid: 0974c4bc4a5e7d74a9d664d2ec0df305, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: BreakableCrackSecond
+    audioClip: {fileID: 8300000, guid: dfe0c527d83a6bf44a52c2b646c0eadf, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: BreakableCrackLast
+    audioClip: {fileID: 8300000, guid: 6f645853a4863794aa8506cb06ad38fe, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
+  - name: BarrierBreak
+    audioClip: {fileID: 8300000, guid: af12383909059a44ca674a31c69e917e, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    type: 0
+    src: {fileID: 0}
   - name: CollectStarSparkle
     audioClip: {fileID: 8300000, guid: d6abe08ebed2fb34d9ed5b5f5476ca92, type: 3}
     alternatives: []
-    volume: 0.1
+    volume: 1
     pitch: 1
     pitchVariance: 0
     loop: 0

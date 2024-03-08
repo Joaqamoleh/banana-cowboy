@@ -29,21 +29,20 @@ public class Collectable : MonoBehaviour
     {
         if (SOURCE.ENEMY != locationCameFrom)
         {
-            print("SHOULD NOT BE HERE");
             positionKey = transform.position;
-            if (!LevelData.starSparkleObjectCheckpoint.ContainsKey(positionKey))
+            if (!LevelData.starSparkleObjectTemp.ContainsKey(positionKey))
             {
-                LevelData.starSparkleObjectCheckpoint.Add(positionKey, false);
+                LevelData.starSparkleObjectTemp.Add(positionKey, false);
             }
             else
             {
-                pickedUp = LevelData.starSparkleObjectCheckpoint[positionKey];
+                pickedUp = LevelData.starSparkleObjectTemp[positionKey];
             }
             if (pickedUp)
             {
                 GetComponent<Renderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
-                transform.root.GetComponent<CollectableFollow>().follow = false;
+                transform.parent.GetComponentInParent<CollectableFollow>().follow = false;
             }
         }
     }
@@ -73,12 +72,12 @@ public class Collectable : MonoBehaviour
                 pickedUp = true;
                 GetComponent<Renderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
-                if (LevelData.starSparkleObjectCheckpoint != null && LevelData.starSparkleObjectCheckpoint.ContainsKey(positionKey))
+                if (LevelData.starSparkleObjectTemp != null && LevelData.starSparkleObjectTemp.ContainsKey(positionKey))
                 {
-                    LevelData.starSparkleObjectCheckpoint[positionKey] = true;
+                    LevelData.starSparkleObjectTemp[positionKey] = true;
                 }
-                transform.root.GetComponent<CollectableFollow>().follow = false;
-                transform.root.GetComponentInChildren<ParticleSystem>().Stop();
+                transform.parent.GetComponentInParent<CollectableFollow>().follow = false;
+                transform.parent.parent.GetComponentInChildren<ParticleSystem>().Stop();
             }
         }
     }

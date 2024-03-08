@@ -2781,6 +2781,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6463939426268983136, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7283538567664515626, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -25.401125
@@ -2823,7 +2827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: subState
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: destinationPoints.Array.data[0]
@@ -4228,13 +4232,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Enemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6463939426268983136, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: partner
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: subState
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4496,6 +4504,63 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 145.63, z: 8.047647}
   m_Center: {x: -0.0000069215716, y: 70.4, z: -2.7517276}
+--- !u!1001 &682775547
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7083269669712242929, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_Name
+      value: SpawnerCherryBomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 118.57044
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 33.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 47.513092
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
 --- !u!1 &687889476
 GameObject:
   m_ObjectHideFlags: 0
@@ -5976,13 +6041,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6463939426268983136, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: partner
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: subState
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6616,7 +6685,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.7
+      value: 111.2
       objectReference: {fileID: 0}
     - target: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6624,7 +6693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.5
+      value: 49.3
       objectReference: {fileID: 0}
     - target: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7998,6 +8067,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6463939426268983136, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7283538567664515626, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -25.401125
@@ -8040,7 +8113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: subState
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: destinationPoints.Array.data[0]
@@ -12521,6 +12594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Enemy (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6463939426268983136, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7283538567664515626, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -25.401125
@@ -13575,3 +13652,4 @@ SceneRoots:
   - {fileID: 1586239320}
   - {fileID: 170608239}
   - {fileID: 1402590379}
+  - {fileID: 682775547}

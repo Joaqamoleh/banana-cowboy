@@ -164,13 +164,16 @@ public class UIManager : MonoBehaviour
         if ((throwBarIndicator.localPosition.x > 0 && throwBarIndicator.localPosition.x < (highPowerWidth)) || 
             (throwBarIndicator.localPosition.x < 0 && throwBarIndicator.localPosition.x > -(highPowerWidth)))
         {
+            transform.root.GetComponent<PlayerSoundController>().LassoThrow("LassoStrongThrow");
             return LassoTossable.TossStrength.STRONG;
         }
         if (throwBarIndicator.localPosition.x > 0 && throwBarIndicator.localPosition.x < medPowerWidth ||
             (throwBarIndicator.localPosition.x < 0 && throwBarIndicator.localPosition.x > -medPowerWidth))
         {
+            transform.root.GetComponent<PlayerSoundController>().LassoThrow("LassoMediumThrow");
             return LassoTossable.TossStrength.MEDIUM;
         }
+        transform.root.GetComponent<PlayerSoundController>().LassoThrow("LassoWeakThrow");
         return LassoTossable.TossStrength.WEAK;
     }
     

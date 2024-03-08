@@ -88,7 +88,6 @@ public class OrangeEnemyController : EnemyController
         _distanceFromPartner = Mathf.Pow(_distanceFromPartner, 2);
     }
 
-    // TODO: Changed from Update. Make sure things still work
     void FixedUpdate()
     {
         if (_lassoComp.currentlyLassoed) { UpdateState(OrangeState.HELD); }
@@ -309,7 +308,6 @@ public class OrangeEnemyController : EnemyController
     void EndCharge()
     {
         if (_state != OrangeState.CHARGE) { return; }
-        //TODO: TEST MORE
         if (playerInView)
         {
             UpdateState(OrangeState.PLAYER_SPOTTED);
@@ -367,7 +365,7 @@ public class OrangeEnemyController : EnemyController
         }
     }
 
-    // Needed to make character not stick to walls. TODO: Test to see if it breaks things.
+    // Needed to make character not stick to walls.
 
     private void OnCollisionStay(Collision collision)
     {

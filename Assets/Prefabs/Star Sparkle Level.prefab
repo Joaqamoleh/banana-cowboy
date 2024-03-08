@@ -4901,7 +4901,7 @@ GameObject:
   - component: {fileID: 6670315554537529910}
   - component: {fileID: 1550509287703614915}
   m_Layer: 0
-  m_Name: Star Sparkle
+  m_Name: Star Sparkle Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4958,7 +4958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follow: 1
-  moveSpeed: 10
+  moveSpeed: 20
 --- !u!135 &1550509287703614915
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5086,7 +5086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfCollectable: 0
-  locationCameFrom: 0
+  locationCameFrom: 1
 --- !u!4 &3688744479192875754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d7d59da81121ec4eb14605d815dfab1, type: 3}
