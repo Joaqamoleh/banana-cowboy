@@ -13,8 +13,8 @@ public class LevelData : MonoBehaviour
     public static int starSparkleCheckpoint = 0;
     public static int starSparkleTemp = 0;
 
+    public static Dictionary<Vector3, bool> starSparkleObjectTemp = new Dictionary<Vector3, bool>();
     public static Dictionary<Vector3, bool> starSparkleObjectCheckpoint = new Dictionary<Vector3, bool>();
-    public static Dictionary<Vector3, bool> starSparkleObject= new Dictionary<Vector3, bool>();
 
 
     // set these manually
@@ -43,48 +43,53 @@ public class LevelData : MonoBehaviour
 
         starSparkleTemp = 0;
         starSparkleCheckpoint = 0;
-/*        starSparkleObjectCheckpoint.Clear();
-        starSparkleObject.Clear();*/
+        starSparkleObjectTemp.Clear();
+        starSparkleObjectCheckpoint.Clear();
+
         UIManager.UpdateStars();
     }
 
     public static void ResetCheckpointData()
     {
         starSparkleTemp = 0;
-        UIManager.UpdateStars();
-        //starSparkleObjectCheckpoint.Clear();
-/*        foreach (var item in starSparkleObject)
+        starSparkleObjectTemp.Clear();
+        foreach (var temp in starSparkleObjectCheckpoint)
         {
-            starSparkleObjectCheckpoint.Add(item.Key, item.Value);
-        }*/
+            starSparkleObjectTemp.Add(temp.Key, temp.Value);
+        }
+        UIManager.UpdateStars();
+
     }
 
     public static void BeatLevel()
     {
-        starSparkleTotal += starSparkleCheckpoint;/*
-        starSparkleObjectCheckpoint.Clear();
-        starSparkleObject.Clear();*/
-        UIManager.UpdateStars();
+        starSparkleTotal += starSparkleCheckpoint;
+        ResetLevelData();
     }
 
     // get respawn position for player based on last checkpoint reached.
-    // TODO - works for the base level rn, expand to other levels as they are made
     public static Vector3 GetRespawnPos()
     {
         Debug.Log("GIVING RESPAWN POSITION TO PLAYER CONTROLLER: "+ checkpointReached);
+        SoundManager.Instance().StopAllSFX();
         return instance.checkpoints[checkpointReached].transform.position;
     }
 
     public static void SetCheckpoint(int c)
     {
         starSparkleCheckpoint += starSparkleTemp;
-        // need to test, starSparkleObject.Clear();
-/*        foreach (var item in starSparkleObjectCheckpoint)
-        {
-            print("CALLED HERE: "+item.Key+", "+item.Value);
-            starSparkleObject.Add(item.Key, item.Value);
-        }*/
         starSparkleTemp = 0;
+        foreach (var temp in starSparkleObjectTemp)
+        {
+            if (!starSparkleObjectCheckpoint.ContainsKey(temp.Key))
+            {
+                starSparkleObjectCheckpoint.Add(temp.Key, temp.Value);
+            }
+            else
+            {
+                starSparkleObjectCheckpoint[temp.Key] = temp.Value;
+            }
+        }
         /* prevent player from setting themselves back
          * by only storing if they've found a "greater"
          * checkpoint. */

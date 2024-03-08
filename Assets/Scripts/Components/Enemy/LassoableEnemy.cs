@@ -14,6 +14,118 @@ public class LassoableEnemy : LassoTossable
     public delegate void LassoEnemyDeath(Collision c);
     public event LassoEnemyDeath OnDeath;
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (IsTossed() && !isDestroyed)
+        {
+            HandleCollision(collision);
+            OnDeath?.Invoke(collision);
+        }
+    }
+
+    private void HandleCollision(Collision collision)
+    {
+        if (collision.collider.CompareTag("Boss"))
+        {
+            HandleBossCollision(collision);
+        }
+        else
+        {
+            ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
+            DestroySelf();
+        }
+
+        if (collision.collider.CompareTag("Breakable"))
+        {
+            SoundManager.Instance().PlaySFX("BarrierBreak");
+            Destroy(collision.collider.gameObject);
+        }
+    }
+
+    private void HandleBossCollision(Collision collision)
+    {
+        if (collision.transform.name == "Orange Boss" || collision.transform.parent.parent.name == "Orange Boss" || collision.transform.name.Contains("Peel"))
+        {
+            OrangeBoss boss = GameObject.Find("Orange Boss").GetComponent<OrangeBoss>();
+            if (collision.transform.name.Contains("Weak Spot"))
+            {
+                print("Weak Spot Damage");
+                boss.Damage(2);
+            }
+            else
+            {
+                print("Normal Damage");
+                boss.Damage(1);
+            }
+            DestroySelf();
+        }
+    }
+
+    private void DestroySelf()
+    {
+        isDestroyed = true;
+        DropItem();
+        SoundManager.Instance().PlaySFX("EnemySplat");
+        InstantiateDeathJuiceEffect();
+        Destroy(gameObject);
+    }
+
+    private void DropItem()
+    {
+        int shouldDropItem = Random.Range(1, 100);
+        if (shouldDropItem <= 60)
+        {
+            int whichItem = Random.Range(1, 100);
+            if (whichItem <= 100)
+            {
+                DropItem(item1);
+            }
+            else
+            {
+                DropItem(item2);
+            }
+        }
+        else
+        {
+            print("Didn't drop anything");
+        }
+    }
+
+    private void DropItem(GameObject item)
+    {
+        if (item != null)
+        {
+            print(item.name + " dropped");
+            GameObject spawnedItem = Instantiate(item, transform.position, Quaternion.identity);
+            spawnedItem.transform.GetChild(0).GetChild(0).GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
+        }
+    }
+
+    private void InstantiateDeathJuiceEffect()
+    {
+        if (deathJuiceEffect != null)
+        {
+            Instantiate(deathJuiceEffect, transform.position, transform.rotation);
+        }
+    }
+}
+
+/*using UnityEngine;
+
+public class LassoableEnemy : LassoTossable
+{
+    bool isDestroyed = false;
+
+    [Header("Item Drops")]
+    public GameObject item1;
+    public GameObject item2;
+
+    [Header("Death Juice Prefab")]
+    public GameObject deathJuiceEffect;
+
+    public delegate void LassoEnemyDeath(Collision c);
+    public event LassoEnemyDeath OnDeath;
+
     int shouldDropItem;
     int whichItem;
     private void OnCollisionEnter(Collision collision)
@@ -51,6 +163,7 @@ public class LassoableEnemy : LassoTossable
             if (collision.collider.CompareTag("Breakable"))
             {
                 Destroy(collision.collider.gameObject);
+                SoundManager.Instance().PlaySFX("BarrierBreak");
             }
             OnDeath?.Invoke(collision);
         }
@@ -98,4 +211,4 @@ public class LassoableEnemy : LassoTossable
             print("Didn't drop anything");
         }
     }
-}
+}*/

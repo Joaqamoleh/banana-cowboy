@@ -77,10 +77,6 @@ public class OrangeBoss : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Damage(2);
-        }
         if (player != null && !indicating)
         {
             transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
@@ -182,7 +178,6 @@ public class OrangeBoss : MonoBehaviour
             */
             Vector3 spawnPosition = spawnPoints[i].transform.position;
             Instantiate(minions, spawnPosition, transform.rotation);
-            // TODO: Make substate random
         }
         cooldownTimer = spawnCooldown;
         state = BossStates.COOLDOWN;
@@ -217,7 +212,6 @@ public class OrangeBoss : MonoBehaviour
         for (int i = 0; i < nums.Length; i++)
         {
             modelAnimator.SetTrigger("Peel Attack"); // body and arms only
-
             modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[i]]), 1.0f);
             modelAnimator.SetTrigger(triggerNames[nums[i]]);
 
@@ -258,14 +252,14 @@ public class OrangeBoss : MonoBehaviour
 
     IEnumerator PeelSlamCooldown()
     {
-        yield return new WaitForSeconds(peelCooldown); // TODO: Create a list then remove if player touches peel. If still in dictionary, loop and call reset.
+        yield return new WaitForSeconds(peelCooldown);
         modelAnimator.SetTrigger("Peel Reset");
         foreach (string temp in resetAnimations)
         {
             modelAnimator.SetTrigger(temp);
         }
         indicating = false;
-        yield return new WaitForSeconds(1.5f); // set weight to 0 after animation is done playing // TODO: Maybe do same thing here
+        yield return new WaitForSeconds(1.5f); // set weight to 0 after animation is done playing
         modelAnimator.SetLayerWeight(1, 0.0f);
         modelAnimator.SetLayerWeight(2, 0.0f);
         modelAnimator.SetLayerWeight(3, 0.0f);
@@ -314,6 +308,7 @@ public class OrangeBoss : MonoBehaviour
 
     public void Damage(int dmg)
     {
+        SoundManager.Instance().PlaySFX("BossHurt");
         health -= dmg;
         healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
         healthUI.fillAmount = health / (1.0f * maxHealth);

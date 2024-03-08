@@ -23,7 +23,7 @@ public class Health : MonoBehaviour
 
     public GameObject deathVFX;
 
-    public delegate void DamageEvent(int damage);
+    public delegate void DamageEvent(int damage, bool hasDied);
     public DamageEvent OnDamaged;
 
     private void Start()
@@ -51,21 +51,21 @@ public class Health : MonoBehaviour
             ScreenShakeManager.Instance.ShakeCamera(2, 3, 0.1f);
             if (health <= 0)
             {
-                // Death, make player disappear and splat effects here
-                StartCoroutine(dyingExplosion());
+                OnDamaged?.Invoke(damage, true); // true if player has died from hit
+                StartCoroutine(DyingExplosion());
             }
             else
             {
+                OnDamaged?.Invoke(damage, false);
                 if (GetComponent<Rigidbody>() != null && !GetComponent<Rigidbody>().isKinematic)
                 {
                     GetComponent<Rigidbody>().AddForce(knockback, ForceMode.Impulse);
                 }
             }
-            OnDamaged?.Invoke(damage);
         }
     }
 
-    IEnumerator dyingExplosion() {
+    IEnumerator DyingExplosion() {
         // turn off renderer for Banana Cowboy
         StartCoroutine(DisableMesh());
         playerCameraController.FreezeCamera();
@@ -73,7 +73,7 @@ public class Health : MonoBehaviour
         {
             Instantiate(deathVFX, GetComponent<Rigidbody>().transform.position, GetComponent<Rigidbody>().transform.rotation);
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
         // reset checkpoint data
         LevelData.ResetCheckpointData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

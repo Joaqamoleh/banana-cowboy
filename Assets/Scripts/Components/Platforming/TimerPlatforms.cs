@@ -40,11 +40,15 @@ public class TimerPlatforms : MonoBehaviour
 
     IEnumerator StartTimer()
     {
-        yield return new WaitForSeconds(1);
+        // TODO: Test lowering the amount
+        yield return new WaitForSeconds(0.75f);
+        SoundManager.Instance().PlaySFX("BreakableCrackFirst");
         GetComponent<Renderer>().material = colors[1];
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.75f);
+        SoundManager.Instance().PlaySFX("BreakableCrackSecond");
         GetComponent<Renderer>().material = colors[2];
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.75f);
+        SoundManager.Instance().PlaySFX("BreakableCrackLast");
         GetComponent<Renderer>().enabled = false;
         collisionBox.enabled = false;
         //gravityBox.enabled = false;
