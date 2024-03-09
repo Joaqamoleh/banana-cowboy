@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,6 +44,13 @@ public class OrangeBoss : MonoBehaviour
     public Material hurtColor;
     public GameObject[] partsOfModel;
 
+    [Header("Dialogue")]
+    public GameObject dialogHolder;
+    public TMP_Text dialogText;
+    public string[] attackAnnouncement = { "Brace for impact!", "Time for a twist!", "Prepare for a juicy surprise!", "Here comes the sour!" };
+    public string[] attackName = { "Orange Slice!", "Zesty Onslaught!", "Peel Pummel!" };
+    public Coroutine currentDialog;
+
     public enum BossStates
     {
         IDLE, BOOMERANG, PEEL, SPAWN, COOLDOWN, NONE
@@ -51,7 +59,7 @@ public class OrangeBoss : MonoBehaviour
     private void Start()
     {
         state = BossStates.NONE;
-
+        dialogHolder.SetActive(false);
         CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
         // need to disable player controls
 
@@ -74,7 +82,7 @@ public class OrangeBoss : MonoBehaviour
         healthHolder.SetActive(true);
         StartCoroutine(BoomerangStartUpHelper()); // Give a pause before boss battle starts
     }
-
+    int rand;
     private void Update()
     {
         if (player != null && !indicating)
@@ -99,12 +107,15 @@ public class OrangeBoss : MonoBehaviour
                 }
                 break;
             case BossStates.BOOMERANG:
+                PlayDialogue(attackName[currMove % moves], true);
                 SpawnBoomerangs();
                 break;
             case BossStates.PEEL:
+                PlayDialogue(attackName[currMove % moves], true);
                 PeelSlam();
                 break;
             case BossStates.SPAWN:
+                PlayDialogue(attackName[currMove % moves], true);
                 SpawnEnemies();
                 break;
             case BossStates.COOLDOWN:
@@ -115,8 +126,32 @@ public class OrangeBoss : MonoBehaviour
         }
     }
 
+    public void PlayDialogue(string dialog, bool announcingAttack)
+    {
+        if (currentDialog != null)
+        {
+            StopCoroutine(currentDialog);
+        }
+        currentDialog = StartCoroutine(PlayDialogueHelper(dialog, announcingAttack));
+    }
+
+    IEnumerator PlayDialogueHelper(string dialog, bool announcingAttack)
+    {
+        dialogText.text = "";
+        dialogHolder.SetActive(true);
+        if (announcingAttack)
+        {
+            rand = Random.Range(0, attackAnnouncement.Length);
+            dialogText.text = attackAnnouncement[rand] + " ";
+        }
+        dialogText.text += dialog;
+        yield return new WaitForSeconds(3f);
+        dialogHolder.SetActive(false);
+    }
+
     void SpawnBoomerangs()
     {
+        
         cooldownTimer = 3.5f + boomerangCooldown;
         state = BossStates.COOLDOWN;
         StartCoroutine(BoomerangStartup());
@@ -218,21 +253,6 @@ public class OrangeBoss : MonoBehaviour
             yield return new WaitForSeconds(3.0f);
             modelAnimator.ResetTrigger("Peel Attack");
         }
-        /*       modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[0]]), 1.0f);
-               modelAnimator.SetTrigger(triggerNames[nums[0]]);
-               yield return new WaitForSeconds(3.0f);
-
-               modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[1]]), 1.0f);
-               modelAnimator.SetTrigger(triggerNames[nums[1]]);
-               yield return new WaitForSeconds(3.0f);
-
-               modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[2]]), 1.0f);
-               modelAnimator.SetTrigger(triggerNames[nums[2]]);
-               yield return new WaitForSeconds(3.0f);
-
-               modelAnimator.SetLayerWeight(modelAnimator.GetLayerIndex(layerNames[nums[3]]), 1.0f);
-               modelAnimator.SetTrigger(triggerNames[nums[3]]);
-               yield return new WaitForSeconds(3.0f);*/
         StartCoroutine(PeelSlamCooldown());
     }
 
@@ -310,6 +330,10 @@ public class OrangeBoss : MonoBehaviour
     {
         SoundManager.Instance().PlaySFX("BossHurt");
         health -= dmg;
+        if (health == maxHealth - 1 || health == maxHealth - 2)
+        {
+            PlayDialogue("Ha! You got lucky, punk! But don't think it's gonna be that easy!", false);
+        }
         healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
         healthUI.fillAmount = health / (1.0f * maxHealth);
         StartCoroutine(FlashDamage());
@@ -319,11 +343,11 @@ public class OrangeBoss : MonoBehaviour
         }
         else
         {
+            PlayDialogue("Ouch! Right in the juice box! You got some skills, but I'm not going down that easy!", false);
             ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
         }
         if (health <= 0)
         {
-            print("BOSS DEFEATED");
             healthHolder.SetActive(false);
             LevelData.BeatLevel();
 
@@ -364,6 +388,7 @@ public class OrangeBoss : MonoBehaviour
     // might be over kill. might 
     void BossDeathSetup()
     {
+        dialogHolder.SetActive(false);
         indicating = true; // Keeps boss from moving
         boomerangSpinning = false; // stop spinning boomerangs
         state = BossStates.NONE;// put it in a state where it does nothing

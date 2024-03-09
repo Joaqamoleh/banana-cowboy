@@ -7,7 +7,12 @@ public class PeelDamageZone : MonoBehaviour
     public int index;
     public string nameOfCondition;
     public float knockbackForce;
+    public OrangeBoss orangeBoss;
 
+    private void Start()
+    {
+        orangeBoss = GameObject.Find("Orange Boss").GetComponent<OrangeBoss>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -15,7 +20,8 @@ public class PeelDamageZone : MonoBehaviour
             Vector3 knockbackDirection = (other.gameObject.transform.position - transform.position).normalized;
             knockbackDirection.y = 0;
             other.gameObject.GetComponentInParent<Health>().Damage(1, knockbackForce * knockbackDirection);
-            GameObject.Find("Orange Boss").GetComponent<OrangeBoss>().ResetPeel(index, nameOfCondition);
+            orangeBoss.ResetPeel(index, nameOfCondition);
+            orangeBoss.PlayDialogue("Whoa, watch your step there! Looks like you couldn't handle the zest!", false);
         }
     }
 }
