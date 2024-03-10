@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class ComicCutsceneManager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class ComicCutsceneManager : MonoBehaviour
     private int currPanel = 0;
     private bool endOfCutscene;
 
+    Camera mainCamera;
+    public MouseOverUI mouseOverUI;
+    bool wasSkipped = false;
+
     [System.Serializable]
     public class Boxes
     {
@@ -28,25 +33,52 @@ public class ComicCutsceneManager : MonoBehaviour
     public List<Boxes> panels = new List<Boxes>();
 
     public void Start()
-    { 
+    {
+        mainCamera = Camera.main;
         endOfCutscene = false;
+        wasSkipped = false;
 
+        // deactivate all panels and continue button
         foreach (GameObject panel in panelGroups)
         {
             panel.SetActive(false);
         }
         continueButton.SetActive(false);
 
+        // change music if necessary
         if (changeMusic)
         {
             ChangeMusic();
         }
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
+
         // fade in skip button
         skipButton.GetComponent<Image>().color -= new Color(0, 0, 0, 1);
         StartCoroutine("SkipButtonAnimation");
 
+        // start cutscene
         StartCoroutine("PanelAnimation");
+    }
+
+    public void Update()
+    {
+        if (mouseOverUI.mouseOverPanel && Input.GetMouseButtonDown(0) && !wasSkipped)
+        {
+            // stop animation
+            StopCoroutine("PanelAnimation");
+
+            // set entire panel to active and color
+            foreach (GameObject box in panels[currPanel].boxes)
+            {
+                Color endColor = box.GetComponent<Image>().color + new Color(0, 0, 0, 1);
+                box.GetComponent<Image>().color = endColor;
+            }
+            continueButton.SetActive(true);
+            Color buttonEndColor = continueButton.GetComponent<Image>().color + new Color(0, 0, 0, 1);
+            continueButton.GetComponent<Image>().color = buttonEndColor;
+
+            wasSkipped = true;
+        }
     }
 
     IEnumerator SkipButtonAnimation()
@@ -104,6 +136,8 @@ public class ComicCutsceneManager : MonoBehaviour
     // continue button is pressed, should fade out the entire panel and start the next one 
     public void Continue()
     {
+        wasSkipped = false;
+
         if (!endOfCutscene)
         {
             FadeOut(currPanel);
@@ -142,4 +176,5 @@ public class ComicCutsceneManager : MonoBehaviour
             SoundManager.Instance().PlayMusic(currentMusic);
         }
     }
+
 }
