@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CherryBomb : LassoableEnemy
+public class CherryBomb : LassoTossable
 {
     public GameObject explosion;
 
     public delegate void CherryBombExplodeEvent(Collision c);
     public event CherryBombExplodeEvent OnExplode;
 
+    [Header("Death Juice Prefab")]
+    public GameObject deathJuiceEffect;
+
+    bool isDestroyed = false;
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (IsTossed())
+        if (IsTossed() && !isDestroyed)
         {
+            isDestroyed = true;
             if (SoundManager.Instance() != null)
             {
                 SoundManager.Instance().PlaySFX("CherryBombExplode");

@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     [Header("Mobile Input")]
     public GameObject mobileUI;
     public Joystick joystick;
-    public PauseManager pauseMenu;
+    PauseManager pauseMenu;
 
     [Header("Movement")]
     [SerializeField, Min(0f)]

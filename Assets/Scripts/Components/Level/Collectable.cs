@@ -43,6 +43,7 @@ public class Collectable : MonoBehaviour
                 GetComponent<Renderer>().enabled = false;
                 GetComponent<Collider>().enabled = false;
                 transform.parent.GetComponentInParent<CollectableFollow>().follow = false;
+                transform.parent.parent.GetComponentInChildren<ParticleSystem>().Stop();
             }
         }
     }
