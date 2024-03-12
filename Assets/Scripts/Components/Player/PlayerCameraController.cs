@@ -13,6 +13,9 @@ public class PlayerCameraController : MonoBehaviour
     Transform _cameraPivot = null, _cameraTilt = null, _emptyGameObjectPrefab;
     Transform _cameraCurrent = null, _cameraTarget = null;
 
+    Cinemachine3rdPersonFollow ccb;
+
+
 
     GravityObject _playerGravity;
     Transform _characterOrientation;
@@ -41,6 +44,7 @@ public class PlayerCameraController : MonoBehaviour
     [Header("Input")]
     [SerializeField]
     KeyCode rotationKey = KeyCode.Mouse1;
+    public Joystick cameraJoystick;
     
     private float mouseX, mouseY, mouseScroll;
     private bool rotationHeld = false, ignoreActiveHint = false, changedHint = false;
@@ -68,7 +72,7 @@ public class PlayerCameraController : MonoBehaviour
         if (_cinemachineCamController != null)
         {
             _cinemachineCamController.Follow = _cameraCurrent;
-            Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
             if (ccb != null)
             {
                 ccb.CameraDistance = orbitRadius;
@@ -91,15 +95,6 @@ public class PlayerCameraController : MonoBehaviour
             mouseX = Input.GetAxisRaw("Mouse X");
             mouseY = Input.GetAxisRaw("Mouse Y");
             mouseScroll = -Input.GetAxisRaw("Mouse ScrollWheel");
-            if (invertY)
-            {
-                mouseY = -mouseY;
-            }
-            
-            if (invertZoom)
-            {
-                mouseScroll = -mouseScroll;
-            }
 
             if (Input.GetKeyDown(rotationKey))
             {
@@ -113,11 +108,25 @@ public class PlayerCameraController : MonoBehaviour
                 rotationHeld = false;
             }
 #else
-            CameraMovementMobile();
+            mouseX = cameraJoystick.Horizontal;
+            mouseY = cameraJoystick.Vertical;
+            rotationHeld = true;
 #endif
+            if (invertY)
+            {
+                mouseY = -mouseY;
+            }
+            
+            if (invertZoom)
+            {
+                mouseScroll = -mouseScroll;
+            }
+            //CameraMovementMobile();
         }
     }
 
+    Vector3 angles;
+    Vector3 tiltangles;
     private void FixedUpdate()
     {
         if (frozenCam) { return; }
@@ -146,12 +155,12 @@ public class PlayerCameraController : MonoBehaviour
 
             }
             _cameraPivot.rotation = _cameraTarget.rotation;
-            var angles = _cameraPivot.localEulerAngles;
+            angles = _cameraPivot.localEulerAngles;
             angles.x = 0;
             angles.z = 0;
             _cameraPivot.localEulerAngles = angles;
             _cameraTilt.rotation = _cameraTarget.rotation;
-            var tiltangles = _cameraTilt.localEulerAngles;
+            tiltangles = _cameraTilt.localEulerAngles;
             tiltangles.y = 0;
             _cameraTilt.localEulerAngles = tiltangles;
         } 
@@ -208,7 +217,7 @@ public class PlayerCameraController : MonoBehaviour
     {
         _cameraPivot.Rotate(Vector3.up, orbitSensitivity * mouseX);
         _cameraTilt.Rotate(Vector3.right, orbitSensitivity * mouseY);
-        var angles = _cameraTilt.localEulerAngles;
+        angles = _cameraTilt.localEulerAngles;
         angles.z = 0;
         angles.y = 0;
         var angle = _cameraTilt.localEulerAngles.x;
@@ -226,12 +235,15 @@ public class PlayerCameraController : MonoBehaviour
         orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
     }
 
+    float targetLocalY;
+    Vector3 localPoint;
+    Vector3 desiredPos;
     void BlendToTarget()
     {
         if (_characterOrientation == null) { return; }
         Vector3 characterViewportPos = Camera.main.WorldToViewportPoint(_characterOrientation.position);
 
-        float targetLocalY = _characterOrientation.InverseTransformPoint(_cameraCurrent.position).y;
+        targetLocalY = _characterOrientation.InverseTransformPoint(_cameraCurrent.position).y;
         if (characterViewportPos.y > topBorder ||  characterViewportPos.y < bottomBorder) 
         {
             // Our character moved outside the bounds of the screen borders defined,
@@ -244,9 +256,9 @@ public class PlayerCameraController : MonoBehaviour
         }
 
         // Get the final position for camera current
-        Vector3 localPoint = _characterOrientation.InverseTransformPoint(_cameraTilt.position);
+        localPoint = _characterOrientation.InverseTransformPoint(_cameraTilt.position);
         localPoint.y = targetLocalY;
-        Vector3 desiredPos = _characterOrientation.TransformPoint(localPoint);
+        desiredPos = _characterOrientation.TransformPoint(localPoint);
 
         _cameraCurrent.position = Vector3.SmoothDamp(_cameraCurrent.position, desiredPos, ref camVel, camReorientTime, camMaxSpeed);
 
@@ -255,7 +267,7 @@ public class PlayerCameraController : MonoBehaviour
 
         if (_cinemachineCamController != null)
         {
-            Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            //Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
             if (ccb != null)
             {
                 ccb.CameraDistance = Mathf.Lerp(ccb.CameraDistance, orbitRadius, 0.02f);

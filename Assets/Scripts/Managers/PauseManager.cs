@@ -13,7 +13,7 @@ public class PauseManager : MonoBehaviour
     public enum PauseMenus
     {
         NONE,
-        DEAFULT,
+        DEFAULT,
         SETTINGS,
         CONFIRMATION,
     }
@@ -136,7 +136,7 @@ public class PauseManager : MonoBehaviour
     public void PauseGame()
     {
         pauseScreen.SetActive(true);
-        SetActiveMenu(PauseMenus.DEAFULT);
+        SetActiveMenu(PauseMenus.DEFAULT);
 
         pauseActive = true;
         Time.timeScale = 0f;
@@ -162,7 +162,7 @@ public class PauseManager : MonoBehaviour
         confirmationMenu.SetActive(false);
         switch(menu)
         {
-            case PauseMenus.DEAFULT:
+            case PauseMenus.DEFAULT:
                 defaultMenu.SetActive(true);
                 break;
             case PauseMenus.SETTINGS:
@@ -189,7 +189,7 @@ public class PauseManager : MonoBehaviour
 
     public void OnBackPressed()
     {
-        SetActiveMenu(PauseMenus.DEAFULT);
+        SetActiveMenu(PauseMenus.DEFAULT);
     }
 
     public void OnQuitPressed()

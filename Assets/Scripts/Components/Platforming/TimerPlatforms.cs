@@ -15,12 +15,14 @@ public class TimerPlatforms : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             if (_platformCoroutine == null)
+            {
                 _platformCoroutine = StartCoroutine(StartTimer());
-            else
+            }
+/*            else
             {
                 StopCoroutine(_platformCoroutine);
                 _platformCoroutine = StartCoroutine(StartTimer());
-            }
+            }*/
         }
     }
 
@@ -56,6 +58,7 @@ public class TimerPlatforms : MonoBehaviour
         GetComponent<Renderer>().material = colors[0];
         GetComponent<Renderer>().enabled = true;
         collisionBox.enabled = true;
+        _platformCoroutine = null;
         //gravityBox.enabled = true;
 
     }

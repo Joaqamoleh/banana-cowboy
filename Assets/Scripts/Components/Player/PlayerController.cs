@@ -1,7 +1,9 @@
 using Cinemachine;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(GravityObject))]
 public class PlayerController : MonoBehaviour
@@ -64,6 +66,11 @@ public class PlayerController : MonoBehaviour
     KeyCode runKey = KeyCode.LeftShift, jumpKey = KeyCode.Space;
     [SerializeField]
     LayerMask clickTossMask;
+
+    [Header("Mobile Input")]
+    public GameObject mobileUI;
+    public Joystick joystick;
+    public PauseManager pauseMenu;
 
     [Header("Movement")]
     [SerializeField, Min(0f)]
@@ -133,13 +140,18 @@ public class PlayerController : MonoBehaviour
             CutsceneManager.Instance().OnCutsceneEnd += EnableCharacterAfterCutscene;
         }
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
+
+#if UNITY_IOS || UNITY_ANDRIOD
+        mobileUI.SetActive(true);
+        pauseMenu = GameObject.Find("Pause Manager").GetComponent<PauseManager>();
+#endif
     }
     private void Update()
     {
         if (!PauseManager.pauseActive && _health.health > 0)
         {
             if (!disabledForCutscene)
-            {                
+            {
                 GetMoveInput();
                 GetLassoInput();
             }
@@ -154,7 +166,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Run();
-        if (!disabledForCutscene && !PauseManager.pauseActive) {            
+        if (!disabledForCutscene && !PauseManager.pauseActive)
+        {
             Jump();
             Lasso();
         }
@@ -258,13 +271,18 @@ public class PlayerController : MonoBehaviour
     }
 
     // ************************* INPUT ************************ //
+    float horizontal = 0;
+    float vertical = 0;
     void GetMoveInput()
     {
 #if UNITY_IOS || UNITY_ANDROID
-    // TODO: Later
+        // TODO: Later
+        horizontal = joystick.Horizontal;
+        vertical = joystick.Vertical;
+        _moveInput = new Vector3(horizontal, 0, vertical);
 #else
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
 
         _moveInput = new Vector3(horizontal, 0, vertical);
         if (Input.GetKeyDown(runKey))
@@ -296,11 +314,44 @@ public class PlayerController : MonoBehaviour
 #endif
     }
 
+    // mobile buttons
+    public void JumpMobileButtonPressed()
+    {
+        _jumpHeld = true;
+
+        // Jump buffer time if we press Jump while in the air
+        if (!_gravObject.IsOnGround())
+        {
+            _currentJumpBufferTime = jumpBufferTime;
+        }
+    }
+    
+    public void JumpMobileButtonRelease()
+    {
+        _jumpHeld = false;
+    }
+
+    public void RunMobileButtonPressed()
+    {
+        _running = !_running;
+        if (_running)
+        {
+            GameObject.Find("Run").GetComponent<Image>().color = Color.red;
+        }
+        else
+        {
+            GameObject.Find("Run").GetComponent<Image>().color = Color.white;
+        }
+    }
+
+    public void SettingsMobileButtonPressed()
+    {
+        pauseMenu.PauseGame();
+    }
+
     void GetLassoInput()
     {
-#if UNITY_IOS || UNITY_ANDROID
-    //TODO: Later
-#else
+
         if (_moveInput.magnitude > 0)
         {
             // Cancel lasso toss state.
@@ -336,12 +387,26 @@ public class PlayerController : MonoBehaviour
                     break;
                 case LassoState.HOLD:
                     // Show the throw indicator and throw when the player clicks
+#if !(UNITY_IOS || UNITY_ANDROID)
                     UpdateLassoTransitionState(LassoState.TOSS);
+#else
+                    if (Input.touchCount > 0)
+                    {
+                        foreach (var touch in Input.touches)
+                        {
+                            if (!EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                            {
+                                UpdateLassoTransitionState(LassoState.TOSS);
+                                break;
+                            }
+                        }
+                    }
+#endif
                     break;
 
             }
         }
-#endif
+
     }
 
     // ********************** INPUT PROCESSING ************************* //
@@ -410,7 +475,7 @@ public class PlayerController : MonoBehaviour
         if (_lassoState != _transitionState)
         {
             PerformLassoTransition();
-        } 
+        }
         else
         {
             PerformLassoActive();
@@ -448,7 +513,7 @@ public class PlayerController : MonoBehaviour
                     if (pull == null)
                     {
                         UpdateLassoTransitionState(LassoState.NONE);
-                    } 
+                    }
                     else
                     {
                         _lassoParamAccumTime = 0f;
@@ -496,14 +561,14 @@ public class PlayerController : MonoBehaviour
                 if (_lassoObject == null)
                 {
                     UpdateLassoTransitionState(LassoState.RETRACT);
-                } 
+                }
                 else
                 {
                     if (_lassoParamAccumTime <= _lassoParamMaxTime)
                     {
                         Quaternion targetRot = Quaternion.Slerp(model.rotation, Quaternion.LookRotation((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up), Time.deltaTime * 8);
                         model.rotation = targetRot;
-                    } 
+                    }
                     else
                     {
                         EndLassoThrownState();
@@ -527,7 +592,7 @@ public class PlayerController : MonoBehaviour
                     if (_lassoParamAccumTime > _lassoParamMaxTime)
                     {
                         UpdateLassoTransitionState(LassoState.HOLD);
-                    } 
+                    }
                     else
                     {
                         tossable.PullLassoTossableTowards(lassoSwingCenter.position + tossable.GetSwingHeight() * lassoSwingCenter.up, _lassoParamAccumTime / _lassoParamMaxTime);
@@ -560,7 +625,7 @@ public class PlayerController : MonoBehaviour
     void RenderLasso()
     {
         //print("Rendering Lasso with state: " + _lassoState);
-        switch(_lassoState)
+        switch (_lassoState)
         {
             case LassoState.NONE:
                 _lassoRenderer.RenderLassoAtHip();
@@ -590,7 +655,8 @@ public class PlayerController : MonoBehaviour
                 break;
             case LassoState.HOLD:
                 LassoTossable held = (_lassoObject as LassoTossable);
-                if (held != null) {
+                if (held != null)
+                {
                     _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter);
                 }
                 break;

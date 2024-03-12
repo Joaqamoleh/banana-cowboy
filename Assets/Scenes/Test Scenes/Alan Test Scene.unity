@@ -6683,6 +6683,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 260809472872354011, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 2096744943}
     - target: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_LocalPosition.x
       value: 111.2
@@ -12950,6 +12954,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1598187556}
   m_SourcePrefab: {fileID: 100100000, guid: a97ca17d9e072f5458eb7d46801cf5f2, type: 3}
+--- !u!114 &2096744943 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3424626278668691176, guid: f1318dbb621abce438119d6b37bdc15a, type: 3}
+  m_PrefabInstance: {fileID: 2075008748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f2b57f67651724b8306c8d2ebd4c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2107733436 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a97ca17d9e072f5458eb7d46801cf5f2, type: 3}
