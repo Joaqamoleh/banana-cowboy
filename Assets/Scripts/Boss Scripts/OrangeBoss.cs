@@ -47,8 +47,8 @@ public class OrangeBoss : MonoBehaviour
     [Header("Dialogue")]
     public GameObject dialogHolder;
     public TMP_Text dialogText;
-    public string[] attackAnnouncement = { "Brace for impact!", "Time for a twist!", "Prepare for a juicy surprise!", "Here comes the sour!" };
-    public string[] attackName = { "Orange Slice!", "Zesty Onslaught!", "Peel Pummel!" };
+    private string[] attackAnnouncement = { "Brace for impact!", "Time for a twist!", "Prepare for a juicy surprise!", "Here comes the sour!" };
+    private string[] attackName = { "Orange Slice!", "Zesty Onslaught!", "Peel Pummel!" };
     public Coroutine currentDialog;
 
     public enum BossStates
@@ -151,7 +151,6 @@ public class OrangeBoss : MonoBehaviour
 
     void SpawnBoomerangs()
     {
-        
         cooldownTimer = 3.5f + boomerangCooldown;
         state = BossStates.COOLDOWN;
         StartCoroutine(BoomerangStartup());
