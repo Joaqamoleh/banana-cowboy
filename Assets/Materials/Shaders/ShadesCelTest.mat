@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7672645226767648709
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NoShadowsTest
-  m_Shader: {fileID: -6465566751694194690, guid: 8787dad1630afc44e9d8a2358e7b9a91, type: 3}
+  m_Name: ShadesCelTest
+  m_Shader: {fileID: -6465566751694194690, guid: 9951649c77dbca440b9b36a2560656bf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -98,11 +111,10 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeDiffuse: 0.05
-    - _EdgeDistanceAttenuation: 0.05
-    - _EdgeRim: 0
+    - _EdgeDiffuse: 1
+    - _EdgeDistanceAttenuation: 0
+    - _EdgeRim: 0.005
     - _EdgeShadowAttenuation: 1
-    - _EdgeSpecular: 0.05
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -113,11 +125,11 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimAmount: 0.4
-    - _RimStrength: 0.686
+    - _RimAmount: 0.47
+    - _RimStrength: 1
     - _RimThreshold: 1
-    - _SkyMultiplier: 0
-    - _Smoothness: 1.15
+    - _Shades: 3
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -126,22 +138,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0}
-    - _BaseColor: {r: 0.09913135, g: 0.23020853, b: 0.5773585, a: 1}
+    - _AmbientColor: {r: 0.4037736, g: 0.4037736, b: 0.4037736, a: 0}
+    - _BaseColor: {r: 0.043481633, g: 0.31278372, b: 0.7433963, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &8532771280663417322
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7

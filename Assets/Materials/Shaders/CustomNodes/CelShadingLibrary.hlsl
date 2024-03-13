@@ -18,7 +18,7 @@ struct ThresholdConstants {
 };
 
 // It was suggested I do this to keep things organized and (easier) to understand and I like it
-struct SurfaceValues {
+struct PhongSurfaceValues {
     float3 normal;
     float3 viewDir;
     float smoothness;
@@ -29,7 +29,7 @@ struct SurfaceValues {
     ThresholdConstants tc;
 };
 
-float3 calculateCelShading(Light l, SurfaceValues s) {
+float3 calculateCelShading(Light l, PhongSurfaceValues s) {
     // shadow attenuation
     float attenuation = smoothstep(0.0f, s.tc.shadowAttenuation, l.shadowAttenuation) * 
         smoothstep(0.0f, s.tc.distanceAttenuation, l.distanceAttenuation);
@@ -64,7 +64,7 @@ void LightingCelShaded_float(float3 Normal, float3 View, float Smoothness, float
     #else
         //Col = Albedo;
         // populate our surface shading variables
-        SurfaceValues s;
+        PhongSurfaceValues s;
         s.normal = normalize(Normal);
         s.viewDir = normalize(View);
         s.smoothness = Smoothness;
@@ -167,6 +167,92 @@ void TerrainLightingCel_float(float3 Normal, float3 View, float3 Position, float
         Col += Ambient;
         Col *= Albedo;
     #endif
+}
+
+
+
+// structs for terrain shading
+struct LambertThresholdConstants {
+    float diffuse;
+    float distanceAttenuation;
+    float shadowAttenuation;
+    float rim;
+};
+
+struct LambertSurfaceValues {
+    float3 normal;
+    float3 viewDir;
+    int shades;
+    float rimStrength;
+    float rimAmount;
+    float rimThreshold;
+    LambertThresholdConstants tc;
+};
+
+float3 calculateShades(Light l, LambertSurfaceValues ls) {
+    // shadow + light attenuation
+    float attenuation = smoothstep(0.0f, ls.tc.shadowAttenuation, l.shadowAttenuation) * 
+        smoothstep(0.0f, ls.tc.distanceAttenuation, l.distanceAttenuation);
+    // calculate diffuse shading
+    float diffuse = saturate(dot(ls.normal, l.direction));
+    diffuse *= attenuation;
+    // rim lighting
+    float rim = 1 - dot(ls.viewDir, ls.normal);
+    rim *= diffuse;
+    // we cannot smoothstep our diffuse due to how color quantizing works
+    //diffuse = smoothstep(0.0f, ls.tc.diffuse, diffuse);
+    diffuse = floor(diffuse * ls.shades) / ls.shades;
+    // smoothstep our rim
+    rim = ls.rimStrength * smoothstep( ls.rimAmount - 0.5f * ls.tc.rim, 
+      ls.rimAmount + 0.5f * ls.tc.rim, rim );
+    return l.color * (diffuse + rim);
+
+}
+
+void MultipleShadesCel_float(float3 Normal, float3 View, float3 Position, float RimStrength, float RimAmount, float RimThreshold, 
+float EdgeDiffuse, float EdgeDistanceAttenuation, float EdgeShadowAttenuation, float EdgeRim, float4 Ambient, float4 Albedo, 
+float Shades, out float3 Col) {
+    #if defined(SHADERGRAPH_PREVIEW)
+        Col = half3(0.5f, 0.5f, 0.5f);
+    #else
+        // populate surface values
+        LambertSurfaceValues ls;
+        ls.normal = Normal;
+        ls.viewDir = View;
+        ls.shades = Shades;
+        ls.rimStrength = RimStrength;
+        ls.rimAmount = RimAmount;
+        ls.rimThreshold = RimThreshold;
+        // populate thresholding constants
+        LambertThresholdConstants ltcon;
+        ltcon.diffuse = EdgeDiffuse;
+        ltcon.distanceAttenuation = EdgeDistanceAttenuation;
+        ltcon.shadowAttenuation = EdgeShadowAttenuation;
+        ltcon.rim = EdgeRim;
+        ls.tc = ltcon;
+        // do shadow stuffs
+        #if SHADOWS_SCREEN
+            float4 clipPos = TransformWorldToHClip(Position);
+            float4 shadowCoord = ComputeScreenPos(clipPos);
+        #else
+            float4 shadowCoord = TransformWorldToShadowCoord(Position);
+        #endif
+        // get light information and calculate color
+        Light light = GetMainLight(shadowCoord);
+        Col = calculateShades(light, ls);
+        // sets it so the light doesnt have like 10 shades
+        ls.shades = 2;
+        // get additional lighting information
+        int additionalLightsCount = GetAdditionalLightsCount();
+        for(int i = 0; i < additionalLightsCount; i++) {
+            light = GetAdditionalLight(i, Position, 1);
+            Col += calculateShades(light, ls);
+        }
+        // do final lighting calculations
+        Col += Ambient;
+        Col *= Albedo;
+    #endif
+
 }
 
 #endif
