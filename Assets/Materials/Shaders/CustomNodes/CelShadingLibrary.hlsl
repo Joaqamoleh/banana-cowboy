@@ -200,8 +200,8 @@ float3 calculateShades(Light l, LambertSurfaceValues ls) {
     float rim = 1 - dot(ls.viewDir, ls.normal);
     rim *= diffuse;
     // we cannot smoothstep our diffuse due to how color quantizing works
-    //diffuse = smoothstep(0.0f, ls.tc.diffuse, diffuse);
-    diffuse = floor(diffuse * ls.shades) / ls.shades;
+    // diffuse = smoothstep(0.0f, ls.tc.diffuse, diffuse);
+    diffuse = ceil(diffuse * ls.shades) / ls.shades;
     // smoothstep our rim
     rim = ls.rimStrength * smoothstep( ls.rimAmount - 0.5f * ls.tc.rim, 
       ls.rimAmount + 0.5f * ls.tc.rim, rim );
@@ -219,7 +219,7 @@ float Shades, out float3 Col) {
         LambertSurfaceValues ls;
         ls.normal = Normal;
         ls.viewDir = View;
-        ls.shades = Shades;
+        ls.shades = Shades - 1;
         ls.rimStrength = RimStrength;
         ls.rimAmount = RimAmount;
         ls.rimThreshold = RimThreshold;
@@ -241,7 +241,7 @@ float Shades, out float3 Col) {
         Light light = GetMainLight(shadowCoord);
         Col = calculateShades(light, ls);
         // sets it so the light doesnt have like 10 shades
-        ls.shades = 2;
+        ls.shades = 1;
         // get additional lighting information
         int additionalLightsCount = GetAdditionalLightsCount();
         for(int i = 0; i < additionalLightsCount; i++) {
