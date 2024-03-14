@@ -30,26 +30,21 @@ public class PlayerAnimator : MonoBehaviour
             case PlayerController.State.IDLE:
                 playerAnimator.Play("Base Layer.BC_Idle");
                 playerAnimator.speed = 1.0f;
-                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
             case PlayerController.State.AIR:
                 playerAnimator.Play("Base Layer.BC_Fall");
                 playerAnimator.speed = airAnimSpeed;
-                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
             case PlayerController.State.WALK:
                 playerAnimator.Play("Base Layer.BC_Walk");
                 playerAnimator.speed = walkAnimSpeed;
-                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
             case PlayerController.State.RUN:
                 playerAnimator.Play("Base Layer.BC_Run");
                 playerAnimator.speed = runAnimSpeed;
-                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
             case PlayerController.State.SWING:
                 playerAnimator.Play("Base Layer.BC_Swing");
-                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
         }
     }
@@ -59,7 +54,8 @@ public class PlayerAnimator : MonoBehaviour
         switch (updatedState)
         {
             case PlayerController.LassoState.NONE:
-
+                playerAnimator.Play("Base Layer.BC_Idle");
+                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
             case PlayerController.LassoState.THROWN:
                 playerAnimator.Play("Base Layer.BC_Lasso");
