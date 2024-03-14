@@ -13,10 +13,7 @@ public class PlayerCameraController : MonoBehaviour
     Transform _cameraPivot = null, _cameraTilt = null, _emptyGameObjectPrefab;
     Transform _cameraCurrent = null, _cameraTarget = null;
 
-    Cinemachine3rdPersonFollow ccb;
-
-
-
+    Cinemachine3rdPersonFollow _ccb;
     GravityObject _playerGravity;
     Transform _characterOrientation;
 
@@ -24,8 +21,9 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     float bottomBorder = 0.25f, topBorder = 0.85f;
     [SerializeField, Range(0f, 30f)]
-    float camReorientTime = 0.5f, camMaxSpeed = 5f;
-    private Vector3 camVel = Vector3.zero;
+    float camReorientTime = 0.5f, timeToRefocus = 5f, camMaxSpeed = 5f;
+    float lastManualInputTime;
+    private Vector3 camVel = Vector3.zero, _previousTargetPosition;
 
     public const float orbitSensitivityMin = 0.5f, orbitSensitivityMax = 4f; // For the slider in menu
     [SerializeField, Range(orbitZoomSensitivityMin, orbitZoomSensitivityMax)]
@@ -66,16 +64,16 @@ public class PlayerCameraController : MonoBehaviour
 
         _cameraTarget = Instantiate(_emptyGameObjectPrefab);
         _cameraTarget.position = _cameraTilt.position;
-
+        _previousTargetPosition = _cameraTarget.position;
 
         // Overrides the camera's default radius
         if (_cinemachineCamController != null)
         {
             _cinemachineCamController.Follow = _cameraCurrent;
-            ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            if (ccb != null)
+            _ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            if (_ccb != null)
             {
-                ccb.CameraDistance = orbitRadius;
+                _ccb.CameraDistance = orbitRadius;
             }
         }
 
@@ -136,34 +134,39 @@ public class PlayerCameraController : MonoBehaviour
         } 
         else
         {
-            if (highestHintPrioIndex != -1)
-            {
-                // Apply camera hints
-                if (ignoreActiveHint)
-                {
-                    if (Vector3.Dot(_characterOrientation.up, _cameraCurrent.forward) > 0f && changedHint)
-                    {
-                        ignoreActiveHint = false;
-                        changedHint = false;
-                    }
-                } 
-                else
-                {
-                    activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
-                    changedHint = false;
-                }
+            ApplyMovementRotation();
+        }
+        //else
+        //{
+        //    if (highestHintPrioIndex != -1)
+        //    {
+        //        // Apply camera hints
+        //        if (ignoreActiveHint)
+        //        {
+        //            if (Vector3.Dot(_characterOrientation.up, _cameraCurrent.forward) > 0f && changedHint)
+        //            {
+        //                ignoreActiveHint = false;
+        //                changedHint = false;
+        //            }
+        //        } 
+        //        else
+        //        {
+        //            activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
+        //            changedHint = false;
+        //        }
 
-            }
-            _cameraPivot.rotation = _cameraTarget.rotation;
-            angles = _cameraPivot.localEulerAngles;
-            angles.x = 0;
-            angles.z = 0;
-            _cameraPivot.localEulerAngles = angles;
-            _cameraTilt.rotation = _cameraTarget.rotation;
-            tiltangles = _cameraTilt.localEulerAngles;
-            tiltangles.y = 0;
-            _cameraTilt.localEulerAngles = tiltangles;
-        } 
+        //    }
+        //    _cameraPivot.rotation = _cameraTarget.rotation;
+        //    angles = _cameraPivot.localEulerAngles;
+        //    angles.x = 0;
+        //    angles.z = 0;
+        //    _cameraPivot.localEulerAngles = angles;
+        //    _cameraTilt.rotation = _cameraTarget.rotation;
+        //    tiltangles = _cameraTilt.localEulerAngles;
+        //    tiltangles.y = 0;
+        //    _cameraTilt.localEulerAngles = tiltangles;
+        //}
+        UpdateTargetToPlayer();
         BlendToTarget();
     }
 
@@ -231,25 +234,47 @@ public class PlayerCameraController : MonoBehaviour
         }
         _cameraTilt.localEulerAngles = angles;
         _cameraTarget.rotation = _cameraTilt.rotation;
+        _cameraCurrent.rotation = _cameraTilt.rotation;
 
         orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
     }
 
-    float targetLocalY;
+    void ApplyMovementRotation()
+    {
+        if ((_previousTargetPosition - _cameraTarget.position).magnitude < 0.2f) { return; }
+        Vector3 movement = Vector3.ProjectOnPlane(_cameraPivot.InverseTransformDirection(_cameraTarget.position - _previousTargetPosition), Vector3.up).normalized;
+        float targetAngle = Vector3.Angle(movement, Vector3.forward);
+        float deltaAbs = Mathf.Abs(Mathf.DeltaAngle(targetAngle, _cameraPivot.localEulerAngles.y));
+        Debug.DrawRay(_cameraTarget.position, (_cameraTarget.position - _previousTargetPosition).normalized * 10f, Color.blue);
+        if (deltaAbs < 45f)
+        {
+            var angles = _cameraPivot.localEulerAngles;
+            angles.y = targetAngle;
+            _cameraPivot.localEulerAngles = angles;
+        }
+        else if (180f - deltaAbs < 45f)
+        {
+            var angles = _cameraPivot.localEulerAngles;
+            angles.y = 180f - targetAngle;
+            _cameraPivot.localEulerAngles = angles;
+        }
+        _cameraTarget.rotation = _cameraTilt.rotation;
+        _previousTargetPosition = _cameraTarget.position;
+    }
+
     Vector3 localPoint;
-    Vector3 desiredPos;
-    void BlendToTarget()
+    void UpdateTargetToPlayer()
     {
         if (_characterOrientation == null) { return; }
         Vector3 characterViewportPos = Camera.main.WorldToViewportPoint(_characterOrientation.position);
 
-        targetLocalY = _characterOrientation.InverseTransformPoint(_cameraCurrent.position).y;
-        if (characterViewportPos.y > topBorder ||  characterViewportPos.y < bottomBorder) 
+        float targetLocalY = _characterOrientation.InverseTransformPoint(_cameraCurrent.position).y;
+        if (characterViewportPos.y > topBorder || characterViewportPos.y < bottomBorder)
         {
             // Our character moved outside the bounds of the screen borders defined,
             // thus, we change the y position of the target local y
             targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTilt.position).y;
-        } 
+        }
         else if (_playerGravity.IsOnGround())
         {
             targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTilt.position).y;
@@ -258,36 +283,19 @@ public class PlayerCameraController : MonoBehaviour
         // Get the final position for camera current
         localPoint = _characterOrientation.InverseTransformPoint(_cameraTilt.position);
         localPoint.y = targetLocalY;
-        desiredPos = _characterOrientation.TransformPoint(localPoint);
-
-        _cameraCurrent.position = Vector3.SmoothDamp(_cameraCurrent.position, desiredPos, ref camVel, camReorientTime, camMaxSpeed);
-
-        // Blend to the rotation of the target
-        _cameraCurrent.rotation = Quaternion.Slerp(_cameraCurrent.rotation, _cameraTarget.rotation, 0.1f);
-
-        if (_cinemachineCamController != null)
-        {
-            //Cinemachine3rdPersonFollow ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            if (ccb != null)
-            {
-                ccb.CameraDistance = Mathf.Lerp(ccb.CameraDistance, orbitRadius, 0.02f);
-            }
-        }
+        _cameraTarget.position = _characterOrientation.TransformPoint(localPoint);
     }
 
-    void DisableForCutscene(CutsceneObject s)
+    void BlendToTarget()
     {
-        if (_cinemachineCamController != null)
-        {
-            _cinemachineCamController.gameObject.SetActive(false);
-        }
-    }
+        Vector3 pos = Vector3.SmoothDamp(_cameraCurrent.position, _cameraTarget.position, ref camVel, camReorientTime, camMaxSpeed);
+        pos = _cameraTarget.position;
+        Quaternion rot = Quaternion.Slerp(_cameraCurrent.rotation, _cameraTarget.rotation, 0.01f);
+        _cameraCurrent.SetPositionAndRotation(pos, rot);
 
-    void EnableAfterCutscene(CutsceneObject s)
-    {
-        if (_cinemachineCamController != null)
+        if (_ccb != null)
         {
-            _cinemachineCamController.gameObject.SetActive(true);
+            _ccb.CameraDistance = Mathf.Lerp(_ccb.CameraDistance, orbitRadius, 0.02f);
         }
     }
 
@@ -354,6 +362,22 @@ public class PlayerCameraController : MonoBehaviour
     public void JumpToPlayer()
     {
         JumpTo(_cameraTilt.position, _cameraTilt.rotation);
+    }
+
+    void DisableForCutscene(CutsceneObject s)
+    {
+        if (_cinemachineCamController != null)
+        {
+            _cinemachineCamController.gameObject.SetActive(false);
+        }
+    }
+
+    void EnableAfterCutscene(CutsceneObject s)
+    {
+        if (_cinemachineCamController != null)
+        {
+            _cinemachineCamController.gameObject.SetActive(true);
+        }
     }
 
     void OnDrawGizmosSelected()

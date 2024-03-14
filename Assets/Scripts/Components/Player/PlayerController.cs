@@ -444,7 +444,6 @@ public class PlayerController : MonoBehaviour
         Vector3 speedDiff = targetVelocity - _gravObject.GetMoveVelocity();
         Vector3 movement = speedDiff * accelRate;
         _rigidbody.AddForce(movement);
-        Debug.DrawRay(transform.position, movement, Color.magenta);
 
         // Spin player model and orientation to right direction to face
         if (_moveInput.magnitude > 0 && model != null)
