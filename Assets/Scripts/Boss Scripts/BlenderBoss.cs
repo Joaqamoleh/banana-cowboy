@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BlenderBoss : MonoBehaviour
 {
     [Header("Atacks")]
-    private readonly int moves = 2;
+    private readonly int moves = 3;
     private int currMove;
     public GameObject[] positions;
     public GameObject juiceProjectile;
@@ -16,6 +16,9 @@ public class BlenderBoss : MonoBehaviour
     private int juiceProjectileCount = 0;
 
     public GameObject blenderBlade;
+
+    public Transform platform;
+    public GameObject bombIndicator;
 
     [Header("Cooldown")]
     public float move1Cooldown;
@@ -52,7 +55,7 @@ public class BlenderBoss : MonoBehaviour
 
     public enum BossStates
     {
-        IDLE, JUICE, BLADE, COOLDOWN, NONE
+        IDLE, JUICE, BLADE, BOMB, COOLDOWN, NONE
     };
 
     private void Start()
@@ -62,7 +65,7 @@ public class BlenderBoss : MonoBehaviour
 //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 0;
+        currMove = 2;
 
         player = GameObject.FindWithTag("Player");
 
@@ -152,8 +155,44 @@ public class BlenderBoss : MonoBehaviour
     {
         print("SPINNING BLADE");
         GameObject blade = Instantiate(blenderBlade);
-        yield return new WaitForSeconds(move2Cooldown);
+        yield return new WaitForSeconds(move2Cooldown); // TODO: make it shrink before destroying
         Destroy(blade);
+    }
+
+    void BlueberryBombs()
+    {
+        cooldownTimer = move3Cooldown;
+        state = BossStates.COOLDOWN;
+        StartCoroutine(PlaceBombs());
+    }
+
+    IEnumerator PlaceBombs()
+    {
+        if (bombIndicator != null && platform != null)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                // Calculate boundaries based on platform position and spawn area size
+                Vector3 minBounds = platform.position - new Vector3(26, 0f, 26);
+                Vector3 maxBounds = platform.position + new Vector3(26, 0f, 26);
+
+                // Generate a random position within the boundaries
+                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), bombIndicator.transform.position.y, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
+
+                // Spawn the object at the random position
+                Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Please assign objectToSpawn and platform in the inspector.");
+        }
+        yield return new WaitForSeconds(1f);
+    }
+
+    IEnumerator ShootBombs()
+    {
+        yield return new WaitForSeconds(1f);
     }
 
     private void Update()
@@ -169,6 +208,10 @@ public class BlenderBoss : MonoBehaviour
                 {
                     state = BossStates.BLADE;
                 }
+                else if (currMove % moves == 2)
+                {
+                    state = BossStates.BOMB;
+                }
                 break;
             case BossStates.JUICE:
                 PlayDialogue(attackName[currMove % moves], true);
@@ -178,10 +221,10 @@ public class BlenderBoss : MonoBehaviour
                 PlayDialogue(attackName[currMove % moves], true);
                 BlenderBlades();
                 break;
-            /*case BossStates.SPAWN:
+            case BossStates.BOMB:
                 PlayDialogue(attackName[currMove % moves], true);
-                SpawnEnemies();
-                break;*/
+                BlueberryBombs();
+                break;
             case BossStates.COOLDOWN:
                 Cooldown();
                 break;

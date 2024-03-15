@@ -262,6 +262,7 @@ public class PlayerController : MonoBehaviour
         _detectLanding = false;
         print("Landed " + OnLanded);
         OnLanded?.Invoke(_gravObject.GetGround());
+        _gravObject.gravityMult = 1.0f;
 
         // Jump buffering, have a bool flag set to true to perform it on the next Jump() call
         if (_currentJumpBufferTime > 0f)
@@ -466,6 +467,10 @@ public class PlayerController : MonoBehaviour
             _currentJumpBufferTime = 0f; // Prevents repeats of jumpBuffering if jumpBufferTime is too long
             OnJumpPressed?.Invoke();
         }
+        else if (!_gravObject.IsOnGround() && !_jumpHeld && Vector3.Dot(_gravObject.GetFallingVelocity(), _gravObject.GetGravityDirection()) < 0)
+        {
+            _gravObject.gravityMult = 1.5f;
+        }
 
     }
 
@@ -536,7 +541,20 @@ public class PlayerController : MonoBehaviour
                         {
                             tossDir = (hit.point - transform.position).normalized;
                         }
-                        toss.TossInDirection(tossDir, _gravObject.characterOrientation.up, _playerUI.GetThrowIndicatorStrength());
+                        LassoTossable.TossStrength strength = _playerUI.GetThrowIndicatorStrength();
+                        toss.TossInDirection(tossDir, _gravObject.characterOrientation.up, strength);
+                        if (strength == LassoTossable.TossStrength.WEAK)
+                        {
+                            GetComponent<PlayerSoundController>().LassoThrow("LassoWeakThrow");
+                        }
+                        else if (strength == LassoTossable.TossStrength.MEDIUM)
+                        {
+                            GetComponent<PlayerSoundController>().LassoThrow("LassoMediumThrow");
+                        }
+                        else
+                        {
+                            GetComponent<PlayerSoundController>().LassoThrow("LassoStrongThrow");
+                        }
                     }
                     _lassoParamAccumTime = 0.0f;
                     _lassoParamMaxTime = timeToToss;
