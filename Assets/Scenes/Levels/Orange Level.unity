@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31769824, g: 0.30841136, b: 0.57711995, a: 1}
+  m_IndirectSpecularColor: {r: 0.31778386, g: 0.3083839, b: 0.5771058, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -465,6 +465,10 @@ PrefabInstance:
     - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -41.414
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
+      propertyPath: dialog.speakerName
+      value: Bill
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30580,7 +30584,7 @@ MonoBehaviour:
       speakerName: John
       speakerDialog: Hey!!!
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 4
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 1216850253}
@@ -30594,7 +30598,7 @@ MonoBehaviour:
       speakerName: John
       speakerDialog: Thank goodness you're here, Banana Cowboy.
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 4
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -30609,7 +30613,7 @@ MonoBehaviour:
       speakerDialog: 'That Evil King... After he started his rampage, the banana
         subjects scattered to other planets to escape. '
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 4
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -30623,7 +30627,7 @@ MonoBehaviour:
       speakerName: John
       speakerDialog: I fled here to Orange Planet, home of the Orange Bikers.
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 4
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -30638,7 +30642,7 @@ MonoBehaviour:
       speakerDialog: 'But the Evil King soon took over, and now the Orange Leader
         is one of his followers. '
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 4
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -30652,7 +30656,7 @@ MonoBehaviour:
       speakerName: John
       speakerDialog: Save us, Banana Cowboy!!! Save us all!!!
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 4
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -30891,7 +30895,7 @@ PrefabInstance:
       objectReference: {fileID: 833898591}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
-      value: Bill
+      value: Joe
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerImage

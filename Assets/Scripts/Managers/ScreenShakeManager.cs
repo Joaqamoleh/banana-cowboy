@@ -8,7 +8,7 @@ public class ScreenShakeManager : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin cinCamera;
     private float _shakeTimer;
     private float _shakeTimerTotal;
-    private float _startintIntensity;
+    private float _startingIntensity;
 
     public static ScreenShakeManager Instance { get; private set; }
 
@@ -23,7 +23,7 @@ public class ScreenShakeManager : MonoBehaviour
         _shakeTimerTotal = time;
         cinCamera.m_AmplitudeGain = intensity;
         cinCamera.m_FrequencyGain = frequency;
-        _startintIntensity = intensity;
+        _startingIntensity = intensity;
         _shakeTimer = time;
     }
 
@@ -32,7 +32,7 @@ public class ScreenShakeManager : MonoBehaviour
         if (_shakeTimer > 0)
         {
             _shakeTimer -= Time.deltaTime;
-            cinCamera.m_AmplitudeGain = Mathf.Lerp(_startintIntensity, 0f, 1 - (_shakeTimer / _shakeTimerTotal));
+            cinCamera.m_AmplitudeGain = Mathf.Lerp(_startingIntensity, 0f, 1 - (_shakeTimer / _shakeTimerTotal));
             
         }
     }

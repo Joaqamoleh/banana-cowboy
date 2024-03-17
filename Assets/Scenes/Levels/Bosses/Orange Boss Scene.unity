@@ -4029,10 +4029,10 @@ RectTransform:
   - {fileID: 1700234311}
   m_Father: {fileID: 1336593876}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 443.895, y: -150}
+  m_SizeDelta: {x: 887.79, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &538846222
 MonoBehaviour:
@@ -4972,10 +4972,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1022560099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1246, y: 0}
+  m_SizeDelta: {x: 2152, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &753432188
 MonoBehaviour:
@@ -5008,7 +5008,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.6745098, b: 0.43137255, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6031,10 +6031,24 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Orange Boss
-      speakerDialog: Well, what do we have here?
+      speakerName: Blaze Citruson
+      speakerDialog: Well, well, well, look who's wandered into my territory.
       speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 3
+      dialogFullyDisplayed: 0
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 639574311}
+    cinemachineCamController: {fileID: 1981160464}
+    cameraShake: 1
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 1
+    dialog:
+      typingSpeed: 0.02
+      speakerName: Blaze Citruson
+      speakerDialog: A Banana Cowboy, eh? What brings you to the Orange Biker Planet?
+      speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
+      typeOfCharacter: 3
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 639574311}
@@ -6044,26 +6058,11 @@ MonoBehaviour:
     completionDelay: 0
   - isDialogScene: 1
     dialog:
-      typingSpeed: 0.02
-      speakerName: Orange Boss
-      speakerDialog: You call yourself "Banana Cowboy", huh?
+      typingSpeed: 0.25
+      speakerName: Blaze Citruson
+      speakerDialog: ...
       speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
-      typeOfCharacter: 0
-      dialogFullyDisplayed: 0
-    isTimelineScene: 1
-    timelinePlayable: {fileID: 639574311}
-    cinemachineCamController: {fileID: 1981160464}
-    cameraShake: 0
-    completionType: 0
-    completionDelay: 0
-  - isDialogScene: 1
-    dialog:
-      typingSpeed: 0.02
-      speakerName: Orange Boss
-      speakerDialog: 'Think you can waltz your way through MY planet? Think you''re
-        tougher than my gang? Well we''ll see about that! '
-      speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 3
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 639574311}
@@ -6074,11 +6073,42 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Orange Boss
-      speakerDialog: The new king promised us shiny new roads and wheels if we kept
-        you out of the way. Time for you to leave, Banana Cowboy!
+      speakerName: Blaze Citruson
+      speakerDialog: I see. And you think you can just stroll in here and challenge
+        me, the big boss...?
       speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
-      typeOfCharacter: 0
+      typeOfCharacter: 3
+      dialogFullyDisplayed: 0
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 639574311}
+    cinemachineCamController: {fileID: 1981160464}
+    cameraShake: 0
+    completionType: 0
+    completionDelay: 0.1
+  - isDialogScene: 1
+    dialog:
+      typingSpeed: 0.02
+      speakerName: Blaze Citruson
+      speakerDialog: 'Ha! You''ve got guts, I''ll give you that. The "Banana King"
+        dangled the temptation of shiny new roads and wheels if we cleared anyone
+        out of the way. '
+      speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
+      typeOfCharacter: 3
+      dialogFullyDisplayed: 0
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 639574311}
+    cinemachineCamController: {fileID: 1981160464}
+    cameraShake: 1
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 1
+    dialog:
+      typingSpeed: 0.02
+      speakerName: Blaze Citruson
+      speakerDialog: So, it's time for you to skedaddle, Banana Cowboy! You're in
+        for a wild ride. Let's see what you've got.
+      speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
+      typeOfCharacter: 3
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 639574311}
@@ -6089,9 +6119,8 @@ MonoBehaviour:
   - isDialogScene: 0
     dialog:
       typingSpeed: 0.02
-      speakerName: Orange Boss
-      speakerDialog: The new king promised us shiny new roads and wheels if we kept
-        you out of the way. Time for you to leave, Banana Cowboy!
+      speakerName: Blaze Citruson
+      speakerDialog: 
       speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
       typeOfCharacter: 0
       dialogFullyDisplayed: 0
@@ -7212,6 +7241,7 @@ GameObject:
   - component: {fileID: 1177826733}
   - component: {fileID: 1177826735}
   - component: {fileID: 1177826734}
+  - component: {fileID: 1177826736}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -7274,6 +7304,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1177826736
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177826732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1206466642 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a97ca17d9e072f5458eb7d46801cf5f2, type: 3}
@@ -8401,7 +8448,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 887.79, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1336593877
 MonoBehaviour:
@@ -11261,7 +11308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1669708765
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11716,10 +11763,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 538846221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 443.895, y: -150}
+  m_SizeDelta: {x: 687.79, y: 106.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1700234312
 MonoBehaviour:
@@ -13999,7 +14046,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981160461}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.093740955, y: 0.0050866553, z: 0.00047894305, w: 0.99558353}
+  m_LocalRotation: {x: -0.093741074, y: 0.0050866627, z: 0.0004789444, w: 0.99558353}
   m_LocalPosition: {x: -20.188267, y: 4.370268, z: 12.701748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
