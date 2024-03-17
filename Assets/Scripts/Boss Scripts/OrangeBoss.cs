@@ -342,7 +342,7 @@ public class OrangeBoss : MonoBehaviour
         }
         else
         {
-            PlayDialogue("Ouch! Right in the juice box! You got some skills, but I'm not going down that easy!", false);
+            PlayDialogue("Ouch! Right in the juice box! You got some skills, but don't expect a smooth riding!", false);
             ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
         }
         if (health <= 0)
