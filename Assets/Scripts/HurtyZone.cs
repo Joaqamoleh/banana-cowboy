@@ -34,4 +34,23 @@ public class HurtyZone : MonoBehaviour
         }
 
     }
+
+    // Using this for blueberry splat
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (kill)
+            {
+                // kill the player
+                // hopefully doesnt bug out lmao
+                other.GetComponentInParent<Health>().Damage(999, Vector3.zero);
+            }
+            else
+            {
+                // damage the player
+                other.GetComponentInParent<Health>().Damage(damage, knockback);
+            }
+        }
+    }
 }

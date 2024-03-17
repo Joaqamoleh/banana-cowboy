@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Text;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static CharacterDialogue;
+using static Dialog;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -42,6 +42,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayDialog(Dialog dialog, bool playTypingAnim = true)
     {
+        SetTextColor(dialog.typeOfCharacter);
+
         if (_currentDialog != null)
         {
             _currentDialog.dialogFullyDisplayed = false;
@@ -96,6 +98,24 @@ public class DialogueManager : MonoBehaviour
             nameTagDisplay.gameObject.SetActive(false);
         }
         dialogTextDisplay.text = _currentDisplayText.ToString();
+    }
+
+    private void SetTextColor(TypeOfCharacter character)
+    {
+        switch (character) 
+        {
+            case TypeOfCharacter.Orange:
+                dialogTextDisplay.color = new Color(1, 172 / 255.0f, 110 / 255.0f);
+                break;
+            case TypeOfCharacter.Banana:
+                dialogTextDisplay.color = Color.yellow;
+                break;
+            case TypeOfCharacter.Pete:
+                dialogTextDisplay.color = new Color(226 / 255f, 62 / 255f, 69 / 255f);
+                break;
+
+        }
+
     }
 
     public bool IsTypingDone()
@@ -161,7 +181,8 @@ public class Dialog
         Strawberry,
         Blueberry,
         Orange,
-        Banana
+        Banana,
+        Pete
     };
 
     [HideInInspector]

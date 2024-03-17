@@ -19,6 +19,10 @@ public class BlenderBoss : MonoBehaviour
 
     public Transform platform;
     public GameObject bombIndicator;
+    public GameObject blueberryBombObject;
+    private Vector3[] bombSpawnPos; // positions of where a bomb will drop
+    private GameObject[] indicatorSpawnObject; // spawn indicator images
+    public GameObject splatEffect;
 
     [Header("Cooldown")]
     public float move1Cooldown;
@@ -49,8 +53,8 @@ public class BlenderBoss : MonoBehaviour
     [Header("Dialogue")]
     public GameObject dialogHolder;
     public TMP_Text dialogText;
-    private string[] attackAnnouncement = { "Get ready to be juiced!", "Prepare for a whirlwind of flavor!", "Feel the force of the fruity horde!" };
-    private string[] attackName = { "Juice Jet, coming your way!", "Blender Blitz!", "Minions, assemble! Cherry Bombs, rain destruction!" };
+    private string[] attackAnnouncement = { "Get ready to be juiced!", "Prepare for a whirlwind of flavor!", "Prepare for a fruity downpour!", "Feel the force of the fruity horde!" };
+    private string[] attackName = { "Juice Jet, coming your way!", "Blender Blitz!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
     public Coroutine currentDialog;
 
     public enum BossStates
@@ -68,9 +72,10 @@ public class BlenderBoss : MonoBehaviour
         currMove = 2;
 
         player = GameObject.FindWithTag("Player");
-
-       // healthHolder.SetActive(true);
-    }
+        bombSpawnPos = new Vector3[3];
+        indicatorSpawnObject = new GameObject[3];
+    // healthHolder.SetActive(true);
+}
 
     void CutsceneEnd(CutsceneObject o)
     {
@@ -172,28 +177,67 @@ public class BlenderBoss : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                // Calculate boundaries based on platform position and spawn area size
                 Vector3 minBounds = platform.position - new Vector3(26, 0f, 26);
                 Vector3 maxBounds = platform.position + new Vector3(26, 0f, 26);
 
-                // Generate a random position within the boundaries
                 Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), bombIndicator.transform.position.y, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
 
-                // Spawn the object at the random position
-                Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
+                indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
+                bombSpawnPos[i] = spawnPosition;    
             }
         }
         else
         {
             Debug.LogWarning("Please assign objectToSpawn and platform in the inspector.");
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
+        ShootBombs();
     }
 
-    IEnumerator ShootBombs()
+    void ShootBombs()
     {
-        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < 3; i++)
+        {
+            // Assuming bombSpawnPos[i] is a RectTransform
+            Vector3 screenPos = bombSpawnPos[i];
+
+            // Convert screen position to world position
+            Vector3 worldPos = screenPos;
+
+            // Set the z-coordinate to 50f or adjust as needed
+            worldPos.y = 50f;
+
+            // Instantiate the bomb using the world position
+            GameObject temp = Instantiate(blueberryBombObject, worldPos, Quaternion.identity);
+            temp.GetComponent<BlueberryBomb>().pos = i;
+            Destroy(indicatorSpawnObject[i]);
+        }
     }
+
+    public void CreateSplat(int obj)
+    {
+        indicatorSpawnObject[obj] = Instantiate(splatEffect, bombSpawnPos[obj], splatEffect.transform.rotation);
+    }
+
+/*    IEnumerator ShootBombs()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            // Assuming bombSpawnPos[i] is a RectTransform
+            Vector3 screenPos = bombSpawnPos[i];
+
+            // Convert screen position to world position
+            Vector3 worldPos = screenPos;
+
+            // Set the z-coordinate to 50f or adjust as needed
+            worldPos.y = 50f;
+
+            // Instantiate the bomb using the world position
+            Instantiate(blueberryBombObject, worldPos, Quaternion.identity);
+        }
+        yield return new WaitForSeconds(1f);
+    }*/
+
 
     private void Update()
     {

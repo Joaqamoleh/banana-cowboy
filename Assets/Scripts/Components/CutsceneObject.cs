@@ -17,6 +17,7 @@ public class CutsceneObject : MonoBehaviour
     public delegate void CutsceneCompleteCallback(CutsceneObject completedScene);
     public event CutsceneCompleteCallback OnCutsceneComplete;
 
+    private Coroutine dialogueScreenShake = null;
     public void Play()
     {
         _cutsceneComplete = false;
@@ -49,6 +50,7 @@ public class CutsceneObject : MonoBehaviour
         if (scene.isDialogScene)
         {
             DialogueManager.Instance().DisplayDialog(scene.dialog);
+            _shakeTimer = 0; // Stops screen from shaking if not finished shaking 
         }
 
         if (scene.isTimelineScene)
@@ -63,8 +65,28 @@ public class CutsceneObject : MonoBehaviour
 
         if (scene.cameraShake)
         {
-            // TODO:
+            StartCoroutine(ShakeScreen(scene));
         }
+    }
+
+    // TODO: Change to fit the dialogue
+    float _shakeTimerTotal = 3f;
+    float _startingIntensity = 4f;
+    float _startingAmplitude= 6f;
+    float _shakeTimer = 0;
+    IEnumerator ShakeScreen(Scene scene)
+    {
+        _shakeTimer = _shakeTimerTotal;
+        CinemachineBasicMultiChannelPerlin shakingCamera = scene.cinemachineCamController.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        shakingCamera.m_AmplitudeGain = _startingAmplitude;
+        shakingCamera.m_FrequencyGain = _startingIntensity;
+        while (_shakeTimer > 0)
+        {
+            _shakeTimer -= Time.deltaTime;
+            shakingCamera.m_AmplitudeGain = Mathf.Lerp(_startingIntensity, 0f, 1 - (_shakeTimer / _shakeTimerTotal));
+            yield return null;
+        }
+        shakingCamera.m_AmplitudeGain = 0;
     }
 
     void CleanupScene(Scene scene)

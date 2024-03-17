@@ -1933,6 +1933,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &427674573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 60231637660717886, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 48.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7837824813900263628, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873178111891123840, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_Name
+      value: BlueBerryBomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873178111891123840, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
 --- !u!1001 &438219583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7085,6 +7150,8 @@ MonoBehaviour:
   blenderBlade: {fileID: 8331991634273955694, guid: f11917124eea32d41aaf0e6171c71c7d, type: 3}
   platform: {fileID: 1126986171}
   bombIndicator: {fileID: 1847898043063097960, guid: 2900782729c3c574aadf0a4891801d50, type: 3}
+  blueberryBombObject: {fileID: 8873178111891123840, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+  splatEffect: {fileID: 5768313165163680316, guid: df1a23dcd0a27964187c4fc03bdf00a4, type: 3}
   move1Cooldown: 12
   move2Cooldown: 10
   move3Cooldown: 15
@@ -11657,3 +11724,4 @@ SceneRoots:
   - {fileID: 682775547}
   - {fileID: 784852579}
   - {fileID: 2096333026}
+  - {fileID: 427674573}
