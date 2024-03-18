@@ -10,24 +10,29 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     CinemachineVirtualCamera _cinemachineCamController;
     [SerializeField]
-    Transform _cameraPivot = null, _cameraTilt = null, _emptyGameObjectPrefab;
-    Transform _cameraCurrent = null, _cameraTarget = null;
-
-    Cinemachine3rdPersonFollow _ccb;
-    GravityObject _playerGravity;
-    Transform _characterOrientation;
+    Transform _cameraFocus = null, _emptyGameObjectPrefab;
+    Transform _cameraCurrent = null, _focusBasis;
+    GravityObject _focusGravity;
+    Vector3 _focusPoint, _previousFocusPoint;
+    Vector2 _orbitAngles = new Vector2(45f, 0f);
 
     [Header("Parameters")]
     [SerializeField, Range(0f, 1f)]
+    float focusCenteringFactor = 0.5f;
+    [SerializeField, Range(0f, 1f)]
     float bottomBorder = 0.25f, topBorder = 0.85f;
     [SerializeField, Range(0f, 30f)]
-    float camReorientTime = 0.5f, timeToRefocus = 5f, camMaxSpeed = 5f;
-    float lastManualInputTime;
-    private Vector3 camVel = Vector3.zero, _previousTargetPosition;
+    float realignTime = 5f, realignRadius = 1f;
+    [SerializeField, Range(1f, 360f)]
+    float realignRotationSpeed = 90f;
+    [SerializeField, Range(0f, 90f)]
+    float alignSmoothRange = 45f;
 
-    public const float orbitSensitivityMin = 0.5f, orbitSensitivityMax = 4f; // For the slider in menu
+    float lastManualInputTime;
+
+    public const float orbitSensitivityMin = 1f, orbitSensitivityMax = 360f; // For the slider in menu
     [SerializeField, Range(orbitZoomSensitivityMin, orbitZoomSensitivityMax)]
-    public float orbitSensitivity = 0.2f;
+    public float orbitSensitivity = 90f;
 
     public const float orbitZoomSensitivityMin = 5f, orbitZoomSensitivityMax = 50f; // For the slider in menu
     [SerializeField, Range(orbitZoomSensitivityMin, orbitZoomSensitivityMax)]
@@ -35,6 +40,8 @@ public class PlayerCameraController : MonoBehaviour
 
     [SerializeField, Min(0f)]
     float orbitMinRadius = 20f, orbitMaxRadius = 60f, orbitRadius = 30f;
+    [SerializeField, Range(-89f, 89f)]
+    float minVerticalAngle = -30f, maxVerticalAngle = 60f;
 
     public bool invertY = true, invertZoom = false;
 
@@ -45,7 +52,7 @@ public class PlayerCameraController : MonoBehaviour
     public Joystick cameraJoystick;
     
     private float mouseX, mouseY, mouseScroll;
-    private bool rotationHeld = false, ignoreActiveHint = false, changedHint = false;
+    private bool rotationHeld = false;
     List<CameraHint> activeHints = new List<CameraHint>();
     int highestHintPrioIndex = -1;
 
@@ -54,26 +61,36 @@ public class PlayerCameraController : MonoBehaviour
 
     bool frozenCam = false;
 
+    private void OnValidate()
+    {
+        if (orbitMinRadius > orbitMaxRadius)
+        {
+            orbitMinRadius = orbitMaxRadius;
+        }
+        if (orbitRadius < orbitMinRadius)
+        {
+            orbitRadius = orbitMinRadius;
+        }
+        if (minVerticalAngle > maxVerticalAngle)
+        {
+            minVerticalAngle = maxVerticalAngle;
+        }
+        if (maxVerticalAngle < minVerticalAngle)
+        {
+            maxVerticalAngle = minVerticalAngle;
+        }
+    }
+
     void Start()
     {
-        // Removes cursor from screen and keeps it locked to center
-        _playerGravity = GetComponent<GravityObject>();
-        _characterOrientation = _playerGravity.characterOrientation;
-        _cameraCurrent = Instantiate(_emptyGameObjectPrefab);
-        _cameraCurrent.position = _cameraTilt.position;
-
-        _cameraTarget = Instantiate(_emptyGameObjectPrefab);
-        _cameraTarget.position = _cameraTilt.position;
-        _previousTargetPosition = _cameraTarget.position;
-
-        // Overrides the camera's default radius
-        if (_cinemachineCamController != null)
+        _cameraCurrent = _cinemachineCamController.transform;
+        if (_cameraFocus != null)
         {
-            _cinemachineCamController.Follow = _cameraCurrent;
-            _ccb = _cinemachineCamController.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            if (_ccb != null)
+            _focusPoint = _cameraFocus.position;
+            _focusGravity = _cameraFocus.GetComponent<GravityObject>();
+            if (_focusGravity != null)
             {
-                _ccb.CameraDistance = orbitRadius;
+                _focusBasis = _focusGravity.characterOrientation;
             }
         }
 
@@ -86,18 +103,18 @@ public class PlayerCameraController : MonoBehaviour
 
     void Update()
     {
-        if (_cameraTilt == null) { return; }
+        if (_cameraFocus == null) { return; }
         if (!PauseManager.pauseActive)
         {
 #if !UNITY_IOS && !UNITY_ANDROID
             mouseX = Input.GetAxisRaw("Mouse X");
             mouseY = Input.GetAxisRaw("Mouse Y");
             mouseScroll = -Input.GetAxisRaw("Mouse ScrollWheel");
+            orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
 
             if (Input.GetKeyDown(rotationKey))
             {
                 PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.CAMERA_PAN);
-                ignoreActiveHint = true;
                 rotationHeld = true;
             } 
             else if (Input.GetKeyUp(rotationKey))
@@ -119,55 +136,102 @@ public class PlayerCameraController : MonoBehaviour
             {
                 mouseScroll = -mouseScroll;
             }
-            //CameraMovementMobile();
         }
     }
 
-    Vector3 angles;
-    Vector3 tiltangles;
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        if (frozenCam) { return; }
+        if (frozenCam || _cameraFocus == null) { return; }
+
+        UpdateFocusPoint();
+        Quaternion lookRot = _focusBasis.rotation * Quaternion.Euler(_orbitAngles);
+        if (PerformManualRotation() || PerformAutomaticRotation())
+        {
+            ConstrainAngles();
+        }
+        Vector3 lookDir = lookRot * Vector3.forward;
+        Vector3 position = _focusPoint - lookDir * orbitRadius;
+        _cameraCurrent.SetPositionAndRotation(position, lookRot);
+    }
+
+    void UpdateFocusPoint()
+    {
+        _previousFocusPoint = _focusPoint;
+        Vector3 targetPoint = _cameraFocus.position;
+        Vector3 targetViewportPos = Camera.main.WorldToViewportPoint(targetPoint);
+        float distance = Vector3.Distance(targetPoint, _focusPoint);
+        float t = 1f;
+        if (distance > 0.01f && focusCenteringFactor > 0f)
+        {
+            t = Mathf.Pow(1f - focusCenteringFactor, Time.unscaledDeltaTime);
+        }
+        if (distance > realignRadius)
+        {
+            t = Mathf.Min(t, realignRadius / distance);
+        }
+        _focusPoint = Vector3.Lerp(targetPoint, _focusPoint, t);
+    }
+
+    bool PerformManualRotation()
+    {
         if (rotationHeld)
         {
-            ApplyInputRotation();
-        } 
-        else
-        {
-            ApplyMovementRotation();
+            const float e = 0.001f;
+            if (mouseX > e || mouseY > e || mouseX < -e || mouseY < -e)
+            {
+                _orbitAngles = new Vector2(_orbitAngles.x + mouseY * orbitSensitivity * Time.unscaledDeltaTime, _orbitAngles.y + mouseX * orbitSensitivity * Time.unscaledDeltaTime);
+                lastManualInputTime = Time.unscaledTime;
+                return true;
+            }
         }
-        //else
-        //{
-        //    if (highestHintPrioIndex != -1)
-        //    {
-        //        // Apply camera hints
-        //        if (ignoreActiveHint)
-        //        {
-        //            if (Vector3.Dot(_characterOrientation.up, _cameraCurrent.forward) > 0f && changedHint)
-        //            {
-        //                ignoreActiveHint = false;
-        //                changedHint = false;
-        //            }
-        //        } 
-        //        else
-        //        {
-        //            activeHints[highestHintPrioIndex].ApplyHint(_cameraTarget, _characterOrientation, ref camVel, _cinemachineCamController);
-        //            changedHint = false;
-        //        }
+        return false;
+    }
 
-        //    }
-        //    _cameraPivot.rotation = _cameraTarget.rotation;
-        //    angles = _cameraPivot.localEulerAngles;
-        //    angles.x = 0;
-        //    angles.z = 0;
-        //    _cameraPivot.localEulerAngles = angles;
-        //    _cameraTilt.rotation = _cameraTarget.rotation;
-        //    tiltangles = _cameraTilt.localEulerAngles;
-        //    tiltangles.y = 0;
-        //    _cameraTilt.localEulerAngles = tiltangles;
-        //}
-        UpdateTargetToPlayer();
-        BlendToTarget();
+    bool PerformAutomaticRotation()
+    {
+        if (_focusBasis == null) { return false; }
+
+        if (Time.unscaledTime - lastManualInputTime < realignTime)
+        {
+            return false;
+        }
+
+        Vector3 movement = _focusBasis.InverseTransformDirection(Vector3.ProjectOnPlane((_focusPoint - _previousFocusPoint), _focusBasis.up));
+        float movementDeltaSqr = movement.sqrMagnitude;
+        if (movementDeltaSqr < 0.001f)
+        {
+            return false;
+        }
+        movement = movement / Mathf.Sqrt(movementDeltaSqr);
+        float angle = Mathf.Acos(movement.z) * Mathf.Rad2Deg;
+        angle = movement.x < 0 ? 360f - angle : angle;
+        float deltaAbs = Mathf.Abs(Mathf.DeltaAngle(_orbitAngles.y, angle));
+        float angleChange = realignRotationSpeed * Mathf.Min(Time.unscaledDeltaTime, movementDeltaSqr);
+        if (deltaAbs < alignSmoothRange)
+        {
+            angleChange *= deltaAbs / alignSmoothRange;
+        }
+        else if (180f - deltaAbs < alignSmoothRange)
+        {
+            angleChange *= (180f - deltaAbs) / alignSmoothRange;
+        }
+        _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, angle, angleChange);
+        return true;
+    }
+
+    
+
+    void ConstrainAngles()
+    {
+        _orbitAngles.x = Mathf.Clamp(_orbitAngles.x, minVerticalAngle, maxVerticalAngle);
+        if (_orbitAngles.y < 0f)
+        {
+            _orbitAngles.y += 360f;
+        }
+        else if (_orbitAngles.y >= 360f)
+        {
+            _orbitAngles.y -= 360f;
+        }
     }
 
     void CameraMovementMobile()
@@ -216,96 +280,12 @@ public class PlayerCameraController : MonoBehaviour
         }
     }
 
-    void ApplyInputRotation()
-    {
-        _cameraPivot.Rotate(Vector3.up, orbitSensitivity * mouseX);
-        _cameraTilt.Rotate(Vector3.right, orbitSensitivity * mouseY);
-        angles = _cameraTilt.localEulerAngles;
-        angles.z = 0;
-        angles.y = 0;
-        var angle = _cameraTilt.localEulerAngles.x;
-        if (angle < 180 && angle > 60)
-        {
-            angles.x = 60;
-        }
-        else if (angle > 60 && angle < 290)
-        {
-            angles.x = 290;
-        }
-        _cameraTilt.localEulerAngles = angles;
-        _cameraTarget.rotation = _cameraTilt.rotation;
-        _cameraCurrent.rotation = _cameraTilt.rotation;
-
-        orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
-    }
-
-    void ApplyMovementRotation()
-    {
-        if ((_previousTargetPosition - _cameraTarget.position).magnitude < 0.2f) { return; }
-        Vector3 movement = Vector3.ProjectOnPlane(_cameraPivot.InverseTransformDirection(_cameraTarget.position - _previousTargetPosition), Vector3.up).normalized;
-        float targetAngle = Vector3.Angle(movement, Vector3.forward);
-        float deltaAbs = Mathf.Abs(Mathf.DeltaAngle(targetAngle, _cameraPivot.localEulerAngles.y));
-        Debug.DrawRay(_cameraTarget.position, (_cameraTarget.position - _previousTargetPosition).normalized * 10f, Color.blue);
-        if (deltaAbs < 45f)
-        {
-            var angles = _cameraPivot.localEulerAngles;
-            angles.y = targetAngle;
-            _cameraPivot.localEulerAngles = angles;
-        }
-        else if (180f - deltaAbs < 45f)
-        {
-            var angles = _cameraPivot.localEulerAngles;
-            angles.y = 180f - targetAngle;
-            _cameraPivot.localEulerAngles = angles;
-        }
-        _cameraTarget.rotation = _cameraTilt.rotation;
-        _previousTargetPosition = _cameraTarget.position;
-    }
-
-    Vector3 localPoint;
-    void UpdateTargetToPlayer()
-    {
-        if (_characterOrientation == null) { return; }
-        Vector3 characterViewportPos = Camera.main.WorldToViewportPoint(_characterOrientation.position);
-
-        float targetLocalY = _characterOrientation.InverseTransformPoint(_cameraCurrent.position).y;
-        if (characterViewportPos.y > topBorder || characterViewportPos.y < bottomBorder)
-        {
-            // Our character moved outside the bounds of the screen borders defined,
-            // thus, we change the y position of the target local y
-            targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTilt.position).y;
-        }
-        else if (_playerGravity.IsOnGround())
-        {
-            targetLocalY = _characterOrientation.InverseTransformPoint(_cameraTilt.position).y;
-        }
-
-        // Get the final position for camera current
-        localPoint = _characterOrientation.InverseTransformPoint(_cameraTilt.position);
-        localPoint.y = targetLocalY;
-        _cameraTarget.position = _characterOrientation.TransformPoint(localPoint);
-    }
-
-    void BlendToTarget()
-    {
-        Vector3 pos = Vector3.SmoothDamp(_cameraCurrent.position, _cameraTarget.position, ref camVel, camReorientTime, camMaxSpeed);
-        pos = _cameraTarget.position;
-        Quaternion rot = Quaternion.Slerp(_cameraCurrent.rotation, _cameraTarget.rotation, 0.01f);
-        _cameraCurrent.SetPositionAndRotation(pos, rot);
-
-        if (_ccb != null)
-        {
-            _ccb.CameraDistance = Mathf.Lerp(_ccb.CameraDistance, orbitRadius, 0.02f);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null) {
             activeHints.Add(other.gameObject.GetComponent<CameraHint>());
             int prev = highestHintPrioIndex;
             highestHintPrioIndex = GetHighestPrioIndex();
-            changedHint = prev != highestHintPrioIndex;
         }
     }
 
@@ -317,8 +297,6 @@ public class PlayerCameraController : MonoBehaviour
             activeHints.Remove(other.gameObject.GetComponent<CameraHint>());
             int prev = highestHintPrioIndex;
             highestHintPrioIndex = GetHighestPrioIndex();
-            changedHint = prev != highestHintPrioIndex;
-
         }
     }
 
@@ -353,15 +331,13 @@ public class PlayerCameraController : MonoBehaviour
         Camera.main.transform.position = position;
         Camera.main.transform.rotation = orientation;
         Camera.main.GetComponent<CinemachineBrain>().enabled = true;
-        _cameraTarget.position = position;
-        _cameraTarget.rotation = orientation;
         _cameraCurrent.position = position;
         _cameraCurrent.rotation = orientation;
     }
 
     public void JumpToPlayer()
     {
-        JumpTo(_cameraTilt.position, _cameraTilt.rotation);
+        JumpTo(_focusPoint - _cameraCurrent.forward * orbitRadius, Quaternion.identity); // TODO: Fix
     }
 
     void DisableForCutscene(CutsceneObject s)

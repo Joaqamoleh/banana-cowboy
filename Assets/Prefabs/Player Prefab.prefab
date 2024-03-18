@@ -1360,7 +1360,6 @@ MonoBehaviour:
     m_Bits: 9
   mobileUI: {fileID: 3135388256612513573}
   joystick: {fileID: 2597367190452789420}
-  pauseMenu: {fileID: 0}
   walkSpeed: 16.35
   runSpeed: 25.2
   accelSpeed: 4.98
@@ -1388,18 +1387,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cinemachineCamController: {fileID: 0}
-  _cameraPivot: {fileID: 3537890142686293665}
-  _cameraTilt: {fileID: 80384122500788780}
+  _cameraFocus: {fileID: 1526105572669686172}
   _emptyGameObjectPrefab: {fileID: 4070204132712235945, guid: d076296c76109af44991ebf6823031f4, type: 3}
+  focusCenteringFactor: 0.5
   bottomBorder: 0.25
   topBorder: 0.89
-  camReorientTime: 0.1
-  camMaxSpeed: 30
+  realignTime: 5
+  realignRadius: 1
+  realignRotationSpeed: 90
+  alignSmoothRange: 45
   orbitSensitivity: 4
   orbitZoomSensitivity: 10
   orbitMinRadius: 20
   orbitMaxRadius: 60
   orbitRadius: 30
+  minVerticalAngle: -30
+  maxVerticalAngle: 60
   invertY: 1
   invertZoom: 0
   rotationKey: 324

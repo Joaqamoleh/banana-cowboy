@@ -1411,6 +1411,11 @@ Transform:
   - {fileID: 793637872}
   m_Father: {fileID: 220475772}
   m_LocalEulerAnglesHint: {x: 0, y: 89, z: 0}
+--- !u!4 &229054215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+  m_PrefabInstance: {fileID: 364053948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &254452674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,12 +1733,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1706404283180673647, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
+    - {fileID: 6357670780536143470, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5316180485189501978, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1299872471}
+      addedObject: {fileID: 1299872476}
+    - targetCorrespondingSourceObject: {fileID: 5316180485189501978, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1299872477}
   m_SourcePrefab: {fileID: 100100000, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
 --- !u!114 &267684991 stripped
 MonoBehaviour:
@@ -2017,12 +2026,20 @@ PrefabInstance:
       value: Player Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: _cameraFocus
+      value: 
+      objectReference: {fileID: 229054215}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cameraCurrent
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _reorientDistance
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: updateFocusRadius
+      value: 10.3
       objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cinemachineCamController
@@ -6126,7 +6143,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5316180485189501978, guid: deababa61a51bb248a1557b8b25ca7ca, type: 3}
   m_PrefabInstance: {fileID: 267684990}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1299872471
+--- !u!114 &1299872476
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6139,6 +6156,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Damping: 0
+--- !u!114 &1299872477
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299872465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1350770924
 GameObject:
   m_ObjectHideFlags: 0
