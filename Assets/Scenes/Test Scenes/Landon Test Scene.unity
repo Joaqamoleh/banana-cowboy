@@ -1821,13 +1821,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489f98bc2dc07334dad09a261af3b013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredOrientation: {fileID: 286221356}
-  targetHeightAbovePlayer: 3.57
-  targetDistanceFromPlayer: 35.05
-  camReorientTime: 0.2
-  camMaxSpeed: 40
-  zoomSpeed: 1.05
-  rotationSpeed: 1.03
+  orientationBasis: {fileID: 0}
+  orbitDistance: 30
+  orbitVerticalAngle: 45
+  orbitRotationAngle: 0
   priority: 0
 --- !u!1 &320386585
 GameObject:
@@ -1908,13 +1905,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489f98bc2dc07334dad09a261af3b013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredOrientation: {fileID: 2076469186}
-  targetHeightAbovePlayer: 3
-  targetDistanceFromPlayer: 47.7
-  camReorientTime: 0.2
-  camMaxSpeed: 40
-  zoomSpeed: 1
-  rotationSpeed: 1
+  orientationBasis: {fileID: 0}
+  orbitDistance: 30
+  orbitVerticalAngle: 45
+  orbitRotationAngle: 0
   priority: 2
 --- !u!65 &328998926
 BoxCollider:
@@ -2042,10 +2036,6 @@ PrefabInstance:
       value: 10.3
       objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: obstructionMask.m_Bits
-      value: 15117
-      objectReference: {fileID: 0}
-    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cinemachineCamController
       value: 
       objectReference: {fileID: 267684991}
@@ -2071,7 +2061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8227121646547314032, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9187660138696086715, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: swingSpeed
@@ -2689,13 +2679,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489f98bc2dc07334dad09a261af3b013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredOrientation: {fileID: 120481596}
-  targetHeightAbovePlayer: 3
-  targetDistanceFromPlayer: 30
-  camReorientTime: 0.2
-  camMaxSpeed: 40
-  zoomSpeed: 1
-  rotationSpeed: 1
+  orientationBasis: {fileID: 0}
+  orbitDistance: 30
+  orbitVerticalAngle: 48.2
+  orbitRotationAngle: 0
   priority: 0
 --- !u!1 &718467503
 GameObject:
@@ -6710,13 +6697,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489f98bc2dc07334dad09a261af3b013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredOrientation: {fileID: 974740578}
-  targetHeightAbovePlayer: 5.34
-  targetDistanceFromPlayer: 41.16
-  camReorientTime: 0.2
-  camMaxSpeed: 40
-  zoomSpeed: 1.28
-  rotationSpeed: 1.05
+  orientationBasis: {fileID: 0}
+  orbitDistance: 30
+  orbitVerticalAngle: 45
+  orbitRotationAngle: 0
   priority: 0
 --- !u!65 &1511545869
 BoxCollider:

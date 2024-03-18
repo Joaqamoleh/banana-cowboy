@@ -1,10 +1,13 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerCameraController : MonoBehaviour
 {
@@ -17,6 +20,7 @@ public class PlayerCameraController : MonoBehaviour
     GravityObject _focusGravity;
     Vector3 _focusPoint, _previousFocusPoint, cameraHalfExtends;
     Vector2 _orbitAngles = new Vector2(45f, 0f);
+    Quaternion basisRot, targetBasisRot;
 
     [Header("Parameters")]
     [SerializeField, Range(0f, 1f)]
@@ -98,7 +102,13 @@ public class PlayerCameraController : MonoBehaviour
             if (_focusGravity != null)
             {
                 _focusBasis = _focusGravity.characterOrientation;
+                basisRot = _focusBasis.rotation;
+            } 
+            else
+            {
+                basisRot = transform.rotation;
             }
+            targetBasisRot = basisRot;
         }
 
         if (CutsceneManager.Instance() != null)
@@ -152,8 +162,9 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (frozenCam || _cameraFocus == null) { return; }
         UpdateFocusPoint();
-        Quaternion lookRot = _focusBasis.rotation * Quaternion.Euler(_orbitAngles);
-        if (PerformManualRotation() || PerformAutomaticRotation())
+        UpdateBasisRot();
+        Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
+        if (PerformManualRotation() || PerformHintRotation() || PerformAutomaticRotation())
         {
             ConstrainAngles();
         }
@@ -193,6 +204,21 @@ public class PlayerCameraController : MonoBehaviour
         _focusPoint = Vector3.Lerp(targetPoint, _focusPoint, t);
     }
 
+    void UpdateBasisRot()
+    {
+        float t = 1f;
+        float roughDistance = Vector3.Distance(targetBasisRot.eulerAngles, basisRot.eulerAngles);
+        if (roughDistance > 0.01f && focusCenteringFactor > 0f)
+        {
+            t = Mathf.Pow(1f - focusCenteringFactor, Time.unscaledDeltaTime);
+        }
+        if (roughDistance > 180f)
+        {
+            t = Mathf.Min(t, 180 / roughDistance);
+        }
+        basisRot = Quaternion.Slerp(basisRot, targetBasisRot, Time.unscaledDeltaTime);
+    }
+
     bool PerformManualRotation()
     {
         if (rotationHeld)
@@ -210,13 +236,12 @@ public class PlayerCameraController : MonoBehaviour
 
     bool PerformAutomaticRotation()
     {
-        if (_focusBasis == null) { return false; }
+        if (_focusGravity == null) { return false; }
 
         if (Time.unscaledTime - lastManualInputTime < realignTime)
         {
             return false;
         }
-
         Vector3 movement = _focusBasis.InverseTransformDirection(Vector3.ProjectOnPlane((_focusPoint - _previousFocusPoint), _focusBasis.up));
         float movementDeltaSqr = movement.sqrMagnitude;
         if (movementDeltaSqr < 0.001f)
@@ -237,8 +262,55 @@ public class PlayerCameraController : MonoBehaviour
             angleChange *= (180f - deltaAbs) / alignSmoothRange;
         }
         _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, angle, angleChange);
+        targetBasisRot = _focusBasis.rotation;
         return true;
     }
+
+    bool PerformHintRotation()
+    {
+        if (Time.unscaledTime - lastManualInputTime < realignTime)
+        {
+            return false;
+        }
+
+        if (highestHintPrioIndex == -1)
+        {
+            return false;
+        }
+
+        CameraHint hint = activeHints[highestHintPrioIndex];
+        Transform basis = hint.GetOrientationBasis();
+        float orbitDist = hint.GetOrbitDistance();
+        if (basis == null)
+        {
+            return false;
+        }
+        float horizontalAngle = hint.GetOrbitRotationAngle();
+        _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, horizontalAngle, GetSmoothedDeltaAngle(_orbitAngles.y, horizontalAngle));
+
+        float verticalAngle = hint.GetOrbitVertAngle();
+        _orbitAngles.x = Mathf.MoveTowardsAngle(_orbitAngles.x, hint.GetOrbitVertAngle(), GetSmoothedDeltaAngle(_orbitAngles.x, verticalAngle));
+
+        orbitRadius = Mathf.Lerp(orbitRadius, orbitDist, Time.deltaTime);
+        targetBasisRot = basis.rotation;
+        return true;
+    }
+
+    float GetSmoothedDeltaAngle(float starting, float newAngle)
+    {
+        float abs = Mathf.Abs(Mathf.DeltaAngle(starting, newAngle));
+        float change = realignRotationSpeed * Time.unscaledDeltaTime;
+        if (abs < alignSmoothRange)
+        {
+            change *= abs / alignSmoothRange;
+        }
+        else if (180f - abs < alignSmoothRange)
+        {
+            change *= (180f - abs) / alignSmoothRange;
+        }
+        return change;
+    }
+
     void ConstrainAngles()
     {
         _orbitAngles.x = Mathf.Clamp(_orbitAngles.x, minVerticalAngle, maxVerticalAngle);
@@ -313,7 +385,6 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null) {
             activeHints.Add(other.gameObject.GetComponent<CameraHint>());
-            int prev = highestHintPrioIndex;
             highestHintPrioIndex = GetHighestPrioIndex();
         }
     }
@@ -322,9 +393,7 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null)
         {
-            other.gameObject.GetComponent<CameraHint>().ResetHintTime();
             activeHints.Remove(other.gameObject.GetComponent<CameraHint>());
-            int prev = highestHintPrioIndex;
             highestHintPrioIndex = GetHighestPrioIndex();
         }
     }
