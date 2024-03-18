@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BlenderBoss : MonoBehaviour
 {
     [Header("Atacks")]
-    private readonly int moves = 3;
+    private readonly int moves = 4;
     private int currMove;
     public GameObject[] positions;
     public GameObject juiceProjectile;
@@ -24,10 +24,14 @@ public class BlenderBoss : MonoBehaviour
     private GameObject[] indicatorSpawnObject; // spawn indicator images
     public GameObject splatEffect;
 
+    public GameObject[] spawnPoints;
+    public GameObject[] minions;
+
     [Header("Cooldown")]
     public float move1Cooldown;
     public float move2Cooldown;
     public float move3Cooldown;
+    public float move4Cooldown;
     private float cooldownTimer;
 
     public Animator modelAnimator;
@@ -54,12 +58,12 @@ public class BlenderBoss : MonoBehaviour
     public GameObject dialogHolder;
     public TMP_Text dialogText;
     private string[] attackAnnouncement = { "Get ready to be juiced!", "Prepare for a whirlwind of flavor!", "Prepare for a fruity downpour!", "Feel the force of the fruity horde!" };
-    private string[] attackName = { "Juice Jet, coming your way!", "Blender Blitz!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
+    private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
     public Coroutine currentDialog;
 
     public enum BossStates
     {
-        IDLE, JUICE, BLADE, BOMB, COOLDOWN, NONE
+        IDLE, JUICE, BLADE, BOMB, SPAWN, COOLDOWN, NONE
     };
 
     private void Start()
@@ -69,7 +73,7 @@ public class BlenderBoss : MonoBehaviour
 //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 2;
+        currMove = 1;
 
         player = GameObject.FindWithTag("Player");
         bombSpawnPos = new Vector3[3];
@@ -95,6 +99,7 @@ public class BlenderBoss : MonoBehaviour
     }
 
     public bool doneMoving = true;
+
     IEnumerator JuiceJam(Vector3 targetPosition)
     {
         juiceProjectileCount++;
@@ -128,10 +133,6 @@ public class BlenderBoss : MonoBehaviour
                 StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
             }
         }
-        else
-        {
-            Debug.LogWarning("Target object is not assigned!");
-        }
     }
 
     IEnumerator MoveToPosition(Vector3 startPosition, Vector3 targetPosition)
@@ -158,7 +159,6 @@ public class BlenderBoss : MonoBehaviour
 
     IEnumerator BladeSpin()
     {
-        print("SPINNING BLADE");
         GameObject blade = Instantiate(blenderBlade);
         yield return new WaitForSeconds(move2Cooldown); // TODO: make it shrink before destroying
         Destroy(blade);
@@ -185,10 +185,6 @@ public class BlenderBoss : MonoBehaviour
                 indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
                 bombSpawnPos[i] = spawnPosition;    
             }
-        }
-        else
-        {
-            Debug.LogWarning("Please assign objectToSpawn and platform in the inspector.");
         }
         yield return new WaitForSeconds(5f);
         ShootBombs();
@@ -219,24 +215,16 @@ public class BlenderBoss : MonoBehaviour
         indicatorSpawnObject[obj] = Instantiate(splatEffect, bombSpawnPos[obj], splatEffect.transform.rotation);
     }
 
-/*    IEnumerator ShootBombs()
+    void SpawnEnemies()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
-            // Assuming bombSpawnPos[i] is a RectTransform
-            Vector3 screenPos = bombSpawnPos[i];
-
-            // Convert screen position to world position
-            Vector3 worldPos = screenPos;
-
-            // Set the z-coordinate to 50f or adjust as needed
-            worldPos.y = 50f;
-
-            // Instantiate the bomb using the world position
-            Instantiate(blueberryBombObject, worldPos, Quaternion.identity);
+            Vector3 spawnPosition = spawnPoints[i].transform.position;
+            Instantiate(minions[0], spawnPosition, spawnPoints[i].transform.rotation);
         }
-        yield return new WaitForSeconds(1f);
-    }*/
+        cooldownTimer = move4Cooldown;
+        state = BossStates.COOLDOWN;
+    }
 
 
     private void Update()
@@ -256,6 +244,10 @@ public class BlenderBoss : MonoBehaviour
                 {
                     state = BossStates.BOMB;
                 }
+                else if (currMove % moves == 3)
+                {
+                    state = BossStates.SPAWN;
+                }
                 break;
             case BossStates.JUICE:
                 PlayDialogue(attackName[currMove % moves], true);
@@ -268,6 +260,10 @@ public class BlenderBoss : MonoBehaviour
             case BossStates.BOMB:
                 PlayDialogue(attackName[currMove % moves], true);
                 BlueberryBombs();
+                break;
+            case BossStates.SPAWN:
+                PlayDialogue(attackName[currMove % moves], true);
+                SpawnEnemies();
                 break;
             case BossStates.COOLDOWN:
                 Cooldown();

@@ -11,6 +11,8 @@ public class HurtyZone : MonoBehaviour
     public Vector3 knockback;
     public int damage;
 
+    public bool killsEnemies;
+
     private void OnTriggerEnter(Collider other)
     {
         // check if the collided entity is the player
@@ -28,7 +30,7 @@ public class HurtyZone : MonoBehaviour
                 other.GetComponentInParent<Health>().Damage(damage, knockback);
             }
         }
-        else if (other != null && other.gameObject != null &&  other.gameObject.GetComponentInParent<LassoableEnemy>() != null)
+        else if (other != null && other.gameObject != null &&  other.gameObject.GetComponentInParent<LassoableEnemy>() != null && killsEnemies)
         {
             other.gameObject.GetComponentInParent<LassoableEnemy>().TossInDirection(Vector3.zero, Vector3.up, LassoTossable.TossStrength.WEAK);
         }
