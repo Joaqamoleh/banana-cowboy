@@ -212,7 +212,7 @@ public class OrangeEnemyController : EnemyController
                                 Quaternion.LookRotation(_directionOfPartner, _gravObject.characterOrientation.up),
                                 spottedParam);
                 spottedParam += Time.deltaTime;
-                transform.position += _directionOfPartner * 4 * Time.deltaTime;
+                transform.position += 4 * Time.deltaTime * _directionOfPartner;
                 /*if (_gravObject.GetMoveVelocity().magnitude < chargeSpeed)
                 {
                     GetComponent<Rigidbody>().AddForce(_directionOfPartner * chargeSpeed * 0.3f);

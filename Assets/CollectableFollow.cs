@@ -24,7 +24,7 @@ public class CollectableFollow : MonoBehaviour
         if (follow && _player != null)
         {
             _directionOfPlayer = (_player.transform.position - transform.position).normalized;
-            transform.position += _directionOfPlayer.normalized * moveSpeed * Time.deltaTime;
+            transform.position += moveSpeed * Time.deltaTime * _directionOfPlayer.normalized;
         }
     }
 
