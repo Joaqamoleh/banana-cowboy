@@ -1,6 +1,8 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,7 +15,7 @@ public class PlayerCameraController : MonoBehaviour
     Transform _cameraFocus = null, _emptyGameObjectPrefab;
     Transform _cameraCurrent = null, _focusBasis;
     GravityObject _focusGravity;
-    Vector3 _focusPoint, _previousFocusPoint;
+    Vector3 _focusPoint, _previousFocusPoint, cameraHalfExtends;
     Vector2 _orbitAngles = new Vector2(45f, 0f);
 
     [Header("Parameters")]
@@ -27,6 +29,8 @@ public class PlayerCameraController : MonoBehaviour
     float realignRotationSpeed = 90f;
     [SerializeField, Range(0f, 90f)]
     float alignSmoothRange = 45f;
+    [SerializeField]
+    LayerMask obstructionMask = -1;
 
     float lastManualInputTime;
 
@@ -50,7 +54,8 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     KeyCode rotationKey = KeyCode.Mouse1;
     public Joystick cameraJoystick;
-    
+
+
     private float mouseX, mouseY, mouseScroll;
     private bool rotationHeld = false;
     List<CameraHint> activeHints = new List<CameraHint>();
@@ -60,6 +65,8 @@ public class PlayerCameraController : MonoBehaviour
     public static int uiTouching;
 
     bool frozenCam = false;
+
+
 
     private void OnValidate()
     {
@@ -99,6 +106,8 @@ public class PlayerCameraController : MonoBehaviour
             CutsceneManager.Instance().OnCutsceneStart += DisableForCutscene;
             CutsceneManager.Instance().OnCutsceneEnd += EnableAfterCutscene;
         }
+
+        cameraHalfExtends = GetCameraHalfExtends();
     }
 
     void Update()
@@ -142,7 +151,6 @@ public class PlayerCameraController : MonoBehaviour
     private void LateUpdate()
     {
         if (frozenCam || _cameraFocus == null) { return; }
-
         UpdateFocusPoint();
         Quaternion lookRot = _focusBasis.rotation * Quaternion.Euler(_orbitAngles);
         if (PerformManualRotation() || PerformAutomaticRotation())
@@ -151,6 +159,19 @@ public class PlayerCameraController : MonoBehaviour
         }
         Vector3 lookDir = lookRot * Vector3.forward;
         Vector3 position = _focusPoint - lookDir * orbitRadius;
+
+        Vector3 rectOffset = lookDir * Camera.main.nearClipPlane;
+        Vector3 rectPosition = position + rectOffset;
+        Vector3 castFrom = _cameraFocus.position;
+        Vector3 castLine = rectPosition - castFrom;
+        float castDistance = castLine.magnitude;
+        Vector3 castDirection = castLine / castDistance;
+
+        if (Physics.BoxCast(castFrom, cameraHalfExtends, castDirection, out RaycastHit hit, lookRot, castDistance, obstructionMask))
+        {
+            rectPosition = castFrom + castDirection * hit.distance;
+            position = rectPosition - rectOffset;
+        }
         _cameraCurrent.SetPositionAndRotation(position, lookRot);
     }
 
@@ -218,9 +239,6 @@ public class PlayerCameraController : MonoBehaviour
         _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, angle, angleChange);
         return true;
     }
-
-    
-
     void ConstrainAngles()
     {
         _orbitAngles.x = Mathf.Clamp(_orbitAngles.x, minVerticalAngle, maxVerticalAngle);
@@ -232,6 +250,17 @@ public class PlayerCameraController : MonoBehaviour
         {
             _orbitAngles.y -= 360f;
         }
+    }
+
+    Vector3 GetCameraHalfExtends()
+    {
+        Vector3 halfExtends;
+        halfExtends.y =
+            Camera.main.nearClipPlane *
+            Mathf.Tan(0.5f * Mathf.Deg2Rad * Camera.main.fieldOfView);
+        halfExtends.x = halfExtends.y * Camera.main.aspect;
+        halfExtends.z = 0f;
+        return halfExtends;
     }
 
     void CameraMovementMobile()
