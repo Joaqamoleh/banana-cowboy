@@ -73,7 +73,7 @@ public class BlenderBoss : MonoBehaviour
 //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = -1;
+        currMove = 2;
 
         player = GameObject.FindWithTag("Player");
         bombSpawnPos = new Vector3[3];
