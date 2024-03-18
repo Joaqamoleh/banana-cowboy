@@ -16,14 +16,14 @@ public class BlueberryBomb : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * Vector3.down);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponentInParent<Health>().Damage(1, 1 * ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));
+            other.GetComponentInParent<Health>().Damage(1, ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));
             HitSomething();
 
         }

@@ -24,7 +24,7 @@ public class BlenderBlade : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(Vector3.up * speed *  direction * Time.deltaTime);
+        transform.Rotate(speed *  direction * Time.deltaTime * Vector3.up);
     }
 
     IEnumerator GrowSize()
