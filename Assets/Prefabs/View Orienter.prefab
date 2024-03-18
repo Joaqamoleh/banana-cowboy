@@ -67,13 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489f98bc2dc07334dad09a261af3b013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredOrientation: {fileID: 4378109644973964550}
-  targetHeightAbovePlayer: 3
-  targetDistanceFromPlayer: 30
-  camReorientTime: 0.2
-  camMaxSpeed: 40
-  zoomSpeed: 1
-  rotationSpeed: 1
+  orientationBasis: {fileID: 4378109644973964550}
+  orbitDistance: 30
+  orbitVerticalAngle: 45
+  orbitRotationAngle: 0
+  focusElement: {fileID: 0}
   priority: 0
 --- !u!1 &4585073927470886165
 GameObject:

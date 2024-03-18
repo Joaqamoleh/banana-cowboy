@@ -285,7 +285,7 @@ public class PlayerCameraController : MonoBehaviour
         {
             return false;
         }
-        float horizontalAngle = hint.GetOrbitRotationAngle();
+        float horizontalAngle = hint.GetOrbitRotationAngle(_cameraFocus.position);
         _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, horizontalAngle, GetSmoothedDeltaAngle(_orbitAngles.y, horizontalAngle));
 
         float verticalAngle = hint.GetOrbitVertAngle();

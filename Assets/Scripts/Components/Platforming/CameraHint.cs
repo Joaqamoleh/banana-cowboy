@@ -14,16 +14,18 @@ public class CameraHint : MonoBehaviour
     float orbitVerticalAngle = 45f;
     [SerializeField, Range(0f, 359f)]
     float orbitRotationAngle = 0f;
+
+    [SerializeField, Tooltip("Set this only if you want to override manual orbitRotationAngle")]
+    Transform focusElement;
+
     [SerializeField]
     int priority = 0;
 
     private void OnDrawGizmosSelected()
     {
-        Transform basis = orientationBasis;
-        if (basis == null)
-        {
-            basis = transform;
-        }
+        Transform basis = GetOrientationBasis();
+        if (basis == null) return;
+
         Vector3 lookPos = transform.position;
         PlayerController pc = FindAnyObjectByType<PlayerController>();
         if (pc != null)
@@ -31,7 +33,7 @@ public class CameraHint : MonoBehaviour
             lookPos = pc.transform.position;
         }
 
-        Quaternion lookRot = basis.rotation * Quaternion.Euler(new Vector2(orbitVerticalAngle, orbitRotationAngle));
+        Quaternion lookRot = basis.rotation * Quaternion.Euler(new Vector2(GetOrbitVertAngle(), GetOrbitRotationAngle(lookPos)));
         Vector3 lookDir = lookRot * Vector3.forward;
         Vector3 position = lookPos - lookDir * orbitDistance;
 
@@ -47,8 +49,16 @@ public class CameraHint : MonoBehaviour
         return orbitVerticalAngle;
     }
 
-    public float GetOrbitRotationAngle()
+    public float GetOrbitRotationAngle(Vector3 cameraFocusPos)
     {
+        if (focusElement != null)
+        {
+            Transform basis = GetOrientationBasis();
+            Vector3 dir = basis.InverseTransformDirection(Vector3.ProjectOnPlane((focusElement.position - cameraFocusPos), basis.up)).normalized;
+            float angle = Mathf.Acos(dir.z) * Mathf.Rad2Deg;
+            angle = dir.x < 0 ? 360f - angle : angle;
+            return angle;
+        } 
         return orbitRotationAngle;
     }
 
