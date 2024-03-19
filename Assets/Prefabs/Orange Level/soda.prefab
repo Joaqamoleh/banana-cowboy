@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -6934787888318431314, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -4755535686408127099, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -76,9 +80,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5282791529987259760, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282791529987259760, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8443601138783101556, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
       propertyPath: m_LocalPosition.x
@@ -135,6 +147,16 @@ MonoBehaviour:
   lassoCenterBasis: {fileID: 0}
   lassoThrowRadius: 4
   appoximateLassoRadius: 2
+  startingRadius: 0
+  endingRadius: 0
+  startingTheta: 0
+  endingTheta: 0
+  startingGamma: 0
+  endingGamma: 180
+  startingSwingSpeed: 10
+  maxSwingSpeed: 10
+  swingBasis: {fileID: 2509049138836293052}
+  paramVisualization: 0
 --- !u!64 &9172286486911727369
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -180,6 +202,11 @@ CapsuleCollider:
   m_Height: 8.121434
   m_Direction: 1
   m_Center: {x: 0.10164451, y: 3.374678, z: 0.0003141049}
+--- !u!4 &2509049138836293052 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8443601138783101556, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
+  m_PrefabInstance: {fileID: 6340044192228992968}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6574469631398599321 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9dd2bf86b30c0cd4ab7451d37dac7c16, type: 3}
