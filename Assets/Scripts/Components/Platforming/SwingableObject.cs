@@ -23,6 +23,11 @@ public class SwingableObject : LassoObject
     [SerializeField, Tooltip("The point at which the swing is based.")]
     Transform swingBasis;
 
+    [SerializeField]
+    Transform model;
+    [SerializeField]
+    bool reorientModel = false, reorientSwing = false;
+
     float approximateArcLength, currentArcPos, currentSwingSpeed, swingMult = 1.0f;
     Vector3 lastPos;
 
@@ -109,16 +114,6 @@ public class SwingableObject : LassoObject
     {
         return GetSwingPosition(thetaGammaRadius.x, thetaGammaRadius.y, thetaGammaRadius.z);
     }
-
-    private void Awake()
-    {
-        if (swingBasis == null)
-        {
-            swingBasis = transform;
-        }
-        approximateArcLength = ApproximateArcLength();
-    }
-
     // I tried calculating this explicitly, but way too much work for something so small
     // (Look at Incomplete Elliptical Integrals) https://functions.wolfram.com/EllipticIntegrals/EllipticE2/introductions/IncompleteEllipticIntegrals/ShowAll.html
     float ApproximateArcLength()
@@ -133,7 +128,14 @@ public class SwingableObject : LassoObject
         }
         return distance;
     }
-
+    private void Awake()
+    {
+        if (swingBasis == null)
+        {
+            swingBasis = transform;
+        }
+        approximateArcLength = ApproximateArcLength();
+    }
     private void Update()
     {
         if (attachedBody != null)
@@ -143,7 +145,6 @@ public class SwingableObject : LassoObject
             if (type == SwingType.REPEAT)
             {
                 t = frac(t);
-                print("T " + t);
             }
             else if (type == SwingType.ONE_TIME && t >= 1.0f)
             {
@@ -163,6 +164,13 @@ public class SwingableObject : LassoObject
                 }
             }
 
+            if (reorientModel && model != null)
+            {
+                Vector3 forward = (attachedBody.position - transform.position).normalized;
+                Vector3 right = Vector3.Cross(transform.up, forward);
+                Vector3 up = Vector3.Cross(forward, right);
+                model.rotation = Quaternion.LookRotation(forward, up);
+            }
             Vector3 p = GetThetaGammaRadius(t);
             currentSwingSpeed = Mathf.Lerp(minSwingSpeed, maxSwingSpeed, Mathf.Sin(p.y)) * swingMult;
             lastPos = attachedBody.position;
@@ -177,6 +185,13 @@ public class SwingableObject : LassoObject
         attachedBody = attachedObject;
         attachedBody.isKinematic = true;
         lastPos = attachedBody.position;
+        if (reorientSwing)
+        {
+            Vector3 right = (attachedBody.position - transform.position).normalized;
+            Vector3 forward = Vector3.Cross(right, transform.up);
+            Vector3 up = Vector3.Cross(forward, right);
+            swingBasis.rotation = Quaternion.LookRotation(forward, up);
+        }
     }
 
     public Vector3 EndSwing()
