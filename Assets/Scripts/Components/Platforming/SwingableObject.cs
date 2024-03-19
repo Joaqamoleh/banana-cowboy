@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 using static Unity.Mathematics.math;
@@ -9,8 +10,11 @@ public class SwingableObject : LassoObject
     float startingRadius, endingRadius;
     [SerializeField, Range(0f, 360f)]
     float startingTheta = 0f, endingTheta = 0f, startingGamma = 0f, endingGamma = 180f;
-    [SerializeField, Range(0f, 40f), Tooltip("Measured in units per second")]
+    [SerializeField, Range(0f, 100f), Tooltip("Measured in units per second")]
     float minSwingSpeed = 10f, maxSwingSpeed = 10f;
+    [SerializeField, Range(1f, 10f), Tooltip("This is multiplied by the current velocity of the player at the end of a swing.")]
+    float endingSwingMultForce = 1f;
+
     [SerializeField]
     SwingType type = SwingType.ONE_TIME;
     public enum SwingType
@@ -28,8 +32,11 @@ public class SwingableObject : LassoObject
     [SerializeField]
     bool reorientModel = false, reorientSwing = false;
 
+    Quaternion modelInitial;
+
     float approximateArcLength, currentArcPos, currentSwingSpeed, swingMult = 1.0f;
-    Vector3 lastPos;
+    Vector3 lastPos, startPos, attachedStart;
+    bool pullingToStart = false;
 
     [SerializeField, Range(0f, 1)]
     float paramVisualization = 0;
@@ -134,34 +141,58 @@ public class SwingableObject : LassoObject
         {
             swingBasis = transform;
         }
+        if (model != null)
+        {
+            modelInitial = model.rotation;
+        }
         approximateArcLength = ApproximateArcLength();
     }
     private void Update()
     {
         if (attachedBody != null)
         {
-            float t = currentArcPos / approximateArcLength;
-
-            if (type == SwingType.REPEAT)
+            lastPos = attachedBody.position;
+            if (pullingToStart)
             {
-                t = frac(t);
-            }
-            else if (type == SwingType.ONE_TIME && t >= 1.0f)
-            {
-                Vector3 vel = EndSwing();
-                SwingEnd?.Invoke(vel);
-                return;
-            }
-            else if (type == SwingType.OSCILATING)
-            {
-                if (t >= 1.0f)
+                float dist = Vector3.Distance(attachedBody.position, startPos);
+                float total = Vector3.Distance(startPos, attachedStart);
+                float t = (total - dist + 80f * Time.deltaTime) / total;
+                attachedBody.position = Vector3.Lerp(attachedStart, startPos, t);
+                if (dist < 0.5f)
                 {
-                    swingMult = -1.0f;
-                } 
-                else if (t <= 0.0f)
-                {
-                    swingMult = 1.0f;
+                    pullingToStart = false;
                 }
+            } 
+            else
+            {
+                float t = currentArcPos / approximateArcLength;
+
+                if (type == SwingType.REPEAT)
+                {
+                    t = frac(t);
+                }
+                else if (type == SwingType.ONE_TIME && t >= 1.0f)
+                {
+                    Vector3 vel = EndSwing();
+                    SwingEnd?.Invoke(vel);
+                    return;
+                }
+                else if (type == SwingType.OSCILATING)
+                {
+                    if (t >= 1.0f)
+                    {
+                        swingMult = -1.0f;
+                    } 
+                    else if (t <= 0.0f)
+                    {
+                        swingMult = 1.0f;
+                    }
+                }
+
+                Vector3 p = GetThetaGammaRadius(t);
+                currentSwingSpeed = Mathf.Lerp(minSwingSpeed, maxSwingSpeed, Mathf.Sin(p.y)) * swingMult;
+                attachedBody.position = GetSwingPosition(p);
+                currentArcPos += currentSwingSpeed * Time.deltaTime;
             }
 
             if (reorientModel && model != null)
@@ -171,11 +202,13 @@ public class SwingableObject : LassoObject
                 Vector3 up = Vector3.Cross(forward, right);
                 model.rotation = Quaternion.LookRotation(forward, up);
             }
-            Vector3 p = GetThetaGammaRadius(t);
-            currentSwingSpeed = Mathf.Lerp(minSwingSpeed, maxSwingSpeed, Mathf.Sin(p.y)) * swingMult;
-            lastPos = attachedBody.position;
-            attachedBody.position = GetSwingPosition(p);
-            currentArcPos += currentSwingSpeed * Time.deltaTime;
+        }
+        else
+        {
+            if (model != null && reorientModel)
+            {
+                model.rotation = Quaternion.Slerp(model.rotation, modelInitial, Time.deltaTime * 8f);
+            }
         }
     }
 
@@ -187,10 +220,15 @@ public class SwingableObject : LassoObject
         lastPos = attachedBody.position;
         if (reorientSwing)
         {
-            Vector3 right = (attachedBody.position - transform.position).normalized;
+            Vector3 right = -Camera.main.transform.forward; // (attachedBody.position - transform.position).normalized;
             Vector3 forward = Vector3.Cross(right, transform.up);
             Vector3 up = Vector3.Cross(forward, right);
             swingBasis.rotation = Quaternion.LookRotation(forward, up);
+        }
+        if (Vector3.Distance(attachedBody.position, startPos) > 1.0f) {
+            startPos = GetSwingPosition(GetThetaGammaRadius(0));
+            pullingToStart = true;
+            attachedStart = attachedBody.position;
         }
     }
 
@@ -200,7 +238,12 @@ public class SwingableObject : LassoObject
 
         Vector3 velocity = (GetSwingPosition(GetThetaGammaRadius(t)) - lastPos).normalized * currentSwingSpeed * swingMult;
         attachedBody = null;
-        return velocity;
+        return velocity * endingSwingMultForce;
+    }
+
+    public Vector3 GetApproximateSwingDirection()
+    {
+        return (attachedBody.position - lastPos).normalized;
     }
 
     Vector3 GetThetaGammaRadius(float t)

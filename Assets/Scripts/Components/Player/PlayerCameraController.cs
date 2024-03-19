@@ -236,10 +236,13 @@ public class PlayerCameraController : MonoBehaviour
     {
         if (_focusGravity == null) { return false; }
 
+
         if (Time.unscaledTime - lastManualInputTime < realignTime)
         {
+            targetBasisRot = _focusBasis.rotation;
             return false;
         }
+
         Vector3 movement = _focusBasis.InverseTransformDirection(Vector3.ProjectOnPlane((_focusPoint - _previousFocusPoint), _focusBasis.up));
         float movementDeltaSqr = movement.sqrMagnitude;
         if (movementDeltaSqr < 0.001f)
@@ -259,8 +262,8 @@ public class PlayerCameraController : MonoBehaviour
         {
             angleChange *= (180f - deltaAbs) / alignSmoothRange;
         }
-        _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, angle, angleChange);
         targetBasisRot = _focusBasis.rotation;
+        _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, angle, angleChange);
         return true;
     }
 
