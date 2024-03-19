@@ -114,7 +114,7 @@ public class SoundManager : MonoBehaviour
 
     void Update()
     {
-        foreach (Sound s in _loopedSounds.ToArray())
+        foreach (Sound s in _loopedSounds)
         {
             if (!s.src.isPlaying)
             {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31778386, g: 0.3083839, b: 0.5771058, a: 1}
+  m_IndirectSpecularColor: {r: 0.31769824, g: 0.30841136, b: 0.57711995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2736,23 +2736,13 @@ MonoBehaviour:
     roll: 0
   - position: {x: -51.06799, y: -486.42154, z: -123.34707}
     roll: 0
-  - position: {x: 372.79056, y: -402.39148, z: -8.586262}
+  - position: {x: 329.0962, y: -402.39148, z: -46.31516}
     roll: 0
-  - position: {x: 516.3069, y: -238.05371, z: 280.35037}
+  - position: {x: 466.51074, y: -238.05371, z: 302.3415}
     roll: 0
-  - position: {x: 483.35666, y: 122.79325, z: 263.5768}
+  - position: {x: 266.13123, y: -114.55887, z: 564.057}
     roll: 0
-  - position: {x: 314.03403, y: 306.2336, z: 197.51614}
-    roll: 0
-  - position: {x: 158.8902, y: 354.628, z: 183.2733}
-    roll: 0
-  - position: {x: 22.882322, y: 351.3186, z: 240.3854}
-    roll: 0
-  - position: {x: -66.091225, y: 298.00174, z: 344.29697}
-    roll: 0
-  - position: {x: -122.06807, y: 202.17711, z: 471.46796}
-    roll: 0
-  - position: {x: -119.2722, y: 43.43415, z: 555.10333}
+  - position: {x: 47.322224, y: -55.816395, z: 600.12744}
     roll: 0
   - position: {x: -27.785437, y: -16.645657, z: 529.16113}
     roll: 0
@@ -3182,7 +3172,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3435539107794432539, guid: 810d8ce61da344045bb1e00385668e1f, type: 3}
       propertyPath: m_Name
-      value: Bouncy Tire (6)
+      value: Bouncy Jello (6)
       objectReference: {fileID: 0}
     - target: {fileID: 4568779638204904737, guid: 810d8ce61da344045bb1e00385668e1f, type: 3}
       propertyPath: bounceForce
@@ -17970,10 +17960,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bouncy Tire
       objectReference: {fileID: 0}
-    - target: {fileID: 4568779638204904737, guid: 810d8ce61da344045bb1e00385668e1f, type: 3}
-      propertyPath: bounceForce
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 7783118127376934463, guid: 810d8ce61da344045bb1e00385668e1f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -52.01
@@ -30244,6 +30230,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -109.728
       objectReference: {fileID: 0}
+    - target: {fileID: 8799573806560126253, guid: 810d8ce61da344045bb1e00385668e1f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 93070f02032a6944181afe824b07d082, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

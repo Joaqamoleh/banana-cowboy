@@ -286,6 +286,10 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
 
         _moveInput = new Vector3(horizontal, 0, vertical);
+        if (_moveInput != Vector3.zero)
+        {
+           // GetComponent<PlayerSoundController>().PlaySFX("PlayerWalk", GetComponent<PlayerSoundController>().playerSfxs);
+        }
         if (Input.GetKeyDown(runKey))
         {
             _running = true;

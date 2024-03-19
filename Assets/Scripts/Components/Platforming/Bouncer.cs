@@ -6,6 +6,7 @@ public class Bouncer : MonoBehaviour
 {
     [SerializeField]
     float bounceForce = 20f;
+    public Animator jelloAnimator;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -15,6 +16,11 @@ public class Bouncer : MonoBehaviour
             if (SoundManager.Instance() != null)
             {
                 SoundManager.Instance().PlaySFX("BouncePlatform");
+            }
+
+            if (jelloAnimator != null)
+            {
+                jelloAnimator.Play("J_Jiggle");
             }
         }
     }
