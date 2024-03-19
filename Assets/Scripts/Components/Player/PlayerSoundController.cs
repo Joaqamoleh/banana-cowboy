@@ -20,7 +20,6 @@ public class PlayerSoundController : MonoBehaviour
         { 
             SetupSFX(s); 
         }
-        print("Added sound components: " + GetComponent<PlayerController>());
         GetComponent<PlayerController>().OnJumpPressed += PlayerJump;
         GetComponent<PlayerController>().OnLeftGround += PlayerLeftGround;
         GetComponent<PlayerController>().OnLanded += PlayerLanded;
@@ -59,15 +58,12 @@ public class PlayerSoundController : MonoBehaviour
 
     void PlayerLeftGround()
     {
-        print("callback left gorund");
-
         StopSFX("PlayerWalk", playerSfxs);
         StopSFX("PlayerRun", playerSfxs);
     }
 
     void PlayerLanded(Rigidbody hitGround)
     {
-        print("callback landed");
         PlaySFX("PlayerLand", playerSfxs);
     }
 
@@ -134,7 +130,6 @@ public class PlayerSoundController : MonoBehaviour
         if (s == null) { return; }
         if (!s.src.isPlaying && !PauseManager.pauseActive)
         {
-            print("Playing: " + s.name);
             if (s.loop)
             {
                 if (Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) == null)

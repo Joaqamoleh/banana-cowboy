@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using static Unity.Mathematics.math;
+
 public class SwingableObject : LassoObject
 {
 
@@ -8,25 +10,35 @@ public class SwingableObject : LassoObject
     [SerializeField, Range(0f, 360f)]
     float startingTheta = 0f, endingTheta = 0f, startingGamma = 0f, endingGamma = 180f;
     [SerializeField, Range(0f, 40f), Tooltip("Measured in units per second")]
-    float startingSwingSpeed = 10f, maxSwingSpeed = 10f;
+    float minSwingSpeed = 10f, maxSwingSpeed = 10f;
+    [SerializeField]
+    SwingType type = SwingType.ONE_TIME;
+    public enum SwingType
+    {
+        ONE_TIME,
+        OSCILATING,
+        REPEAT,
+    }
+    
     [SerializeField, Tooltip("The point at which the swing is based.")]
     Transform swingBasis;
 
-    float approximateArcLength, currentArcPos, currentSwingSpeed;
+    float approximateArcLength, currentArcPos, currentSwingSpeed, swingMult = 1.0f;
+    Vector3 lastPos;
 
     [SerializeField, Range(0f, 1)]
     float paramVisualization = 0;
 
-    public delegate void SwingEndDelegate(Vector3 endingVelocity);
-    public SwingEndDelegate SwingEnd;
-
     Rigidbody attachedBody;
+
+    public delegate void SwingEndDelegate(Vector3 endingVel);
+    public event SwingEndDelegate SwingEnd;
 
     private void OnValidate()
     {
-        if (startingSwingSpeed > maxSwingSpeed)
+        if (minSwingSpeed > maxSwingSpeed)
         {
-            startingSwingSpeed = maxSwingSpeed;
+            minSwingSpeed = maxSwingSpeed;
         }
     }
 
@@ -93,9 +105,17 @@ public class SwingableObject : LassoObject
             + swingBasis.position;
     }
 
+    Vector3 GetSwingPosition(Vector3 thetaGammaRadius)
+    {
+        return GetSwingPosition(thetaGammaRadius.x, thetaGammaRadius.y, thetaGammaRadius.z);
+    }
+
     private void Awake()
     {
-        swingBasis ??= transform;
+        if (swingBasis == null)
+        {
+            swingBasis = transform;
+        }
         approximateArcLength = ApproximateArcLength();
     }
 
@@ -107,16 +127,8 @@ public class SwingableObject : LassoObject
         float delta = 0.01f;
         for (float t = delta; t <= 1f + 0.001f; t += delta)
         {
-            float theta = Mathf.Lerp(startingTheta, endingTheta, t - delta);
-            float gamma = Mathf.Lerp(startingGamma, endingGamma, t - delta);
-            float radius = Mathf.Lerp(startingRadius, endingRadius, t - delta);
-            Vector3 prev = GetSwingPosition(theta, gamma, radius);
-
-            theta = Mathf.Lerp(startingTheta, endingTheta, t);
-            gamma = Mathf.Lerp(startingGamma, endingGamma, t);
-            radius = Mathf.Lerp(startingRadius, endingRadius, t);
-            Vector3 next = GetSwingPosition(theta, gamma, radius);
-
+            Vector3 prev = GetSwingPosition(GetThetaGammaRadius(t - delta));
+            Vector3 next = GetSwingPosition(GetThetaGammaRadius(t));
             distance += Vector3.Distance(prev, next);
         }
         return distance;
@@ -126,22 +138,35 @@ public class SwingableObject : LassoObject
     {
         if (attachedBody != null)
         {
-            float t = Mathf.Clamp(currentArcPos / approximateArcLength, 0f, 1f);
-            float theta = Mathf.Lerp(startingTheta, endingTheta, t);
-            float gamma = Mathf.Lerp(startingGamma, endingGamma, t);
-            float radius = Mathf.Lerp(startingRadius, endingRadius, t);
-            attachedBody.position = GetSwingPosition(theta, gamma, radius);
+            float t = currentArcPos / approximateArcLength;
 
-            if (t >= 1.0f)
+            if (type == SwingType.REPEAT)
             {
-                // End swing
-                float prevtheta = Mathf.Lerp(startingTheta, endingTheta, t - 0.05f);
-                float prevgamma = Mathf.Lerp(startingGamma, endingGamma, t - 0.05f);
-                float prevradius = Mathf.Lerp(startingRadius, endingRadius, t - 0.05f);
-                Vector3 velocity = (attachedBody.position - GetSwingPosition(prevtheta, prevgamma, prevradius)).normalized * currentSwingSpeed;
-                SwingEnd?.Invoke(velocity);
+                t = frac(t);
+                print("T " + t);
+            }
+            else if (type == SwingType.ONE_TIME && t >= 1.0f)
+            {
+                Vector3 vel = EndSwing();
+                SwingEnd?.Invoke(vel);
+                return;
+            }
+            else if (type == SwingType.OSCILATING)
+            {
+                if (t >= 1.0f)
+                {
+                    swingMult = -1.0f;
+                } 
+                else if (t <= 0.0f)
+                {
+                    swingMult = 1.0f;
+                }
             }
 
+            Vector3 p = GetThetaGammaRadius(t);
+            currentSwingSpeed = Mathf.Lerp(minSwingSpeed, maxSwingSpeed, Mathf.Sin(p.y)) * swingMult;
+            lastPos = attachedBody.position;
+            attachedBody.position = GetSwingPosition(p);
             currentArcPos += currentSwingSpeed * Time.deltaTime;
         }
     }
@@ -149,13 +174,25 @@ public class SwingableObject : LassoObject
     public void AttachToSwingable(Rigidbody attachedObject)
     {
         currentArcPos = 0f;
-        currentSwingSpeed = startingSwingSpeed;
         attachedBody = attachedObject;
         attachedBody.isKinematic = true;
+        lastPos = attachedBody.position;
     }
 
-    public void ChangeSwingSpeed(float delta)
+    public Vector3 EndSwing()
     {
-        currentSwingSpeed = Mathf.Clamp(currentSwingSpeed + delta, 0f, maxSwingSpeed);
+        float t = Mathf.Clamp(currentArcPos / approximateArcLength, 0f, 1f);
+
+        Vector3 velocity = (GetSwingPosition(GetThetaGammaRadius(t)) - lastPos).normalized * currentSwingSpeed * swingMult;
+        attachedBody = null;
+        return velocity;
+    }
+
+    Vector3 GetThetaGammaRadius(float t)
+    {
+        float theta = Mathf.Lerp(startingTheta, endingTheta, t);
+        float gamma = Mathf.Lerp(startingGamma, endingGamma, t);
+        float radius = Mathf.Lerp(startingRadius, endingRadius, t);
+        return new Vector3(theta, gamma, radius);
     }
 }

@@ -115,6 +115,12 @@ public class LassoObject : MonoBehaviour
         isLassoable = false;
         currentlyLassoed = true;
     }
+
+    public void Release()
+    {
+        isLassoable = true;
+        currentlyLassoed = false;
+    }
 }
 
 

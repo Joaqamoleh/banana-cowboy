@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
     Transform model;
     [SerializeField]
     Transform lassoSwingCenter;
+    [SerializeField]
+    Rigidbody controlPlayerConnection;
 
     private Transform _camera;
     private GravityObject _gravObject;
@@ -103,12 +105,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         if (GameObject.Find("CheckpointManager") != null)
         {
-            print("Normal Levels");
             transform.position = LevelData.GetRespawnPos();
         }
         else
         {
-            print("No checkpoints needed");
             transform.position = Vector3.zero;
         }
     }
@@ -133,6 +133,8 @@ public class PlayerController : MonoBehaviour
         _lassoRenderer = GetComponentInChildren<LassoRenderer>();
         Debug.Assert(_lassoRenderer != null);
         _lassoRenderer.StartRenderLasso();
+        Debug.Assert(controlPlayerConnection != null);
+        controlPlayerConnection.gameObject.SetActive(false);
 
         if (CutsceneManager.Instance() != null)
         {
@@ -221,6 +223,8 @@ public class PlayerController : MonoBehaviour
     {
         _lastTimeOnGround -= Time.deltaTime;
 
+        if (_state == State.SWING) { return; }
+
         if (_gravObject.IsOnGround())
         {
             if (_detectLanding)
@@ -232,10 +236,7 @@ public class PlayerController : MonoBehaviour
         }
         if (_lastTimeOnGround < 0)
         {
-            if (_state != State.SWING)
-            {
-                UpdateState(State.AIR);
-            }
+            UpdateState(State.AIR);
         }
         else
         {
@@ -260,7 +261,6 @@ public class PlayerController : MonoBehaviour
     void OnLand()
     {
         _detectLanding = false;
-        print("Landed " + OnLanded);
         OnLanded?.Invoke(_gravObject.GetGround());
         _gravObject.gravityMult = 1.0f;
 
@@ -272,25 +272,19 @@ public class PlayerController : MonoBehaviour
     }
 
     // ************************* INPUT ************************ //
-    float horizontal = 0;
-    float vertical = 0;
     void GetMoveInput()
     {
 #if UNITY_IOS || UNITY_ANDROID
         // TODO: Later
-        horizontal = joystick.Horizontal;
-        vertical = joystick.Vertical;
+        float horizontal = joystick.Horizontal;
+        float vertical = joystick.Vertical;
         _moveInput = new Vector3(horizontal, 0, vertical);
 #else
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
         _moveInput = new Vector3(horizontal, 0, vertical);
-        if (_moveInput != Vector3.zero)
-        {
-           // GetComponent<PlayerSoundController>().PlaySFX("PlayerWalk", GetComponent<PlayerSoundController>().playerSfxs);
-        }
-        if (Input.GetKeyDown(runKey))
+        if (Input.GetKeyDown(runKey) && _gravObject.IsOnGround())
         {
             _running = true;
         }
@@ -304,7 +298,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(jumpKey))
         {
             _jumpHeld = true;
-
             // Jump buffer time if we press Jump while in the air
             if (!_gravObject.IsOnGround())
             {
@@ -380,16 +373,17 @@ public class PlayerController : MonoBehaviour
                         _lassoObject = _hoveredObject;
                     }
                     break;
-                case LassoState.THROWN: // DO NOT DO ANYTHING, I think it will mess things up bad to accept input here
+                case LassoState.PULL:
+                    // Do nothing (maybe toss the enemy immediately?)
+                case LassoState.THROWN: 
+                    // DO NOT DO ANYTHING, I think it will mess things up bad to accept input here
                 case LassoState.TOSS:
                     // Do nothing
                     break;
                 case LassoState.SWING:
-                    // End the swing
+                    // Buffer next swing if clicked on a swingable object.
                     break;
-                case LassoState.PULL:
-                    // Do nothing (maybe toss the enemy immediately?)
-                    break;
+
                 case LassoState.HOLD:
                     // Show the throw indicator and throw when the player clicks
 #if !(UNITY_IOS || UNITY_ANDROID)
@@ -458,6 +452,18 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        if (_state == State.SWING)
+        {
+            if (_jumpHeld)
+            {
+                EndLassoSwing((_lassoObject as SwingableObject).EndSwing());
+                _jumpHeld = false;
+                _jumping = false;
+                _jumpBuffered = false;
+            }
+            return;
+        }
+
         if ((_jumpHeld && _lastTimeOnGround > 0.0f && !_jumping) || _jumpBuffered)
         {
             if (_gravObject.GetFallingVelocity().magnitude > 0)
@@ -497,8 +503,6 @@ public class PlayerController : MonoBehaviour
             _hasStartedTransition = true;
             UpdateLassoState(_transitionState);
 
-            print("Transitioning to new state: " + _transitionState);
-
             switch (_transitionState)
             {
                 case LassoState.NONE:
@@ -513,6 +517,18 @@ public class PlayerController : MonoBehaviour
                     break;
                 case LassoState.SWING:
                     // Todo, perform init for swing, transition the player by pulling them towards the swing position based on the swing radius
+                    SwingableObject swingable = _lassoObject as SwingableObject;
+                    if (swingable == null)
+                    {
+                        UpdateLassoTransitionState(LassoState.RETRACT);
+                    }
+                    else
+                    {
+                        controlPlayerConnection.gameObject.SetActive(true);
+                        swingable.SwingEnd += EndLassoSwing;
+                        swingable.AttachToSwingable(controlPlayerConnection);
+                        UpdateState(State.SWING);
+                    }
                     break;
                 case LassoState.HOLD:
                 case LassoState.PULL:
@@ -520,7 +536,7 @@ public class PlayerController : MonoBehaviour
                     LassoTossable pull = _lassoObject as LassoTossable;
                     if (pull == null)
                     {
-                        UpdateLassoTransitionState(LassoState.NONE);
+                        UpdateLassoTransitionState(LassoState.RETRACT);
                     }
                     else
                     {
@@ -645,7 +661,6 @@ public class PlayerController : MonoBehaviour
 
     void RenderLasso()
     {
-        //print("Rendering Lasso with state: " + _lassoState);
         switch (_lassoState)
         {
             case LassoState.NONE:
@@ -695,7 +710,6 @@ public class PlayerController : MonoBehaviour
     // ************************ Callbacks / Event Handlers *************************** //
     void OnLassoableEnterHover(LassoObject hovered)
     {
-        //print("Hover enter on " + hovered);
         if (_hoveredObject != null)
         {
             _hoveredObject.Deselect();
@@ -706,7 +720,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnLassoableExitHovered(LassoObject hovered)
     {
-        //print("Hover exit on " + hovered);
         if (_hoveredObject == hovered)
         {
             if (_hoveredObject != null)
@@ -748,6 +761,18 @@ public class PlayerController : MonoBehaviour
     void EndLassoRetractState()
     {
         UpdateLassoTransitionState(LassoState.NONE);
+    }
+
+    void EndLassoSwing(Vector3 endingVel)
+    {
+        SwingableObject s = (_lassoObject as SwingableObject);
+        s.SwingEnd -= EndLassoSwing;
+        s.Release();
+
+        UpdateState(State.AIR);
+        UpdateLassoTransitionState(LassoState.RETRACT);
+        controlPlayerConnection.gameObject.SetActive(false);
+        _rigidbody.AddForce(endingVel * 1.2f, ForceMode.VelocityChange);
     }
 
     void DisableCharacterForCutscene(CutsceneObject activeScene)

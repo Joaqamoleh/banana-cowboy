@@ -88,15 +88,15 @@ public class LassoRenderer : MonoBehaviour
     {
         if (lineRenderer == null || lineRenderer.positionCount == 0) { return; }
         Transform basis = o.GetLassoCenterBasis();
-        
+
         Vector3 start = lassoHandJointPos.position;
         Vector3 end = o.GetLassoCenterPos();
 
         if (t == 0)
         {
             LoopAroundTarget(o, ref lassoLoopPositions);
-
-            basis.LookAt(start, o.GetComponent<GravityObject>().characterOrientation.up);
+            
+            basis.LookAt(start, basis.up);
             basis.Rotate(Vector3.up, 180f);
         }
 
