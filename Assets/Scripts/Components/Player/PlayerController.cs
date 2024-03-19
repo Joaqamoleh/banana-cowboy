@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -45,6 +46,9 @@ public class PlayerController : MonoBehaviour
     public delegate void LassoStateChange(LassoState newState);
     public event LassoStateChange OnLassoStateChange;
 
+    public delegate void LassoTossedDelegate(LassoTossable.TossStrength s);
+    public event LassoTossedDelegate OnLassoTossed;
+
     [Header("References")]
     [SerializeField]
     Transform model;
@@ -66,8 +70,6 @@ public class PlayerController : MonoBehaviour
     KeyCode lassoKey = KeyCode.Mouse0;
     [SerializeField]
     KeyCode runKey = KeyCode.LeftShift, jumpKey = KeyCode.Space;
-    [SerializeField]
-    LayerMask clickTossMask;
 
     [Header("Mobile Input")]
     public GameObject mobileUI;
@@ -167,7 +169,14 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Run();
+        if (_state == State.SWING)
+        {
+            Swing();
+        }
+        else
+        {
+            Run();
+        }
         if (!disabledForCutscene && !PauseManager.pauseActive)
         {
             Jump();
@@ -184,6 +193,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_state != newState)
         {
+            print("State updated to " + newState);
             OnStateChanged?.Invoke(newState);
             if (newState == State.AIR)
             {
@@ -446,7 +456,11 @@ public class PlayerController : MonoBehaviour
         // Spin player model and orientation to right direction to face
         if (_moveInput.magnitude > 0 && model != null)
         {
-            model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(targetVelocity.normalized, _gravObject.characterOrientation.up), Time.deltaTime * 8);
+            model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(targetVelocity.normalized, _gravObject.characterOrientation.up), Time.deltaTime * 8f);
+        }
+        else if (!_gravObject.IsOnGround())
+        {
+            model.rotation = Quaternion.Slerp(model.rotation, Quaternion.FromToRotation(model.up, _gravObject.characterOrientation.up) * model.rotation, Time.deltaTime * 8f);
         }
     }
 
@@ -482,7 +496,13 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+    void Swing()
+    {
+        if (model != null && (_lassoObject as SwingableObject) != null)
+        {
+            model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation((_lassoObject as SwingableObject).GetApproximateSwingDirection(), _gravObject.characterOrientation.up), Time.deltaTime * 8);
+        }
+    }
     void Lasso()
     {
         // We need to transition to a new state, perform the initialization / transition operation
@@ -554,26 +574,14 @@ public class PlayerController : MonoBehaviour
                     else if (!toss.IsTossed())
                     {
                         Ray r = _cursor.GetCursorRay();
-                        Vector3 tossDir = _camera.forward;
-                        RaycastHit hit;
-                        if (Physics.Raycast(r, out hit, 100f, clickTossMask, QueryTriggerInteraction.Ignore))
-                        {
-                            tossDir = (hit.point - transform.position).normalized;
-                        }
+                        Plane p = new Plane(Camera.main.transform.forward, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
+                        float dist;
+                        p.Raycast(r, out dist);
+                        Vector3 tossDir = Vector3.ProjectOnPlane((r.GetPoint(dist) - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+
                         LassoTossable.TossStrength strength = _playerUI.GetThrowIndicatorStrength();
                         toss.TossInDirection(tossDir, _gravObject.characterOrientation.up, strength);
-                        if (strength == LassoTossable.TossStrength.WEAK)
-                        {
-                            GetComponent<PlayerSoundController>().LassoThrow("LassoWeakThrow");
-                        }
-                        else if (strength == LassoTossable.TossStrength.MEDIUM)
-                        {
-                            GetComponent<PlayerSoundController>().LassoThrow("LassoMediumThrow");
-                        }
-                        else
-                        {
-                            GetComponent<PlayerSoundController>().LassoThrow("LassoStrongThrow");
-                        }
+                        OnLassoTossed?.Invoke(strength);
                     }
                     _lassoParamAccumTime = 0.0f;
                     _lassoParamMaxTime = timeToToss;
@@ -589,7 +597,17 @@ public class PlayerController : MonoBehaviour
             case LassoState.NONE:
                 break;
             case LassoState.TOSS:
-                if (_lassoParamAccumTime > _lassoParamMaxTime)
+                if (_lassoParamAccumTime <= _lassoParamMaxTime)
+                {
+                    if (_lassoObject != null)
+                    {
+                        Vector3 dirOfThrown = Vector3.ProjectOnPlane((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+                        dirOfThrown = _gravObject.characterOrientation.InverseTransformDirection(dirOfThrown);
+                        Quaternion targetRot = Quaternion.Euler(0f, dirOfThrown.x < 0 ? 360f - Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg, 0f); //_gravObject.characterOrientation.rotation*
+                        model.localRotation = Quaternion.Slerp(model.localRotation, targetRot, (_lassoParamAccumTime / _lassoParamMaxTime) * 3f);
+                    }
+                }
+                else
                 {
                     EndLassoTossState();
                 }
@@ -603,8 +621,10 @@ public class PlayerController : MonoBehaviour
                 {
                     if (_lassoParamAccumTime <= _lassoParamMaxTime)
                     {
-                        Quaternion targetRot = Quaternion.Slerp(model.rotation, Quaternion.LookRotation((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up), Time.deltaTime * 8);
-                        model.rotation = targetRot;
+                        Vector3 dirOfThrown = Vector3.ProjectOnPlane((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+                        dirOfThrown = _gravObject.characterOrientation.InverseTransformDirection(dirOfThrown);
+                        Quaternion targetRot = Quaternion.Euler(0f, dirOfThrown.x < 0 ? 360f - Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg, 0f); //_gravObject.characterOrientation.rotation*
+                        model.localRotation = Quaternion.Slerp(model.localRotation, targetRot, (_lassoParamAccumTime / _lassoParamMaxTime) * 3f);
                     }
                     else
                     {
@@ -638,6 +658,12 @@ public class PlayerController : MonoBehaviour
                 break;
             case LassoState.HOLD:
                 LassoTossable held = (_lassoObject as LassoTossable);
+                //Plane p = new Plane(Camera.main.transform.forward, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
+                //Debug.DrawRay(-p.normal * p.distance, p.normal, Color.cyan);
+                //Ray r = _cursor.GetCursorRay();
+                //float dist;
+                //p.Raycast(r, out dist);
+                //Debug.DrawLine(-p.normal * p.distance, r.GetPoint(dist), Color.magenta);
                 if (held == null)
                 {
                     // Somehow became a null reference, just retract the lasso
@@ -680,7 +706,7 @@ public class PlayerController : MonoBehaviour
                 _lassoRenderer.RenderThrowLasso(_lassoParamAccumTime / _lassoParamMaxTime, _lassoObject, angleRatio);
                 break;
             case LassoState.SWING:
-
+                _lassoRenderer.RenderLassoSwing(_lassoObject as SwingableObject);
                 break;
             case LassoState.PULL:
                 LassoTossable pulled = (_lassoObject as LassoTossable);
@@ -772,7 +798,7 @@ public class PlayerController : MonoBehaviour
         UpdateState(State.AIR);
         UpdateLassoTransitionState(LassoState.RETRACT);
         controlPlayerConnection.gameObject.SetActive(false);
-        _rigidbody.AddForce(endingVel * 1.2f, ForceMode.VelocityChange);
+        _rigidbody.AddForce(endingVel * 1.2f + (transform.position - s.transform.position).normalized * 10f, ForceMode.VelocityChange);
     }
 
     void DisableCharacterForCutscene(CutsceneObject activeScene)

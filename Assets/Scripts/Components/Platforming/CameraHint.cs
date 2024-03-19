@@ -17,6 +17,8 @@ public class CameraHint : MonoBehaviour
 
     [SerializeField, Tooltip("Set this only if you want to override manual orbitRotationAngle")]
     Transform focusElement;
+    [SerializeField]
+    bool viewGizmosAtPlayer = true;
 
     [SerializeField]
     int priority = 0;
@@ -28,7 +30,7 @@ public class CameraHint : MonoBehaviour
 
         Vector3 lookPos = transform.position;
         PlayerController pc = FindAnyObjectByType<PlayerController>();
-        if (pc != null)
+        if (pc != null && viewGizmosAtPlayer)
         {
             lookPos = pc.transform.position;
         }

@@ -99,11 +99,11 @@ public class GravityObject : MonoBehaviour
 
             if (IsOnGround())
             {
-                Debug.DrawRay(transform.position, grav, Color.green);
+                Debug.DrawRay(transform.position, grav.normalized * 10f, Color.green);
             }
             else
             {
-                Debug.DrawRay(transform.position, grav, Color.red);
+                Debug.DrawRay(transform.position, grav.normalized * 10f, Color.red);
                 if (fallingVec.magnitude < maxFallSpeed || Vector3.Dot(fallingVec, -targetGravUp) < 0f)
                 {
                     if (characterOrientation.InverseTransformDirection(fallingVec).y < 0)

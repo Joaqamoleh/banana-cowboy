@@ -172,6 +172,34 @@ public class LassoRenderer : MonoBehaviour
         lastLoopCenterPos = loopCenterPos;
     }
 
+    public void RenderLassoSwing(SwingableObject o)
+    {
+        if (lineRenderer == null || lineRenderer.positionCount == 0) { return; }
+
+        // Scrunches up the lasso based on length
+        Vector3 loopCenterPos = o.GetLassoCenterPos();
+
+        Vector3 lassoLoopStartPos = Vector3.zero;
+        LoopAroundTarget(o, ref lassoLoopPositions);
+        for (int i = 0; i < numberOfLoopSegments; i++)
+        {
+            if (i == 0)
+            {
+                lassoLoopStartPos = lassoLoopPositions[i];
+            }
+            lineRenderer.SetPosition(i + numberOfLineSegments, lassoLoopPositions[i]);
+        }
+
+        for (int i = 0; i < numberOfLineSegments; i++)
+        {
+            float posAlongLine = ((float)i / (numberOfLineSegments - 1));
+            Vector3 lineWorldPos = posAlongLine * lassoLoopStartPos + (1.0f - posAlongLine) * lassoHandJointPos.position;
+            lineRenderer.SetPosition(i, lineWorldPos);
+        }
+
+        lastLoopCenterPos = loopCenterPos;
+    }
+
     public void RenderLassoPull(float t, LassoTossable o, Transform lassoSwingCenter)
     {
         if (lineRenderer == null || lineRenderer.positionCount == 0) { return; }

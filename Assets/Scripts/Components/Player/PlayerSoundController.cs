@@ -20,11 +20,13 @@ public class PlayerSoundController : MonoBehaviour
         { 
             SetupSFX(s); 
         }
-        GetComponent<PlayerController>().OnJumpPressed += PlayerJump;
-        GetComponent<PlayerController>().OnLeftGround += PlayerLeftGround;
-        GetComponent<PlayerController>().OnLanded += PlayerLanded;
-        GetComponent<PlayerController>().OnStateChanged += PlayerStateUpdate;
-        GetComponent<PlayerController>().OnLassoStateChange += LassoStateUpdate;
+        PlayerController pc = GetComponent<PlayerController>();
+        pc.OnJumpPressed += PlayerJump;
+        pc.OnLeftGround += PlayerLeftGround;
+        pc.OnLanded += PlayerLanded;
+        pc.OnStateChanged += PlayerStateUpdate;
+        pc.OnLassoStateChange += LassoStateUpdate;
+        pc.OnLassoTossed += LassoToss;
         GetComponent<Health>().OnDamaged += PlayerDamaged;
     }
 
@@ -79,6 +81,22 @@ public class PlayerSoundController : MonoBehaviour
         }
     }
 
+    void LassoToss(LassoTossable.TossStrength strength)
+    {
+        if (strength == LassoTossable.TossStrength.WEAK)
+        {
+            PlaySFX("LassoWeakThrow", lassoSfxs);
+        }
+        else if (strength == LassoTossable.TossStrength.MEDIUM)
+        {
+            PlaySFX("LassoMediumThrow", lassoSfxs);
+        }
+        else
+        {
+            PlaySFX("LassoStrongThrow", lassoSfxs);
+        }
+    }
+
     void PlayerStateUpdate(PlayerController.State updated)
     {
         switch (updated)
@@ -101,7 +119,8 @@ public class PlayerSoundController : MonoBehaviour
     }
     void LassoStateUpdate(PlayerController.LassoState state)
     {
-        switch(state) {
+        switch (state)
+        {
             default:
             case PlayerController.LassoState.NONE:
                 StopSFX("LassoThrow", lassoSfxs);
@@ -116,12 +135,6 @@ public class PlayerSoundController : MonoBehaviour
                 PlaySFX("LassoSpin", lassoSfxs);
                 break;
         }
-    }
-
-    // TODO: Might need to clean up. Use Callbacks(?)
-    public void LassoThrow(string lassoStrength)
-    {
-        PlaySFX(lassoStrength, lassoSfxs);
     }
 
     void PlaySFX(string name, Sound[] sfxs)
