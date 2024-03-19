@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class OrangeBoss : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class OrangeBoss : MonoBehaviour
     private string[] attackName = { "Orange Slice!", "Zesty Onslaught!", "Peel Pummel!" };
     public Coroutine currentDialog;
 
+    public GameObject youWinUI;
+
     public enum BossStates
     {
         IDLE, BOOMERANG, PEEL, SPAWN, COOLDOWN, NONE
@@ -75,6 +78,11 @@ public class OrangeBoss : MonoBehaviour
         indicating = false;
         boomerangSpinning = false;
 
+        // hide win UI at the beginning
+        foreach (Transform child in youWinUI.transform)
+        {
+            child.transform.localScale = Vector3.zero;
+        }
     }
 
     void CutsceneEnd(CutsceneObject o)
@@ -373,10 +381,36 @@ public class OrangeBoss : MonoBehaviour
             // play boss animations
             modelAnimator.SetTrigger("Death");
             enabled = false;
+
+
             // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
             // LevelSwitch.ChangeScene("Menu");
             CutsceneManager.Instance().OnCutsceneEnd += FinalCutsceneEnd;
+            StartCoroutine(winUIAnimation());
         }
+    }
+
+    IEnumerator winUIAnimation()
+    {
+        yield return new WaitForSeconds(5.0f); // change so it works when player camera is starting, not just waiting 5 sec
+
+        foreach (Transform child in youWinUI.transform)
+        {
+            child.transform.DOScale(0.3753395f, 1f).SetEase(Ease.OutSine);
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(2.0f);
+
+            foreach (Transform child in youWinUI.transform)
+            {
+                child.DOJump(child.transform.position, 25, 1, 0.5f);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        
     }
 
     void FinalCutsceneEnd(CutsceneObject o)

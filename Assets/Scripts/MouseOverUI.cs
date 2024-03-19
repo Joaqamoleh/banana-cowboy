@@ -25,8 +25,8 @@ public class MouseOverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             ResetTween();
             // transform.DOShakePosition(animDuration, animStrength, randomness:0f).onComplete = ResetTween;
             // transform.DOShakeRotation(animDuration, animStrength).onComplete = ResetTween; ;
-            // transform.DOJump(transform.position, animStrength, 1, animDuration).SetEase(Ease.OutExpo).onComplete = ResetTween;
-            transform.DOJump(transform.position, animStrength, 1, animDuration).onComplete = ResetTween;
+            transform.DOJump(transform.position, animStrength, 1, animDuration).SetEase(Ease.OutExpo).onComplete = ResetTween;
+            // transform.DOJump(transform.position, animStrength, 1, animDuration).onComplete = ResetTween;
         }
         
     }
