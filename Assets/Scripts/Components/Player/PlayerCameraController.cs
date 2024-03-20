@@ -163,7 +163,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (frozenCam || _cameraFocus == null || PauseManager.pauseActive) { return; }
+        if (frozenCam || _cameraFocus == null || PauseManager.pauseActive || !_cinemachineCamController.gameObject.activeSelf) { return; }
         UpdateFocusPoint();
         UpdateBasisRot();
         Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
