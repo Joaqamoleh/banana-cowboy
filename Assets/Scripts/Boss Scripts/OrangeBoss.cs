@@ -49,7 +49,7 @@ public class OrangeBoss : MonoBehaviour
     public GameObject dialogHolder;
     public TMP_Text dialogText;
     private string[] attackAnnouncement = { "Brace for impact!", "Time for a twist!", "Prepare for a juicy surprise!", "Here comes the sour!" };
-    private string[] attackName = { "Orange Slice!", "Zesty Onslaught!", "Peel Pummel!" };
+    private string[] attackName = { "Orange Slice!", "Zesty Onslaught!", "Peel Out!" };
     public Coroutine currentDialog;
 
     public GameObject youWinUI;

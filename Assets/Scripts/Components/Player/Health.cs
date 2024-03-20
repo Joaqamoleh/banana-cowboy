@@ -76,6 +76,7 @@ public class Health : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         // reset checkpoint data
         LevelData.ResetCheckpointData();
+        SoundManager.Instance().StopAllSFX();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }

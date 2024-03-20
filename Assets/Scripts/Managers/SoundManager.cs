@@ -172,6 +172,7 @@ public class SoundManager : MonoBehaviour
     {
         foreach (Sound s in sfxs)
         {
+            s.src.Stop();
             _loopedSounds.Remove(s);
         }
     }
