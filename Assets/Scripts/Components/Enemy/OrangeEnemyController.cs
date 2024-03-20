@@ -366,7 +366,6 @@ public class OrangeEnemyController : EnemyController
     }
 
     // Needed to make character not stick to walls.
-
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.GetComponent<Obstacle>() != null && _state == OrangeState.IDLE)

@@ -817,7 +817,7 @@ public class PlayerController : MonoBehaviour
         UpdateState(State.AIR);
         UpdateLassoTransitionState(LassoState.RETRACT);
         controlPlayerConnection.gameObject.SetActive(false);
-        _rigidbody.AddForce(endingVel * 1.2f + (transform.position - s.transform.position).normalized * 10f, ForceMode.VelocityChange);
+        _rigidbody.AddForce(endingVel + (transform.position - s.transform.position).normalized * 2f, ForceMode.VelocityChange);
     }
 
     void DisableCharacterForCutscene(CutsceneObject activeScene)

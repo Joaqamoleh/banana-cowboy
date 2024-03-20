@@ -245,6 +245,8 @@ public class Sound
     [Range(0.0f, 3)]
     public float pitchVariance = 0.0f;
     public bool loop = false;
+    public bool isSpatial = false;
+    public float spatialSoundTravelDistance = 40f;
     public enum Type
     {
         SFX,
