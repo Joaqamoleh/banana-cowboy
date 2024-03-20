@@ -574,7 +574,12 @@ public class PlayerController : MonoBehaviour
                     else if (!toss.IsTossed())
                     {
                         Ray r = _cursor.GetCursorRay();
-                        Plane p = new Plane(Camera.main.transform.forward, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
+                        Vector3 norm = Camera.main.transform.forward;
+                        if (transform.position.y < 0)
+                        {
+                            norm = -Camera.main.transform.forward;
+                        }
+                        Plane p = new Plane(norm, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
                         float dist;
                         p.Raycast(r, out dist);
                         Vector3 tossDir = Vector3.ProjectOnPlane((r.GetPoint(dist) - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
@@ -658,12 +663,19 @@ public class PlayerController : MonoBehaviour
                 break;
             case LassoState.HOLD:
                 LassoTossable held = (_lassoObject as LassoTossable);
-                //Plane p = new Plane(Camera.main.transform.forward, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
-                //Debug.DrawRay(-p.normal * p.distance, p.normal, Color.cyan);
-                //Ray r = _cursor.GetCursorRay();
-                //float dist;
-                //p.Raycast(r, out dist);
-                //Debug.DrawLine(-p.normal * p.distance, r.GetPoint(dist), Color.magenta);
+                Ray r = _cursor.GetCursorRay();
+                Vector3 norm = Camera.main.transform.forward;
+                if (transform.position.y < 0)
+                {
+                    norm = -Camera.main.transform.forward;
+                }
+                Plane p = new Plane(norm, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
+                float dist;
+                p.Raycast(r, out dist);
+                Vector3 tossDir = Vector3.ProjectOnPlane((r.GetPoint(dist) - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+                Debug.DrawLine(-p.normal * p.distance, r.GetPoint(dist), Color.magenta);
+                Debug.DrawLine(-p.normal * p.distance, p.normal, Color.cyan);
+                Debug.DrawLine(-p.normal * p.distance, tossDir * 10f, Color.yellow);
                 if (held == null)
                 {
                     // Somehow became a null reference, just retract the lasso
