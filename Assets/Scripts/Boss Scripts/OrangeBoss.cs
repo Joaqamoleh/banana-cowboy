@@ -63,11 +63,7 @@ public class OrangeBoss : MonoBehaviour
     {
         state = BossStates.NONE;
         dialogHolder.SetActive(false);
-        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
-        // need to disable player controls
-
-        // start beginning cutscene first 
-        //
+        CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += CutsceneEnd;
 
         //state = BossStates.PEEL;
         resetAnimations = new List<string>();
@@ -367,54 +363,66 @@ public class OrangeBoss : MonoBehaviour
 
             BossDeathSetup();
 
-            // play cutscene
+            // play cutscenes
+            
             CutsceneManager.Instance().PlayCutsceneByName("Win");
+            CutsceneManager.Instance().GetCutsceneByName("Win").OnCutsceneComplete += CelebrationCutscene;
 
-            // disable player controls and move player to a specific spot
-            playerModel.transform.position = playerWinLocation.transform.position;
-            playerModel.transform.rotation = playerWinLocation.transform.rotation;
-            playerAnimator.applyRootMotion = true;
-            playerAnimator.SetLayerWeight(1, 0.0f);
-            playerAnimator.Play("Base Layer.BC_Cheer");
-
+            // disable player 
+            playerModel.SetActive(false);
 
             // play boss animations
             modelAnimator.SetTrigger("Death");
             enabled = false;
-
-
-            // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
-            // LevelSwitch.ChangeScene("Menu");
-            CutsceneManager.Instance().OnCutsceneEnd += FinalCutsceneEnd;
-            StartCoroutine(winUIAnimation());
         }
     }
 
     IEnumerator winUIAnimation()
     {
-        yield return new WaitForSeconds(5.0f); // change so it works when player camera is starting, not just waiting 5 sec
+        // pause before animation
+        yield return new WaitForSeconds(1.5f);
 
+        // letters appear
         foreach (Transform child in youWinUI.transform)
         {
-            child.transform.DOScale(0.3753395f, 1f).SetEase(Ease.OutSine);
-            yield return new WaitForSeconds(0.2f);
+            child.transform.DOScale(0.3753395f, 1f);
+            yield return new WaitForSeconds(0.1f);
         }
 
+        // letters jump
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSeconds(2.0f);
-
             foreach (Transform child in youWinUI.transform)
             {
                 child.DOJump(child.transform.position, 25, 1, 0.5f);
                 yield return new WaitForSeconds(0.1f);
             }
         }
-        
+    }
+
+    void CelebrationCutscene(CutsceneObject o)
+    {
+        // cutscene cannot be skipped
+        CutsceneManager.Instance().canSkipCutscene = false;
+
+        // reset player
+        playerModel.SetActive(true);
+        playerModel.transform.position = playerWinLocation.transform.position;
+        playerModel.transform.rotation = playerWinLocation.transform.rotation;
+        playerAnimator.applyRootMotion = true;
+        playerAnimator.SetLayerWeight(1, 0.0f);
+        playerAnimator.Play("Base Layer.BC_Cheer");
+
+        // ending cutscene and animation
+        CutsceneManager.Instance().PlayCutsceneByName("Celebration");
+        StartCoroutine(winUIAnimation());
+        CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += FinalCutsceneEnd;
     }
 
     void FinalCutsceneEnd(CutsceneObject o)
     {
+        CutsceneManager.Instance().canSkipCutscene = true;
         LevelSwitch.ChangeScene("Menu");
     }
 

@@ -23,6 +23,9 @@ public class CutsceneManager : MonoBehaviour
 
     private Cutscene activeCutscene = null;
 
+    // 
+    public bool canSkipCutscene = true;
+
     public delegate void CutsceneEventCallback(CutsceneObject activeCutscene);
     public event CutsceneEventCallback OnCutsceneStart;
     public event CutsceneEventCallback OnCutsceneEnd;
@@ -48,7 +51,7 @@ public class CutsceneManager : MonoBehaviour
     {
         if (activeCutscene != null && !activeCutscene.cutscene.IsCutsceneComplete())
         {
-            if (Input.GetKeyDown(cutsceneInput) && !PauseManager.pauseActive)
+            if (Input.GetKeyDown(cutsceneInput) && !PauseManager.pauseActive && canSkipCutscene)
             {
                 activeCutscene.cutscene.SkipActiveScene();
             }
@@ -100,6 +103,12 @@ public class CutsceneManager : MonoBehaviour
     public static void ResetPlayStartingCutscene()
     {
         hasPlayedStartingCutscene = false;
+    }
+
+    public CutsceneObject GetCutsceneByName(string name)
+    {
+        Cutscene cs = Array.Find(cutscenes, cs => cs.name == name);
+        return cs.cutscene;
     }
 }
 
