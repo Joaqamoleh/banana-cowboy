@@ -826,11 +826,16 @@ public class PlayerController : MonoBehaviour
         UpdateState(State.IDLE);
         _moveInput = Vector3.zero;
         _jumpHeld = false;
+        _playerUI.HideThrowBar();
     }
 
     void EnableCharacterAfterCutscene(CutsceneObject activeScene)
     {
         disabledForCutscene = false;
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
+        if (_lassoState == LassoState.HOLD)
+        {
+            _playerUI.ShowThrowBar();
+        }
     }
 }
