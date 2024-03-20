@@ -589,7 +589,7 @@ public class PlayerController : MonoBehaviour
                         Plane p = new Plane(norm, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
                         float dist;
                         p.Raycast(r, out dist);
-                        Vector3 tossDir = Vector3.ProjectOnPlane((r.GetPoint(dist) - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+                        Vector3 tossDir = Vector3.ProjectOnPlane((r.GetPoint(dist) - (transform.position - Camera.main.transform.up * 3f)).normalized, _gravObject.characterOrientation.up).normalized;
 
                         LassoTossable.TossStrength strength = _playerUI.GetThrowIndicatorStrength();
                         toss.TossInDirection(tossDir, _gravObject.characterOrientation.up, strength);
