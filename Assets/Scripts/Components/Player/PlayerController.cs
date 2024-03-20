@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         }
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
 
-#if UNITY_IOS || UNITY_ANDRIOD
+#if UNITY_IOS || UNITY_ANDROID
         mobileUI.SetActive(true);
         pauseMenu = GameObject.Find("Pause Manager").GetComponent<PauseManager>();
 #endif
