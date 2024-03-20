@@ -12,7 +12,7 @@ public class SwingableObject : LassoObject
     float startingTheta = 0f, endingTheta = 0f, startingGamma = 0f, endingGamma = 180f;
     [SerializeField, Range(0f, 100f), Tooltip("Measured in units per second")]
     float minSwingSpeed = 10f, maxSwingSpeed = 10f;
-    [SerializeField, Range(1f, 10f), Tooltip("This is multiplied by the current velocity of the player at the end of a swing.")]
+    [SerializeField, Range(0f, 10f), Tooltip("This is multiplied by the current velocity of the player at the end of a swing.")]
     float endingSwingMultForce = 1f;
 
     [SerializeField]
