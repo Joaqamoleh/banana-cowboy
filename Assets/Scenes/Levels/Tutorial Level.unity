@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31769824, g: 0.30841136, b: 0.57711995, a: 1}
+  m_IndirectSpecularColor: {r: 0.31778386, g: 0.3083839, b: 0.5771058, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3188,6 +3188,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 60
   jelloAnimator: {fileID: 1884235951}
+  sfx:
+    name: 
+    audioClip: {fileID: 0}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
+  soundDistance: 40
 --- !u!54 &300752169
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6270,15 +6283,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2785704
+      value: -1.24
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -38.74794
+      value: -37.11
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.0721219
+      value: -3.07
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7574,11 +7587,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.57
+      value: -8.16
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -34.16
+      value: -32.84
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8432,6 +8445,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 60
   jelloAnimator: {fileID: 330412044}
+  sfx:
+    name: 
+    audioClip: {fileID: 0}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
+  soundDistance: 40
 --- !u!54 &1104795079
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8629,11 +8655,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.990937
+      value: 8.94
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -38.367397
+      value: -38.21
       objectReference: {fileID: 0}
     - target: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12241,6 +12267,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceForce: 60
   jelloAnimator: {fileID: 1351470875}
+  sfx:
+    name: 
+    audioClip: {fileID: 0}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
+  soundDistance: 40
 --- !u!54 &1714185064
 Rigidbody:
   m_ObjectHideFlags: 0

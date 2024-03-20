@@ -240,6 +240,7 @@ public class CutsceneObject : MonoBehaviour
                 }
                 s.timelinePlayable.time = s.timelinePlayable.duration;
                 s.timelinePlayable.Play();
+                OnCutsceneComplete?.Invoke(this);
             }
         }
     }
