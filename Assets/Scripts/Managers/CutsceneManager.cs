@@ -101,6 +101,12 @@ public class CutsceneManager : MonoBehaviour
     {
         hasPlayedStartingCutscene = false;
     }
+
+    public CutsceneObject GetCutsceneByName(string name)
+    {
+        Cutscene cs = Array.Find(cutscenes, cs => cs.name == name);
+        return cs.cutscene;
+    }
 }
 
 [System.Serializable]
