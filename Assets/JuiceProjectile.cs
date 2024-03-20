@@ -7,7 +7,7 @@ public class JuiceProjectile : MonoBehaviour
 {
     public BlenderBoss blenderBoss;
     public Vector3 defaultScale;
-    public float flatKnockback;
+    //    public float flatKnockback;
 
     private void OnEnable()
     {
@@ -19,24 +19,38 @@ public class JuiceProjectile : MonoBehaviour
     IEnumerator JuiceBlast()
     {
         transform.localScale = defaultScale;
-        while (!blenderBoss.doneMoving && transform.localScale.y > 0)
+        transform.localPosition = new Vector3(0, 0, -4);
+
+        Vector3 targetScale = Vector3.zero; // Target scale is Vector3.zero for complete disappearance
+        Vector3 initialScale = transform.localScale;
+        Vector3 initialPosition = transform.position;
+        float blastDuration = 2.0f; // Adjust duration of blast as needed
+        float elapsedTime = 0f;
+
+        while (elapsedTime < blastDuration && !blenderBoss.doneMoving)
         {
-            print("SHRINKING");
-            yield return new WaitForSeconds(0.5f);
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y - 0.2f, transform.localScale.z);
-            transform.position -= new Vector3(0, transform.localScale.y - 0.1f, 0);
-            if (transform.localScale.y <= 0)
-            {
-                transform.localScale = defaultScale;
-            }
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / blastDuration);
+
+            // Interpolate scale and position
+            transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
+            transform.localScale = new Vector3(defaultScale.x, transform.localScale.y, defaultScale.z);
+            /*        transform.position = Vector3.Lerp(initialPosition, initialPosition - new Vector3(0, initialScale.y, 0), t);
+            */
+            yield return null;
         }
+
+        // Ensure final state
+        transform.localScale = targetScale;
+        transform.position = initialPosition - new Vector3(0, initialScale.y, 0);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponentInParent<Health>().Damage(1, flatKnockback * ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));
+            other.GetComponentInParent<Health>().Damage(1, ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));
         }
     }
 }

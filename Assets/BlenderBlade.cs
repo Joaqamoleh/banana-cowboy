@@ -9,37 +9,60 @@ public class BlenderBlade : MonoBehaviour
     public int maxSize;
     public int time;
     public float growthRate;
-
+    public BlenderBoss blenderBoss;
     public float flatKnockback;
 
     private void Start()
     {
         transform.localScale = Vector3.one;
-        if (Random.Range(0,2) == 1)
+        if (Random.Range(0, 2) == 1)
         {
             direction = -1;
         }
-        StartCoroutine(GrowSize());   
+        blenderBoss = GameObject.Find("BlenderBoss").GetComponent<BlenderBoss>();
+        StartCoroutine(GrowSize());
     }
 
     private void Update()
     {
-        transform.Rotate(speed *  direction * Time.deltaTime * Vector3.up);
+        transform.Rotate(speed * direction * Time.deltaTime * Vector3.up);
     }
 
     IEnumerator GrowSize()
     {
         float currentSize = transform.localScale.x;
-
-        while (currentSize < maxSize)
+        float newSize = 0;
+        if (blenderBoss.GetPhase() == 2)
         {
-            float newSize = currentSize + growthRate * Time.deltaTime;
+            speed *= 1.5f;
+        }
+        while (currentSize < maxSize) // TODO: Make it grow faster if x is at a certain size
+        {
+            newSize = currentSize + growthRate * Time.deltaTime;
             newSize = Mathf.Min(newSize, maxSize); // Clamp the size to maxSize
             transform.localScale = new Vector3(newSize, transform.localScale.y, transform.localScale.z);
             currentSize = newSize;
             yield return null;
         }
+        print("GROWING DONE");
     }
+
+    public IEnumerator ShrinkSize()
+    {
+        float currentSize = transform.localScale.x;
+        float minSize = 0; // Define the minimum size as 0
+        float newSize = 0;
+        while (currentSize > minSize)
+        {
+            newSize = currentSize - growthRate * 2 * Time.deltaTime; // Subtract growthRate to shrink
+            newSize = Mathf.Max(newSize, minSize); // Clamp the size to minSize
+            transform.localScale = new Vector3(newSize, transform.localScale.y, transform.localScale.z);
+            currentSize = newSize;
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

@@ -2,11 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 public class BlenderBoss : MonoBehaviour
 {
+    [Header("Phases")]
+    private readonly int _totalPhases = 2;
+    private int _currentPhase = 1;
+    public static int temp = 1;
+
     [Header("Atacks")]
     private readonly int moves = 4;
     private int currMove;
@@ -26,6 +32,8 @@ public class BlenderBoss : MonoBehaviour
 
     public GameObject[] spawnPoints;
     public GameObject[] minions;
+    public GameObject[] cherrySpawnPoints;
+    public GameObject cherryBomb;
 
     [Header("Cooldown")]
     public float move1Cooldown;
@@ -70,16 +78,17 @@ public class BlenderBoss : MonoBehaviour
     {
         state = BossStates.IDLE; // Change this to idle when finshed with moves
         dialogHolder.SetActive(false);
-//        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
+        //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 2;
+        currMove = -1;
+        _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
-        bombSpawnPos = new Vector3[3];
-        indicatorSpawnObject = new GameObject[3];
-    // healthHolder.SetActive(true);
-}
+        bombSpawnPos = new Vector3[6];
+        indicatorSpawnObject = new GameObject[6];
+        // healthHolder.SetActive(true);
+    }
 
     void CutsceneEnd(CutsceneObject o)
     {
@@ -90,7 +99,7 @@ public class BlenderBoss : MonoBehaviour
     bool moveToPosition;
     void JuiceAttack()
     {
-        cooldownTimer = move1Cooldown;
+        cooldownTimer = move1Cooldown - _currentPhase;
         state = BossStates.COOLDOWN;
         juiceProjectileCount = 0;
         juiceProjectile.SetActive(false);
@@ -109,7 +118,7 @@ public class BlenderBoss : MonoBehaviour
             yield return MoveToPosition(transform.position, positions[1].transform.position);
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(_currentPhase % 2f + 0.5f);
 
         doneMoving = false;
         juiceProjectile.SetActive(true);
@@ -137,7 +146,7 @@ public class BlenderBoss : MonoBehaviour
 
     IEnumerator MoveToPosition(Vector3 startPosition, Vector3 targetPosition)
     {
-        float duration = Vector3.Distance(startPosition, targetPosition) / 20;
+        float duration = Vector3.Distance(startPosition, targetPosition) / (20 + (10 * ((_currentPhase - 1) % _totalPhases)));
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -161,7 +170,7 @@ public class BlenderBoss : MonoBehaviour
     {
         GameObject blade = Instantiate(blenderBlade);
         yield return new WaitForSeconds(move2Cooldown); // TODO: make it shrink before destroying
-        Destroy(blade);
+        StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
     }
 
     void BlueberryBombs()
@@ -175,7 +184,7 @@ public class BlenderBoss : MonoBehaviour
     {
         if (bombIndicator != null && platform != null)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 3 * _currentPhase; i++)
             {
                 Vector3 minBounds = platform.position - new Vector3(26, 0f, 26);
                 Vector3 maxBounds = platform.position + new Vector3(26, 0f, 26);
@@ -183,7 +192,7 @@ public class BlenderBoss : MonoBehaviour
                 Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), bombIndicator.transform.position.y, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
 
                 indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
-                bombSpawnPos[i] = spawnPosition;    
+                bombSpawnPos[i] = spawnPosition;
             }
         }
         yield return new WaitForSeconds(5f);
@@ -192,7 +201,7 @@ public class BlenderBoss : MonoBehaviour
 
     void ShootBombs()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3 * _currentPhase; i++)
         {
             // Assuming bombSpawnPos[i] is a RectTransform
             Vector3 screenPos = bombSpawnPos[i];
@@ -217,10 +226,17 @@ public class BlenderBoss : MonoBehaviour
 
     void SpawnEnemies()
     {
-        for (int i = 0; i < spawnPoints.Length; i++)
+        for (int i = 0; i < spawnPoints.Length; i++) // add two more spawn points for phase 2
         {
             Vector3 spawnPosition = spawnPoints[i].transform.position;
             Instantiate(minions[0], spawnPosition, spawnPoints[i].transform.rotation);
+        }
+        if (_currentPhase == 2)
+        {
+            for (int i = 0; i < cherrySpawnPoints.Length; i++)
+            {
+                Instantiate(cherryBomb, cherrySpawnPoints[i].transform.position, cherrySpawnPoints[i].transform.rotation);
+            }
         }
         cooldownTimer = move4Cooldown;
         state = BossStates.COOLDOWN;
@@ -229,6 +245,19 @@ public class BlenderBoss : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            print("First Phase");
+            temp = 1;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            print("Second Phase");
+            temp = 2;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         switch (state)
         {
             case BossStates.IDLE:
@@ -305,6 +334,11 @@ public class BlenderBoss : MonoBehaviour
         }
     }
 
+    public int GetPhase()
+    {
+        return _currentPhase;
+    }
+
     public void Damage(int dmg)
     {
         //SoundManager.Instance().PlaySFX("BossHurt");
@@ -326,7 +360,7 @@ public class BlenderBoss : MonoBehaviour
             ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
         }
         if (health <= 0)
-        { 
+        {
 
             // play cutscene
             CutsceneManager.Instance().PlayCutsceneByName("Win");

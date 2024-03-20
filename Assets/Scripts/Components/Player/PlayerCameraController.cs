@@ -68,6 +68,7 @@ public class PlayerCameraController : MonoBehaviour
 
     bool frozenCam = false;
 
+    private float mobileConstant = 1f;
 
 
     private void OnValidate()
@@ -92,6 +93,9 @@ public class PlayerCameraController : MonoBehaviour
 
     void Start()
     {
+#if UNITY_IOS || UNITY_ANDROID
+        mobileConstant = 0.5f;
+#endif
         _cameraCurrent = _cinemachineCamController.transform;
         if (_cameraFocus != null)
         {
@@ -101,7 +105,7 @@ public class PlayerCameraController : MonoBehaviour
             {
                 _focusBasis = _focusGravity.characterOrientation;
                 basisRot = _focusBasis.rotation;
-            } 
+            }
             else
             {
                 basisRot = transform.rotation;
@@ -123,17 +127,18 @@ public class PlayerCameraController : MonoBehaviour
         if (_cameraFocus == null) { return; }
         if (!PauseManager.pauseActive)
         {
+            orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
+
 #if !UNITY_IOS && !UNITY_ANDROID
             mouseX = Input.GetAxisRaw("Mouse X");
             mouseY = Input.GetAxisRaw("Mouse Y");
             mouseScroll = -Input.GetAxisRaw("Mouse ScrollWheel");
-            orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
 
             if (Input.GetKeyDown(rotationKey))
             {
                 PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.CAMERA_PAN);
                 rotationHeld = true;
-            } 
+            }
             else if (Input.GetKeyUp(rotationKey))
             {
                 PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
@@ -148,7 +153,7 @@ public class PlayerCameraController : MonoBehaviour
             {
                 mouseY = -mouseY;
             }
-            
+
             if (invertZoom)
             {
                 mouseScroll = -mouseScroll;
@@ -158,7 +163,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (frozenCam || _cameraFocus == null) { return; }
+        if (frozenCam || _cameraFocus == null || PauseManager.pauseActive) { return; }
         UpdateFocusPoint();
         UpdateBasisRot();
         Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
@@ -224,7 +229,7 @@ public class PlayerCameraController : MonoBehaviour
             const float e = 0.001f;
             if (mouseX > e || mouseY > e || mouseX < -e || mouseY < -e)
             {
-                _orbitAngles = new Vector2(_orbitAngles.x + mouseY * orbitSensitivity * Time.unscaledDeltaTime, _orbitAngles.y + mouseX * orbitSensitivity * Time.unscaledDeltaTime);
+                _orbitAngles = new Vector2(_orbitAngles.x + mouseY * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime, _orbitAngles.y + mouseX * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime);
                 lastManualInputTime = Time.unscaledTime;
                 return true;
             }
@@ -384,7 +389,8 @@ public class PlayerCameraController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null) {
+        if (other != null && other.gameObject != null && other.gameObject.GetComponent<CameraHint>() != null)
+        {
             activeHints.Add(other.gameObject.GetComponent<CameraHint>());
             highestHintPrioIndex = GetHighestPrioIndex();
         }

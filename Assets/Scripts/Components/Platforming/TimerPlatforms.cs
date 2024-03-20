@@ -24,6 +24,21 @@ public class TimerPlatforms : MonoBehaviour
                 _platformCoroutine = StartCoroutine(StartTimer());
             }*/
         }
+
+        //Needs testing
+/*        if (other.gameObject.CompareTag("Player"))
+        {
+            Vector3 collisionNormal = other.contacts[0].normal;
+
+            // Check if collision is from the top (normal pointing upwards)
+            if (Vector3.Dot(collisionNormal, Vector3.up) < 0.9f)
+            {
+                if (_platformCoroutine == null)
+                {
+                    _platformCoroutine = StartCoroutine(StartTimer());
+                }
+            }
+        }*/
     }
 
     private void OnCollisionExit(Collision other)

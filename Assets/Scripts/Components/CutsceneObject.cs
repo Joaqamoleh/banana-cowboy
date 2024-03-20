@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Playables;
 
 public class CutsceneObject : MonoBehaviour
@@ -159,6 +160,13 @@ public class CutsceneObject : MonoBehaviour
         {
             if (Input.GetKeyDown(CutsceneManager.Instance().cutsceneInput) && !PauseManager.pauseActive)
             {
+                // TODO: Needs testing
+                /*#if UNITY_IOS || UNITY_ANDROID
+                                if (EventSystem.current.IsPointerOverGameObject())
+                                {
+                                    yield return null;
+                                }
+                #endif*/
                 if (s.isDialogScene && !s.dialog.dialogFullyDisplayed)
                 {
                     DialogueManager.Instance().DisplayDialog(s.dialog, false);

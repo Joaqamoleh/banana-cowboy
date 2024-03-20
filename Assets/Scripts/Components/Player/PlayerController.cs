@@ -288,7 +288,14 @@ public class PlayerController : MonoBehaviour
         // TODO: Later
         float horizontal = joystick.Horizontal;
         float vertical = joystick.Vertical;
+
         _moveInput = new Vector3(horizontal, 0, vertical);
+
+        // Apply damping when releasing the joystick
+        if (_moveInput == Vector3.zero)
+        {
+            _moveInput = Vector3.Lerp(_moveInput, Vector3.zero, 0.1f * Time.deltaTime);
+        }
 #else
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
