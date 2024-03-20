@@ -111,7 +111,7 @@ public class DialogueManager : MonoBehaviour
                 dialogTextDisplay.color = Color.yellow;
                 break;
             case TypeOfCharacter.Pete:
-                dialogTextDisplay.color = new Color(226 / 255f, 62 / 255f, 69 / 255f);
+                dialogTextDisplay.color = new Color(255 / 255f, 182 / 255f, 155 / 255f);
                 break;
 
         }
