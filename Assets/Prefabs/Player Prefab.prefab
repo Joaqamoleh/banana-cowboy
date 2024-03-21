@@ -1488,7 +1488,7 @@ MonoBehaviour:
   focusCenteringFactor: 0.5
   bottomBorder: 0.25
   topBorder: 0.89
-  realignTime: 5
+  realignTime: 20
   realignRadius: 10
   realignRotationSpeed: 90
   alignSmoothRange: 45
@@ -1561,6 +1561,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: LassoSpin
@@ -1570,6 +1572,8 @@ MonoBehaviour:
     pitch: 0.8
     pitchVariance: 0.1
     loop: 1
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: LassoWeakThrow
@@ -1579,6 +1583,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: LassoMediumThrow
@@ -1588,6 +1594,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: LassoStrongThrow
@@ -1597,6 +1605,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   playerSfxs:
@@ -1607,6 +1617,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 1
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: PlayerRun
@@ -1616,6 +1628,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 1
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: PlayerJump
@@ -1625,6 +1639,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: PlayerLand
@@ -1634,6 +1650,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: PlayerHurt
@@ -1643,6 +1661,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
   - name: PlayerDeath
@@ -1652,6 +1672,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
+    isSpatial: 0
+    spatialSoundTravelDistance: 40
     type: 0
     src: {fileID: 0}
 --- !u!1 &4128062965984371809

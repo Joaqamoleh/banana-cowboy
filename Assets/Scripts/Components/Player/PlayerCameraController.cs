@@ -120,6 +120,7 @@ public class PlayerCameraController : MonoBehaviour
         }
 
         cameraHalfExtends = GetCameraHalfExtends();
+        lastManualInputTime -= realignTime;
     }
 
     void Update()
