@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6666501593849845182
+--- !u!114 &-4091137891929009212
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Statue Mat
+  m_Name: Red Carpet Floor
   m_Shader: {fileID: -6465566751694194690, guid: 9951649c77dbca440b9b36a2560656bf, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -72,10 +72,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -115,11 +111,10 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeDiffuse: 0.001
-    - _EdgeDistanceAttenuation: 0.001
-    - _EdgeRim: 0.001
+    - _EdgeDiffuse: 0.005
+    - _EdgeDistanceAttenuation: 0.005
+    - _EdgeRim: 0.005
     - _EdgeShadowAttenuation: 1
-    - _EdgeSpecular: 0.001
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -134,19 +129,17 @@ Material:
     - _RimStrength: 1
     - _RimThreshold: 0.15
     - _Shades: 4
-    - _SkyMultiplier: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Using_Normal_Map: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _AmbientColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0}
-    - _BaseColor: {r: 0.21383406, g: 0.25500098, b: 0.2679245, a: 1}
+    - _BaseColor: {r: 0.3433962, g: 0.051185433, b: 0.051185433, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
