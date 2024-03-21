@@ -710,7 +710,7 @@ public class PlayerController : MonoBehaviour
                 LassoTossable held = (_lassoObject as LassoTossable);
                 if (held != null)
                 {
-                    _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter, GetLassoTossDir());
+                    _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter, GetLassoTossDir(), _playerUI.GetThrowIndicatorStrength());
                 }
                 break;
             case LassoState.TOSS:

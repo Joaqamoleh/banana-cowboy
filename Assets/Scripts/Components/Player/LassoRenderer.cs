@@ -12,6 +12,11 @@ public class LassoRenderer : MonoBehaviour
     GameObject lassoTossIndicator;
 
     [SerializeField]
+    Renderer[] lassoTossIndicatorRenderers;
+    [SerializeField]
+    Material lowPowMat, medPowMat, highPowMat;
+
+    [SerializeField]
     float hipMaxSway = 1.0f, hipRadius = 0.4f;
 
     [SerializeField, Min(1)]
@@ -253,7 +258,7 @@ public class LassoRenderer : MonoBehaviour
     /// <param name="t"></param> Here t ranges from [0, infinity)
     /// <param name="o"></param>
     /// <param name="lassoSwingCenter"></param>
-    public void RenderLassoHold(float t, LassoTossable o, Transform lassoSwingCenter, Vector3 predictedTossDirection)
+    public void RenderLassoHold(float t, LassoTossable o, Transform lassoSwingCenter, Vector3 predictedTossDirection, LassoTossable.TossStrength strength)
     {
         if (lineRenderer == null || lineRenderer.positionCount == 0) { return; }
         Vector3 loopCenterPos = o.GetLassoCenterPos();
@@ -298,12 +303,25 @@ public class LassoRenderer : MonoBehaviour
                 float radius = o.GetSwingRadius();
                 lassoLinePositions[i] = dist * percentAlongLine * up + lassoSwingCenter.position + 2f * radius * EasingsLibrary.EaseInOutBack(percentAlongLine) * forward;
                 lassoLinePositions[i - 1] = (1f - percentAlongLine) * lassoLinePositions[i - 1] + percentAlongLine * lassoLinePositions[i];
-                //if (t != 0)
-                //{
-                //}
             }
             lineRenderer.SetPosition(i, lassoLinePositions[i]);
         }
+
+        Material indicatorMat = lowPowMat;
+        if (strength == LassoTossable.TossStrength.STRONG)
+        {
+            indicatorMat = highPowMat;
+        }
+        else if (strength == LassoTossable.TossStrength.MEDIUM)
+        {
+            indicatorMat = medPowMat;
+        }
+
+        foreach (Renderer r in lassoTossIndicatorRenderers)
+        {
+            r.material = indicatorMat;
+        }
+
         lassoTossIndicator.transform.position = loopCenterPos + predictedTossDirection * o.GetSwingRadius();
         lassoTossIndicator.transform.rotation = Quaternion.LookRotation(predictedTossDirection, up);
 
