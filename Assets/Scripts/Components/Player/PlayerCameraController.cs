@@ -19,6 +19,7 @@ public class PlayerCameraController : MonoBehaviour
     Vector3 _focusPoint, _previousFocusPoint, cameraHalfExtends;
     Vector2 _orbitAngles = new Vector2(45f, 0f);
     Quaternion basisRot, targetBasisRot;
+    float _focusHeightOffset, targetHeightOffset;
 
     [Header("Parameters")]
     [SerializeField, Range(0f, 1f)]
@@ -26,7 +27,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     float bottomBorder = 0.25f, topBorder = 0.85f;
     [SerializeField, Range(0f, 30f)]
-    float realignTime = 5f, realignRadius = 1f;
+    float realignTime = 5f, realignRadius = 1f, defaultHeightOffset = 3f;
     [SerializeField, Range(1f, 360f)]
     float realignRotationSpeed = 90f;
     [SerializeField, Range(0f, 90f)]
@@ -45,7 +46,7 @@ public class PlayerCameraController : MonoBehaviour
     public float orbitZoomSensitivity = 10f;
 
     [SerializeField, Min(0f)]
-    float orbitMinRadius = 20f, orbitMaxRadius = 60f, orbitRadius = 30f;
+    float orbitMinRadius = 10f, orbitMaxRadius = 60f, orbitRadius = 30f;
     [SerializeField, Range(-89f, 89f)]
     float minVerticalAngle = -30f, maxVerticalAngle = 60f;
 
@@ -119,6 +120,8 @@ public class PlayerCameraController : MonoBehaviour
             CutsceneManager.Instance().OnCutsceneEnd += EnableAfterCutscene;
         }
 
+
+        _focusHeightOffset = defaultHeightOffset;
         cameraHalfExtends = GetCameraHalfExtends();
         lastManualInputTime -= realignTime;
     }
@@ -128,7 +131,6 @@ public class PlayerCameraController : MonoBehaviour
         if (_cameraFocus == null) { return; }
         if (!PauseManager.pauseActive)
         {
-            orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
 
 #if !UNITY_IOS && !UNITY_ANDROID
             mouseX = Input.GetAxisRaw("Mouse X");
@@ -173,7 +175,7 @@ public class PlayerCameraController : MonoBehaviour
             ConstrainAngles();
         }
         Vector3 lookDir = lookRot * Vector3.forward;
-        Vector3 position = _focusPoint - lookDir * orbitRadius;
+        Vector3 position = _focusPoint - lookDir * orbitRadius + basisRot * Vector3.up * _focusHeightOffset;
 
         Vector3 rectOffset = lookDir * Camera.main.nearClipPlane;
         Vector3 rectPosition = position + rectOffset;
@@ -206,6 +208,7 @@ public class PlayerCameraController : MonoBehaviour
             t = Mathf.Min(t, realignRadius / distance);
         }
         _focusPoint = Vector3.Lerp(targetPoint, _focusPoint, t);
+        _focusHeightOffset = Mathf.Lerp(targetHeightOffset, _focusHeightOffset, t);
     }
 
     void UpdateBasisRot()
@@ -228,8 +231,9 @@ public class PlayerCameraController : MonoBehaviour
         if (rotationHeld)
         {
             const float e = 0.001f;
-            if (mouseX > e || mouseY > e || mouseX < -e || mouseY < -e)
+            if (mouseX > e || mouseY > e || mouseX < -e || mouseY < -e || mouseScroll > e || mouseScroll < e)
             {
+                orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
                 _orbitAngles = new Vector2(_orbitAngles.x + mouseY * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime, _orbitAngles.y + mouseX * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime);
                 lastManualInputTime = Time.unscaledTime;
                 return true;
@@ -269,6 +273,7 @@ public class PlayerCameraController : MonoBehaviour
             angleChange *= (180f - deltaAbs) / alignSmoothRange;
         }
         targetBasisRot = _focusBasis.rotation;
+        targetHeightOffset = defaultHeightOffset;
         _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, angle, angleChange);
         return true;
     }
@@ -300,6 +305,8 @@ public class PlayerCameraController : MonoBehaviour
 
         orbitRadius = Mathf.Lerp(orbitRadius, orbitDist, Time.deltaTime);
         targetBasisRot = basis.rotation;
+        targetHeightOffset = hint.GetHeightOffset();
+
         return true;
     }
 

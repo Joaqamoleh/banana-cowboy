@@ -1,9 +1,5 @@
-using Cinemachine;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(GravityObject))]
@@ -301,7 +297,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         _moveInput = new Vector3(horizontal, 0, vertical);
-        if (Input.GetKeyDown(runKey) && _gravObject.IsOnGround())
+        if (Input.GetKeyDown(runKey))
         {
             _running = true;
         }
@@ -580,19 +576,8 @@ public class PlayerController : MonoBehaviour
                     }
                     else if (!toss.IsTossed())
                     {
-                        Ray r = _cursor.GetCursorRay();
-                        Vector3 norm = Camera.main.transform.forward;
-                        if (transform.position.y < 0)
-                        {
-                            norm = -Camera.main.transform.forward;
-                        }
-                        Plane p = new Plane(norm, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
-                        float dist;
-                        p.Raycast(r, out dist);
-                        Vector3 tossDir = Vector3.ProjectOnPlane((r.GetPoint(dist) - (transform.position - Camera.main.transform.up * 3f)).normalized, _gravObject.characterOrientation.up).normalized;
-
                         LassoTossable.TossStrength strength = _playerUI.GetThrowIndicatorStrength();
-                        toss.TossInDirection(tossDir, _gravObject.characterOrientation.up, strength);
+                        toss.TossInDirection(GetLassoTossDir(), _gravObject.characterOrientation.up, strength);
                         OnLassoTossed?.Invoke(strength);
                     }
                     _lassoParamAccumTime = 0.0f;
@@ -670,19 +655,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case LassoState.HOLD:
                 LassoTossable held = (_lassoObject as LassoTossable);
-                Ray r = _cursor.GetCursorRay();
-                Vector3 norm = Camera.main.transform.forward;
-                if (transform.position.y < 0)
-                {
-                    norm = -Camera.main.transform.forward;
-                }
-                Plane p = new Plane(norm, Vector3.Project(transform.position, Camera.main.transform.forward).magnitude);
-                float dist;
-                p.Raycast(r, out dist);
-                Vector3 tossDir = Vector3.ProjectOnPlane((r.GetPoint(dist) - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
-                Debug.DrawLine(-p.normal * p.distance, r.GetPoint(dist), Color.magenta);
-                Debug.DrawLine(-p.normal * p.distance, p.normal, Color.cyan);
-                Debug.DrawLine(-p.normal * p.distance, tossDir * 10f, Color.yellow);
                 if (held == null)
                 {
                     // Somehow became a null reference, just retract the lasso
@@ -738,7 +710,7 @@ public class PlayerController : MonoBehaviour
                 LassoTossable held = (_lassoObject as LassoTossable);
                 if (held != null)
                 {
-                    _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter);
+                    _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter, GetLassoTossDir());
                 }
                 break;
             case LassoState.TOSS:
@@ -806,6 +778,24 @@ public class PlayerController : MonoBehaviour
     void EndLassoRetractState()
     {
         UpdateLassoTransitionState(LassoState.NONE);
+    }
+
+    Vector3 GetLassoTossDir()
+    {
+
+        Vector3 playerViewport = Camera.main.WorldToViewportPoint(transform.position);
+        Vector3 cursorPosViewport = Camera.main.WorldToViewportPoint(_cursor.GetCursorRay().origin);
+        playerViewport.z = 0;
+        cursorPosViewport.z = 0;
+
+        Vector3 viewportDirection = (cursorPosViewport - playerViewport).normalized;
+        print("Cursor Pos: " + cursorPosViewport + " player Viewport " + playerViewport + " Dir in view " + viewportDirection);
+        Transform basis = _gravObject.characterOrientation;
+        Vector3 tossDir = basis.forward * viewportDirection.y + basis.right * viewportDirection.x;
+        tossDir = Vector3.ProjectOnPlane(tossDir, basis.up);
+        Debug.DrawLine(transform.position, Camera.main.ViewportToWorldPoint(cursorPosViewport), Color.magenta);
+        Debug.DrawRay(transform.position + transform.up * 3f, tossDir * 10f, Color.yellow);
+        return tossDir;
     }
 
     void EndLassoSwing(Vector3 endingVel)

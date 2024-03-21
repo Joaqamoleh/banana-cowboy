@@ -14,6 +14,8 @@ public class CameraHint : MonoBehaviour
     float orbitVerticalAngle = 45f;
     [SerializeField, Range(0f, 359f)]
     float orbitRotationAngle = 0f;
+    [SerializeField, Range(0f, 50f)]
+    float heightOffset = 0f;
 
     [SerializeField, Tooltip("Set this only if you want to override manual orbitRotationAngle")]
     Transform focusElement;
@@ -75,6 +77,11 @@ public class CameraHint : MonoBehaviour
             return transform;
         }
         return orientationBasis;
+    }
+
+    public float GetHeightOffset()
+    {
+        return heightOffset;
     }
 
     public int GetPriority()

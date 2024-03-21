@@ -7,6 +7,10 @@ public class LassoRenderer : MonoBehaviour
 
     [SerializeField]
     Transform hipJointPos, lassoHandJointPos;
+
+    [SerializeField]
+    GameObject lassoTossIndicator;
+
     [SerializeField]
     float hipMaxSway = 1.0f, hipRadius = 0.4f;
 
@@ -44,6 +48,7 @@ public class LassoRenderer : MonoBehaviour
     }
     private void Start()
     {
+        Debug.Assert(lassoTossIndicator != null);
     }
 
     public void StartRenderLasso()
@@ -94,6 +99,11 @@ public class LassoRenderer : MonoBehaviour
 
         if (t == 0)
         {
+            if (lassoTossIndicator.activeSelf)
+            {
+                lassoTossIndicator.SetActive(false);
+            }
+
             LoopAroundTarget(o, ref lassoLoopPositions);
             
             basis.LookAt(start, basis.up);
@@ -204,6 +214,14 @@ public class LassoRenderer : MonoBehaviour
     {
         if (lineRenderer == null || lineRenderer.positionCount == 0) { return; }
 
+        if (t == 0)
+        {
+            if (lassoTossIndicator.activeSelf)
+            {
+                lassoTossIndicator.SetActive(false);
+            }
+        }
+
         // Scrunches up the lasso based on length
         Vector3 loopCenterPos = o.GetLassoCenterPos();
 
@@ -235,10 +253,18 @@ public class LassoRenderer : MonoBehaviour
     /// <param name="t"></param> Here t ranges from [0, infinity)
     /// <param name="o"></param>
     /// <param name="lassoSwingCenter"></param>
-    public void RenderLassoHold(float t, LassoTossable o, Transform lassoSwingCenter)
+    public void RenderLassoHold(float t, LassoTossable o, Transform lassoSwingCenter, Vector3 predictedTossDirection)
     {
         if (lineRenderer == null || lineRenderer.positionCount == 0) { return; }
         Vector3 loopCenterPos = o.GetLassoCenterPos();
+
+        if (t == 0)
+        {
+            if (!lassoTossIndicator.activeSelf)
+            {
+                lassoTossIndicator.SetActive(true);
+            }
+        }
 
         Vector3 lassoLoopStartPos = Vector3.zero;
         LoopAroundTarget(o, ref lassoLoopPositions);
@@ -278,6 +304,8 @@ public class LassoRenderer : MonoBehaviour
             }
             lineRenderer.SetPosition(i, lassoLinePositions[i]);
         }
+        lassoTossIndicator.transform.position = loopCenterPos + predictedTossDirection * o.GetSwingRadius();
+        lassoTossIndicator.transform.rotation = Quaternion.LookRotation(predictedTossDirection, up);
 
         lastLoopCenterPos = loopCenterPos;
     }
@@ -290,6 +318,10 @@ public class LassoRenderer : MonoBehaviour
 
         if (t == 0)
         {
+            if (lassoTossIndicator.activeSelf)
+            {
+                lassoTossIndicator.SetActive(false);
+            }
             ResetLassoVelocities();
         }
 
@@ -343,6 +375,11 @@ public class LassoRenderer : MonoBehaviour
 
         if (t == 0)
         {
+
+            if (lassoTossIndicator.activeSelf)
+            {
+                lassoTossIndicator.SetActive(false);
+            }
             ResetLassoVelocities();
         }
 
@@ -375,6 +412,11 @@ public class LassoRenderer : MonoBehaviour
         // Loop lasso around joint of hip
         Vector3 loopTopPos = hipJointPos.position + hipJointPos.up * hipRadius;
         Vector3 loopCenterPos = hipJointPos.position;
+
+        if (lassoTossIndicator.activeSelf)
+        {
+            lassoTossIndicator.SetActive(false);
+        }
 
         // Use lastLoop center for an approximation of the speed we are moving at
         Vector3 swayVel = lastLoopCenterPos - loopCenterPos;
