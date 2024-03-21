@@ -212,7 +212,7 @@ public class SwingableObject : LassoObject
         }
     }
 
-    public void AttachToSwingable(Rigidbody attachedObject)
+    public void AttachToSwingable(Rigidbody attachedObject, Vector3 up)
     {
         currentArcPos = 0f;
         attachedBody = attachedObject;
@@ -220,9 +220,8 @@ public class SwingableObject : LassoObject
         lastPos = attachedBody.position;
         if (reorientSwing)
         {
-            Vector3 right = -Camera.main.transform.forward; // (attachedBody.position - transform.position).normalized;
-            Vector3 forward = Vector3.Cross(right, transform.up);
-            Vector3 up = Vector3.Cross(forward, right);
+            Vector3 right = Vector3.ProjectOnPlane((swingBasis.position - attachedBody.transform.position), up);
+            Vector3 forward = Vector3.Cross(up, right);
             swingBasis.rotation = Quaternion.LookRotation(forward, up);
         }
         if (Vector3.Distance(attachedBody.position, startPos) > 1.0f) {

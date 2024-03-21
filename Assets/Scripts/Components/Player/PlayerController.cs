@@ -549,7 +549,7 @@ public class PlayerController : MonoBehaviour
                     {
                         controlPlayerConnection.gameObject.SetActive(true);
                         swingable.SwingEnd += EndLassoSwing;
-                        swingable.AttachToSwingable(controlPlayerConnection);
+                        swingable.AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
                         UpdateState(State.SWING);
                     }
                     break;
@@ -790,9 +790,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 viewportDirection = (cursorPosViewport - playerViewport).normalized;
         print("Cursor Pos: " + cursorPosViewport + " player Viewport " + playerViewport + " Dir in view " + viewportDirection);
-        Transform basis = _gravObject.characterOrientation;
-        Vector3 tossDir = basis.forward * viewportDirection.y + basis.right * viewportDirection.x;
-        tossDir = Vector3.ProjectOnPlane(tossDir, basis.up);
+        Vector3 rightBasis = Vector3.ProjectOnPlane(Camera.main.transform.right, _gravObject.characterOrientation.up);
+        Vector3 forwardBasis = Vector3.ProjectOnPlane(Camera.main.transform.forward, _gravObject.characterOrientation.up);
+        Vector3 tossDir = forwardBasis * viewportDirection.y + rightBasis * viewportDirection.x;
+        tossDir = Vector3.ProjectOnPlane(tossDir, _gravObject.characterOrientation.up);
         Debug.DrawLine(transform.position, Camera.main.ViewportToWorldPoint(cursorPosViewport), Color.magenta);
         Debug.DrawRay(transform.position + transform.up * 3f, tossDir * 10f, Color.yellow);
         return tossDir;
