@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4228041902140543494}
+  - component: {fileID: 2867677377615342296}
   m_Layer: 0
   m_Name: Lasso Swing Center Pos
   m_TagString: Untagged
@@ -31,6 +32,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7838862824688470847}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2867677377615342296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699997825167069235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: LassoThrow
+    audioClip: {fileID: 8300000, guid: 5762e2dcb9e988b47aec3a1d82f939fc, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
+    type: 0
+    src: {fileID: 0}
+  - name: LassoSpin
+    audioClip: {fileID: 8300000, guid: e9fc70bb02b3cff428f166dbd3dd890b, type: 3}
+    alternatives: []
+    volume: 0.5
+    pitch: 0.8
+    pitchVariance: 0.1
+    loop: 1
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
+    type: 0
+    src: {fileID: 0}
+  - name: LassoWeakThrow
+    audioClip: {fileID: 8300000, guid: 56e0d700021f93c4c94164c1b7894936, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
+    type: 0
+    src: {fileID: 0}
+  - name: LassoMediumThrow
+    audioClip: {fileID: 8300000, guid: 16a936bd1c413de498e8ce7891f7c26a, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
+    type: 0
+    src: {fileID: 0}
+  - name: LassoStrongThrow
+    audioClip: {fileID: 8300000, guid: 63a1059ea6423bd47b14ce9e51f41730, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
+    type: 0
+    src: {fileID: 0}
 --- !u!1 &928329164210492016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1546,7 @@ GameObject:
   - component: {fileID: 8476664753565799702}
   - component: {fileID: 1268935481823884108}
   - component: {fileID: 8227121646547314032}
+  - component: {fileID: 6084915205613949158}
   m_Layer: 14
   m_Name: Player Prefab
   m_TagString: Player
@@ -1670,63 +1740,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe4ad4cec9ec1342935d3367393406a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lassoSfxs:
-  - name: LassoThrow
-    audioClip: {fileID: 8300000, guid: 5762e2dcb9e988b47aec3a1d82f939fc, type: 3}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  - name: LassoSpin
-    audioClip: {fileID: 8300000, guid: e9fc70bb02b3cff428f166dbd3dd890b, type: 3}
-    alternatives: []
-    volume: 0.5
-    pitch: 0.8
-    pitchVariance: 0.1
-    loop: 1
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  - name: LassoWeakThrow
-    audioClip: {fileID: 8300000, guid: 56e0d700021f93c4c94164c1b7894936, type: 3}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  - name: LassoMediumThrow
-    audioClip: {fileID: 8300000, guid: 16a936bd1c413de498e8ce7891f7c26a, type: 3}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  - name: LassoStrongThrow
-    audioClip: {fileID: 8300000, guid: 63a1059ea6423bd47b14ce9e51f41730, type: 3}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  playerSfxs:
+  lassoSFXPlayer: {fileID: 2867677377615342296}
+  playerSFXPlayer: {fileID: 6084915205613949158}
+--- !u!114 &6084915205613949158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879603049845090681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
   - name: PlayerWalk
     audioClip: {fileID: 8300000, guid: b401237eb46fbd14e8b98bae92b2b234, type: 3}
     alternatives: []
@@ -1734,8 +1762,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 1
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
     type: 0
     src: {fileID: 0}
   - name: PlayerRun
@@ -1745,8 +1773,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 1
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
     type: 0
     src: {fileID: 0}
   - name: PlayerJump
@@ -1756,8 +1784,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
     type: 0
     src: {fileID: 0}
   - name: PlayerLand
@@ -1767,8 +1795,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
     type: 0
     src: {fileID: 0}
   - name: PlayerHurt
@@ -1778,8 +1806,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
     type: 0
     src: {fileID: 0}
   - name: PlayerDeath
@@ -1789,8 +1817,8 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
+    isSpatial: 1
+    spatialSoundTravelDistance: 100
     type: 0
     src: {fileID: 0}
 --- !u!1 &4128062965984371809

@@ -6,20 +6,10 @@ using UnityEngine;
 public class PlayerSoundController : MonoBehaviour
 {
     [SerializeField]
-    Sound[] lassoSfxs, playerSfxs;
-
-    List<Sound> _loopedSounds = new List<Sound>();
+    SoundPlayer lassoSFXPlayer, playerSFXPlayer;
 
     private void Start()
     {
-        foreach (Sound s in lassoSfxs)
-        {
-            SetupSFX(s);
-        }
-        foreach (Sound s in playerSfxs)
-        { 
-            SetupSFX(s); 
-        }
         PlayerController pc = GetComponent<PlayerController>();
         pc.OnJumpPressed += PlayerJump;
         pc.OnLeftGround += PlayerLeftGround;
@@ -29,55 +19,31 @@ public class PlayerSoundController : MonoBehaviour
         pc.OnLassoTossed += LassoToss;
         GetComponent<Health>().OnDamaged += PlayerDamaged;
     }
-
-    private void Update()
-    {
-        foreach (Sound s in _loopedSounds)
-        {
-            if (!s.src.isPlaying)
-            {
-                s.src.volume = s.volume * SoundManager.Instance().SFXVolume;
-                s.src.pitch = s.pitch + UnityEngine.Random.Range(0.0f, s.pitchVariance);
-                s.src.Play();
-            }
-        }
-    }
-
-    void SetupSFX(Sound s)
-    {
-        s.src = gameObject.AddComponent<AudioSource>();
-        s.src.spatialBlend = 0.5f;
-        s.src.clip = s.audioClip;
-        s.src.volume = s.volume * SoundManager.Instance().SFXVolume;
-        s.src.pitch = s.pitch;
-        s.type = Sound.Type.SFX;
-    }
-
     void PlayerJump()
     {
-        PlaySFX("PlayerJump", playerSfxs);
+        playerSFXPlayer.PlaySFX("PlayerJump");
     }
 
     void PlayerLeftGround()
     {
-        StopSFX("PlayerWalk", playerSfxs);
-        StopSFX("PlayerRun", playerSfxs);
+        playerSFXPlayer.StopSFX("PlayerWalk");
+        playerSFXPlayer.StopSFX("PlayerRun");
     }
 
     void PlayerLanded(Rigidbody hitGround)
     {
-        PlaySFX("PlayerLand", playerSfxs);
+        playerSFXPlayer.PlaySFX("PlayerLand");
     }
 
     void PlayerDamaged(int damage, bool hasDied)
     {
         if (hasDied)
         {
-            PlaySFX("PlayerDeath", playerSfxs);
+            playerSFXPlayer.PlaySFX("PlayerDeath");
         }
         else
         {
-            PlaySFX("PlayerHurt", playerSfxs);
+            playerSFXPlayer.PlaySFX("PlayerHurt");
         }
     }
 
@@ -85,15 +51,15 @@ public class PlayerSoundController : MonoBehaviour
     {
         if (strength == LassoTossable.TossStrength.WEAK)
         {
-            PlaySFX("LassoWeakThrow", lassoSfxs);
+            lassoSFXPlayer.PlaySFX("LassoWeakThrow");
         }
         else if (strength == LassoTossable.TossStrength.MEDIUM)
         {
-            PlaySFX("LassoMediumThrow", lassoSfxs);
+            lassoSFXPlayer.PlaySFX("LassoMediumThrow");
         }
         else
         {
-            PlaySFX("LassoStrongThrow", lassoSfxs);
+            lassoSFXPlayer.PlaySFX("LassoStrongThrow");
         }
     }
 
@@ -103,16 +69,16 @@ public class PlayerSoundController : MonoBehaviour
         {
             default:
             case PlayerController.State.IDLE:
-                StopSFX("PlayerRun", playerSfxs);
-                StopSFX("PlayerWalk", playerSfxs);
+                playerSFXPlayer.StopSFX("PlayerRun");
+                playerSFXPlayer.StopSFX("PlayerWalk");
                 break;
             case PlayerController.State.WALK:
-                PlaySFX("PlayerWalk", playerSfxs);
-                StopSFX("PlayerRun", playerSfxs);
+                playerSFXPlayer.PlaySFX("PlayerWalk");
+                playerSFXPlayer.StopSFX("PlayerRun");
                 break;
             case PlayerController.State.RUN:
-                PlaySFX("PlayerRun", playerSfxs);
-                StopSFX("PlayerWalk", playerSfxs);
+                playerSFXPlayer.PlaySFX("PlayerRun");
+                playerSFXPlayer.StopSFX("PlayerWalk");
                 break;
 
         }
@@ -123,54 +89,17 @@ public class PlayerSoundController : MonoBehaviour
         {
             default:
             case PlayerController.LassoState.NONE:
-                StopSFX("LassoThrow", lassoSfxs);
-                StopSFX("LassoSpin", lassoSfxs);
+                lassoSFXPlayer.StopSFX("LassoThrow");
+                lassoSFXPlayer.StopSFX("LassoSpin");
                 break;
             case PlayerController.LassoState.PULL:
                 break;
             case PlayerController.LassoState.THROWN:
-                PlaySFX("LassoThrow", lassoSfxs);
+                lassoSFXPlayer.PlaySFX("LassoThrow");
                 break;
             case PlayerController.LassoState.HOLD:
-                PlaySFX("LassoSpin", lassoSfxs);
+                lassoSFXPlayer.PlaySFX("LassoSpin");
                 break;
-        }
-    }
-
-    void PlaySFX(string name, Sound[] sfxs)
-    {
-        Sound s = Array.Find(sfxs, sound => sound.name == name);
-        if (s == null) { return; }
-        if (!s.src.isPlaying && !PauseManager.pauseActive)
-        {
-            if (s.loop)
-            {
-                if (Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) == null)
-                {
-                    _loopedSounds.Add(s);
-                }
-            }
-            else
-            { 
-                s.src.Play();
-            }
-        }
-    } 
-
-    void StopSFX(string name, Sound[] sfxs)
-    {
-        Sound s = Array.Find(sfxs, sound => sound.name == name);
-        if (s == null) { return; }
-        if (s.loop)
-        {
-            if (Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) != null)
-            {
-                _loopedSounds.Remove(s);
-            }
-        }
-        else if (s.src.isPlaying)
-        {
-            s.src.Stop();
         }
     }
 

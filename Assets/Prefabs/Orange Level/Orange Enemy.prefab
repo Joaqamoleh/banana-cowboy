@@ -5140,6 +5140,7 @@ GameObject:
   - component: {fileID: 3675883070228383731}
   - component: {fileID: 3188572568210389809}
   - component: {fileID: 8344437055072087473}
+  - component: {fileID: 8230600501850292376}
   m_Layer: 8
   m_Name: Orange Enemy
   m_TagString: Enemy
@@ -5279,6 +5280,63 @@ MonoBehaviour:
   partner: {fileID: 0}
   playerInView: 0
   orangeEnemyAnimator: {fileID: 3427894436404194328}
+--- !u!114 &8230600501850292376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6463939426268983136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: RevUp
+    audioClip: {fileID: 8300000, guid: 42a6d270fe780f147af57800bf27906d, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
+  - name: Charge
+    audioClip: {fileID: 8300000, guid: 476a0f8d507590d41803460c74053a09, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
+  - name: Dizzy
+    audioClip: {fileID: 8300000, guid: 61017e58d5e4ad94cbbfa379e5b4a852, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
+  - name: HitObstacle
+    audioClip: {fileID: 8300000, guid: 624888070d817e34882657d9d1ece3fa, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
 --- !u!1 &6791260704200328076
 GameObject:
   m_ObjectHideFlags: 0

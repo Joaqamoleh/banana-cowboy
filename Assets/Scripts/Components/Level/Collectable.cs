@@ -25,6 +25,8 @@ public class Collectable : MonoBehaviour
     public SOURCE locationCameFrom;
     private bool pickedUp = false;
     private Vector3 positionKey;
+    private SoundPlayer _sp;
+
     private void Awake()
     {
         if (SOURCE.ENEMY != locationCameFrom)
@@ -46,15 +48,19 @@ public class Collectable : MonoBehaviour
                 transform.parent.parent.GetComponentInChildren<ParticleSystem>().Stop();
             }
         }
+        _sp = GetComponent<SoundPlayer>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            if (_sp != null)
+            {
+                _sp.PlaySFX("Collect");
+            }
             if (TYPE.STAR == typeOfCollectable)
             {
-                SoundManager.Instance().PlaySFX("CollectStarSparkle");
                 LevelData.starSparkleTemp++;
                 UIManager.UpdateStars();
             }

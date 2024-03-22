@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5108845038340323126}
   - component: {fileID: 7334036302493537079}
   - component: {fileID: 1691947752944527194}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4900,7 +4900,7 @@ GameObject:
   - component: {fileID: 6616977833463692139}
   - component: {fileID: 6670315554537529910}
   - component: {fileID: 1550509287703614915}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Star Sparkle Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5036,6 +5036,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: star_fruit
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1d7d59da81121ec4eb14605d815dfab1, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040542448765327740, guid: 1d7d59da81121ec4eb14605d815dfab1, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5046,6 +5054,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2040542448765327740, guid: 1d7d59da81121ec4eb14605d815dfab1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7742490149247759710}
+    - targetCorrespondingSourceObject: {fileID: 2040542448765327740, guid: 1d7d59da81121ec4eb14605d815dfab1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7528088130130649947}
   m_SourcePrefab: {fileID: 100100000, guid: 1d7d59da81121ec4eb14605d815dfab1, type: 3}
 --- !u!1 &2948382733631995005 stripped
 GameObject:
@@ -5087,6 +5098,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfCollectable: 0
   locationCameFrom: 1
+--- !u!114 &7528088130130649947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948382733631995005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Collect
+    audioClip: {fileID: 8300000, guid: d6abe08ebed2fb34d9ed5b5f5476ca92, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    isSpatial: 1
+    spatialSoundTravelDistance: 40
+    type: 0
+    src: {fileID: 0}
 --- !u!4 &3688744479192875754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d7d59da81121ec4eb14605d815dfab1, type: 3}

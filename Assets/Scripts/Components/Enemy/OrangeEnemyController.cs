@@ -34,8 +34,11 @@ public class OrangeEnemyController : EnemyController
     public OrangeSubStates subState;
     public GameObject[] destinationPoints = null;
 
+
+
     [SerializeField]
     Transform _model = null;
+    SoundPlayer _soundPlayer = null;
 
     public GameObject body;
 
@@ -86,6 +89,8 @@ public class OrangeEnemyController : EnemyController
         }*/
         UpdateAnimState();
         _distanceFromPartner = Mathf.Pow(_distanceFromPartner, 2);
+        _soundPlayer = GetComponent<SoundPlayer>();
+        Debug.Assert(_soundPlayer != null);
     }
 
     void FixedUpdate()
@@ -155,17 +160,21 @@ public class OrangeEnemyController : EnemyController
                     break;
                 case OrangeState.REV_UP:
                     _chargeStartPoint = transform.position;
-                    SoundManager.Instance().PlaySFX("OrangeRevUp");
+                    _soundPlayer.PlaySFX("RevUp");
+                    //SoundManager.Instance().PlaySFX("OrangeRevUp");
                     Invoke("EndRevUp", timeToBeginCharge);
                     break;
                 case OrangeState.CHARGE:
-                    SoundManager.Instance().StopSFX("OrangeRevUp");
-                    SoundManager.Instance().PlaySFX("OrangeCharge");
+                    _soundPlayer.StopSFX("RevUp");
+                    _soundPlayer.PlaySFX("Charge");
+                    //SoundManager.Instance().StopSFX("OrangeRevUp");
+                    //SoundManager.Instance().PlaySFX("OrangeCharge");
                     Invoke("EndCharge", timeSpentCharging);
                     break;
                 case OrangeState.DIZZY:
                     GetComponent<Rigidbody>().velocity = Vector3.zero + _gravObject.GetFallingVelocity();
-                    SoundManager.Instance().PlaySFX("OrangeDizzy");
+                    //SoundManager.Instance().PlaySFX("OrangeDizzy");
+                    _soundPlayer.PlaySFX("Dizzy");
                     GetComponentInChildren<ParticleSystem>().Play();
                     Invoke("EndDizzy", dizzyTime);
                     break;
@@ -175,7 +184,8 @@ public class OrangeEnemyController : EnemyController
                 case OrangeState.THROWN:
                     break;
                 case OrangeState.HELD:
-                    SoundManager.Instance().StopSFX("OrangeDizzy");
+                    //SoundManager.Instance().StopSFX("OrangeDizzy");
+                    _soundPlayer.StopSFX("Dizzy");
                     GetComponentInChildren<ParticleSystem>().Stop();
                     break;
             }
@@ -334,7 +344,8 @@ public class OrangeEnemyController : EnemyController
     {
         if (_state != OrangeState.DIZZY) { return; }
 
-        SoundManager.Instance().StopSFX("OrangeDizzy");
+        //SoundManager.Instance().StopSFX("OrangeDizzy");
+        _soundPlayer.StopSFX("Dizzy");
         if (playerInView)
         {
             UpdateState(OrangeState.PLAYER_SPOTTED);
@@ -353,8 +364,10 @@ public class OrangeEnemyController : EnemyController
             if (collision.gameObject.GetComponent<Obstacle>() != null && _state != OrangeState.THROWN && _state != OrangeState.REV_UP && _state == OrangeState.CHARGE)
             {
                 collision.gameObject.GetComponent<Obstacle>().Hit();
-                SoundManager.Instance().StopSFX("OrangeCharge");
-                SoundManager.Instance().PlaySFX("OrangeHitWall");
+                _soundPlayer.StopSFX("Charge");
+                _soundPlayer.PlaySFX("HitObstacle");
+                //SoundManager.Instance().StopSFX("OrangeCharge");
+                //SoundManager.Instance().PlaySFX("OrangeHitWall");
                 UpdateState(OrangeState.DIZZY);
             }
 /*            else if (collision.gameObject.GetComponent<Obstacle>() != null && _state == OrangeState.DIZZY)
