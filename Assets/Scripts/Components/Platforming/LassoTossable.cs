@@ -8,7 +8,7 @@ public class LassoTossable : LassoObject
 {
 
     [SerializeField]
-    float swingHeight = 5f, swingRadius = 4f, swingSpeed = 1f, tossForwardForce = 25f, tossUpForce = 10f, tossWeakMult = 0.3f, tossMedMult = 0.7f, tossStrongMult = 1.0f;
+    float swingHeight = 5f, swingRadius = 4f, swingSpeed = 1f, tossForwardForce = 25f, tossUpForce = 10f, tossWeakMult = 0.5f, tossMedMult = 0.7f, tossStrongMult = 1.0f;
     // Swing Height is the height above the lassoHandPos which the swing happens
     // The others are pretty obvious
     [SerializeField]

@@ -277,6 +277,7 @@ public class OrangeBoss : MonoBehaviour
     {
         yield return new WaitForSeconds(peelCooldown);
         modelAnimator.SetTrigger("Peel Reset");
+        HideWeakSpots();
         foreach (string temp in resetAnimations)
         {
             modelAnimator.SetTrigger(temp);
