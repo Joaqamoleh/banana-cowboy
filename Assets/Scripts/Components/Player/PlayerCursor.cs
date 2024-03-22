@@ -193,7 +193,7 @@ public class PlayerCursor : MonoBehaviour
 
         Ray mouseRay = Camera.main.ScreenPointToRay(currentCursorPos);
         RaycastHit hit;
-        if (Physics.Raycast(mouseRay, out hit, 100f, lassoLayerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(mouseRay, out hit, 100f, lassoLayerMask, QueryTriggerInteraction.Collide))
         {
             return hit.collider.gameObject.GetComponentInParent<LassoObject>(); 
         } 
