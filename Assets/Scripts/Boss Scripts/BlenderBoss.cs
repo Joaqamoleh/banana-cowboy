@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,7 +31,7 @@ public class BlenderBoss : MonoBehaviour
     private GameObject[] indicatorSpawnObject; // spawn indicator images
     public GameObject splatEffect;
 
-    public GameObject[] spawnPoints;
+    private GameObject[] spawnPoints;
     public GameObject[] minions;
     public GameObject[] cherrySpawnPoints;
     public GameObject cherryBomb;
@@ -69,6 +70,8 @@ public class BlenderBoss : MonoBehaviour
     private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
     public Coroutine currentDialog;
 
+    [Header("Material")]
+    public Material orangeSpawn;
     public enum BossStates
     {
         IDLE, JUICE, BLADE, BOMB, SPAWN, COOLDOWN, NONE
@@ -81,7 +84,7 @@ public class BlenderBoss : MonoBehaviour
         //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = -1;
+        currMove = 3;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
@@ -168,7 +171,9 @@ public class BlenderBoss : MonoBehaviour
 
     IEnumerator BladeSpin()
     {
-        GameObject blade = Instantiate(blenderBlade);
+        Vector3 positionSpawned = platform.position;
+        positionSpawned.y += 5;
+        GameObject blade = Instantiate(blenderBlade, positionSpawned, Quaternion.identity);
         yield return new WaitForSeconds(move2Cooldown); // TODO: make it shrink before destroying
         StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
     }
@@ -186,10 +191,10 @@ public class BlenderBoss : MonoBehaviour
         {
             for (int i = 0; i < 3 * _currentPhase; i++)
             {
-                Vector3 minBounds = platform.position - new Vector3(26, 0f, 26);
-                Vector3 maxBounds = platform.position + new Vector3(26, 0f, 26);
+                Vector3 minBounds = platform.position - new Vector3(27, 0f, 32);
+                Vector3 maxBounds = platform.position + new Vector3(27, 0f, 32);
 
-                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), bombIndicator.transform.position.y, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
+                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), platform.transform.position.y + 3, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
 
                 indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
                 bombSpawnPos[i] = spawnPosition;
@@ -226,18 +231,28 @@ public class BlenderBoss : MonoBehaviour
 
     void SpawnEnemies()
     {
-        for (int i = 0; i < spawnPoints.Length; i++) // add two more spawn points for phase 2
+        /*for (int i = 0; i < spawnPoints.Length; i++) // add two more spawn points for phase 2
         {
             Vector3 spawnPosition = spawnPoints[i].transform.position;
             Instantiate(minions[0], spawnPosition, spawnPoints[i].transform.rotation);
+        }*/
+        spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
+        foreach (GameObject point in spawnPoints)
+        {
+            point.SetActive(false);
+            GameObject minionInstance = Instantiate(minions[0], point.transform.position, Quaternion.identity);
+            Vector3 directionToMiddle = Vector3.zero - minionInstance.transform.position;
+            Quaternion rotationToMiddle = Quaternion.LookRotation(directionToMiddle, Vector3.up);
+            minionInstance.transform.rotation = rotationToMiddle;
         }
-        if (_currentPhase == 2)
+
+        /*if (_currentPhase == 2)
         {
             for (int i = 0; i < cherrySpawnPoints.Length; i++)
             {
                 Instantiate(cherryBomb, cherrySpawnPoints[i].transform.position, cherrySpawnPoints[i].transform.rotation);
             }
-        }
+        }*/
         cooldownTimer = move4Cooldown;
         state = BossStates.COOLDOWN;
     }

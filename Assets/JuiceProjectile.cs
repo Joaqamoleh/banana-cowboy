@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class JuiceProjectile : MonoBehaviour
 {
-    public BlenderBoss blenderBoss;
+    private BlenderBoss blenderBoss;
     public Vector3 defaultScale;
     //    public float flatKnockback;
 
     private void OnEnable()
     {
-        defaultScale = new Vector3(0.5f, 1, 7.65f);
-        blenderBoss = GameObject.Find("BlenderBoss").GetComponent<BlenderBoss>();
+        defaultScale = new Vector3(1, 1, 1);
+        blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>(); 
         StartCoroutine(JuiceBlast());
     }
 
     IEnumerator JuiceBlast()
     {
         transform.localScale = defaultScale;
-        transform.localPosition = new Vector3(0, 0, -4);
+        transform.localPosition = new Vector3(0, -15.5f, 0);
 
         Vector3 targetScale = Vector3.zero; // Target scale is Vector3.zero for complete disappearance
         Vector3 initialScale = transform.localScale;
@@ -32,11 +32,8 @@ public class JuiceProjectile : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / blastDuration);
 
-            // Interpolate scale and position
             transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
             transform.localScale = new Vector3(defaultScale.x, transform.localScale.y, defaultScale.z);
-            /*        transform.position = Vector3.Lerp(initialPosition, initialPosition - new Vector3(0, initialScale.y, 0), t);
-            */
             yield return null;
         }
 

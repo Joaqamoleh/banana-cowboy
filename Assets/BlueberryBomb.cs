@@ -6,12 +6,12 @@ public class BlueberryBomb : MonoBehaviour
 {
     public float speed;
     public int pos; // What position in indicatorSpawnObject in BlenderBoss.cs
-    public BlenderBoss blenderBoss;
+    private BlenderBoss blenderBoss;
     public GameObject deathJuiceEffect;
 
     private void Start()
     {
-        blenderBoss = GameObject.Find("BlenderBoss").GetComponent<BlenderBoss>();
+        blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
     }
 
     private void Update()
