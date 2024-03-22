@@ -74,6 +74,7 @@ public class SoundPlayer : MonoBehaviour
             else
             {
                 s.src.Play();
+                print("Playing sfx " + s.name);
             }
         }
     }

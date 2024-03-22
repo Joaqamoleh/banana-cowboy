@@ -69,16 +69,17 @@ public class Collectable : MonoBehaviour
                 other.GetComponentInParent<Health>().Damage(-1, Vector3.zero);
             }
 
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
             if (SOURCE.ENEMY == locationCameFrom)
             {
                 transform.root.GetComponentInChildren<ParticleSystem>().Stop();
-                Destroy(transform.root.gameObject);
+
+                Invoke("KillMe", 1.0f);
             }
             else if (SOURCE.LEVEL == locationCameFrom)
             {
                 pickedUp = true;
-                GetComponent<Renderer>().enabled = false;
-                GetComponent<Collider>().enabled = false;
                 if (LevelData.starSparkleObjectTemp != null && LevelData.starSparkleObjectTemp.ContainsKey(positionKey))
                 {
                     LevelData.starSparkleObjectTemp[positionKey] = true;
@@ -87,5 +88,10 @@ public class Collectable : MonoBehaviour
                 transform.parent.parent.GetComponentInChildren<ParticleSystem>().Stop();
             }
         }
+    }
+
+    void KillMe()
+    {
+        Destroy(transform.root.gameObject);
     }
 }
