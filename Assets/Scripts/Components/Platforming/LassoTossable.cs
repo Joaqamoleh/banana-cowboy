@@ -88,7 +88,7 @@ public class LassoTossable : LassoObject
                     mult = tossStrongMult;
                     break;
             }
-            _rigidbody.AddForce(dir * tossForwardForce + relativeUp * tossUpForce, ForceMode.Impulse);
+            _rigidbody.AddForce((dir * tossForwardForce + relativeUp * tossUpForce) * mult, ForceMode.Impulse);
             tossed = true;
             isLassoable = !oneTimeThrow;
             currentlyLassoed = false;
