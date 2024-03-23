@@ -49,6 +49,7 @@ public class BlenderBoss : MonoBehaviour
     public Animator playerAnimator;
 
     public GameObject origin;
+    public GameObject originSpawningEnemies;
     public GameObject player;
     public GameObject playerModel;
     public GameObject playerWinLocation;
@@ -84,13 +85,13 @@ public class BlenderBoss : MonoBehaviour
         //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 1;
+        currMove = 0;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
         bombSpawnPos = new Vector3[6];
         indicatorSpawnObject = new GameObject[6];
-        // healthHolder.SetActive(true);
+        healthHolder.SetActive(true);
     }
 
     void CutsceneEnd(CutsceneObject o)
@@ -107,6 +108,7 @@ public class BlenderBoss : MonoBehaviour
         juiceProjectileCount = 0;
         juiceProjectile.SetActive(false);
         moveToPosition = true;
+        StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         StartCoroutine(JuiceJam(positions[juiceProjectileCount].transform.position));
     }
 
@@ -236,6 +238,7 @@ public class BlenderBoss : MonoBehaviour
             Vector3 spawnPosition = spawnPoints[i].transform.position;
             Instantiate(minions[0], spawnPosition, spawnPoints[i].transform.rotation);
         }*/
+        StartCoroutine(MoveToPosition(transform.position, originSpawningEnemies.transform.position));
         spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
         foreach (GameObject point in spawnPoints)
         {
@@ -359,10 +362,7 @@ public class BlenderBoss : MonoBehaviour
     {
         //SoundManager.Instance().PlaySFX("BossHurt");
         health -= dmg;
-        if (health == maxHealth - 1 || health == maxHealth - 2)
-        {
-            PlayDialogue("Ha! You got lucky, punk! But don't think it's gonna be that easy!", false);
-        }
+
         healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
         healthUI.fillAmount = health / (1.0f * maxHealth);
         StartCoroutine(FlashDamage());
@@ -375,7 +375,7 @@ public class BlenderBoss : MonoBehaviour
             PlayDialogue("Ouch! Right in the juice box! You got some skills, but I'm not going down that easy!", false);
             ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
         }
-        if (health <= 0)
+/*        if (health <= 0)
         {
 
             // play cutscene
@@ -395,7 +395,7 @@ public class BlenderBoss : MonoBehaviour
             // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
             // LevelSwitch.ChangeScene("Menu");
             CutsceneManager.Instance().OnCutsceneEnd += FinalCutsceneEnd;
-        }
+        }*/
     }
 
     void FinalCutsceneEnd(CutsceneObject o)
