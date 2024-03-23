@@ -788,13 +788,16 @@ public class PlayerController : MonoBehaviour
         playerViewport.z = 0;
         cursorPosViewport.z = 0;
 
-        Vector3 viewportDirection = (cursorPosViewport - playerViewport).normalized;
-        print("Cursor Pos: " + cursorPosViewport + " player Viewport " + playerViewport + " Dir in view " + viewportDirection);
+        Vector3 viewportDirection = (cursorPosViewport - playerViewport);
+        float vertScale = ((cursorPosViewport.y - 0.65f) / ((1.0f - 0.65f) * 2f));
+        if (viewportDirection.y < 0)
+        {
+            vertScale = ((0.2f - cursorPosViewport.y) / 0.8f);
+        }
         Vector3 rightBasis = Vector3.ProjectOnPlane(Camera.main.transform.right, _gravObject.characterOrientation.up);
         Vector3 forwardBasis = Vector3.ProjectOnPlane(Camera.main.transform.forward, _gravObject.characterOrientation.up);
         Vector3 tossDir = forwardBasis * viewportDirection.y + rightBasis * viewportDirection.x;
-        tossDir = Vector3.ProjectOnPlane(tossDir, _gravObject.characterOrientation.up);
-        tossDir = Vector3.Lerp(tossDir, _gravObject.characterOrientation.up, Mathf.Clamp(Mathf.Abs(viewportDirection.y), 0.0f, 0.5f));
+        tossDir = Vector3.Lerp(tossDir, _gravObject.characterOrientation.up, Mathf.Clamp(vertScale, 0.0f, 0.5f));
         tossDir.Normalize();
         Debug.DrawLine(transform.position, Camera.main.ViewportToWorldPoint(cursorPosViewport), Color.magenta);
         Debug.DrawRay(transform.position + transform.up * 3f, tossDir * 10f, Color.yellow);

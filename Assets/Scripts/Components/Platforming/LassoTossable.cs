@@ -90,7 +90,6 @@ public class LassoTossable : LassoObject
             }
             _rigidbody.AddForce((dir * tossForwardForce + relativeUp * tossUpForce) * mult, ForceMode.Impulse);
             tossed = true;
-            isLassoable = !oneTimeThrow;
             currentlyLassoed = false;
             OnTossableTossed?.Invoke(this, dir, relativeUp, strength);
         }
@@ -117,6 +116,10 @@ public class LassoTossable : LassoObject
 
     private void OnCollisionEnter(Collision collision)
     {
-        tossed = false;
+        if (tossed)
+        {
+            isLassoable = !oneTimeThrow;
+            tossed = false;
+        }
     }
 }
