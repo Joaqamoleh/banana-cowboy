@@ -11,7 +11,7 @@ public class JuiceProjectile : MonoBehaviour
 
     private void OnEnable()
     {
-        defaultScale = new Vector3(1, 1, 1);
+        defaultScale = new Vector3(0.6f, 1, 1);
         blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>(); 
         StartCoroutine(JuiceBlast());
     }
@@ -19,12 +19,12 @@ public class JuiceProjectile : MonoBehaviour
     IEnumerator JuiceBlast()
     {
         transform.localScale = defaultScale;
-        transform.localPosition = new Vector3(0, -15.5f, 0);
+        transform.localPosition = new Vector3(0, 14.1800003f, -6);
 
         Vector3 targetScale = Vector3.zero; // Target scale is Vector3.zero for complete disappearance
         Vector3 initialScale = transform.localScale;
         Vector3 initialPosition = transform.position;
-        float blastDuration = 2.0f; // Adjust duration of blast as needed
+        float blastDuration = 5.0f; // Adjust duration of blast as needed
         float elapsedTime = 0f;
 
         while (elapsedTime < blastDuration && !blenderBoss.doneMoving)
