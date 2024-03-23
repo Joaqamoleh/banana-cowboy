@@ -41,7 +41,7 @@ public class BlenderBlade : MonoBehaviour
         {
             newSize = currentSize < 10? currentSize + minGrowthRate * Time.deltaTime : currentSize + growthRate * Time.deltaTime;
             newSize = Mathf.Min(newSize, maxSize); // Clamp the size to maxSize
-            transform.localScale = new Vector3(newSize, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
             currentSize = newSize;
             yield return null;
         }
@@ -65,11 +65,11 @@ public class BlenderBlade : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+    /*    private void OnTriggerEnter(Collider other)
         {
-            other.GetComponentInParent<Health>().Damage(1, flatKnockback * ((transform.position - other.transform.position).normalized + Vector3.up));
-        }
-    }
+            if (other.CompareTag("Player"))
+            {
+                other.GetComponentInParent<Health>().Damage(1, flatKnockback * ((transform.position - other.transform.position).normalized + Vector3.up));
+            }
+        }*/
 }

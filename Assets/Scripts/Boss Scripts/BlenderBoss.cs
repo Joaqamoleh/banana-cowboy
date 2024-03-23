@@ -84,7 +84,7 @@ public class BlenderBoss : MonoBehaviour
         //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 3;
+        currMove = 1;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
@@ -241,6 +241,7 @@ public class BlenderBoss : MonoBehaviour
         {
             point.SetActive(false);
             GameObject minionInstance = Instantiate(minions[0], point.transform.position, Quaternion.identity);
+            minionInstance.transform.GetChild(0).GetComponent<Renderer>().material = orangeSpawn;
             Vector3 directionToMiddle = Vector3.zero - minionInstance.transform.position;
             Quaternion rotationToMiddle = Quaternion.LookRotation(directionToMiddle, Vector3.up);
             minionInstance.transform.rotation = rotationToMiddle;
