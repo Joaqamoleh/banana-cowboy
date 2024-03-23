@@ -233,9 +233,9 @@ public class SwingableObject : LassoObject
 
     public Vector3 EndSwing()
     {
-        float t = Mathf.Clamp(currentArcPos / approximateArcLength, 0f, 1f);
+        float t = Mathf.Clamp((currentArcPos + 0.01f * currentSwingSpeed) / approximateArcLength, 0f, 1f);
 
-        Vector3 velocity = (GetSwingPosition(GetThetaGammaRadius(t)) - lastPos).normalized * currentSwingSpeed * swingMult;
+        Vector3 velocity = (GetSwingPosition(GetThetaGammaRadius(t)) - lastPos).normalized * Mathf.Abs(currentSwingSpeed);
         attachedBody = null;
         return velocity * endingSwingMultForce;
     }
