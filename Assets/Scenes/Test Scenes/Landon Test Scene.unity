@@ -2241,6 +2241,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1735498534}
+    - target: {fileID: 260809472872354011, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: timeToRetract
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 960174554081978571, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -2318,12 +2322,20 @@ PrefabInstance:
       value: Player Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: orbitRadius
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cameraFocus
       value: 
       objectReference: {fileID: 229054215}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cameraCurrent
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: orbitMinRadius
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _reorientDistance
@@ -2352,6 +2364,18 @@ PrefabInstance:
     - target: {fileID: 6200573083992608338, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679435369522281677, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: numHipLoops
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679435369522281677, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: smoothSpeed
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679435369522281677, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: loopWiggleSpeed
+      value: 10.04
       objectReference: {fileID: 0}
     - target: {fileID: 7679435369522281677, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: numberOfLineSegments
@@ -2952,7 +2976,7 @@ MonoBehaviour:
   appoximateLassoRadius: 2
   swingHeight: 6.11
   swingRadius: 4
-  swingSpeed: 5.28
+  swingSpeed: 4
   tossForwardForce: 25
   tossUpForce: 10
   tossWeakMult: 0.3

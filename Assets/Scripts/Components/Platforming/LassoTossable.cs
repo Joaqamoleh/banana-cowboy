@@ -64,8 +64,8 @@ public class LassoTossable : LassoObject
         transform.position = Vector3.SmoothDamp(transform.position, 
             lassoHandPos.position 
             + lassoHandPos.up * swingHeight
-            + lassoHandPos.right * swingRadius * Mathf.Sin(t * swingSpeed)
-            + lassoHandPos.forward * swingRadius * Mathf.Cos(t * swingSpeed), ref _swingVel, 0.1f);
+            + lassoHandPos.right * swingRadius * Mathf.Sin(-t * swingSpeed)
+            + lassoHandPos.forward * swingRadius * Mathf.Cos(-t * swingSpeed), ref _swingVel, 0.1f);
     }
     
     public void TossInDirection(Vector3 dir, Vector3 relativeUp, TossStrength strength)

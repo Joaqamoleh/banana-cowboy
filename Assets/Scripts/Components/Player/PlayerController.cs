@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.MPE;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -90,9 +91,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Min(0f)]
     float lassoThrowSpeed = 12.5f, timeToPullTarget = 0.4f, timeToToss = 0.1f, timeToRetract = 1.0f, lassoTossMinigameSpeed = 3f;
 
-    private bool _hasStartedTransition = false; // This initializes a transition. When set to false, will perform the initial action for the transition.
-    private float _lassoParamAccumTime = 0f, _lassoParamMaxTime = 0f;
     private LassoObject _hoveredObject = null, _lassoObject = null;
+    private float lassoCurTime, lassoMaxTime;
 
     private void Awake()
     {
@@ -130,7 +130,6 @@ public class PlayerController : MonoBehaviour
         Debug.Assert(_playerUI != null);
         _lassoRenderer = GetComponentInChildren<LassoRenderer>();
         Debug.Assert(_lassoRenderer != null);
-        _lassoRenderer.StartRenderLasso();
         Debug.Assert(controlPlayerConnection != null);
         controlPlayerConnection.gameObject.SetActive(false);
 
@@ -204,25 +203,97 @@ public class PlayerController : MonoBehaviour
     {
         if (_lassoState != newState)
         {
-            OnLassoStateChange?.Invoke(newState);
             _lassoState = newState;
-            switch (newState)
+
+            switch (_lassoState)
             {
-                case LassoState.HOLD:
+                case LassoState.SWING:
+                    SwingableObject swingable = _lassoObject as SwingableObject;
+                    if (swingable == null)
+                    {
+                        // Invalid state, just retract
+                        _lassoState = LassoState.RETRACT;
+                    }
+                    else
+                    {
+                        controlPlayerConnection.gameObject.SetActive(true);
+                        swingable.SwingEnd += EndLassoSwing;
+                        swingable.AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
+                        UpdateState(State.SWING);
+                    }
+                    break;
                 case LassoState.TOSS:
-                    _playerUI.ShowThrowBar();
+                    LassoTossable toss = _lassoObject as LassoTossable;
+                    if (toss == null)
+                    {
+                        // Invalid state, just retract
+                        _lassoState = LassoState.RETRACT;
+                    }
+                    else if (!toss.IsTossed())
+                    {
+                        LassoTossable.TossStrength strength = _playerUI.GetTossIndicatorStrength();
+                        Vector3 dirOfToss = GetLassoTossDir();
+                        toss.TossInDirection(dirOfToss, _gravObject.characterOrientation.up, strength);
+                        dirOfToss = _gravObject.characterOrientation.InverseTransformDirection(dirOfToss);
+                        Quaternion targetRot = Quaternion.Euler(0f, dirOfToss.x < 0 ? 360f - Mathf.Acos(dirOfToss.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfToss.z) * Mathf.Rad2Deg, 0f);
+                        model.localRotation = targetRot;
+
+                        OnLassoTossed?.Invoke(strength);
+                    }
+                    break;
+                case LassoState.THROWN:
+                    if (_lassoObject == null)
+                    {
+                        // Invalid state, just retract
+                        _lassoState = LassoState.RETRACT;
+                    }
+                    else
+                    {
+                        Vector3 dirOfThrown = Vector3.ProjectOnPlane((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+                        dirOfThrown = _gravObject.characterOrientation.InverseTransformDirection(dirOfThrown);
+                        Quaternion targetRot = Quaternion.Euler(0f, dirOfThrown.x < 0 ? 360f - Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg, 0f); //_gravObject.characterOrientation.rotation*
+                        model.localRotation = targetRot;
+                    }
                     break;
                 default:
-                    _playerUI.HideThrowBar();
                     break;
             }
-        }
-    }
 
-    void UpdateLassoTransitionState(LassoState newState)
-    {
-        _hasStartedTransition = false;
-        _transitionState = newState;
+            lassoCurTime = 0.0f;
+            switch (_lassoState)
+            {
+                case LassoState.RETRACT:
+                    lassoMaxTime = timeToRetract; break;
+                case LassoState.TOSS:
+                    lassoMaxTime = timeToToss; break;
+                case LassoState.PULL:
+                    lassoMaxTime = timeToPullTarget; break;
+                case LassoState.THROWN:
+                    lassoMaxTime = Vector3.Distance(transform.position, _lassoObject.transform.position) / lassoThrowSpeed;
+                    break;
+            }
+
+            if (_lassoState == LassoState.HOLD || _lassoState == LassoState.TOSS)
+            {
+                _playerUI.ShowThrowBar();
+            }
+            else
+            {
+                _playerUI.HideThrowBar();
+            }
+
+            OnLassoStateChange?.Invoke(_lassoState);
+
+            LassoRenderer.LassoInfo info = new LassoRenderer.LassoInfo
+            {
+                o = _lassoObject,
+                state = _lassoState,
+                timeForAction = lassoMaxTime,
+                lassoSwingCenter = lassoSwingCenter,
+            };
+
+            _lassoRenderer.SetLassoRenderState(info);
+        }
     }
 
     void DetectStateChange()
@@ -382,8 +453,8 @@ public class PlayerController : MonoBehaviour
                     _hoveredObject = _cursor.GetHoveredLassoObject();
                     if (_hoveredObject != null && _hoveredObject.isLassoable && !_hoveredObject.currentlyLassoed) // TODO: Also check range relative to the player
                     {
-                        UpdateLassoTransitionState(LassoState.THROWN);
                         _lassoObject = _hoveredObject;
+                        UpdateLassoState(LassoState.THROWN);
                     }
                     break;
                 case LassoState.PULL:
@@ -400,7 +471,7 @@ public class PlayerController : MonoBehaviour
                 case LassoState.HOLD:
                     // Show the throw indicator and throw when the player clicks
 #if !(UNITY_IOS || UNITY_ANDROID)
-                    UpdateLassoTransitionState(LassoState.TOSS);
+                    UpdateLassoState(LassoState.TOSS);
 #else
                     if (Input.touchCount > 0)
                     {
@@ -408,7 +479,7 @@ public class PlayerController : MonoBehaviour
                         {
                             if (!EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                             {
-                                UpdateLassoTransitionState(LassoState.TOSS);
+                                UpdateLassoState(LassoState.TOSS);
                                 break;
                             }
                         }
@@ -508,127 +579,39 @@ public class PlayerController : MonoBehaviour
     }
     void Lasso()
     {
-        // We need to transition to a new state, perform the initialization / transition operation
-        if (_lassoState != _transitionState)
-        {
-            PerformLassoTransition();
-        }
-        else
-        {
-            PerformLassoActive();
-        }
-    }
-
-    void PerformLassoTransition()
-    {
-        if (!_hasStartedTransition)
-        {
-            _hasStartedTransition = true;
-            UpdateLassoState(_transitionState);
-
-            switch (_transitionState)
-            {
-                case LassoState.NONE:
-                    break;
-                case LassoState.RETRACT:
-                    _lassoParamAccumTime = 0f;
-                    _lassoParamMaxTime = timeToRetract;
-                    break;
-                case LassoState.THROWN:
-                    _lassoParamAccumTime = 0f;
-                    _lassoParamMaxTime = Vector3.Distance(transform.position, _lassoObject.transform.position) / lassoThrowSpeed;
-                    break;
-                case LassoState.SWING:
-                    // Todo, perform init for swing, transition the player by pulling them towards the swing position based on the swing radius
-                    SwingableObject swingable = _lassoObject as SwingableObject;
-                    if (swingable == null)
-                    {
-                        UpdateLassoTransitionState(LassoState.RETRACT);
-                    }
-                    else
-                    {
-                        controlPlayerConnection.gameObject.SetActive(true);
-                        swingable.SwingEnd += EndLassoSwing;
-                        swingable.AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
-                        UpdateState(State.SWING);
-                    }
-                    break;
-                case LassoState.HOLD:
-                case LassoState.PULL:
-                    // Perform init for pull and hold
-                    LassoTossable pull = _lassoObject as LassoTossable;
-                    if (pull == null)
-                    {
-                        UpdateLassoTransitionState(LassoState.RETRACT);
-                    }
-                    else
-                    {
-                        _lassoParamAccumTime = 0f;
-                        _lassoParamMaxTime = timeToPullTarget;
-                    }
-                    break;
-                case LassoState.TOSS:
-                    LassoTossable toss = _lassoObject as LassoTossable;
-                    if (toss == null)
-                    {
-                        // Invalid state, just retract
-                        UpdateLassoTransitionState(LassoState.RETRACT);
-                    }
-                    else if (!toss.IsTossed())
-                    {
-                        LassoTossable.TossStrength strength = _playerUI.GetThrowIndicatorStrength();
-                        toss.TossInDirection(GetLassoTossDir(), _gravObject.characterOrientation.up, strength);
-                        OnLassoTossed?.Invoke(strength);
-                    }
-                    _lassoParamAccumTime = 0.0f;
-                    _lassoParamMaxTime = timeToToss;
-                    break;
-            }
-        }
-    }
-
-    void PerformLassoActive()
-    {
+        LassoState prev = _lassoState;
         switch (_lassoState)
         {
             case LassoState.NONE:
                 break;
             case LassoState.TOSS:
-                if (_lassoParamAccumTime <= _lassoParamMaxTime)
+                if (lassoCurTime > lassoMaxTime)
                 {
-                    if (_lassoObject != null)
-                    {
-                        Vector3 dirOfThrown = Vector3.ProjectOnPlane((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
-                        dirOfThrown = _gravObject.characterOrientation.InverseTransformDirection(dirOfThrown);
-                        Quaternion targetRot = Quaternion.Euler(0f, dirOfThrown.x < 0 ? 360f - Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg, 0f); //_gravObject.characterOrientation.rotation*
-                        model.localRotation = Quaternion.Slerp(model.localRotation, targetRot, (_lassoParamAccumTime / _lassoParamMaxTime) * 3f);
-                    }
-                }
-                else
-                {
-                    EndLassoTossState();
+                    UpdateLassoState(LassoState.RETRACT);
                 }
                 break;
             case LassoState.THROWN:
                 if (_lassoObject == null)
                 {
-                    UpdateLassoTransitionState(LassoState.RETRACT);
+                    UpdateLassoState(LassoState.RETRACT);
                 }
-                else
+                if (lassoCurTime > lassoMaxTime)
                 {
-                    if (_lassoParamAccumTime <= _lassoParamMaxTime)
+                    if (_lassoObject as LassoTossable != null && _lassoObject.isLassoable)
                     {
-                        Vector3 dirOfThrown = Vector3.ProjectOnPlane((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
-                        dirOfThrown = _gravObject.characterOrientation.InverseTransformDirection(dirOfThrown);
-                        Quaternion targetRot = Quaternion.Euler(0f, dirOfThrown.x < 0 ? 360f - Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg, 0f); //_gravObject.characterOrientation.rotation*
-                        model.localRotation = Quaternion.Slerp(model.localRotation, targetRot, (_lassoParamAccumTime / _lassoParamMaxTime) * 3f);
+                        _lassoObject.Grab();
+                        UpdateLassoState(LassoState.PULL);
+                    }
+                    else if (_lassoObject as SwingableObject != null && _lassoObject.isLassoable)
+                    {
+                        _lassoObject.Grab();
+                        UpdateLassoState(LassoState.SWING);
                     }
                     else
                     {
-                        EndLassoThrownState();
+                        UpdateLassoState(LassoState.RETRACT);
                     }
                 }
-
                 break;
             case LassoState.SWING:
                 // TODO: Swinging stuff :P
@@ -639,17 +622,17 @@ public class PlayerController : MonoBehaviour
                 if (tossable == null)
                 {
                     // Somehow became a null reference, just retract the lasso
-                    UpdateLassoTransitionState(LassoState.RETRACT);
+                    UpdateLassoState(LassoState.RETRACT);
                 }
                 else
                 {
-                    if (_lassoParamAccumTime > _lassoParamMaxTime)
+                    if (lassoCurTime > lassoMaxTime)
                     {
-                        UpdateLassoTransitionState(LassoState.HOLD);
+                        UpdateLassoState(LassoState.HOLD);
                     }
                     else
                     {
-                        tossable.PullLassoTossableTowards(lassoSwingCenter.position + tossable.GetSwingHeight() * lassoSwingCenter.up, _lassoParamAccumTime / _lassoParamMaxTime);
+                        tossable.PullLassoTossableTowards(lassoSwingCenter.position + tossable.GetSwingHeight() * lassoSwingCenter.up, lassoCurTime / lassoMaxTime);
                     }
                 }
                 break;
@@ -658,68 +641,239 @@ public class PlayerController : MonoBehaviour
                 if (held == null)
                 {
                     // Somehow became a null reference, just retract the lasso
-                    UpdateLassoTransitionState(LassoState.RETRACT);
+                    UpdateLassoState(LassoState.RETRACT);
                 }
                 else
                 {
-                    held.SwingLassoTossableAround(lassoSwingCenter, _lassoParamAccumTime);
-                    _playerUI.SetThrowIndicatorPos(Mathf.Sin(_lassoParamAccumTime * lassoTossMinigameSpeed));
+                    held.SwingLassoTossableAround(lassoSwingCenter, lassoCurTime);
+                    _playerUI.SetThrowIndicatorPos(Mathf.Sin(lassoCurTime * lassoTossMinigameSpeed));
+                    _lassoRenderer.SetTossArrowDirection(GetLassoTossDir(), _playerUI.GetTossIndicatorStrength());
                 }
                 break;
             case LassoState.RETRACT:
-                if (_lassoParamAccumTime > _lassoParamMaxTime)
+                if (lassoCurTime > lassoMaxTime)
                 {
-                    EndLassoRetractState();
+                    UpdateLassoState(LassoState.NONE);
                 }
                 break;
         }
-        _lassoParamAccumTime += Time.deltaTime;
+        if (prev == _lassoState)
+        {
+            lassoCurTime += Time.deltaTime;
+        }
+
+        //// We need to transition to a new state, perform the initialization / transition operation
+        //if (_lassoState != _transitionState)
+        //{
+        //    PerformLassoTransition();
+        //}
+        //else
+        //{
+        //    PerformLassoActive();
+        //}
     }
+
+    //void PerformLassoTransition()
+    //{
+    //    if (!_hasStartedTransition)
+    //    {
+    //        _hasStartedTransition = true;
+    //        UpdateLassoState(_transitionState);
+
+    //        switch (_transitionState)
+    //        {
+    //            case LassoState.NONE:
+    //                break;
+    //            case LassoState.RETRACT:
+    //                _lassoParamAccumTime = 0f;
+    //                _lassoParamMaxTime = timeToRetract;
+    //                break;
+    //            case LassoState.THROWN:
+    //                _lassoParamAccumTime = 0f;
+    //                _lassoParamMaxTime = Vector3.Distance(transform.position, _lassoObject.transform.position) / lassoThrowSpeed;
+    //                break;
+    //            case LassoState.SWING:
+    //                // Todo, perform init for swing, transition the player by pulling them towards the swing position based on the swing radius
+    //                SwingableObject swingable = _lassoObject as SwingableObject;
+    //                if (swingable == null)
+    //                {
+    //                    UpdateLassoTransitionState(LassoState.RETRACT);
+    //                }
+    //                else
+    //                {
+    //                    controlPlayerConnection.gameObject.SetActive(true);
+    //                    swingable.SwingEnd += EndLassoSwing;
+    //                    swingable.AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
+    //                    UpdateState(State.SWING);
+    //                }
+    //                break;
+    //            case LassoState.HOLD:
+    //            case LassoState.PULL:
+    //                // Perform init for pull and hold
+    //                LassoTossable pull = _lassoObject as LassoTossable;
+    //                if (pull == null)
+    //                {
+    //                    UpdateLassoTransitionState(LassoState.RETRACT);
+    //                }
+    //                else
+    //                {
+    //                    _lassoParamAccumTime = 0f;
+    //                    _lassoParamMaxTime = timeToPullTarget;
+    //                }
+    //                break;
+    //            case LassoState.TOSS:
+    //                LassoTossable toss = _lassoObject as LassoTossable;
+    //                if (toss == null)
+    //                {
+    //                    // Invalid state, just retract
+    //                    UpdateLassoTransitionState(LassoState.RETRACT);
+    //                }
+    //                else if (!toss.IsTossed())
+    //                {
+    //                    LassoTossable.TossStrength strength = _playerUI.GetThrowIndicatorStrength();
+    //                    toss.TossInDirection(GetLassoTossDir(), _gravObject.characterOrientation.up, strength);
+    //                    OnLassoTossed?.Invoke(strength);
+    //                }
+    //                _lassoParamAccumTime = 0.0f;
+    //                _lassoParamMaxTime = timeToToss;
+    //                break;
+    //        }
+    //    }
+    //}
+
+    //void PerformLassoActive()
+    //{
+    //    switch (_lassoState)
+    //    {
+    //        case LassoState.NONE:
+    //            break;
+    //        case LassoState.TOSS:
+    //            if (_lassoParamAccumTime <= _lassoParamMaxTime)
+    //            {
+    //                if (_lassoObject != null)
+    //                {
+    //                    Vector3 dirOfThrown = Vector3.ProjectOnPlane((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+    //                    dirOfThrown = _gravObject.characterOrientation.InverseTransformDirection(dirOfThrown);
+    //                    Quaternion targetRot = Quaternion.Euler(0f, dirOfThrown.x < 0 ? 360f - Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg, 0f); //_gravObject.characterOrientation.rotation*
+    //                    model.localRotation = Quaternion.Slerp(model.localRotation, targetRot, (_lassoParamAccumTime / _lassoParamMaxTime) * 3f);
+    //                }
+    //            }
+    //            else
+    //            {
+    //                EndLassoTossState();
+    //            }
+    //            break;
+    //        case LassoState.THROWN:
+    //            if (_lassoObject == null)
+    //            {
+    //                UpdateLassoTransitionState(LassoState.RETRACT);
+    //            }
+    //            else
+    //            {
+    //                if (_lassoParamAccumTime <= _lassoParamMaxTime)
+    //                {
+    //                    Vector3 dirOfThrown = Vector3.ProjectOnPlane((_lassoObject.GetLassoCenterPos() - transform.position).normalized, _gravObject.characterOrientation.up).normalized;
+    //                    dirOfThrown = _gravObject.characterOrientation.InverseTransformDirection(dirOfThrown);
+    //                    Quaternion targetRot = Quaternion.Euler(0f, dirOfThrown.x < 0 ? 360f - Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg : Mathf.Acos(dirOfThrown.z) * Mathf.Rad2Deg, 0f); //_gravObject.characterOrientation.rotation*
+    //                    model.localRotation = Quaternion.Slerp(model.localRotation, targetRot, (_lassoParamAccumTime / _lassoParamMaxTime) * 3f);
+    //                }
+    //                else
+    //                {
+    //                    EndLassoThrownState();
+    //                }
+    //            }
+
+    //            break;
+    //        case LassoState.SWING:
+    //            // TODO: Swinging stuff :P
+    //            break;
+    //        case LassoState.PULL:
+    //            // Perform pulling process
+    //            LassoTossable tossable = (_lassoObject as LassoTossable);
+    //            if (tossable == null)
+    //            {
+    //                // Somehow became a null reference, just retract the lasso
+    //                UpdateLassoTransitionState(LassoState.RETRACT);
+    //            }
+    //            else
+    //            {
+    //                if (_lassoParamAccumTime > _lassoParamMaxTime)
+    //                {
+    //                    UpdateLassoTransitionState(LassoState.HOLD);
+    //                }
+    //                else
+    //                {
+    //                    tossable.PullLassoTossableTowards(lassoSwingCenter.position + tossable.GetSwingHeight() * lassoSwingCenter.up, _lassoParamAccumTime / _lassoParamMaxTime);
+    //                }
+    //            }
+    //            break;
+    //        case LassoState.HOLD:
+    //            LassoTossable held = (_lassoObject as LassoTossable);
+    //            if (held == null)
+    //            {
+    //                // Somehow became a null reference, just retract the lasso
+    //                UpdateLassoTransitionState(LassoState.RETRACT);
+    //            }
+    //            else
+    //            {
+    //                held.SwingLassoTossableAround(lassoSwingCenter, _lassoParamAccumTime);
+    //                _playerUI.SetThrowIndicatorPos(Mathf.Sin(_lassoParamAccumTime * lassoTossMinigameSpeed));
+    //            }
+    //            break;
+    //        case LassoState.RETRACT:
+    //            if (_lassoParamAccumTime > _lassoParamMaxTime)
+    //            {
+    //                EndLassoRetractState();
+    //            }
+    //            break;
+    //    }
+    //    _lassoParamAccumTime += Time.deltaTime;
+    //}
 
     void RenderLasso()
     {
         switch (_lassoState)
         {
-            case LassoState.NONE:
-                _lassoRenderer.RenderLassoAtHip();
-                break;
-            case LassoState.RETRACT:
-                _lassoRenderer.RenderLassoRetract(_lassoParamAccumTime / _lassoParamMaxTime, lassoSwingCenter, _lassoParamMaxTime);
-                break;
-            case LassoState.THROWN:
-                float angleRatio = 0;
-                if (!_gravObject.IsInSpace())
-                {
-                    Vector3 dir = (transform.position - _lassoObject.transform.position).normalized;
-                    Vector3 dirProj = Vector3.ProjectOnPlane(dir, _gravObject.characterOrientation.up).normalized;
-                    angleRatio = Mathf.Abs(Vector3.Dot(dir, dirProj));
-                }
-                _lassoRenderer.RenderThrowLasso(_lassoParamAccumTime / _lassoParamMaxTime, _lassoObject, angleRatio);
-                break;
-            case LassoState.SWING:
-                _lassoRenderer.RenderLassoSwing(_lassoObject as SwingableObject);
-                break;
-            case LassoState.PULL:
-                LassoTossable pulled = (_lassoObject as LassoTossable);
-                if (pulled != null)
-                {
-                    _lassoRenderer.RenderLassoPull(_lassoParamAccumTime / _lassoParamMaxTime, pulled, lassoSwingCenter);
-                }
-                break;
-            case LassoState.HOLD:
-                LassoTossable held = (_lassoObject as LassoTossable);
-                if (held != null)
-                {
-                    _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter, GetLassoTossDir(), _playerUI.GetThrowIndicatorStrength());
-                }
-                break;
-            case LassoState.TOSS:
-                LassoTossable tossed = (_lassoObject as LassoTossable);
-                if (tossed != null)
-                {
-                    _lassoRenderer.RenderLassoToss(_lassoParamAccumTime / _lassoParamMaxTime, tossed, lassoSwingCenter);
-                }
-                break;
+            //case LassoState.NONE:
+            //    _lassoRenderer.RenderLassoAtHip();
+            //    break;
+            //case LassoState.RETRACT:
+            //    _lassoRenderer.RenderLassoRetract(_lassoParamAccumTime / _lassoParamMaxTime, lassoSwingCenter, _lassoParamMaxTime);
+            //    break;
+            //case LassoState.THROWN:
+            //    float angleRatio = 0;
+            //    if (!_gravObject.IsInSpace())
+            //    {
+            //        Vector3 dir = (transform.position - _lassoObject.transform.position).normalized;
+            //        Vector3 dirProj = Vector3.ProjectOnPlane(dir, _gravObject.characterOrientation.up).normalized;
+            //        angleRatio = Mathf.Abs(Vector3.Dot(dir, dirProj));
+            //    }
+            //    _lassoRenderer.RenderThrowLasso(_lassoParamAccumTime / _lassoParamMaxTime, _lassoObject, angleRatio);
+            //    break;
+            //case LassoState.SWING:
+            //    _lassoRenderer.RenderLassoSwing(_lassoObject as SwingableObject);
+            //    break;
+            //case LassoState.PULL:
+            //    LassoTossable pulled = (_lassoObject as LassoTossable);
+            //    if (pulled != null)
+            //    {
+            //        _lassoRenderer.RenderLassoPull(_lassoParamAccumTime / _lassoParamMaxTime, pulled, lassoSwingCenter);
+            //    }
+            //    break;
+            //case LassoState.HOLD:
+            //    LassoTossable held = (_lassoObject as LassoTossable);
+            //    if (held != null)
+            //    {
+            //        _lassoRenderer.RenderLassoHold(_lassoParamAccumTime, held, lassoSwingCenter, GetLassoTossDir(), _playerUI.GetThrowIndicatorStrength());
+            //    }
+            //    break;
+            //case LassoState.TOSS:
+            //    LassoTossable tossed = (_lassoObject as LassoTossable);
+            //    if (tossed != null)
+            //    {
+            //        _lassoRenderer.RenderLassoToss(_lassoParamAccumTime / _lassoParamMaxTime, tossed, lassoSwingCenter);
+            //    }
+            //    break;
         }
     }
 
@@ -745,39 +899,6 @@ public class PlayerController : MonoBehaviour
                 _hoveredObject = null;
             }
         }
-    }
-    void EndLassoThrownState()
-    {
-        if (_lassoObject != null)
-        {
-            if (_lassoObject as LassoTossable != null && _lassoObject.isLassoable)
-            {
-                _lassoObject.Grab();
-                UpdateLassoTransitionState(LassoState.PULL);
-            }
-            else if (_lassoObject as SwingableObject != null && _lassoObject.isLassoable)
-            {
-                _lassoObject.Grab();
-                UpdateLassoTransitionState(LassoState.SWING);
-            }
-            else
-            {
-                UpdateLassoTransitionState(LassoState.RETRACT);
-            }
-        }
-        else
-        {
-            UpdateLassoTransitionState(LassoState.RETRACT);
-        }
-    }
-    void EndLassoTossState()
-    {
-        UpdateLassoTransitionState(LassoState.RETRACT);
-    }
-
-    void EndLassoRetractState()
-    {
-        UpdateLassoTransitionState(LassoState.NONE);
     }
 
     Vector3 GetLassoTossDir()
@@ -811,7 +932,7 @@ public class PlayerController : MonoBehaviour
         s.Release();
 
         UpdateState(State.AIR);
-        UpdateLassoTransitionState(LassoState.RETRACT);
+        UpdateLassoState(LassoState.RETRACT);
         controlPlayerConnection.gameObject.SetActive(false);
         _rigidbody.AddForce(endingVel + (transform.position - s.transform.position).normalized * 2f, ForceMode.VelocityChange);
     }
