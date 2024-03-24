@@ -39,7 +39,7 @@ public class BlenderBlade : MonoBehaviour
         }
         while (currentSize < maxSize) // TODO: Make it grow faster if x is at a certain size
         {
-            newSize = currentSize < 10? currentSize + minGrowthRate * Time.deltaTime : currentSize + growthRate * Time.deltaTime;
+            newSize = currentSize < 50? currentSize + minGrowthRate * Time.deltaTime : currentSize + growthRate * Time.deltaTime;
             newSize = Mathf.Min(newSize, maxSize); // Clamp the size to maxSize
             transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
             currentSize = newSize;
@@ -57,7 +57,7 @@ public class BlenderBlade : MonoBehaviour
         {
             newSize = currentSize - growthRate * 10 * Time.deltaTime; // Subtract growthRate to shrink
             newSize = Mathf.Max(newSize, minSize); // Clamp the size to minSize
-            transform.localScale = new Vector3(newSize, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
             currentSize = newSize;
             yield return null;
         }

@@ -21,7 +21,12 @@ public class CherryBombExplosion : MonoBehaviour
         if (other.CompareTag("Boss"))
         {
             // Will fix to handle more bosses (for orange, handle weak spots too)
-            if (other.transform.name == "Orange Boss" || other.transform.parent.parent.name == "Orange Boss" || other.transform.name.Contains("Peel"))
+            if (other.transform.name.Contains("Blender"))
+            {
+                BlenderBoss boss = GameObject.Find("Blender Boss").GetComponent<BlenderBoss>();
+                boss.Damage(1);
+            } 
+            else if (other.transform.name == "Orange Boss" || other.transform.parent.parent.name == "Orange Boss" || other.transform.name.Contains("Peel"))
             {
                 OrangeBoss boss = GameObject.Find("Orange Boss").GetComponent<OrangeBoss>();
                 if (other.transform.name.Contains("Weak Spot"))
