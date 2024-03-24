@@ -217,7 +217,7 @@ public class OrangeEnemyController : EnemyController
                 {
                     _directionOfPartner = (destinationPoint.transform.position - transform.position).normalized;
                 }
-                _directionOfPartner.y = 0;
+                _directionOfPartner.x = 0;
                 _model.rotation = Quaternion.Slerp(_model.rotation,
                                 Quaternion.LookRotation(_directionOfPartner, _gravObject.characterOrientation.up),
                                 spottedParam);

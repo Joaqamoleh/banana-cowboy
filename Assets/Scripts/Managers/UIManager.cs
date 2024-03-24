@@ -155,7 +155,7 @@ public class UIManager : MonoBehaviour
         );
     }
 
-    public LassoTossable.TossStrength GetThrowIndicatorStrength()
+    public LassoTossable.TossStrength GetTossIndicatorStrength()
     {
         float lowPowerWidth = (throwLowPower.rect.width / 2f) * throwLowPower.localScale.x;
         float medPowerWidth = (throwMedPower.rect.width / 2f) * throwMedPower.localScale.x;

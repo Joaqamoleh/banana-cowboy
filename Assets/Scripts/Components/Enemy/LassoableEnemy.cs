@@ -44,7 +44,12 @@ public class LassoableEnemy : LassoTossable
 
     private void HandleBossCollision(Collision collision)
     {
-        if (collision.transform.name == "Orange Boss" || collision.transform.parent.parent.name == "Orange Boss" || collision.transform.name.Contains("Peel"))
+        if (collision.transform.name.Contains("Blender"))
+        {
+            BlenderBoss boss = GameObject.Find("Blender Boss").GetComponent<BlenderBoss>();
+            boss.Damage(1);
+        }
+        else if(collision.transform.name == "Orange Boss" || collision.transform.parent.parent.name == "Orange Boss" || collision.transform.name.Contains("Peel"))
         {
             OrangeBoss boss = GameObject.Find("Orange Boss").GetComponent<OrangeBoss>();
             if (collision.transform.name.Contains("Weak Spot"))
@@ -57,8 +62,9 @@ public class LassoableEnemy : LassoTossable
                 print("Normal Damage");
                 boss.Damage(1);
             }
-            DestroySelf();
         }
+         
+        DestroySelf();
     }
 
     private void DestroySelf()

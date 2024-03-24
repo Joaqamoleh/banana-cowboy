@@ -8,7 +8,7 @@ public class PlayerAnimator : MonoBehaviour
     Animator playerAnimator = null;
 
     [SerializeField, Range(1f, 5f)]
-    float walkAnimSpeed = 1.0f, runAnimSpeed = 1.0f, airAnimSpeed = 1.5f;
+    float walkAnimSpeed = 1.0f, runAnimSpeed = 1.0f, airAnimSpeed = 1.5f, swingHandAnimSpeed = 1.0f;
 
     void Start()
     {
@@ -69,14 +69,16 @@ public class PlayerAnimator : MonoBehaviour
             case PlayerController.LassoState.HOLD:
                 playerAnimator.Play("Lasso Layer.BC_Hold");
                 playerAnimator.SetLayerWeight(1, 1.0f);
-                playerAnimator.speed = 1.5f;
+                playerAnimator.speed = swingHandAnimSpeed;
                 break;
             case PlayerController.LassoState.TOSS:
                 playerAnimator.Play("Base Layer.BC_Lasso");
                 playerAnimator.SetLayerWeight(1, 0.0f);
-                playerAnimator.speed = 1.5f;
+                playerAnimator.speed = 0.5f;
                 break;
             case PlayerController.LassoState.RETRACT:
+                playerAnimator.Play("Base Layer.BC_Idle");
+                playerAnimator.SetLayerWeight(1, 0.0f);
                 break;
         }
     }

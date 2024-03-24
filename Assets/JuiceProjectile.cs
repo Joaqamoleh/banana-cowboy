@@ -49,5 +49,9 @@ public class JuiceProjectile : MonoBehaviour
         {
             other.GetComponentInParent<Health>().Damage(1, ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));
         }
+        else if (other.name.Contains("Body") && other.CompareTag("Enemy") && other.gameObject.GetComponentInParent<LassoableEnemy>() != null)
+        {
+            other.gameObject.GetComponentInParent<LassoableEnemy>().TossInDirection(Vector3.zero, Vector3.up, LassoTossable.TossStrength.WEAK);
+        }
     }
 }

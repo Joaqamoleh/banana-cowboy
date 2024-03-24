@@ -135,7 +135,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 240}
+  m_SizeDelta: {x: 400, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6858548725233404285
 CanvasRenderer:
@@ -960,7 +960,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2350, y: 240}
+  m_SizeDelta: {x: 2350, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4716420680746578046
 CanvasRenderer:
@@ -1275,7 +1275,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1300, y: 240}
+  m_SizeDelta: {x: 1300, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4131423075145463341
 CanvasRenderer:
@@ -2900,8 +2900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed2024471db61934aa6d45c0c80f86f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hipJointPos: {fileID: 8269334248003281727}
-  lassoHandJointPos: {fileID: 6578063046232034596}
+  hipJoint: {fileID: 8269334248003281727}
+  handJoint: {fileID: 6578063046232034596}
   lassoTossIndicator: {fileID: 1871238272013741944}
   lassoTossIndicatorRenderers:
   - {fileID: 7694321863953052125}
@@ -2909,21 +2909,18 @@ MonoBehaviour:
   lowPowMat: {fileID: 2100000, guid: e83f16797d3187b46a5acd458977b737, type: 2}
   medPowMat: {fileID: 2100000, guid: 2ad323595d744fa46960b2b8c8a3a917, type: 2}
   highPowMat: {fileID: 2100000, guid: bc58659a5f64d4a4db950f6ae3bd98f9, type: 2}
-  hipMaxSway: 1
-  hipRadius: 0.4
-  numberOfLoopSegments: 10
-  numberOfLineSegments: 10
-  numCyclesOnHip: 2
-  throwT1Time: 0.8
-  throwT2Time: 0.1
-  throwT3Time: 0.1
-  lassoTossDrag: 0.2
+  hipLoopRadius: 0.4
+  smoothSpeed: 0.01
+  wiggleSpeed: 0.2
+  wiggleAmplitude: 0.89
+  loopWiggleSpeed: 0.2
+  loopWiggleDegree: 20
+  numLoopSegments: 12
+  numLineSegments: 12
+  numHipLoops: 3
   lassoLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  groundLayermask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &7531275077083258553
 GameObject:
   m_ObjectHideFlags: 0
