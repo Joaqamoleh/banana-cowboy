@@ -52,8 +52,9 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: LassoSpin
@@ -63,8 +64,9 @@ MonoBehaviour:
     pitch: 0.8
     pitchVariance: 0.1
     loop: 1
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 40
+    spatialMinDist: 40
     type: 0
     src: {fileID: 0}
   - name: LassoWeakThrow
@@ -74,8 +76,9 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: LassoMediumThrow
@@ -85,8 +88,9 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: LassoStrongThrow
@@ -96,8 +100,9 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
 --- !u!1 &928329164210492016
@@ -899,6 +904,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5503662033258183763}
+  - component: {fileID: 945288615539739968}
   m_Layer: 0
   m_Name: Character Orientation
   m_TagString: Player
@@ -925,6 +931,14 @@ Transform:
   - {fileID: 5688568690316987658}
   m_Father: {fileID: 1526105572669686172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &945288615539739968
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2628326583575476359}
+  m_Enabled: 1
 --- !u!1 &2669211436934222119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,6 +1723,7 @@ MonoBehaviour:
   walkAnimSpeed: 1
   runAnimSpeed: 1
   airAnimSpeed: 1.5
+  swingHandAnimSpeed: 1
 --- !u!114 &1268935481823884108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1758,45 +1773,49 @@ MonoBehaviour:
   - name: PlayerWalk
     audioClip: {fileID: 8300000, guid: b401237eb46fbd14e8b98bae92b2b234, type: 3}
     alternatives: []
-    volume: 0.3
+    volume: 0.6
     pitch: 1
     pitchVariance: 0.1
     loop: 1
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: PlayerRun
     audioClip: {fileID: 8300000, guid: 8042d2069ed60104ea4bf6ea406ae720, type: 3}
     alternatives: []
-    volume: 0.3
+    volume: 0.6
     pitch: 1
     pitchVariance: 0.1
     loop: 1
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: PlayerJump
     audioClip: {fileID: 8300000, guid: c2890ee6703e3a54ab10007153ee4697, type: 3}
     alternatives: []
-    volume: 1
+    volume: 0.7
     pitch: 1
     pitchVariance: 0.1
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: PlayerLand
     audioClip: {fileID: 8300000, guid: 0d38a4cfaa147d1459cdf49f586de138, type: 3}
     alternatives: []
-    volume: 0.5
+    volume: 0.7
     pitch: 1
     pitchVariance: 0.1
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: PlayerHurt
@@ -1806,8 +1825,9 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0.1
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
   - name: PlayerDeath
@@ -1817,8 +1837,9 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 100
+    spatialBlend: 0.5
+    spatialMaxDist: 300
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
 --- !u!1 &4128062965984371809

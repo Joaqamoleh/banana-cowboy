@@ -5114,12 +5114,13 @@ MonoBehaviour:
   - name: Collect
     audioClip: {fileID: 8300000, guid: d6abe08ebed2fb34d9ed5b5f5476ca92, type: 3}
     alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
+    volume: 0.4
+    pitch: 2.6
+    pitchVariance: 0.1
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 40
+    spatialBlend: 0
+    spatialMaxDist: 150
+    spatialMinDist: 150
     type: 0
     src: {fileID: 0}
 --- !u!4 &3688744479192875754 stripped

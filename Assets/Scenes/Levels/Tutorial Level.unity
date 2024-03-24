@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31778386, g: 0.3083839, b: 0.5771058, a: 1}
+  m_IndirectSpecularColor: {r: 0.03186725, g: 0.087518424, b: 0.66434634, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3187,20 +3187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 60
+  maxVerticalVel: 60
   jelloAnimator: {fileID: 1884235951}
-  sfx:
-    name: 
-    audioClip: {fileID: 0}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  soundDistance: 40
+  sfx: {fileID: 0}
 --- !u!54 &300752169
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3999,7 +3988,6 @@ GameObject:
   m_Component:
   - component: {fileID: 487763870}
   - component: {fileID: 487763869}
-  - component: {fileID: 487763868}
   - component: {fileID: 487763871}
   - component: {fileID: 487763872}
   m_Layer: 0
@@ -4009,14 +3997,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &487763868
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 487763867}
-  m_Enabled: 1
 --- !u!20 &487763869
 Camera:
   m_ObjectHideFlags: 0
@@ -8444,20 +8424,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 60
+  maxVerticalVel: 60
   jelloAnimator: {fileID: 330412044}
-  sfx:
-    name: 
-    audioClip: {fileID: 0}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  soundDistance: 40
+  sfx: {fileID: 0}
 --- !u!54 &1104795079
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12266,20 +12235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 60
+  maxVerticalVel: 60
   jelloAnimator: {fileID: 1351470875}
-  sfx:
-    name: 
-    audioClip: {fileID: 0}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  soundDistance: 40
+  sfx: {fileID: 0}
 --- !u!54 &1714185064
 Rigidbody:
   m_ObjectHideFlags: 0

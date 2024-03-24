@@ -49,11 +49,9 @@ public class SoundPlayer : MonoBehaviour
     void SetupSound(Sound s)
     {
         s.src = gameObject.AddComponent<AudioSource>();
-        s.src.spatialBlend = s.isSpatial ? 1.0f : 0.0f;
-        if (s.isSpatial)
-        {
-            s.src.maxDistance = s.spatialSoundTravelDistance;
-        }
+        s.src.spatialBlend = s.spatialBlend;
+        s.src.minDistance = s.spatialMinDist;
+        s.src.maxDistance = s.spatialMaxDist;
         s.src.clip = s.audioClip;
         s.src.volume = s.volume * SoundManager.Instance().SFXVolume;
         s.src.pitch = s.pitch;
@@ -62,7 +60,7 @@ public class SoundPlayer : MonoBehaviour
 
     void PlaySound(Sound s)
     {
-        if (!s.src.isPlaying && !PauseManager.pauseActive)
+        if (!PauseManager.pauseActive)
         {
             if (s.loop)
             {

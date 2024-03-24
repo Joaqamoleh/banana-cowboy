@@ -5,39 +5,49 @@ using UnityEngine;
 public class Bouncer : MonoBehaviour
 {
     [SerializeField]
-    float bounceForce = 20f;
+    float bounceForce = 20f, maxVerticalVel = 60f;
     public Animator jelloAnimator;
 
     [SerializeField]
-    Sound sfx;
-    [SerializeField]
-    float soundDistance = 40f;
+    SoundPlayer sfx;
 
-    public void Start()
-    {
-        sfx.src = gameObject.AddComponent<AudioSource>();
-        sfx.src.clip = sfx.audioClip;
-        sfx.src.volume = sfx.volume * SoundManager.Instance().SFXVolume;
-        sfx.src.pitch = sfx.pitch;
-        sfx.src.maxDistance = soundDistance;
-        sfx.src.spatialBlend = 1.0f;
-        sfx.type = Sound.Type.SFX;
-    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision != null && collision.gameObject != null && collision.gameObject.GetComponent<Rigidbody>() != null)
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.up * bounceForce, ForceMode.Impulse);
-            if (sfx != null && sfx.src != null)
+            
+            if (collision.gameObject.GetComponent<GravityObject>() != null)
             {
-                 sfx.src.Play();
-            }
 
-            if (jelloAnimator != null)
-            {
-                jelloAnimator.Play("J_Jiggle");
+                GravityObject grav = collision.gameObject.GetComponent<GravityObject>();
+                //print("Falling vel is : " + grav.GetFallingVelocity() + " With mag " + grav.GetFallingVelocity().magnitude);
+                if (grav.GetFallingVelocity().magnitude < maxVerticalVel 
+                    || Vector3.Dot(grav.GetFallingVelocity(), transform.up) < 0f)
+                {
+                    ApplyBounce(collision.gameObject.GetComponent<Rigidbody>());
+                }
             }
+            else
+            {
+                // Just gonna shoot into space I guess, lol
+                ApplyBounce(collision.gameObject.GetComponent<Rigidbody>());
+            }
+        }
+    }
+
+    void ApplyBounce(Rigidbody rb)
+    {
+        rb.AddForce(transform.up * bounceForce, ForceMode.Impulse);
+        if (sfx != null)
+        {
+            sfx.PlaySFX("Bounce");
+        }
+
+        if (jelloAnimator != null)
+        {
+            jelloAnimator.Play("J_Jiggle");
         }
     }
 }

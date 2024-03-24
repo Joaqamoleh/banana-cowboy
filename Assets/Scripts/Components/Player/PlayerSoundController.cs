@@ -87,9 +87,8 @@ public class PlayerSoundController : MonoBehaviour
     {
         switch (state)
         {
-            default:
+            case PlayerController.LassoState.RETRACT:
             case PlayerController.LassoState.NONE:
-                lassoSFXPlayer.StopSFX("LassoThrow");
                 lassoSFXPlayer.StopSFX("LassoSpin");
                 break;
             case PlayerController.LassoState.PULL:
@@ -99,6 +98,8 @@ public class PlayerSoundController : MonoBehaviour
                 break;
             case PlayerController.LassoState.HOLD:
                 lassoSFXPlayer.PlaySFX("LassoSpin");
+                break;
+            default:
                 break;
         }
     }
