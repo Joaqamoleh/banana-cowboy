@@ -39,6 +39,8 @@ public class PlayerSoundController : MonoBehaviour
     {
         if (hasDied)
         {
+            playerSFXPlayer.StopLoopedSounds();
+            lassoSFXPlayer.StopLoopedSounds();
             playerSFXPlayer.PlaySFX("PlayerDeath");
         }
         else

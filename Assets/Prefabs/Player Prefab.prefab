@@ -105,6 +105,97 @@ MonoBehaviour:
     spatialMinDist: 150
     type: 0
     src: {fileID: 0}
+--- !u!1 &794893086938796322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8403571118578190757}
+  - component: {fileID: 4364513797610872878}
+  - component: {fileID: 4301916139050996433}
+  m_Layer: 10
+  m_Name: Camera Controller with Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8403571118578190757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794893086938796322}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5503662033258183763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4364513797610872878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794893086938796322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce15c7be69435f47b3965c4b63e777f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cinemachineCamController: {fileID: 0}
+  _cameraFocus: {fileID: 1526105572669686172}
+  _emptyGameObjectPrefab: {fileID: 4070204132712235945, guid: d076296c76109af44991ebf6823031f4, type: 3}
+  focusCenteringFactor: 0.5
+  bottomBorder: 0.25
+  topBorder: 0.89
+  realignTime: 20
+  realignRadius: 10
+  defaultHeightOffset: 3
+  realignRotationSpeed: 90
+  alignSmoothRange: 45
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 8
+  orbitSensitivity: 4
+  orbitZoomSensitivity: 10
+  orbitMinRadius: 10
+  orbitMaxRadius: 60
+  orbitRadius: 20
+  minVerticalAngle: -30
+  maxVerticalAngle: 60
+  invertY: 1
+  invertZoom: 0
+  rotationKey: 324
+  cameraJoystick: {fileID: 4458401495403740874}
+--- !u!135 &4301916139050996433
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794893086938796322}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.79
+  m_Center: {x: 0, y: 1.43, z: 0}
 --- !u!1 &928329164210492016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,6 +1189,8 @@ Transform:
   - {fileID: 3537890142686293665}
   - {fileID: 7838862824688470847}
   - {fileID: 5688568690316987658}
+  - {fileID: 1210679586731007106}
+  - {fileID: 8403571118578190757}
   m_Father: {fileID: 1526105572669686172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &945288615539739968
@@ -1713,6 +1806,72 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!1 &3731298389575625560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1210679586731007106}
+  - component: {fileID: 6488118857752694896}
+  - component: {fileID: 3160791960650424697}
+  m_Layer: 10
+  m_Name: Lasso Range Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1210679586731007106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731298389575625560}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5503662033258183763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6488118857752694896
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731298389575625560}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 25
+  m_Center: {x: 0, y: 5, z: 0}
+--- !u!114 &3160791960650424697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731298389575625560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9e7ba4ab4234346b5b95c4af363fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3879603049845090681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,7 +1884,6 @@ GameObject:
   - component: {fileID: 5301294379991499084}
   - component: {fileID: 882788133774039684}
   - component: {fileID: 260809472872354011}
-  - component: {fileID: 5577803411208878517}
   - component: {fileID: 8476664753565799702}
   - component: {fileID: 1268935481823884108}
   - component: {fileID: 8227121646547314032}
@@ -1833,49 +1991,11 @@ MonoBehaviour:
   coyoteTime: 0.2
   jumpBufferTime: 0.3
   airControlRatio: 0.8
-  lassoRange: 20
   lassoThrowSpeed: 100
   timeToPullTarget: 0.2
   timeToToss: 0.1
   timeToRetract: 0.1
   lassoTossMinigameSpeed: 3
---- !u!114 &5577803411208878517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3879603049845090681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce15c7be69435f47b3965c4b63e777f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cinemachineCamController: {fileID: 0}
-  _cameraFocus: {fileID: 1526105572669686172}
-  _emptyGameObjectPrefab: {fileID: 4070204132712235945, guid: d076296c76109af44991ebf6823031f4, type: 3}
-  focusCenteringFactor: 0.5
-  bottomBorder: 0.25
-  topBorder: 0.89
-  realignTime: 20
-  realignRadius: 10
-  defaultHeightOffset: 3
-  realignRotationSpeed: 90
-  alignSmoothRange: 45
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 8
-  orbitSensitivity: 4
-  orbitZoomSensitivity: 10
-  orbitMinRadius: 20
-  orbitMaxRadius: 60
-  orbitRadius: 30
-  minVerticalAngle: -30
-  maxVerticalAngle: 60
-  invertY: 1
-  invertZoom: 0
-  rotationKey: 324
-  cameraJoystick: {fileID: 4458401495403740874}
 --- !u!114 &8476664753565799702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1906,7 +2026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUI: {fileID: 574274520373564533}
-  playerCameraController: {fileID: 5577803411208878517}
+  playerCameraController: {fileID: 4364513797610872878}
   normalColor: {fileID: 2100000, guid: 440df321c3383b8489f44353b7295e38, type: 2}
   damageColor: {fileID: 2100000, guid: 731fc8af25f290e43aa5c3be015cc151, type: 2}
   charRender: {fileID: 3726396360410514689}

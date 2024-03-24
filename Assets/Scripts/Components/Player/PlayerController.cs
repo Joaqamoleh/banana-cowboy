@@ -86,8 +86,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Lasso")]
     [SerializeField, Min(0f)]
-    float lassoRange = 20f;
-    [SerializeField, Min(0f)]
     float lassoThrowSpeed = 12.5f, timeToPullTarget = 0.4f, timeToToss = 0.1f, timeToRetract = 1.0f, lassoTossMinigameSpeed = 3f;
 
     private LassoObject _hoveredObject = null, _lassoObject = null;
@@ -123,8 +121,6 @@ public class PlayerController : MonoBehaviour
         Debug.Assert(_health != null);
         _cursor = GetComponentInChildren<PlayerCursor>();
         Debug.Assert(_cursor != null);
-        _cursor.OnHoverLassoableEnter += OnLassoableEnterHover;
-        _cursor.OnHoverLassoableExit += OnLassoableExitHovered;
         _playerUI = GetComponentInChildren<UIManager>();
         Debug.Assert(_playerUI != null);
         _lassoRenderer = GetComponentInChildren<LassoRenderer>();
@@ -449,7 +445,7 @@ public class PlayerController : MonoBehaviour
                 case LassoState.NONE:
                     // Do lasso action based on what is selected, update to thrown
                     _hoveredObject = _cursor.GetHoveredLassoObject();
-                    if (_hoveredObject != null && _hoveredObject.isLassoable && !_hoveredObject.currentlyLassoed) // TODO: Also check range relative to the player
+                    if (_hoveredObject != null && _hoveredObject.isLassoable && !_hoveredObject.currentlyLassoed && _hoveredObject.isInRange)
                     {
                         _lassoObject = _hoveredObject;
                         UpdateLassoState(LassoState.THROWN);
@@ -663,28 +659,6 @@ public class PlayerController : MonoBehaviour
 
 
     // ************************ Callbacks / Event Handlers *************************** //
-    void OnLassoableEnterHover(LassoObject hovered)
-    {
-        if (_hoveredObject != null)
-        {
-            _hoveredObject.Deselect();
-        }
-        _hoveredObject = hovered;
-        _hoveredObject.Select();
-
-    }
-    void OnLassoableExitHovered(LassoObject hovered)
-    {
-        if (_hoveredObject == hovered)
-        {
-            if (_hoveredObject != null)
-            {
-                _hoveredObject.Deselect();
-                _hoveredObject = null;
-            }
-        }
-    }
-
     Vector3 GetLassoTossDir()
     {
 

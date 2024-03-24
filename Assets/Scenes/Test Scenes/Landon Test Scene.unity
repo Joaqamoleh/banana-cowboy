@@ -1171,6 +1171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: View Orienter
       objectReference: {fileID: 0}
+    - target: {fileID: 3098875959793126510, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4378109644973964550, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -2378,6 +2382,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4364513797610872878, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: _cinemachineCamController
+      value: 
+      objectReference: {fileID: 267684991}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: orbitRadius
       value: 15
@@ -8729,7 +8737,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1735498534}
   - component: {fileID: 1735498533}
-  - component: {fileID: 1735498532}
   - component: {fileID: 1735498535}
   - component: {fileID: 1735498536}
   m_Layer: 0
@@ -8739,14 +8746,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1735498532
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735498531}
-  m_Enabled: 1
 --- !u!20 &1735498533
 Camera:
   m_ObjectHideFlags: 0
@@ -9268,21 +9267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 50
+  maxVerticalVel: 60
   jelloAnimator: {fileID: 0}
-  sfx:
-    name: 
-    audioClip: {fileID: 0}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    spatialBlend: 0.5
-    spatialMaxDist: 40
-    spatialMinDist: 40
-    type: 0
-    src: {fileID: 0}
-  soundDistance: 40
+  sfx: {fileID: 0}
 --- !u!1 &1888708138
 GameObject:
   m_ObjectHideFlags: 0

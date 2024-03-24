@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 40
+  maxVerticalVel: 60
   jelloAnimator: {fileID: 4549589201997033316}
   sfx: {fileID: 298746446486767925}
 --- !u!114 &298746446486767925
@@ -269,8 +270,8 @@ MonoBehaviour:
     pitchVariance: 0
     loop: 0
     spatialBlend: 1
-    spatialMaxDist: 40
-    spatialMinDist: 30
+    spatialMaxDist: 15
+    spatialMinDist: 5
     type: 0
     src: {fileID: 0}
 --- !u!1001 &5382286579825631395

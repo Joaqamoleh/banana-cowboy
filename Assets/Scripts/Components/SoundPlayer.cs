@@ -46,6 +46,11 @@ public class SoundPlayer : MonoBehaviour
         StopSound(s);
     }
 
+    public void StopLoopedSounds()
+    {
+        _loopedSounds.Clear();
+    }
+
     void SetupSound(Sound s)
     {
         s.src = gameObject.AddComponent<AudioSource>();
