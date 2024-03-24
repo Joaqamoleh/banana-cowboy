@@ -62,7 +62,7 @@ public class EasingsLibrary
 
     public static float EaseOutSin(float t)
     {
-        return t;
+        return Sin((t * PI) / 2);
     }
 
     public static float EaseInOutSin(float t)
@@ -128,7 +128,9 @@ public class EasingsLibrary
 
     public static float EaseOutQuint(float t)
     {
-        return t;
+        if (t >= 1) { return 1f; }
+        if (t <= 0) { return 0f; }
+        return 1f - Pow(1 - t, 5);
     }
 
     public static float EaseInOutQuint(float t)
