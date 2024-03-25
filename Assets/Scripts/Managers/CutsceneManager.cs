@@ -13,18 +13,16 @@ public class CutsceneManager : MonoBehaviour
     private static CutsceneManager s_instance = null;
     private static bool hasPlayedStartingCutscene = false;
 
-    [Tooltip("The input for skipping / going to the next scene")]
-    public KeyCode cutsceneInput = KeyCode.Mouse0;
+    
     [Tooltip("The name of the cutscene to play when the scene starts")]
     public string cutsceneOnStart = string.Empty;
     public bool repeatCutsceneOnRestart = false;
     [Tooltip("The list of cutscenes that can be played by this manager")]
     public Cutscene[] cutscenes;
+    [Tooltip("Key to skip cutscenes (If the cutscene is skipable")]
+    KeyCode skipkey = KeyCode.Mouse0;
 
     private Cutscene activeCutscene = null;
-
-    // 
-    public bool canSkipCutscene = true;
 
     public delegate void CutsceneEventCallback(CutsceneObject activeCutscene);
     public event CutsceneEventCallback OnCutsceneStart;
@@ -51,7 +49,7 @@ public class CutsceneManager : MonoBehaviour
     {
         if (activeCutscene != null && !activeCutscene.cutscene.IsCutsceneComplete())
         {
-            if (Input.GetKeyDown(cutsceneInput) && !PauseManager.pauseActive && canSkipCutscene)
+            if (Input.GetKeyDown(skipkey) && !PauseManager.pauseActive && activeCutscene.cutscene.canSkipCutscene)
             {
                 activeCutscene.cutscene.SkipActiveScene();
             }
