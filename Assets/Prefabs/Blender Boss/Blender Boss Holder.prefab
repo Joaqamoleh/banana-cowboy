@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4151559459942517863}
   - component: {fileID: 5280598234369690696}
   - component: {fileID: 1877165267228088975}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 3
+  m_Name: Carpet Roll Out
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1053576353409829271
 Transform:
   m_ObjectHideFlags: 0
@@ -835,7 +835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6980590395249889865
 Transform:
   m_ObjectHideFlags: 0
@@ -887,11 +887,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientationBasis: {fileID: 7559275821895073421}
   orbitDistance: 30
-  orbitVerticalAngle: 89
+  orbitVerticalAngle: 20
   orbitRotationAngle: 270
   heightOffset: 26.8
   focusElement: {fileID: 0}
-  viewGizmosAtPlayer: 1
+  viewGizmosAtPlayer: 0
   priority: 1
 --- !u!1 &8315230029546492953
 GameObject:
@@ -1126,6 +1126,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4996104184091551621, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1175,7 +1179,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 122
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!1001 &6021005559893894445
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -88,7 +88,7 @@ public class BlenderBoss : MonoBehaviour
         //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 0;
+        currMove = 2;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
@@ -97,6 +97,7 @@ public class BlenderBoss : MonoBehaviour
         healthHolder.SetActive(true);
         climbObjects.SetActive(false);
         canBeDamaged = true;
+        spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
     }
 
     void CutsceneEnd(CutsceneObject o)
@@ -151,6 +152,17 @@ public class BlenderBoss : MonoBehaviour
                 juiceProjectile.SetActive(false);
                 StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
                 modelAnimator.Play("BL_Idle");
+                foreach (GameObject point in spawnPoints)
+                {
+                    point.SetActive(true);
+                }
+                for (int i = 0; i < indicatorSpawnObject.Length; i++)
+                {
+                    if (indicatorSpawnObject[i] != null)
+                    {
+                        Destroy(indicatorSpawnObject[i]);
+                    }
+                }
             }
         }
     }
@@ -237,7 +249,8 @@ public class BlenderBoss : MonoBehaviour
 
     public void CreateSplat(int obj)
     {
-        indicatorSpawnObject[obj] = Instantiate(splatEffect, bombSpawnPos[obj], splatEffect.transform.rotation);
+        GameObject tmp = Instantiate(splatEffect, bombSpawnPos[obj], splatEffect.transform.rotation);
+        indicatorSpawnObject[obj] = tmp;
     }
 
     void SpawnEnemies()
@@ -248,7 +261,6 @@ public class BlenderBoss : MonoBehaviour
             Instantiate(minions[0], spawnPosition, spawnPoints[i].transform.rotation);
         }*/
         StartCoroutine(MoveToPosition(transform.position, originSpawningEnemies.transform.position));
-        spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
         foreach (GameObject point in spawnPoints)
         {
             point.SetActive(false);
