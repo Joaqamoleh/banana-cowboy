@@ -5296,34 +5296,37 @@ MonoBehaviour:
   - name: RevUp
     audioClip: {fileID: 8300000, guid: 42a6d270fe780f147af57800bf27906d, type: 3}
     alternatives: []
-    volume: 1
+    volume: 0.6
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 40
+    spatialBlend: 1
+    spatialMaxDist: 40
+    spatialMinDist: 15
     type: 0
     src: {fileID: 0}
   - name: Charge
     audioClip: {fileID: 8300000, guid: 476a0f8d507590d41803460c74053a09, type: 3}
     alternatives: []
-    volume: 1
+    volume: 0.6
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 40
+    spatialBlend: 1
+    spatialMaxDist: 40
+    spatialMinDist: 15
     type: 0
     src: {fileID: 0}
   - name: Dizzy
     audioClip: {fileID: 8300000, guid: 61017e58d5e4ad94cbbfa379e5b4a852, type: 3}
     alternatives: []
-    volume: 1
+    volume: 0.6
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 40
+    spatialBlend: 1
+    spatialMaxDist: 40
+    spatialMinDist: 15
     type: 0
     src: {fileID: 0}
   - name: HitObstacle
@@ -5333,8 +5336,9 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    isSpatial: 1
-    spatialSoundTravelDistance: 40
+    spatialBlend: 1
+    spatialMaxDist: 40
+    spatialMinDist: 15
     type: 0
     src: {fileID: 0}
 --- !u!1 &6791260704200328076

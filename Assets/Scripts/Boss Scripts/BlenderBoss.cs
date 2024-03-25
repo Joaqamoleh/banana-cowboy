@@ -13,6 +13,10 @@ public class BlenderBoss : MonoBehaviour
     private readonly int _totalPhases = 2;
     private int _currentPhase = 1;
     public static int temp = 1;
+    bool canBeDamaged;
+
+    [Header("Climbing")]
+    public GameObject climbObjects;
 
     [Header("Atacks")]
     private readonly int moves = 4;
@@ -92,6 +96,8 @@ public class BlenderBoss : MonoBehaviour
         bombSpawnPos = new Vector3[6];
         indicatorSpawnObject = new GameObject[6];
         healthHolder.SetActive(true);
+        climbObjects.SetActive(false);
+        canBeDamaged = true;
     }
 
     void CutsceneEnd(CutsceneObject o)
@@ -103,7 +109,7 @@ public class BlenderBoss : MonoBehaviour
     bool moveToPosition;
     void JuiceAttack()
     {
-        cooldownTimer = move1Cooldown - _currentPhase;
+        cooldownTimer = move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 2;
         state = BossStates.COOLDOWN;
         juiceProjectileCount = 0;
         juiceProjectile.SetActive(false);
@@ -360,42 +366,83 @@ public class BlenderBoss : MonoBehaviour
 
     public void Damage(int dmg)
     {
-        //SoundManager.Instance().PlaySFX("BossHurt");
-        health -= dmg;
+        if (canBeDamaged) {
+            //SoundManager.Instance().PlaySFX("BossHurt");
+            health -= dmg;
 
-        healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
-        healthUI.fillAmount = health / (1.0f * maxHealth);
-        StartCoroutine(FlashDamage());
-        if (dmg == 1)
-        {
-            ScreenShakeManager.Instance.ShakeCamera(2, 1, 0.1f);
+            healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
+            healthUI.fillAmount = health / (1.0f * maxHealth);
+            StartCoroutine(FlashDamage());
+            if (dmg == 1)
+            {
+                ScreenShakeManager.Instance.ShakeCamera(2, 1, 0.1f);
+            }
+            if (health <= 0)
+            {
+                if (_currentPhase == 1)
+                {
+                    DizzySetup();
+                }
+                else if (_currentPhase == 2)
+                {
+                    // Play final cutscene
+                }
+            }
+            /*        if (health <= 0)
+                    {
+
+                        // play cutscene
+                        CutsceneManager.Instance().PlayCutsceneByName("Win");
+
+                        // disable player controls and move player to a specific spot
+                        playerModel.transform.position = playerWinLocation.transform.position;
+                        playerModel.transform.rotation = playerWinLocation.transform.rotation;
+                        playerAnimator.applyRootMotion = true;
+                        playerAnimator.SetLayerWeight(1, 0.0f);
+                        playerAnimator.Play("Base Layer.BC_Cheer");
+
+
+                        // play boss animations
+                        modelAnimator.SetTrigger("Death");
+                        enabled = false;
+                        // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
+                        // LevelSwitch.ChangeScene("Menu");
+                        CutsceneManager.Instance().OnCutsceneEnd += FinalCutsceneEnd;
+                    }*/
         }
-        else
+    }
+
+    void DizzySetup()
+    {
+        currMove = -1;
+        state = BossStates.NONE;
+        juiceProjectile.SetActive(false);
+        StopAllCoroutines();
+        StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
+        climbObjects.SetActive(true);
+        PlayDialogue("Ouchie Wowchie", false);
+        // Do this when punching is implemented
+        if (false)
         {
-            PlayDialogue("Ouch! Right in the juice box! You got some skills, but I'm not going down that easy!", false);
-            ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
+            _currentPhase = 2;
+            print("Starting phase 2");
+            StartCoroutine(GoToSecondPhase());
         }
-/*        if (health <= 0)
+    }
+
+    IEnumerator GoToSecondPhase()
+    {
+        canBeDamaged = false;
+        float currentFillAmount = 0;
+        PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
+        yield return new WaitForSeconds(3f);
+        while (currentFillAmount / (maxHealth * 1.0f) != 1)
         {
-
-            // play cutscene
-            CutsceneManager.Instance().PlayCutsceneByName("Win");
-
-            // disable player controls and move player to a specific spot
-            playerModel.transform.position = playerWinLocation.transform.position;
-            playerModel.transform.rotation = playerWinLocation.transform.rotation;
-            playerAnimator.applyRootMotion = true;
-            playerAnimator.SetLayerWeight(1, 0.0f);
-            playerAnimator.Play("Base Layer.BC_Cheer");
-
-
-            // play boss animations
-            modelAnimator.SetTrigger("Death");
-            enabled = false;
-            // TODO: GO TO SOME SORT OF WIN SCREEN. FOR NOW GO TO MAIN MENU
-            // LevelSwitch.ChangeScene("Menu");
-            CutsceneManager.Instance().OnCutsceneEnd += FinalCutsceneEnd;
-        }*/
+            currentFillAmount = Mathf.MoveTowards(currentFillAmount, maxHealth, 0.8f * Time.deltaTime);
+            healthUI.fillAmount = currentFillAmount / maxHealth;
+            yield return null;
+        }
+        canBeDamaged = true;
     }
 
     void FinalCutsceneEnd(CutsceneObject o)

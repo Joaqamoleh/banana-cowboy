@@ -50,6 +50,20 @@ public class LassoObject : MonoBehaviour
         }
     }
 
+    private bool m_inRange = false;
+    public bool isInRange
+    {
+        get { return m_inRange; }
+        set
+        {
+            if (value != m_inRange)
+            {
+                m_inRange = value;
+                UpdateLassoIndictor();
+            }
+        }
+    }
+
     public delegate void LassoObjectUpdate(LassoObject lassoObject);
     public event LassoObjectUpdate OnLassoObjectLassoed;
     public event LassoObjectUpdate OnLassoObjectReleased;
@@ -69,7 +83,7 @@ public class LassoObject : MonoBehaviour
 
     void UpdateLassoIndictor()
     {
-        if (m_isLassoable && !m_currentlyLassoed)
+        if (m_isLassoable && !m_currentlyLassoed && m_inRange)
         {
             lassoIndicatorSprite.gameObject.SetActive(true);
         } 

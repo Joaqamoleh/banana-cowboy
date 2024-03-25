@@ -30,10 +30,10 @@ public class PlayerCursor : MonoBehaviour
 
     Vector2 currentCursorPos;
 
-    public delegate void HoverLassoableEvent(LassoObject hoveredObject);
-    public event HoverLassoableEvent OnHoverLassoableEnter;
-    public event HoverLassoableEvent OnHoverLassoableExit;
-    LassoObject currentlyHovered = null;
+    //public delegate void HoverLassoableEvent(LassoObject hoveredObject);
+    //public event HoverLassoableEvent OnHoverLassoableEnter;
+    //public event HoverLassoableEvent OnHoverLassoableExit;
+    //LassoObject currentlyHovered = null;
     private int _validTouchID = -1;
 
     float dMouseX;
@@ -65,36 +65,7 @@ public class PlayerCursor : MonoBehaviour
             playerUI.SetReticlePosition(currentCursorPos);
             LassoObject hover = GetHoveredLassoObject();
 
-            if (currentlyHovered == null && hover != null && hover.isLassoable)
-            {
-                // New object hovered
-                OnHoverLassoableEnter?.Invoke(hover);
-                currentlyHovered = hover;
-
-            }
-            else if (currentlyHovered != null && hover == null && currentlyHovered.isLassoable)
-            {
-                // Hovered object no longer hovered
-                OnHoverLassoableExit?.Invoke(currentlyHovered);
-                currentlyHovered = hover;
-
-            }
-            else if (currentlyHovered != null && hover != null && hover != currentlyHovered)
-            {
-                // Check to see if not equal, then if they aren't, then two updates to send signals about
-                if (currentlyHovered.isLassoable)
-                {
-                    OnHoverLassoableExit?.Invoke(currentlyHovered);
-                }
-                if (hover.isLassoable)
-                {
-                    OnHoverLassoableEnter?.Invoke(hover);
-                }
-                currentlyHovered = hover;
-            }
-
-
-            if (hover != null && hover.isLassoable && !hover.currentlyLassoed)
+            if (hover != null && hover.isLassoable && !hover.currentlyLassoed && hover.isInRange)
             {
                 playerUI.ReticleOverLassoable();
             }
@@ -145,7 +116,7 @@ public class PlayerCursor : MonoBehaviour
                     if (hover != null && hover.isLassoable && !hover.currentlyLassoed)
                     {
                         // Handle click on lassoable object
-                        OnHoverLassoableEnter?.Invoke(hover);
+                        //OnHoverLassoableEnter?.Invoke(hover);
                         playerUI.ReticleOverLassoable();
                     }
                     else

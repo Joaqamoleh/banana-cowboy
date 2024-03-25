@@ -9290,6 +9290,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1623697365}
+    - target: {fileID: 4364513797610872878, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: _cinemachineCamController
+      value: 
+      objectReference: {fileID: 141494500}
     - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cinemachineCamController
       value: 
@@ -10958,7 +10962,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1623697366}
   - component: {fileID: 1623697365}
-  - component: {fileID: 1623697364}
   - component: {fileID: 1623697363}
   - component: {fileID: 1623697367}
   m_Layer: 0
@@ -11002,14 +11005,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!81 &1623697364
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623697362}
-  m_Enabled: 1
 --- !u!20 &1623697365
 Camera:
   m_ObjectHideFlags: 0

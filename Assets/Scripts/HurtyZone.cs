@@ -18,16 +18,14 @@ public class HurtyZone : MonoBehaviour
         // check if the collided entity is the player
         if (other.CompareTag("Player"))
         {
+            Health h = other.GetComponentInParent<Health>();
             if (kill)
             {
-                // kill the player
-                // hopefully doesnt bug out lmao
-                other.GetComponentInParent<Health>().Damage(999, Vector3.zero);
+                h.Damage(999, Vector3.zero);
             }
             else
             {
-                // damage the player
-                other.GetComponentInParent<Health>().Damage(damage, knockback);
+                h.Damage(damage, knockback);
             }
         }
         else if (other != null && other.gameObject != null &&  other.gameObject.GetComponentInParent<LassoableEnemy>() != null && killsEnemies)

@@ -14,11 +14,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Canvas hudElementsCanvas;
     [SerializeField]
-    Sprite[] healthSprites, healthBlinkSprites, reticleSprites;
+    Sprite[] healthSprites, healthBlinkSprites, reticleSelectedSprites, reticleSprites;
     [SerializeField]
-    Image healthSprite, reticleSprite, panHandSprite;
+    Image healthImage, panHandImage;
     [SerializeField]
-    GameObject throwBarSpriteRoot;
+    Image[] reticleImages;
+    [SerializeField]
+    GameObject throwBarSpriteRoot, reticleRoot;
 
     [SerializeField]
     RectTransform throwBarContainer, throwLowPower, throwMedPower, throwHighPow, throwBarIndicator;
@@ -27,6 +29,11 @@ public class UIManager : MonoBehaviour
     Vector3 indicatorStartingPos;
 
     public TMP_Text starSparkles;
+
+    [SerializeField]
+    float timeForReticleLockOn = 0.1f, timeForReticleReturn = 0.4f, reticleLockOnRadius = 80f, reticleDefaultRadius = 100f;
+    bool reticleHighlight = false;
+    float reticleTime;
 
     private void Awake()
     {
@@ -46,22 +53,38 @@ public class UIManager : MonoBehaviour
             CutsceneManager.Instance().OnCutsceneEnd += ShowUIPostCutscene;
         }
     }
+
+    private void Update()
+    {
+        if (reticleRoot.activeSelf)
+        {
+            if (reticleHighlight)
+            {
+                float t = EasingsLibrary.EaseOutQuint(reticleTime / timeForReticleLockOn);
+                float lerpedRadius = Mathf.Lerp(reticleImages[1].rectTransform.localPosition.y, reticleLockOnRadius, t);
+                reticleImages[1].rectTransform.localPosition = new Vector2(0, lerpedRadius);
+                reticleImages[2].rectTransform.localPosition = new Vector2(-lerpedRadius, 0);
+                reticleImages[3].rectTransform.localPosition = new Vector2(0, -lerpedRadius);
+                reticleImages[4].rectTransform.localPosition = new Vector2(lerpedRadius, 0);
+            }
+            else
+            {
+                float t = EasingsLibrary.EaseOutSin(reticleTime / timeForReticleReturn);
+                float lerpedRadius = Mathf.Lerp(reticleImages[1].rectTransform.localPosition.y, reticleDefaultRadius, t);
+                reticleImages[1].rectTransform.localPosition = new Vector2(0, lerpedRadius);
+                reticleImages[2].rectTransform.localPosition = new Vector2(-lerpedRadius, 0);
+                reticleImages[3].rectTransform.localPosition = new Vector2(0, -lerpedRadius);
+                reticleImages[4].rectTransform.localPosition = new Vector2(lerpedRadius, 0);
+            }
+            reticleTime += Time.deltaTime;
+        }
+    }
+
     public static void UpdateStars()
     {
         if (instance == null) { return; }
         instance.starSparkles.text = "X " + (LevelData.starSparkleTotal + LevelData.starSparkleCheckpoint + LevelData.starSparkleTemp);    
     }
-
-    /*    public void ChangeHealth(int change)
-        {
-            int newHealth = Mathf.Clamp(_health + change, 0, 4);
-            if (newHealth != _health)
-            {
-                healthAnimator.SetTrigger("Damaged");
-                _health = newHealth;
-                SetAbsHealth(_health);
-            }
-        }*/
 
     public void SetHealthUI(int health, bool healed)
     {
@@ -83,51 +106,67 @@ public class UIManager : MonoBehaviour
     {
         if (!healed)
         {
-            healthSprite.GetComponent<Image>().sprite = healthBlinkSprites[health];
+            healthImage.GetComponent<Image>().sprite = healthBlinkSprites[health];
             yield return new WaitForSeconds(0.5f);
         }
-        healthSprite.GetComponent<Image>().sprite = healthSprites[health];
+        healthImage.GetComponent<Image>().sprite = healthSprites[health];
 
     }
 
     public void SetReticlePosition(Vector3 screenSpacePosition)
     {
-        reticleSprite.transform.position = screenSpacePosition;
+        reticleRoot.transform.position = screenSpacePosition;
     }
 
     public void ReticleOverLassoable()
     {
-        reticleSprite.GetComponent<Image>().sprite = reticleSprites[1];
+        if (!reticleHighlight)
+        {
+            reticleTime = 0;
+            reticleHighlight = true;
+            for (int i = 0; i < reticleImages.Length; i++)
+            {
+                reticleImages[i].sprite = reticleSelectedSprites[i];
+            }
+        }
     }
 
     public void ReticleOverNone()
     {
-        reticleSprite.GetComponent<Image>().sprite = reticleSprites[0];
+        if (reticleHighlight)
+        {
+            reticleTime = 0;
+            reticleHighlight = false;
+            for (int i = 0; i < reticleImages.Length; i++)
+            {
+                reticleImages[i].sprite = reticleSprites[i];
+            }
+        }
     }
     public void ShowReticle()
     {
-        reticleSprite.gameObject.SetActive(true);
+        reticleRoot.SetActive(true);
     }
 
     public void HideReticle()
     {
-        reticleSprite.gameObject.SetActive(false);
+        reticleRoot.SetActive(false);
     }
 
     public void SetPanHandPosition(Vector3 screenSpacePosition)
     {
-        panHandSprite.transform.position = screenSpacePosition;
+        panHandImage.transform.position = screenSpacePosition;
     }
 
     public void ShowPanHand()
     {
-        panHandSprite.transform.position = reticleSprite.transform.position;
-        panHandSprite.gameObject.SetActive(true);
+        panHandImage.transform.position = reticleRoot.transform.position;
+        panHandImage.gameObject.SetActive(true);
     }
 
     public void HidePanHand()
     {
-        panHandSprite.gameObject.SetActive(false);
+        panHandImage.gameObject.SetActive(false);
     }
 
     public void ShowThrowBar()

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 7904645277216939813}
   - component: {fileID: 2602012539091461533}
   - component: {fileID: 4568779638204904737}
+  - component: {fileID: 298746446486767925}
   m_Layer: 3
   m_Name: Bouncy Jello
   m_TagString: Untagged
@@ -245,18 +246,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 40
+  maxVerticalVel: 60
   jelloAnimator: {fileID: 4549589201997033316}
-  sfx:
-    name: Bouncer
+  sfx: {fileID: 298746446486767925}
+--- !u!114 &298746446486767925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3435539107794432539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Bounce
     audioClip: {fileID: 8300000, guid: b9e82adb5c3bfed42b9a811103ddfeba, type: 3}
     alternatives: []
     volume: 1
     pitch: 1
     pitchVariance: 0
     loop: 0
+    spatialBlend: 1
+    spatialMaxDist: 15
+    spatialMinDist: 5
     type: 0
     src: {fileID: 0}
-  soundDistance: 40
 --- !u!1001 &5382286579825631395
 PrefabInstance:
   m_ObjectHideFlags: 0
