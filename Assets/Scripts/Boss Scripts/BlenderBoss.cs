@@ -48,7 +48,6 @@ public class BlenderBoss : MonoBehaviour
     private float cooldownTimer;
 
     public Animator modelAnimator;
-    public Animator attackAnimator;
     public Animator healthAnimator;
     public Animator playerAnimator;
 
@@ -132,15 +131,15 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(_currentPhase % 2f + 0.5f);
 
         doneMoving = false;
+        modelAnimator.Play("BL_Juice_Attack_Start"); // TODO: setactive in animation event
+
         juiceProjectile.SetActive(true);
-        attackAnimator.SetTrigger("JuiceAttack");
         if (positions.Length > 0)
         {
             targetPosition.y = transform.position.y;
             yield return MoveToPosition(transform.position, targetPosition);
 
             doneMoving = true;
-            attackAnimator.SetTrigger("StopJuice");
             if (juiceProjectileCount != juiceProjectileAmount)
             {
                 moveToPosition = false;
@@ -151,6 +150,7 @@ public class BlenderBoss : MonoBehaviour
             {
                 juiceProjectile.SetActive(false);
                 StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
+                modelAnimator.Play("BL_Idle");
             }
         }
     }
@@ -195,6 +195,9 @@ public class BlenderBoss : MonoBehaviour
 
     IEnumerator PlaceBombs()
     {
+        modelAnimator.Play("BL_StartAttack_Open_Lid");
+        yield return new WaitForSeconds(3f); // When all animations are done, make this an event in Animation.
+
         if (bombIndicator != null && platform != null)
         {
             for (int i = 0; i < 3 * _currentPhase; i++)
@@ -263,8 +266,16 @@ public class BlenderBoss : MonoBehaviour
                 Instantiate(cherryBomb, cherrySpawnPoints[i].transform.position, cherrySpawnPoints[i].transform.rotation);
             }
         }*/
-        cooldownTimer = move4Cooldown;
+        cooldownTimer = move4Cooldown + 12f;
         state = BossStates.COOLDOWN;
+        StartCoroutine(RestartAttackPattern());
+    }
+
+    IEnumerator RestartAttackPattern()
+    {
+        modelAnimator.Play("BL_Open_Lid 0 0");
+        yield return new WaitForSeconds(18f);
+        modelAnimator.SetTrigger("Next");
     }
 
 
@@ -366,8 +377,10 @@ public class BlenderBoss : MonoBehaviour
 
     public void Damage(int dmg)
     {
-        if (canBeDamaged) {
+        if (canBeDamaged)
+        {
             //SoundManager.Instance().PlaySFX("BossHurt");
+            modelAnimator.Play("BL_Damage");
             health -= dmg;
 
             healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
@@ -418,6 +431,7 @@ public class BlenderBoss : MonoBehaviour
         state = BossStates.NONE;
         juiceProjectile.SetActive(false);
         StopAllCoroutines();
+        modelAnimator.SetTrigger("Dizzy");
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         climbObjects.SetActive(true);
         PlayDialogue("Ouchie Wowchie", false);
@@ -464,3 +478,5 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
     }
 }
+
+

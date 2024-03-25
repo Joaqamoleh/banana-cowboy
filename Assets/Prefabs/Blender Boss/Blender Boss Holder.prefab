@@ -175,8 +175,7 @@ MonoBehaviour:
   move2Cooldown: 10
   move3Cooldown: 10
   move4Cooldown: 10
-  modelAnimator: {fileID: 0}
-  attackAnimator: {fileID: 0}
+  modelAnimator: {fileID: 3004546548192334540}
   healthAnimator: {fileID: 2221292999759855281}
   playerAnimator: {fileID: 0}
   origin: {fileID: 1637387323039116964}
@@ -1467,14 +1466,48 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 109f8303f7c06af45962f82475909670, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: -7644792936294863284, guid: 109f8303f7c06af45962f82475909670, type: 3}
+      insertIndex: 0
       addedObject: {fileID: 7788211226661211533}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 109f8303f7c06af45962f82475909670, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3004546548192334540}
   m_SourcePrefab: {fileID: 100100000, guid: 109f8303f7c06af45962f82475909670, type: 3}
 --- !u!4 &6981281773758262762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7757923579579430736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3004546548192334540
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757923579579430736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b36b8bff2640a2049832d79d8f39ef5e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &8250870364264129613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7644792936294863284, guid: 109f8303f7c06af45962f82475909670, type: 3}
   m_PrefabInstance: {fileID: 7451425166228736513}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7755182777253014118
@@ -1483,19 +1516,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6981281773758262762}
+    m_TransformParent: {fileID: 8250870364264129613}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.065273285
+      value: 0.333395
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50.3
+      value: -8.884903
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.18918514
+      value: 0.1891847
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_LocalRotation.w
