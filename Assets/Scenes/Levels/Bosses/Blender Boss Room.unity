@@ -3198,7 +3198,8 @@ MonoBehaviour:
   kill: 1
   knockback: {x: 0, y: 0, z: 0}
   damage: 0
-  killsEnemies: 1
+  killsEnemies: 0
+  blenderJuiceBlast: 0
 --- !u!65 &1013019176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7999,7 +8000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 277584117697552697, guid: 9451b49e5053d9441a5c4c0e0b60ca4a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6851618828961594895, guid: 9451b49e5053d9441a5c4c0e0b60ca4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8151,6 +8152,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042843716}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &2070248612
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 33.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379062788576937066, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6463939426268983136, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: m_Name
+      value: Orange Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
 --- !u!1 &2083238421
 GameObject:
   m_ObjectHideFlags: 0
@@ -8455,6 +8513,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 162558994027039315, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: m_Name
+      value: Carpet Roll Out
+      objectReference: {fileID: 0}
+    - target: {fileID: 162558994027039315, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 531679938099478377, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: orbitVerticalAngle
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 531679938099478377, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: viewGizmosAtPlayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786201614058196497, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3487658146441763437, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8511,6 +8589,10 @@ PrefabInstance:
       propertyPath: cherrySpawnPoints.Array.data[1]
       value: 
       objectReference: {fileID: 658918756}
+    - target: {fileID: 7207088145141837970, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8606,3 +8688,4 @@ SceneRoots:
   - {fileID: 1588805190}
   - {fileID: 2112995979}
   - {fileID: 355407575110090794}
+  - {fileID: 2070248612}
