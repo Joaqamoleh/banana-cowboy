@@ -35,11 +35,11 @@ public class BlenderBlade : MonoBehaviour
         float newSize = 0;
         if (blenderBoss.GetPhase() == 2)
         {
-            speed *= 1.5f;
+            speed *= 1.2f;
         }
         while (currentSize < maxSize) // TODO: Make it grow faster if x is at a certain size
         {
-            newSize = currentSize < 50? currentSize + minGrowthRate * Time.deltaTime : currentSize + growthRate * Time.deltaTime;
+            newSize = currentSize < 10? currentSize + minGrowthRate * Time.deltaTime : currentSize + growthRate * Time.deltaTime;
             newSize = Mathf.Min(newSize, maxSize); // Clamp the size to maxSize
             transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
             currentSize = newSize;
