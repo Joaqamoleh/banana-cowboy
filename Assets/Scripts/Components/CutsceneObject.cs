@@ -7,6 +7,7 @@ using UnityEngine.Playables;
 
 public class CutsceneObject : MonoBehaviour
 {
+    public bool canSkipCutscene = true;
     [Tooltip("Plays scenes in the order they are listed in the array")]
     public Scene[] scenes;
 
@@ -15,16 +16,20 @@ public class CutsceneObject : MonoBehaviour
     private bool _skip = false;
     private bool _stopCutscene = false;
 
-    public delegate void CutsceneCompleteCallback(CutsceneObject completedScene);
-    public event CutsceneCompleteCallback OnCutsceneComplete;
+    public delegate void CutsceneCallback(CutsceneObject completedScene);
+    public event CutsceneCallback OnCutsceneStart;
+    public event CutsceneCallback OnCutsceneComplete;
 
     private Coroutine dialogueScreenShake = null;
+
+
     public void Play()
     {
         _cutsceneComplete = false;
         _stopCutscene = false;
         StopAllCoroutines();
         StartCoroutine(PlayScenes());
+        OnCutsceneStart?.Invoke(this);
     }
     public bool IsCutsceneComplete()
     {
@@ -64,7 +69,7 @@ public class CutsceneObject : MonoBehaviour
             scene.timelinePlayable.Play();
         }
 
-        if (scene.cameraShake)
+        if (scene.cameraShake && scene.cinemachineCamController != null && scene.cinemachineCamController.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>() != null)
         {
             StartCoroutine(ShakeScreen(scene));
         }
@@ -158,7 +163,7 @@ public class CutsceneObject : MonoBehaviour
         bool done = false;
         while (!done)
         {
-            if (Input.GetKeyDown(CutsceneManager.Instance().cutsceneInput) && !PauseManager.pauseActive)
+            if (GetSceneInput(s) && !PauseManager.pauseActive)
             {
                 // TODO: Needs testing
                 /*#if UNITY_IOS || UNITY_ANDROID
@@ -178,6 +183,22 @@ public class CutsceneObject : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    bool GetSceneInput(Scene s)
+    {
+        if (Input.GetKeyDown(s.cutsceneInput))
+        {
+            return true;
+        }
+        foreach (KeyCode k in s.altInputs)
+        {
+            if (Input.GetKeyDown(k))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     IEnumerator WaitForDialog(Dialog dialog)
@@ -261,6 +282,10 @@ public class Scene
 
     [Tooltip("Done only at the start of the scene")]
     public bool cameraShake = false;
+
+    [Tooltip("The input for going to the next scene")]
+    public KeyCode cutsceneInput = KeyCode.Mouse0;
+    public KeyCode[] altInputs;
 
     public enum CompletionType
     {

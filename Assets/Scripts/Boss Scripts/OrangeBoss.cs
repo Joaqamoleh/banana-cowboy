@@ -405,8 +405,6 @@ public class OrangeBoss : MonoBehaviour
     void CelebrationCutscene(CutsceneObject o)
     {
         // cutscene cannot be skipped
-        CutsceneManager.Instance().canSkipCutscene = false;
-
         // reset player
         playerModel.SetActive(true);
         playerModel.transform.position = playerWinLocation.transform.position;
@@ -423,7 +421,6 @@ public class OrangeBoss : MonoBehaviour
 
     void FinalCutsceneEnd(CutsceneObject o)
     {
-        CutsceneManager.Instance().canSkipCutscene = true;
         LevelSwitch.ChangeScene("Menu");
     }
 

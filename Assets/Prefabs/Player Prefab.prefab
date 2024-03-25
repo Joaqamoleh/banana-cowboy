@@ -1687,6 +1687,8 @@ Transform:
   - {fileID: 1824780013112630551}
   - {fileID: 8269334248003281727}
   - {fileID: 4228041902140543494}
+  - {fileID: 455718248630279424}
+  - {fileID: 9093232786344403118}
   m_Father: {fileID: 5503662033258183763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3423473375855337316
@@ -1888,6 +1890,7 @@ GameObject:
   - component: {fileID: 1268935481823884108}
   - component: {fileID: 8227121646547314032}
   - component: {fileID: 6084915205613949158}
+  - component: {fileID: 1903002008478302575}
   m_Layer: 14
   m_Name: Player Prefab
   m_TagString: Player
@@ -2131,6 +2134,25 @@ MonoBehaviour:
     spatialMinDist: 150
     type: 0
     src: {fileID: 0}
+--- !u!114 &1903002008478302575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879603049845090681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add7d0dcbeb79a843ba1cb9b32f1f9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bananaPunchHitBox: {fileID: 1073267248226321713, guid: ccc70ca70249bd04b929ef6a34a44201, type: 3}
+  leftPunchHitboxLocation: {fileID: 455718248630279424}
+  rightPunchHitboxLocation: {fileID: 9093232786344403118}
+  leftPunchButton: 111
+  rightPunchButton: 112
+  punchCooldown: 0.4
+  hitboxLifetime: 0.1
 --- !u!1 &4128062965984371809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,6 +2449,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &5530919774917659878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9093232786344403118}
+  m_Layer: 0
+  m_Name: Right Hand Punch Hitbox Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9093232786344403118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5530919774917659878}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.31, y: 0.42000008, z: 1.87}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7838862824688470847}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5724474050856554619
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,6 +3626,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8492720891033085457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 455718248630279424}
+  m_Layer: 0
+  m_Name: Left Hand Punch Hitbox Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &455718248630279424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492720891033085457}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.31, y: 0.42000008, z: 1.87}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7838862824688470847}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8699968398291684368
 GameObject:
   m_ObjectHideFlags: 0
