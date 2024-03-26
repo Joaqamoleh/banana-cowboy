@@ -22,14 +22,14 @@ public class PlayerAnimator : MonoBehaviour
 
     public void DoLeftPunch()
     {
-
+        playerAnimator.Play("Base Layer.BC_Left_Punch");
     }
 
     public void DoRightPunch()
     {
-
+        playerAnimator.Play("Base Layer.BC_Right_Punch");
     }
-    
+
     void PlayerStateChanged(PlayerController.State updatedState)
     {
         if (playerAnimator == null) { return; }

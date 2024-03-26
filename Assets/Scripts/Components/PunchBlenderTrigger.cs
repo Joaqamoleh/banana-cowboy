@@ -23,9 +23,10 @@ public class PunchBlenderTrigger : MonoBehaviour
     CutsceneTrigger PhaseTwoCutsceneTrigger;
     [SerializeField]
     float delayShowHelp = 1.5f;
+    [SerializeField]
+    SoundPlayer SfxPlayer;
 
-    [HideInInspector]
-    public bool inSecondPhase = false; // When we enter second phase, set to true
+    bool inSecondPhase = false; // When we enter second phase, set to true
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class PunchBlenderTrigger : MonoBehaviour
         p.DetachFromRigidbody(AnimatorRigidBody);
         PunchHelpIndication.SetActive(false);
         PhaseTwoCutsceneTrigger.gameObject.SetActive(true);
+        inSecondPhase = true;
     }
 
     void PhaseTwoPunchStart(CutsceneObject completed)
@@ -82,22 +84,6 @@ public class PunchBlenderTrigger : MonoBehaviour
                 bp.canPunch = true;
             }
 
-        }
-        if (other.CompareTag("PunchHitBox"))
-        {
-            if (inSecondPhase)
-            {
-                // Play punched animation
-                // evilTwinAnimator.Play("Punched");
-                print("OOF! (Evil banana was punched)");
-            } 
-            else
-            {
-                print("Ouch! (Evil Banana Punched");
-
-                // Do glass particles 
-                glassParticle.Play();
-            }
         }
     }
 

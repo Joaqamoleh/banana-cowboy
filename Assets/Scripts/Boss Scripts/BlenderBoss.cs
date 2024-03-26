@@ -75,6 +75,9 @@ public class BlenderBoss : MonoBehaviour
     private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
     public Coroutine currentDialog;
 
+    // For sfxs
+    private SoundPlayer soundPlayer;
+
     [Header("Material")]
     public Material orangeSpawn;
     public enum BossStates
@@ -99,6 +102,9 @@ public class BlenderBoss : MonoBehaviour
         climbObjects.SetActive(false);
         canBeDamaged = true;
         spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
+
+        soundPlayer = GetComponent<SoundPlayer>();
+        Debug.Assert(soundPlayer != null);
     }
 
     void CutsceneEnd(CutsceneObject o)
@@ -378,6 +384,9 @@ public class BlenderBoss : MonoBehaviour
 
     public void PlayDialogue(string dialog, bool announcingAttack)
     {
+        soundPlayer.PlaySFX("Laugh");
+        // Also have talk, but idk when you want that to play
+        // soundPlayer.PlaySFX("Talk");
         if (currentDialog != null)
         {
             StopCoroutine(currentDialog);

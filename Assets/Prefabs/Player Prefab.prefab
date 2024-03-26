@@ -2200,7 +2200,7 @@ MonoBehaviour:
   - name: PlayerWalk
     audioClip: {fileID: 8300000, guid: b401237eb46fbd14e8b98bae92b2b234, type: 3}
     alternatives: []
-    volume: 0.6
+    volume: 0.3
     pitch: 1
     pitchVariance: 0.1
     loop: 1
@@ -2212,7 +2212,7 @@ MonoBehaviour:
   - name: PlayerRun
     audioClip: {fileID: 8300000, guid: 8042d2069ed60104ea4bf6ea406ae720, type: 3}
     alternatives: []
-    volume: 0.6
+    volume: 0.3
     pitch: 1
     pitchVariance: 0.1
     loop: 1
@@ -2224,7 +2224,7 @@ MonoBehaviour:
   - name: PlayerJump
     audioClip: {fileID: 8300000, guid: c2890ee6703e3a54ab10007153ee4697, type: 3}
     alternatives: []
-    volume: 0.7
+    volume: 0.5
     pitch: 1
     pitchVariance: 0.1
     loop: 0
@@ -2236,7 +2236,7 @@ MonoBehaviour:
   - name: PlayerLand
     audioClip: {fileID: 8300000, guid: 0d38a4cfaa147d1459cdf49f586de138, type: 3}
     alternatives: []
-    volume: 0.7
+    volume: 0.5
     pitch: 1
     pitchVariance: 0.1
     loop: 0
@@ -2248,7 +2248,7 @@ MonoBehaviour:
   - name: PlayerHurt
     audioClip: {fileID: 8300000, guid: 4f6fb3cd7128a4c46b98ddc6d1f79fed, type: 3}
     alternatives: []
-    volume: 1
+    volume: 0.7
     pitch: 1
     pitchVariance: 0.1
     loop: 0
@@ -2303,7 +2303,6 @@ MonoBehaviour:
   rightPunchButton: 112
   punchCooldown: 0.4
   hitboxLifetime: 0.1
-  punchPlayer: {fileID: 0}
   canPunch: 0
 --- !u!1 &4128062965984371809
 GameObject:
