@@ -70,6 +70,8 @@ public class OrangeEnemyController : EnemyController
     private Vector3 _chargeDirection;
     private Vector3 _chargeTargetPoint;
 
+    public GameObject sightRange;
+
     public bool playerInView = false;
 
     public Animator orangeEnemyAnimator;
@@ -444,6 +446,10 @@ public class OrangeEnemyController : EnemyController
         }
     }
 
+    public void ChangeSightRange(float num)
+    {
+        sightRange.transform.localScale = new Vector3(num, 1, num);
+    }
 
     private void OnTriggerExit(Collider other)
     {

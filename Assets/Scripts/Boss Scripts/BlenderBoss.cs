@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class BlenderBoss : MonoBehaviour
     public Transform platform;
     public GameObject bombIndicator;
     public GameObject blueberryBombObject;
-    private Vector3[] bombSpawnPos; // positions of where a bomb will drop
+    private List<Vector3> bombSpawnPos; // positions of where a bomb will drop
     private GameObject[] indicatorSpawnObject; // spawn indicator images
     public GameObject splatEffect;
 
@@ -48,7 +49,6 @@ public class BlenderBoss : MonoBehaviour
     private float cooldownTimer;
 
     public Animator modelAnimator;
-    public Animator attackAnimator;
     public Animator healthAnimator;
     public Animator playerAnimator;
 
@@ -89,15 +89,16 @@ public class BlenderBoss : MonoBehaviour
         //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 0;
+        currMove = 2;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
-        bombSpawnPos = new Vector3[6];
+        bombSpawnPos = new List<Vector3>();
         indicatorSpawnObject = new GameObject[6];
         healthHolder.SetActive(true);
         climbObjects.SetActive(false);
         canBeDamaged = true;
+        spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
     }
 
     void CutsceneEnd(CutsceneObject o)
@@ -109,6 +110,8 @@ public class BlenderBoss : MonoBehaviour
     bool moveToPosition;
     void JuiceAttack()
     {
+        bombSpawnPos.Clear(); // Just in case
+
         cooldownTimer = move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 2;
         state = BossStates.COOLDOWN;
         juiceProjectileCount = 0;
@@ -132,15 +135,18 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(_currentPhase % 2f + 0.5f);
 
         doneMoving = false;
+        modelAnimator.Play("BL_Juice_Attack_Windup"); // TODO: setactive in animation event
+        yield return new WaitForSeconds(0.75f);
+        modelAnimator.Play("BL_Juice_Attack_Loop");
         juiceProjectile.SetActive(true);
-        attackAnimator.SetTrigger("JuiceAttack");
         if (positions.Length > 0)
         {
             targetPosition.y = transform.position.y;
             yield return MoveToPosition(transform.position, targetPosition);
 
             doneMoving = true;
-            attackAnimator.SetTrigger("StopJuice");
+            modelAnimator.Play("BL_Juice_Attack_Reset");
+
             if (juiceProjectileCount != juiceProjectileAmount)
             {
                 moveToPosition = false;
@@ -151,6 +157,17 @@ public class BlenderBoss : MonoBehaviour
             {
                 juiceProjectile.SetActive(false);
                 StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
+                foreach (GameObject point in spawnPoints)
+                {
+                    point.SetActive(true);
+                }
+                for (int i = 0; i < indicatorSpawnObject.Length; i++)
+                {
+                    if (indicatorSpawnObject[i] != null)
+                    {
+                        Destroy(indicatorSpawnObject[i]);
+                    }
+                }
             }
         }
     }
@@ -193,28 +210,50 @@ public class BlenderBoss : MonoBehaviour
         StartCoroutine(PlaceBombs());
     }
 
+    Vector3 spawnPosition = Vector3.zero;
     IEnumerator PlaceBombs()
     {
+        modelAnimator.Play("BL_StartAttack_Open_Lid");
+        yield return new WaitForSeconds(3f); // When all animations are done, make this an event in Animation.
+        modelAnimator.Play("BL_Bomb_Attack_Windup");
+        yield return new WaitForSeconds(3f); // When all animations are done, make this an event in Animation.
+
         if (bombIndicator != null && platform != null)
         {
-            for (int i = 0; i < 3 * _currentPhase; i++)
+            for (int i = 0; i < 6; i++)
             {
-                Vector3 minBounds = platform.position - new Vector3(27, 0f, 32);
-                Vector3 maxBounds = platform.position + new Vector3(27, 0f, 32);
-
-                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), platform.transform.position.y + 3, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
+                if (_currentPhase == 1)
+                {
+                    SpawnRandomPosition();
+                }
+                else
+                {
+                    spawnPosition = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+                    if (bombSpawnPos.Contains(spawnPosition))
+                    {
+                        SpawnRandomPosition();
+                    }
+                    yield return new WaitForSeconds(0.75f/_currentPhase);
+                }
 
                 indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
-                bombSpawnPos[i] = spawnPosition;
+                bombSpawnPos.Add(spawnPosition);
             }
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f/_currentPhase);
         ShootBombs();
+    }
+
+    void SpawnRandomPosition()
+    {
+        Vector3 minBounds = platform.position - new Vector3(27, 0f, 32);
+        Vector3 maxBounds = platform.position + new Vector3(27, 0f, 32);
+        spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), platform.transform.position.y + 3, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
     }
 
     void ShootBombs()
     {
-        for (int i = 0; i < 3 * _currentPhase; i++)
+        for (int i = 0; i < 6; i++)
         {
             // Assuming bombSpawnPos[i] is a RectTransform
             Vector3 screenPos = bombSpawnPos[i];
@@ -234,7 +273,8 @@ public class BlenderBoss : MonoBehaviour
 
     public void CreateSplat(int obj)
     {
-        indicatorSpawnObject[obj] = Instantiate(splatEffect, bombSpawnPos[obj], splatEffect.transform.rotation);
+        GameObject tmp = Instantiate(splatEffect, bombSpawnPos[obj], splatEffect.transform.rotation);
+        indicatorSpawnObject[obj] = tmp;
     }
 
     void SpawnEnemies()
@@ -245,7 +285,6 @@ public class BlenderBoss : MonoBehaviour
             Instantiate(minions[0], spawnPosition, spawnPoints[i].transform.rotation);
         }*/
         StartCoroutine(MoveToPosition(transform.position, originSpawningEnemies.transform.position));
-        spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
         foreach (GameObject point in spawnPoints)
         {
             point.SetActive(false);
@@ -263,8 +302,16 @@ public class BlenderBoss : MonoBehaviour
                 Instantiate(cherryBomb, cherrySpawnPoints[i].transform.position, cherrySpawnPoints[i].transform.rotation);
             }
         }*/
-        cooldownTimer = move4Cooldown;
+        cooldownTimer = move4Cooldown + 12f;
         state = BossStates.COOLDOWN;
+        StartCoroutine(RestartAttackPattern());
+    }
+
+    IEnumerator RestartAttackPattern()
+    {
+        modelAnimator.Play("BL_Open_Lid 0 0");
+        yield return new WaitForSeconds(18f);
+        modelAnimator.SetTrigger("Next");
     }
 
 
@@ -366,8 +413,10 @@ public class BlenderBoss : MonoBehaviour
 
     public void Damage(int dmg)
     {
-        if (canBeDamaged) {
+        if (canBeDamaged)
+        {
             //SoundManager.Instance().PlaySFX("BossHurt");
+            modelAnimator.Play("BL_Damage");
             health -= dmg;
 
             healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
@@ -418,6 +467,7 @@ public class BlenderBoss : MonoBehaviour
         state = BossStates.NONE;
         juiceProjectile.SetActive(false);
         StopAllCoroutines();
+        modelAnimator.SetTrigger("Dizzy");
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         climbObjects.SetActive(true);
         PlayDialogue("Ouchie Wowchie", false);
@@ -464,3 +514,5 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
     }
 }
+
+

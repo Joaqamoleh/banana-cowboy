@@ -91,21 +91,13 @@ public class PlayerController : MonoBehaviour
     private LassoObject _hoveredObject = null, _lassoObject = null;
     private float lassoCurTime, lassoMaxTime;
 
+    private static bool hasPunchAbility = false; // TODO: For testing, turn to false when building for game
+
+    Transform _attachedJoint = null;
+
     private void Awake()
     {
         StartCoroutine(SetSpawnPos());
-    }
-    IEnumerator SetSpawnPos()
-    {
-        yield return new WaitForEndOfFrame();
-        if (GameObject.Find("CheckpointManager") != null)
-        {
-            transform.position = LevelData.GetRespawnPos();
-        }
-        else
-        {
-            transform.position = Vector3.zero;
-        }
     }
     private void Start()
     {
@@ -127,6 +119,10 @@ public class PlayerController : MonoBehaviour
         Debug.Assert(_lassoRenderer != null);
         Debug.Assert(controlPlayerConnection != null);
         controlPlayerConnection.gameObject.SetActive(false);
+
+        BananaPunch punchAbility = GetComponent<BananaPunch>();
+        Debug.Assert(punchAbility != null);
+        punchAbility.canPunch = hasPunchAbility;
 
         if (CutsceneManager.Instance() != null)
         {
@@ -151,8 +147,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                // Stops the buggy rotation model. IDK why it's happening, so this is a patchwork fix
-                model.rotation = Quaternion.FromToRotation(model.up, _gravObject.characterOrientation.up) * model.rotation;
+                if (_attachedJoint != null)
+                {
+                    model.rotation = _attachedJoint.transform.rotation;
+                } 
+                else
+                {
+                    // Stops the buggy rotation model. IDK why it's happening, so this is a patchwork fix
+                    model.rotation = Quaternion.FromToRotation(model.up, _gravObject.characterOrientation.up) * model.rotation;
+                }
             }
             DetectStateChange();
         }
@@ -175,6 +178,51 @@ public class PlayerController : MonoBehaviour
     }
     private void LateUpdate()
     {
+    }
+
+    // ****************************** Helpers ************************* //
+    IEnumerator SetSpawnPos()
+    {
+        yield return new WaitForEndOfFrame();
+        if (GameObject.Find("CheckpointManager") != null)
+        {
+            transform.position = LevelData.GetRespawnPos();
+        }
+        else
+        {
+            transform.position = Vector3.zero;
+        }
+    }
+
+    public void AttachToRigidbody(Rigidbody rb)
+    {
+        print("attached joint");
+        FixedJoint joint = gameObject.AddComponent<FixedJoint>();
+        if (joint != null)
+        {
+            if (_attachedJoint != null)
+            {
+                Destroy(_attachedJoint);
+            }
+            _attachedJoint = rb.transform;
+            _rigidbody.isKinematic = true;
+            transform.position = rb.position;
+            model.rotation = rb.rotation;
+            _rigidbody.isKinematic = false;
+            joint.connectedBody = rb;
+        }
+    }
+
+    public void DetachFromRigidbody(Rigidbody rb)
+    {
+        print("Destroy Attached joint");
+        FixedJoint[] joints = GetComponents<FixedJoint>();
+        foreach (FixedJoint joint in joints) { 
+            if (joint.connectedBody == rb) {
+                Destroy(joint);
+            }
+        }
+        _attachedJoint = null;
     }
 
     // ************************* State Updates ************************ //

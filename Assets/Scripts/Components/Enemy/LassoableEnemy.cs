@@ -67,7 +67,7 @@ public class LassoableEnemy : LassoTossable
         DestroySelf();
     }
 
-    private void DestroySelf()
+    public void DestroySelf()
     {
         isDestroyed = true;
         DropItem();
