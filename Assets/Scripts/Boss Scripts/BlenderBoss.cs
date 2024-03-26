@@ -273,7 +273,9 @@ public class BlenderBoss : MonoBehaviour
 
     public void CreateSplat(int obj)
     {
-        GameObject tmp = Instantiate(splatEffect, bombSpawnPos[obj], splatEffect.transform.rotation);
+        Vector3 pos = bombSpawnPos[obj];
+        pos.y = platform.transform.position.y + 3;
+        GameObject tmp = Instantiate(splatEffect, pos, splatEffect.transform.rotation);
         indicatorSpawnObject[obj] = tmp;
     }
 
@@ -317,18 +319,18 @@ public class BlenderBoss : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        /*if (Input.GetKeyDown(KeyCode.K))
         {
             print("First Phase");
             temp = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             print("Second Phase");
             temp = 2;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        }*/
 
         switch (state)
         {
@@ -465,24 +467,43 @@ public class BlenderBoss : MonoBehaviour
     {
         currMove = -1;
         state = BossStates.NONE;
+
+        // Destroy objects when transitioning
         juiceProjectile.SetActive(false);
+        GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("BossAttacks");
+        foreach (GameObject obj in tempObjects)
+        {
+            print("DESTROYING STUFF");
+            Destroy(obj);
+        }
         StopAllCoroutines();
+
         modelAnimator.SetTrigger("Dizzy");
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         climbObjects.SetActive(true);
         PlayDialogue("Ouchie Wowchie", false);
-        // Do this when punching is implemented
-        if (false)
-        {
+
+        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunchinG;
+        
+    }
+
+    void CutsceneEndPunchinG(CutsceneObject o)
+    {
+        if(_currentPhase == 1){
             _currentPhase = 2;
             print("Starting phase 2");
             StartCoroutine(GoToSecondPhase());
+        }
+        else
+        {
+            // Play final cutscene
         }
     }
 
     IEnumerator GoToSecondPhase()
     {
         canBeDamaged = false;
+        modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
         PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
         yield return new WaitForSeconds(3f);
@@ -493,6 +514,9 @@ public class BlenderBoss : MonoBehaviour
             yield return null;
         }
         canBeDamaged = true;
+        climbObjects.SetActive(false);
+        currMove = 0;
+        state = BossStates.IDLE;
     }
 
     void FinalCutsceneEnd(CutsceneObject o)
