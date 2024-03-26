@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class BlenderBoss : MonoBehaviour
     public Transform platform;
     public GameObject bombIndicator;
     public GameObject blueberryBombObject;
-    private Vector3[] bombSpawnPos; // positions of where a bomb will drop
+    private List<Vector3> bombSpawnPos; // positions of where a bomb will drop
     private GameObject[] indicatorSpawnObject; // spawn indicator images
     public GameObject splatEffect;
 
@@ -92,7 +93,7 @@ public class BlenderBoss : MonoBehaviour
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
-        bombSpawnPos = new Vector3[6];
+        bombSpawnPos = new List<Vector3>();
         indicatorSpawnObject = new GameObject[6];
         healthHolder.SetActive(true);
         climbObjects.SetActive(false);
@@ -109,6 +110,8 @@ public class BlenderBoss : MonoBehaviour
     bool moveToPosition;
     void JuiceAttack()
     {
+        bombSpawnPos.Clear(); // Just in case
+
         cooldownTimer = move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 2;
         state = BossStates.COOLDOWN;
         juiceProjectileCount = 0;
@@ -132,8 +135,9 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(_currentPhase % 2f + 0.5f);
 
         doneMoving = false;
-        modelAnimator.Play("BL_Juice_Attack_Start"); // TODO: setactive in animation event
-
+        modelAnimator.Play("BL_Juice_Attack_Windup"); // TODO: setactive in animation event
+        yield return new WaitForSeconds(0.75f);
+        modelAnimator.Play("BL_Juice_Attack_Loop");
         juiceProjectile.SetActive(true);
         if (positions.Length > 0)
         {
@@ -141,6 +145,8 @@ public class BlenderBoss : MonoBehaviour
             yield return MoveToPosition(transform.position, targetPosition);
 
             doneMoving = true;
+            modelAnimator.Play("BL_Juice_Attack_Reset");
+
             if (juiceProjectileCount != juiceProjectileAmount)
             {
                 moveToPosition = false;
@@ -151,7 +157,6 @@ public class BlenderBoss : MonoBehaviour
             {
                 juiceProjectile.SetActive(false);
                 StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
-                modelAnimator.Play("BL_Idle");
                 foreach (GameObject point in spawnPoints)
                 {
                     point.SetActive(true);
@@ -205,31 +210,50 @@ public class BlenderBoss : MonoBehaviour
         StartCoroutine(PlaceBombs());
     }
 
+    Vector3 spawnPosition = Vector3.zero;
     IEnumerator PlaceBombs()
     {
         modelAnimator.Play("BL_StartAttack_Open_Lid");
         yield return new WaitForSeconds(3f); // When all animations are done, make this an event in Animation.
+        modelAnimator.Play("BL_Bomb_Attack_Windup");
+        yield return new WaitForSeconds(3f); // When all animations are done, make this an event in Animation.
 
         if (bombIndicator != null && platform != null)
         {
-            for (int i = 0; i < 3 * _currentPhase; i++)
+            for (int i = 0; i < 6; i++)
             {
-                Vector3 minBounds = platform.position - new Vector3(27, 0f, 32);
-                Vector3 maxBounds = platform.position + new Vector3(27, 0f, 32);
-
-                Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), platform.transform.position.y + 3, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
+                if (_currentPhase == 1)
+                {
+                    SpawnRandomPosition();
+                }
+                else
+                {
+                    spawnPosition = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+                    if (bombSpawnPos.Contains(spawnPosition))
+                    {
+                        SpawnRandomPosition();
+                    }
+                    yield return new WaitForSeconds(0.75f/_currentPhase);
+                }
 
                 indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
-                bombSpawnPos[i] = spawnPosition;
+                bombSpawnPos.Add(spawnPosition);
             }
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f/_currentPhase);
         ShootBombs();
+    }
+
+    void SpawnRandomPosition()
+    {
+        Vector3 minBounds = platform.position - new Vector3(27, 0f, 32);
+        Vector3 maxBounds = platform.position + new Vector3(27, 0f, 32);
+        spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), platform.transform.position.y + 3, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
     }
 
     void ShootBombs()
     {
-        for (int i = 0; i < 3 * _currentPhase; i++)
+        for (int i = 0; i < 6; i++)
         {
             // Assuming bombSpawnPos[i] is a RectTransform
             Vector3 screenPos = bombSpawnPos[i];

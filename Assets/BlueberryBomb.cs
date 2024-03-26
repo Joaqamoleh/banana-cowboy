@@ -8,6 +8,7 @@ public class BlueberryBomb : MonoBehaviour
     public int pos; // What position in indicatorSpawnObject in BlenderBoss.cs
     private BlenderBoss blenderBoss;
     public GameObject deathJuiceEffect;
+    public bool hitObject = false;
 
     private void Start()
     {
@@ -21,23 +22,27 @@ public class BlueberryBomb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!hitObject)
         {
-            other.GetComponentInParent<Health>().Damage(1, ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));
-            HitSomething();
+            if (other.CompareTag("Player"))
+            {
+                other.GetComponentInParent<Health>().Damage(1, ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));
+                HitSomething();
 
-        }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            // Create a splat effect
-            blenderBoss.CreateSplat(pos);
-            HitSomething();        
+            }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                // Create a splat effect
+                blenderBoss.CreateSplat(pos);
+                HitSomething();
+            }
         }
     }
 
     void HitSomething()
     {
         SoundManager.Instance().PlaySFX("CherryBombExplode");
+        hitObject = true;
         Instantiate(deathJuiceEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
