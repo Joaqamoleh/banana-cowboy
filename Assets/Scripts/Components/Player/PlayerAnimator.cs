@@ -19,6 +19,16 @@ public class PlayerAnimator : MonoBehaviour
             p.OnLassoStateChange += LassoStateChanged;
         }
     }
+
+    public void DoLeftPunch()
+    {
+
+    }
+
+    public void DoRightPunch()
+    {
+
+    }
     
     void PlayerStateChanged(PlayerController.State updatedState)
     {

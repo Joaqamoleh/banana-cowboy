@@ -2919,6 +2919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 1
     dialog:
@@ -2927,11 +2928,30 @@ MonoBehaviour:
       speakerDialog: Good aim!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: bef05db797f566442ba6c882b8733204, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -2942,11 +2962,30 @@ MonoBehaviour:
         weak enough that just about anything will break them down.
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 92ccb5ba12ece374f925c63b0e299a85, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -2957,11 +2996,30 @@ MonoBehaviour:
         or else you'll fall!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 9a765acbdf5a7124ea28980e7dc0d059, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
 --- !u!4 &257506829 stripped
@@ -3167,6 +3225,7 @@ GameObject:
   - component: {fileID: 300752170}
   - component: {fileID: 300752169}
   - component: {fileID: 300752168}
+  - component: {fileID: 300752174}
   m_Layer: 3
   m_Name: Tutorial Bounce
   m_TagString: Untagged
@@ -3189,7 +3248,7 @@ MonoBehaviour:
   bounceForce: 60
   maxVerticalVel: 60
   jelloAnimator: {fileID: 1884235951}
-  sfx: {fileID: 0}
+  sfx: {fileID: 300752174}
 --- !u!54 &300752169
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3304,6 +3363,31 @@ Transform:
   - {fileID: 1884235949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -71.33, y: 76.944, z: -83.689}
+--- !u!114 &300752174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300752167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Bounce
+    audioClip: {fileID: 8300000, guid: b9e82adb5c3bfed42b9a811103ddfeba, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 1
+    spatialMaxDist: 30
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
 --- !u!4 &303305637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5031327551711260231, guid: e027990025ffc954d9c33a35877f547f, type: 3}
@@ -5550,6 +5634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -5558,11 +5643,30 @@ MonoBehaviour:
       speakerDialog: Nice Job Cowboy!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 471437772}
     cinemachineCamController: {fileID: 817383741}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0
   - isDialogScene: 1
@@ -5572,11 +5676,30 @@ MonoBehaviour:
       speakerDialog: Well done!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: bef05db797f566442ba6c882b8733204, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -5587,11 +5710,30 @@ MonoBehaviour:
         get ya further than just jumpin. Give em a try!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 2d31b522c53825448910844eaa5d9b15, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
 --- !u!1 &654135069
@@ -6804,6 +6946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -6812,11 +6955,30 @@ MonoBehaviour:
       speakerDialog: Nice Job Cowboy!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 1528746921}
     cinemachineCamController: {fileID: 1845461710}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0
   - isDialogScene: 1
@@ -6826,11 +6988,30 @@ MonoBehaviour:
       speakerDialog: Nice Job Cowboy!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: bef05db797f566442ba6c882b8733204, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -6841,11 +7022,30 @@ MonoBehaviour:
         there Cherry Bomb?
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 9a765acbdf5a7124ea28980e7dc0d059, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -6857,11 +7057,30 @@ MonoBehaviour:
         wall!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 92ccb5ba12ece374f925c63b0e299a85, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -6872,11 +7091,30 @@ MonoBehaviour:
         RMB to reorient yourself
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 2d31b522c53825448910844eaa5d9b15, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
 --- !u!4 &896473528 stripped
@@ -8003,6 +8241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 1
     dialog:
@@ -8011,11 +8250,30 @@ MonoBehaviour:
       speakerDialog: 'All right! Looks like you''re a real cowboy now. '
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: bef05db797f566442ba6c882b8733204, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8025,11 +8283,30 @@ MonoBehaviour:
       speakerDialog: Good luck out there, partner!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 2d31b522c53825448910844eaa5d9b15, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
 --- !u!1 &1072986719
@@ -8079,6 +8356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -8087,11 +8365,30 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 1158568891}
     cinemachineCamController: {fileID: 654135072}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0
   - isDialogScene: 0
@@ -8101,11 +8398,30 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 119829511}
     cinemachineCamController: {fileID: 1575849907}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0.4
   - isDialogScene: 1
@@ -8116,11 +8432,30 @@ MonoBehaviour:
         be a proper Banana Cowboy!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 1
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 9a765acbdf5a7124ea28980e7dc0d059, type: 3}
+      alternatives: []
+      volume: 0.5
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8131,11 +8466,30 @@ MonoBehaviour:
         gonna be using WASD for walkin, Space for jumpin, and Shift for runnin.
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 1
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 92ccb5ba12ece374f925c63b0e299a85, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8145,11 +8499,30 @@ MonoBehaviour:
       speakerDialog: Follow me over these crates and I'll teach you some more!
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 1
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
-    cinemachineCamController: {fileID: 0}
+    cinemachineCamController: {fileID: 1830665095}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 8300000, guid: 9a765acbdf5a7124ea28980e7dc0d059, type: 3}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0.1
   - isDialogScene: 0
@@ -8159,11 +8532,30 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 1337743846}
     cinemachineCamController: {fileID: 1830665095}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0
 --- !u!1 &1084019236
@@ -8211,6 +8603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -8219,11 +8612,30 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 58753165}
     cinemachineCamController: {fileID: 1755423803}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0.4
   - isDialogScene: 1
@@ -8233,11 +8645,30 @@ MonoBehaviour:
       speakerDialog: 'Lastly you got these '
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8248,11 +8679,30 @@ MonoBehaviour:
         and hold LMB to lasso on to objects and swing from them.
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8263,11 +8713,30 @@ MonoBehaviour:
         yourself
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8278,11 +8747,30 @@ MonoBehaviour:
         may be more deadly
       speakerImage: {fileID: 21300000, guid: 6d58f9f20b2461e4f84e72499348893c, type: 3}
       typeOfCharacter: 5
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
 --- !u!1001 &1095143907
@@ -8404,6 +8892,7 @@ GameObject:
   - component: {fileID: 1104795080}
   - component: {fileID: 1104795079}
   - component: {fileID: 1104795078}
+  - component: {fileID: 1104795084}
   m_Layer: 3
   m_Name: Tutorial Bounce (2)
   m_TagString: Untagged
@@ -8426,7 +8915,7 @@ MonoBehaviour:
   bounceForce: 60
   maxVerticalVel: 60
   jelloAnimator: {fileID: 330412044}
-  sfx: {fileID: 0}
+  sfx: {fileID: 1104795084}
 --- !u!54 &1104795079
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8541,6 +9030,31 @@ Transform:
   - {fileID: 330412042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -81.599, y: 49.206, z: -61.693}
+--- !u!114 &1104795084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104795077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Bounce
+    audioClip: {fileID: 8300000, guid: b9e82adb5c3bfed42b9a811103ddfeba, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 1
+    spatialMaxDist: 30
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
 --- !u!1001 &1129478998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12215,6 +12729,7 @@ GameObject:
   - component: {fileID: 1714185065}
   - component: {fileID: 1714185064}
   - component: {fileID: 1714185063}
+  - component: {fileID: 1714185069}
   m_Layer: 3
   m_Name: Tutorial Bounce (1)
   m_TagString: Untagged
@@ -12237,7 +12752,7 @@ MonoBehaviour:
   bounceForce: 60
   maxVerticalVel: 60
   jelloAnimator: {fileID: 1351470875}
-  sfx: {fileID: 0}
+  sfx: {fileID: 1714185069}
 --- !u!54 &1714185064
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12352,6 +12867,31 @@ Transform:
   - {fileID: 1351470873}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -65.582, y: 83.005, z: -76.188}
+--- !u!114 &1714185069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714185062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Bounce
+    audioClip: {fileID: 8300000, guid: b9e82adb5c3bfed42b9a811103ddfeba, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 1
+    spatialMaxDist: 30
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
 --- !u!1 &1717792716
 GameObject:
   m_ObjectHideFlags: 0
@@ -13082,11 +13622,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: m_Size.y
-      value: 56.2
+      value: 45.672997
       objectReference: {fileID: 0}
     - target: {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: m_Size.z
       value: 31.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0000000021210653
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: m_Center.y
+      value: -5.2635326
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: m_Center.z
+      value: -0.0000000066890244
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14665,6 +15217,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6338187431096053630, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195553718702780724, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195553718702780724, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195553718702780724, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195553718702780724, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}

@@ -7,6 +7,12 @@ public class RespawnPoint : MonoBehaviour
     [field: SerializeField] public int checkpointNum { get; private set; }
 
     public Animator NPC_Animator;
+    SoundPlayer sfx;
+
+    private void Awake()
+    {
+        sfx = GetComponent<SoundPlayer>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +22,10 @@ public class RespawnPoint : MonoBehaviour
             // set game managers respawn coords to set coordinates
             LevelData.SetCheckpoint(checkpointNum);
             NPC_Animator.Play("Base Layer.NPC_B_OD_Checkpoint");
+            if (sfx != null)
+            {
+                sfx.PlaySFX("Checkpoint");
+            }
         }
     }
 }

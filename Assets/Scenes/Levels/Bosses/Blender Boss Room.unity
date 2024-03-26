@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.031786174, g: 0.08753429, b: 0.66438735, a: 1}
+  m_IndirectSpecularColor: {r: 0.03186725, g: 0.087518424, b: 0.66434634, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -641,7 +641,7 @@ Transform:
   m_Children:
   - {fileID: 1777995642}
   - {fileID: 1888426818}
-  - {fileID: 457088433}
+  - {fileID: 2083147101}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &113688834
@@ -1780,52 +1780,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &457088432
+--- !u!1 &454242162
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 457088433}
-  - component: {fileID: 457088434}
+  - component: {fileID: 454242163}
+  - component: {fileID: 454242166}
+  - component: {fileID: 454242165}
+  - component: {fileID: 454242164}
   m_Layer: 0
-  m_Name: Punch Phase Two
+  m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &457088433
+--- !u!4 &454242163
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457088432}
+  m_GameObject: {fileID: 454242162}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 90168217}
+  m_Father: {fileID: 2114815192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &457088434
+--- !u!114 &454242164
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457088432}
+  m_GameObject: {fileID: 454242162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canSkipCutscene: 1
-  scenes: []
+  m_NoiseProfile: {fileID: 0}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &454242165
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454242162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &454242166
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454242162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &502638563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3502,6 +3536,60 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901282668}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &903745788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 903745789}
+  - component: {fileID: 903745790}
+  m_Layer: 0
+  m_Name: Camera Zoom To Banana
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &903745789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903745788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2114815192}
+  m_Father: {fileID: 2083147101}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &903745790
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903745788}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 99676b1a88662fa49827f162142ff04d, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 4464704920736227467, guid: 99676b1a88662fa49827f162142ff04d, type: 2}
+    value: {fileID: 2114815193}
+  - key: {fileID: -3778106274431654792, guid: 99676b1a88662fa49827f162142ff04d, type: 2}
+    value: {fileID: 1777995640}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &969408635
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,6 +3889,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 969408636}
   m_LocalEulerAnglesHint: {x: 114.272, y: 0, z: 0}
+--- !u!1 &1028558461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028558462}
+  - component: {fileID: 1028558463}
+  m_Layer: 0
+  m_Name: Shoot player back to origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1028558462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028558461}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1908886506}
+  m_Father: {fileID: 2083147101}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1028558463
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028558461}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 29e3f68b7ed5032439f16b41922b8ea0, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -1710224136766256081, guid: 29e3f68b7ed5032439f16b41922b8ea0, type: 2}
+    value: {fileID: 1777995640}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1037858098
 GameObject:
   m_ObjectHideFlags: 0
@@ -6924,6 +7064,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1039359680}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &1592222596
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1592222597}
+  - component: {fileID: 1592222600}
+  - component: {fileID: 1592222599}
+  - component: {fileID: 1592222598}
+  m_Layer: 0
+  m_Name: cm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1592222597
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592222596}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1908886506}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1592222598
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592222596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
+--- !u!114 &1592222599
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592222596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_LookaheadTime: 0
+  m_LookaheadSmoothing: 0
+  m_LookaheadIgnoreY: 0
+  m_HorizontalDamping: 0.5
+  m_VerticalDamping: 0.5
+  m_ScreenX: 0.5
+  m_ScreenY: 0.5
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
+  m_SoftZoneWidth: 0.8
+  m_SoftZoneHeight: 0.8
+  m_BiasX: 0
+  m_BiasY: 0
+  m_CenterOnActivate: 1
+--- !u!114 &1592222600
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592222596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1602064391
 GameObject:
   m_ObjectHideFlags: 0
@@ -7964,6 +8199,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 113688836}
@@ -7974,6 +8210,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 0
     altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0
   - isDialogScene: 0
@@ -7983,6 +8232,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -7993,6 +8243,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8002,6 +8265,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8012,6 +8276,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8021,6 +8298,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8031,6 +8309,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8040,6 +8331,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8050,6 +8342,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8059,6 +8364,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8069,6 +8375,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8078,6 +8397,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8088,6 +8408,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8097,6 +8430,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8107,6 +8441,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8116,6 +8463,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8126,6 +8474,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8135,6 +8496,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -8145,6 +8507,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 111
     altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 0
     completionDelay: 0
   - isDialogScene: 0
@@ -8154,6 +8529,7 @@ MonoBehaviour:
       speakerDialog: 
       speakerImage: {fileID: 0}
       typeOfCharacter: 0
+      showClickToContinue: 0
       dialogFullyDisplayed: 0
     isTimelineScene: 1
     timelinePlayable: {fileID: 906080}
@@ -8164,6 +8540,19 @@ MonoBehaviour:
     shakeDuration: 0.5
     cutsceneInput: 0
     altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
     completionType: 2
     completionDelay: 0
 --- !u!1 &1894779433
@@ -8375,6 +8764,100 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5313769549611651343, guid: 8e0597007d628304fa6116cb6a7cc7e9, type: 3}
   m_PrefabInstance: {fileID: 1897652846}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1908886505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1908886506}
+  - component: {fileID: 1908886508}
+  - component: {fileID: 1908886507}
+  m_Layer: 0
+  m_Name: Follow Player Shootback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1908886506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908886505}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 53.206345, y: -25.813715, z: -60.798344}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1592222597}
+  m_Father: {fileID: 1028558462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1908886507
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908886505}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1908886508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908886505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_StandbyUpdate: 2
+  m_LookAt: {fileID: 699065658}
+  m_Follow: {fileID: 699065658}
+  m_Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+    ModeOverride: 0
+    LensShift: {x: 0, y: 0}
+    GateFit: 2
+    FocusDistance: 10
+    m_SensorSize: {x: 1, y: 1}
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+  m_LegacyBlendHint: 0
+  m_ComponentOwner: {fileID: 1592222597}
 --- !u!1 &1947000771
 GameObject:
   m_ObjectHideFlags: 0
@@ -8830,7 +9313,7 @@ PrefabInstance:
     - target: {fileID: 6251246688604634806, guid: 9451b49e5053d9441a5c4c0e0b60ca4a, type: 3}
       propertyPath: cutscenes.Array.data[1].cutscene
       value: 
-      objectReference: {fileID: 457088434}
+      objectReference: {fileID: 2083147102}
     - target: {fileID: 6851618828961594895, guid: 9451b49e5053d9441a5c4c0e0b60ca4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8981,6 +9464,417 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042843716}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2083147100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2083147101}
+  - component: {fileID: 2083147102}
+  m_Layer: 0
+  m_Name: Punch Phase Two
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2083147101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083147100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 903745789}
+  - {fileID: 1028558462}
+  m_Father: {fileID: 90168217}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2083147102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083147100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSkipCutscene: 1
+  scenes:
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 903745790}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 0
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 2
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 2114815194}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 111
+    altInputs: 700000006a0000006b000000
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 0
+    dialog:
+      typingSpeed: 0
+      speakerName: 
+      speakerDialog: 
+      speakerImage: {fileID: 0}
+      typeOfCharacter: 0
+      showClickToContinue: 0
+      dialogFullyDisplayed: 0
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 1028558463}
+    cinemachineCamController: {fileID: 1908886508}
+    cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 0.5
+    cutsceneInput: 0
+    altInputs: 
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 1
+      pitch: 1
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0.5
+      spatialMaxDist: 40
+      spatialMinDist: 40
+      type: 0
+      src: {fileID: 0}
+    completionType: 2
+    completionDelay: 0
 --- !u!1 &2083238421
 GameObject:
   m_ObjectHideFlags: 0
@@ -9303,6 +10197,100 @@ Transform:
   - {fileID: 1039359680}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2114815191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114815192}
+  - component: {fileID: 2114815194}
+  - component: {fileID: 2114815193}
+  m_Layer: 0
+  m_Name: Punch Cam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2114815192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114815191}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.1705851, y: -0.16850936, z: 0.029622754, w: 0.9703751}
+  m_LocalPosition: {x: 61.42, y: 28.25, z: 30.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 454242163}
+  m_Father: {fileID: 903745789}
+  m_LocalEulerAnglesHint: {x: -0.005636057, y: -0.0003197186, z: -0.0003442762}
+--- !u!95 &2114815193
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114815191}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2114815194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114815191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExcludedPropertiesInInspector:
+  - m_Script
+  m_LockStageInInspector: 
+  m_StreamingVersion: 20170927
+  m_Priority: 10
+  m_StandbyUpdate: 2
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
+  m_Lens:
+    FieldOfView: 31.83
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+    ModeOverride: 0
+    LensShift: {x: 0, y: 0}
+    GateFit: 2
+    FocusDistance: 10
+    m_SensorSize: {x: 1, y: 1}
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+  m_LegacyBlendHint: 0
+  m_ComponentOwner: {fileID: 454242163}
 --- !u!1001 &2118697020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9450,7 +10438,7 @@ PrefabInstance:
     - target: {fileID: 7121274470466184174, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: PhaseTwoCutscene
       value: 
-      objectReference: {fileID: 457088434}
+      objectReference: {fileID: 2083147102}
     - target: {fileID: 7121274470466184174, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: AnimatorRigidBody
       value: 
