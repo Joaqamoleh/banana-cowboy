@@ -6433,6 +6433,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3616452874665207461, guid: 998b9bc8b7e666f4fb2a2d8ff185e417, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.09039402
+      objectReference: {fileID: 0}
+    - target: {fileID: -3616452874665207461, guid: 998b9bc8b7e666f4fb2a2d8ff185e417, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.06838989
+      objectReference: {fileID: 0}
+    - target: {fileID: -3616452874665207461, guid: 998b9bc8b7e666f4fb2a2d8ff185e417, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.22164348
+      objectReference: {fileID: 0}
+    - target: {fileID: -3616452874665207461, guid: 998b9bc8b7e666f4fb2a2d8ff185e417, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3616452874665207461, guid: 998b9bc8b7e666f4fb2a2d8ff185e417, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.9751278
+      objectReference: {fileID: 0}
+    - target: {fileID: -3616452874665207461, guid: 998b9bc8b7e666f4fb2a2d8ff185e417, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 154.389
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 998b9bc8b7e666f4fb2a2d8ff185e417, type: 3}
       propertyPath: m_Name
       value: leaf_2 (1)
@@ -8230,20 +8254,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceForce: 50
+  maxVerticalVel: 60
   jelloAnimator: {fileID: 0}
-  sfx:
-    name: 
-    audioClip: {fileID: 0}
-    alternatives: []
-    volume: 1
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    isSpatial: 0
-    spatialSoundTravelDistance: 40
-    type: 0
-    src: {fileID: 0}
-  soundDistance: 40
+  sfx: {fileID: 0}
 --- !u!1 &1888708138
 GameObject:
   m_ObjectHideFlags: 0
