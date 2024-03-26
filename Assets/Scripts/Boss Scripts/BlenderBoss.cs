@@ -89,7 +89,7 @@ public class BlenderBoss : MonoBehaviour
         //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
 
         health = maxHealth;
-        currMove = 2;
+        currMove = 0;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
@@ -430,14 +430,7 @@ public class BlenderBoss : MonoBehaviour
             }
             if (health <= 0)
             {
-                if (_currentPhase == 1)
-                {
-                    DizzySetup();
-                }
-                else if (_currentPhase == 2)
-                {
-                    // Play final cutscene
-                }
+                DizzySetup();
             }
             /*        if (health <= 0)
                     {
@@ -483,8 +476,16 @@ public class BlenderBoss : MonoBehaviour
         climbObjects.SetActive(true);
         PlayDialogue("Ouchie Wowchie", false);
 
-        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunchinG;
-        
+        if (_currentPhase == 1)
+        {
+            CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunchinG;
+        }
+        else
+        {
+            print("BLENDER DEFEATED");
+            //SceneManager.LoadScene(0);
+            CutsceneManager.Instance().GetCutsceneByName("PunchPhaseTwo").OnCutsceneComplete += CutsceneEndPunchinG;
+        }
     }
 
     void CutsceneEndPunchinG(CutsceneObject o)
@@ -513,6 +514,7 @@ public class BlenderBoss : MonoBehaviour
             healthUI.fillAmount = currentFillAmount / maxHealth;
             yield return null;
         }
+        health = maxHealth;
         canBeDamaged = true;
         climbObjects.SetActive(false);
         currMove = 0;
