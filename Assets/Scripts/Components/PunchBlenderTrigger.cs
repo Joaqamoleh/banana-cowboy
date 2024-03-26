@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PunchBlenderTrigger : MonoBehaviour
@@ -19,6 +21,8 @@ public class PunchBlenderTrigger : MonoBehaviour
 
     [SerializeField]
     CutsceneTrigger PhaseTwoCutsceneTrigger;
+    [SerializeField]
+    float delayShowHelp = 1.5f;
 
     [HideInInspector]
     public bool inSecondPhase = false; // When we enter second phase, set to true
@@ -36,7 +40,7 @@ public class PunchBlenderTrigger : MonoBehaviour
     {
         PlayerController p = FindAnyObjectByType<PlayerController>();
         p.AttachToRigidbody(AnimatorRigidBody);
-        PunchHelpIndication.SetActive(true);
+        StartCoroutine(ShowHelp());
     }
 
     void PhaseOnePunchEnd(CutsceneObject completed)
@@ -44,12 +48,14 @@ public class PunchBlenderTrigger : MonoBehaviour
         PlayerController p = FindAnyObjectByType<PlayerController>();
         p.DetachFromRigidbody(AnimatorRigidBody);
         PunchHelpIndication.SetActive(false);
-        //PhaseTwoCutsceneTrigger.gameObject.SetActive(true);
+        PhaseTwoCutsceneTrigger.gameObject.SetActive(true);
     }
 
     void PhaseTwoPunchStart(CutsceneObject completed)
     {
-        PunchHelpIndication.SetActive(true);
+        PlayerController p = FindAnyObjectByType<PlayerController>();
+        p.AttachToRigidbody(AnimatorRigidBody);
+        StartCoroutine(ShowHelp());
     }
 
     void PhaseTwoPunchEnd(CutsceneObject completed)
@@ -57,6 +63,12 @@ public class PunchBlenderTrigger : MonoBehaviour
         PlayerController p = FindAnyObjectByType<PlayerController>();
         p.DetachFromRigidbody(AnimatorRigidBody);
         PunchHelpIndication.SetActive(false);
+    }
+    IEnumerator ShowHelp()
+    {
+        yield return new WaitForSeconds(delayShowHelp);
+        PunchHelpIndication.SetActive(true);
+
     }
 
     private void OnTriggerEnter(Collider other)

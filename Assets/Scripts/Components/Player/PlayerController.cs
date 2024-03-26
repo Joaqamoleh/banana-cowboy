@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     private static bool hasPunchAbility = false; // TODO: For testing, turn to false when building for game
 
-    FixedJoint _attachedJoint = null;
+    Transform _attachedJoint = null;
 
     private void Awake()
     {
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(_attachedJoint);
             }
-            _attachedJoint = joint;
+            _attachedJoint = rb.transform;
             _rigidbody.isKinematic = true;
             transform.position = rb.position;
             model.rotation = rb.rotation;
@@ -216,7 +216,12 @@ public class PlayerController : MonoBehaviour
     public void DetachFromRigidbody(Rigidbody rb)
     {
         print("Destroy Attached joint");
-        Destroy(_attachedJoint);
+        FixedJoint[] joints = GetComponents<FixedJoint>();
+        foreach (FixedJoint joint in joints) { 
+            if (joint.connectedBody == rb) {
+                Destroy(joint);
+            }
+        }
         _attachedJoint = null;
     }
 

@@ -59,12 +59,12 @@ public class CutsceneObject : MonoBehaviour
             _shakeTimer = 0; // Stops screen from shaking if not finished shaking 
         }
 
+        if (scene.cinemachineCamController != null)
+        {
+            scene.cinemachineCamController.gameObject.SetActive(true);
+        }
         if (scene.isTimelineScene)
         {
-            if (scene.cinemachineCamController != null)
-            {
-                scene.cinemachineCamController.gameObject.SetActive(true);
-            }
             scene.timelinePlayable.extrapolationMode = DirectorWrapMode.Hold;
             scene.timelinePlayable.Play();
         }
@@ -76,20 +76,18 @@ public class CutsceneObject : MonoBehaviour
     }
 
     // TODO: Change to fit the dialogue
-    float _shakeTimerTotal = 3f;
-    float _startingIntensity = 4f;
-    float _startingAmplitude= 6f;
     float _shakeTimer = 0;
+
     IEnumerator ShakeScreen(Scene scene)
     {
-        _shakeTimer = _shakeTimerTotal;
+        _shakeTimer = scene.shakeDuration;
         CinemachineBasicMultiChannelPerlin shakingCamera = scene.cinemachineCamController.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        shakingCamera.m_AmplitudeGain = _startingAmplitude;
-        shakingCamera.m_FrequencyGain = _startingIntensity;
+        shakingCamera.m_AmplitudeGain = scene.shakeAmplitude;
+        shakingCamera.m_FrequencyGain = scene.shakeIntensity;
         while (_shakeTimer > 0)
         {
             _shakeTimer -= Time.deltaTime;
-            shakingCamera.m_AmplitudeGain = Mathf.Lerp(_startingIntensity, 0f, 1 - (_shakeTimer / _shakeTimerTotal));
+            shakingCamera.m_AmplitudeGain = Mathf.Lerp(scene.shakeAmplitude, 0f, 1f - (_shakeTimer / scene.shakeDuration));
             yield return null;
         }
         shakingCamera.m_AmplitudeGain = 0;
@@ -103,11 +101,12 @@ public class CutsceneObject : MonoBehaviour
         }
         if (scene.isTimelineScene)
         {
-            if (scene.cinemachineCamController != null)
-            {
-                scene.cinemachineCamController.gameObject.SetActive(false);
-            }
             StartCoroutine(EndTimelinePlayable(scene, _skip));
+        }
+
+        if (scene.cinemachineCamController != null && (scenes[scenes.Length - 1] == scene || scenes[activeScene].cinemachineCamController != scene.cinemachineCamController))
+        {
+            StartCoroutine(EndCinemachine(scene));
         }
     }
 
@@ -124,6 +123,14 @@ public class CutsceneObject : MonoBehaviour
             }
         }
         s.timelinePlayable.Stop();
+        yield return null;
+    }
+
+    IEnumerator EndCinemachine(Scene s)
+    {
+        float duration = s.cameraShake ? Mathf.Clamp(s.shakeDuration - (s.timelinePlayable != null ? (float)s.timelinePlayable.duration : 0.0f), 0.1f, 10.0f) : 0.1f;
+        yield return new WaitForSeconds(duration);
+        s.cinemachineCamController.gameObject.SetActive(false);
         yield return null;
     }
 
@@ -282,6 +289,7 @@ public class Scene
 
     [Tooltip("Done only at the start of the scene")]
     public bool cameraShake = false;
+    public float shakeIntensity = 4f, shakeAmplitude = 6f, shakeDuration = 2f;
 
     [Tooltip("The input for going to the next scene")]
     public KeyCode cutsceneInput = KeyCode.Mouse0;

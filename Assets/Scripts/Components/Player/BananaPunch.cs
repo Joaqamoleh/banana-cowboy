@@ -51,6 +51,9 @@ public class BananaPunch : MonoBehaviour
     {
         Quaternion rot = charOrientation != null ? charOrientation.rotation : transform.rotation;
         GameObject hitbox = Instantiate(bananaPunchHitBox);
+        hitbox.GetComponent<PunchHitbox>().lifetime = hitboxLifetime;
+        int random = Random.Range(0, hitbox.transform.childCount);
+        hitbox.transform.GetChild(random).gameObject.SetActive(true);
         hitbox.transform.SetPositionAndRotation(punchLocation, rot);
         lastPunchTime = Time.time;
     }
