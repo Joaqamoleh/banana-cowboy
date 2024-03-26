@@ -23,6 +23,8 @@ public class DialogueManager : MonoBehaviour
     TMP_Text nameTextDisplay;
     [SerializeField]
     TMP_Text dialogTextDisplay;
+    [SerializeField]
+    GameObject clickToContinueHolder;
 
     private Dialog _currentDialog = null;
     private StringBuilder _currentDisplayText = new StringBuilder();
@@ -51,7 +53,7 @@ public class DialogueManager : MonoBehaviour
 
         _currentDialog = dialog;
         dialogHolder.SetActive(true);
-
+        clickToContinueHolder.SetActive(_currentDialog.showClickToContinue);
         // Stop previous typing animation if it was playing
         if (_typingCoroutine != null)
         {
@@ -175,6 +177,7 @@ public class Dialog
     public string speakerDialog = string.Empty;
     public Sprite speakerImage = null;
     public TypeOfCharacter typeOfCharacter = TypeOfCharacter.Default;
+    public bool showClickToContinue = false;
     public enum TypeOfCharacter
     {
         Default,

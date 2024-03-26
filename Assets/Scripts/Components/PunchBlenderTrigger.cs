@@ -32,7 +32,7 @@ public class PunchBlenderTrigger : MonoBehaviour
         PhaseOneCutscene.OnCutsceneStart += PhaseOnePunchStart;
         PhaseOneCutscene.OnCutsceneComplete += PhaseOnePunchEnd;
         PhaseTwoCutscene.OnCutsceneStart += PhaseTwoPunchStart;
-        PhaseTwoCutscene.OnCutsceneComplete -= PhaseTwoPunchEnd;
+        PhaseTwoCutscene.OnCutsceneComplete += PhaseTwoPunchEnd;
         PhaseTwoCutsceneTrigger.gameObject.SetActive(false);
     }
 

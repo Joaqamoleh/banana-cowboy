@@ -158,6 +158,8 @@ public class OrangeEnemyController : EnemyController
                 case OrangeState.PLAYER_SPOTTED:
                     spottedParam = 0.0f;
                     GetComponent<Rigidbody>().velocity = Vector3.zero + _gravObject.GetFallingVelocity();
+                    _soundPlayer.PlaySFX("Alert");
+
                     Invoke("EndPlayerSpotted", timeToBeginRev);
                     break;
                 case OrangeState.REV_UP:
@@ -184,6 +186,7 @@ public class OrangeEnemyController : EnemyController
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
                     break;
                 case OrangeState.THROWN:
+                    _soundPlayer.PlaySFX("Thrown");
                     break;
                 case OrangeState.HELD:
                     //SoundManager.Instance().StopSFX("OrangeDizzy");
