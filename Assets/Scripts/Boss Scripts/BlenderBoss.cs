@@ -24,7 +24,7 @@ public class BlenderBoss : MonoBehaviour
     private int currMove;
     public GameObject[] positions;
     public GameObject juiceProjectile;
-    private readonly int juiceProjectileAmount = 2; // how many times blender does this attack
+    private int juiceProjectileAmount; // how many times blender does this attack
     private int juiceProjectileCount = 0;
 
     public GameObject blenderBlade;
@@ -94,7 +94,7 @@ public class BlenderBoss : MonoBehaviour
         health = maxHealth;
         currMove = 0;
         _currentPhase = temp;
-
+        
         player = GameObject.FindWithTag("Player");
         bombSpawnPos = new List<Vector3>();
         indicatorSpawnObject = new GameObject[6];
@@ -117,8 +117,8 @@ public class BlenderBoss : MonoBehaviour
     void JuiceAttack()
     {
         bombSpawnPos.Clear(); // Just in case
-
-        cooldownTimer = move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 2;
+        juiceProjectileAmount = 2;
+        cooldownTimer = move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 5;
         state = BossStates.COOLDOWN;
         juiceProjectileCount = 0;
         juiceProjectile.SetActive(false);
@@ -205,7 +205,7 @@ public class BlenderBoss : MonoBehaviour
         Vector3 positionSpawned = platform.position;
         positionSpawned.y += 5;
         GameObject blade = Instantiate(blenderBlade, positionSpawned, Quaternion.identity);
-        yield return new WaitForSeconds(move2Cooldown); // TODO: make it shrink before destroying
+        yield return new WaitForSeconds(move2Cooldown);
         StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
     }
 
@@ -226,7 +226,7 @@ public class BlenderBoss : MonoBehaviour
 
         if (bombIndicator != null && platform != null)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3 * _currentPhase; i++)
             {
                 if (_currentPhase == 1)
                 {
@@ -259,7 +259,7 @@ public class BlenderBoss : MonoBehaviour
 
     void ShootBombs()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 3 * _currentPhase; i++)
         {
             // Assuming bombSpawnPos[i] is a RectTransform
             Vector3 screenPos = bombSpawnPos[i];
@@ -325,7 +325,7 @@ public class BlenderBoss : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             print("First Phase");
             temp = 1;
@@ -336,7 +336,7 @@ public class BlenderBoss : MonoBehaviour
             print("Second Phase");
             temp = 2;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }*/
+        }
 
         switch (state)
         {
@@ -513,6 +513,7 @@ public class BlenderBoss : MonoBehaviour
     IEnumerator GoToSecondPhase()
     {
         canBeDamaged = false;
+        climbObjects.SetActive(false);
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
         PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
@@ -525,7 +526,6 @@ public class BlenderBoss : MonoBehaviour
         }
         health = maxHealth;
         canBeDamaged = true;
-        climbObjects.SetActive(false);
         currMove = 0;
         state = BossStates.IDLE;
     }
