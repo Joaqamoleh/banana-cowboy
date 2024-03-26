@@ -2424,6 +2424,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5031327551711260231, guid: e027990025ffc954d9c33a35877f547f, type: 3}
   m_PrefabInstance: {fileID: 1732826503}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &223935859
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1085582069114273753, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_Name
+      value: SpaceStarsParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
 --- !u!1 &237227825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2919,6 +2976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 1
     dialog:
@@ -2932,6 +2990,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -2947,6 +3010,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -2962,6 +3030,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
 --- !u!4 &257506829 stripped
@@ -5550,6 +5623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -5563,6 +5637,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 471437772}
     cinemachineCamController: {fileID: 817383741}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 2
     completionDelay: 0
   - isDialogScene: 1
@@ -5577,6 +5656,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -5592,6 +5676,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
 --- !u!1 &654135069
@@ -6804,6 +6893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -6817,6 +6907,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 1528746921}
     cinemachineCamController: {fileID: 1845461710}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 2
     completionDelay: 0
   - isDialogScene: 1
@@ -6831,6 +6926,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -6846,6 +6946,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -6862,6 +6967,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -6877,6 +6987,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
 --- !u!4 &896473528 stripped
@@ -8003,6 +8118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 1
     dialog:
@@ -8016,6 +8132,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8030,6 +8151,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
 --- !u!1 &1072986719
@@ -8079,6 +8205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -8092,6 +8219,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 1158568891}
     cinemachineCamController: {fileID: 654135072}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 2
     completionDelay: 0
   - isDialogScene: 0
@@ -8106,6 +8238,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 119829511}
     cinemachineCamController: {fileID: 1575849907}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 2
     completionDelay: 0.4
   - isDialogScene: 1
@@ -8121,6 +8258,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8136,6 +8278,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8150,6 +8297,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0.1
   - isDialogScene: 0
@@ -8164,6 +8316,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 1337743846}
     cinemachineCamController: {fileID: 1830665095}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 2
     completionDelay: 0
 --- !u!1 &1084019236
@@ -8211,6 +8368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb0dc7e31b0cfe4e863fe5d4da34989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSkipCutscene: 1
   scenes:
   - isDialogScene: 0
     dialog:
@@ -8224,6 +8382,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 58753165}
     cinemachineCamController: {fileID: 1755423803}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 2
     completionDelay: 0.4
   - isDialogScene: 1
@@ -8238,6 +8401,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8253,6 +8421,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8268,6 +8441,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
   - isDialogScene: 1
@@ -8283,6 +8461,11 @@ MonoBehaviour:
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 0}
     cameraShake: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
     completionType: 0
     completionDelay: 0
 --- !u!1001 &1095143907
@@ -17578,3 +17761,4 @@ SceneRoots:
   - {fileID: 1488548187}
   - {fileID: 68181576}
   - {fileID: 1810307657}
+  - {fileID: 223935859}
