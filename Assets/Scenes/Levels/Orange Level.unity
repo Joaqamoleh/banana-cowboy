@@ -7848,6 +7848,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -78.737
       objectReference: {fileID: 0}
+    - target: {fileID: 4497370559150298279, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 052d04cd18acd3642b09b5b82dc07e80, type: 2}
     - target: {fileID: 5503866932029042070, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_Size.x
       value: 9.999998
@@ -19818,6 +19822,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91e1f2948b978f4eacc414c3553add6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1009797500
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1085582069114273753, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_Name
+      value: SpaceStarsParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085582069114273753, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 214
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460134272724844007, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c85b1735bf861d94cb105c40ea0ca5b0, type: 3}
 --- !u!1 &1010897356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7906048078027301544, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
@@ -43727,7 +43792,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 07bff04b89ede3f439b1d3893db194e4, type: 2}
+  - {fileID: 2100000, guid: e50c1c7f3a5c57e40819bea9ee81c8c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -44442,3 +44507,4 @@ SceneRoots:
   - {fileID: 1153315396}
   - {fileID: 126952876}
   - {fileID: 1499107025}
+  - {fileID: 1009797500}
