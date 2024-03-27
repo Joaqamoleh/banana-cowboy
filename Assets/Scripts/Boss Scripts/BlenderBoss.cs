@@ -541,7 +541,6 @@ public class BlenderBoss : MonoBehaviour
             FindAnyObjectByType<PlayerAnimator>().IgnorePlayerStateChange();
             CutsceneManager.Instance().PlayCutsceneByName("Celebration");
             StartCoroutine(winUIAnimation());
-            CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
             
 
             // playerModel.SetActive(true);
@@ -558,7 +557,6 @@ public class BlenderBoss : MonoBehaviour
 
     void BlenderDeathCutsceneComplete(CutsceneObject o)
     {
-        CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
         CutsceneManager.Instance().PlayCutsceneByName("Celebration");
     }
 
