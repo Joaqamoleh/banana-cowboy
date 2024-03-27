@@ -522,6 +522,10 @@ public class BlenderBoss : MonoBehaviour
         else
         {
             print("BLENDER DEFEATED");
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().StopAllMusic();
+            }
             //SceneManager.LoadScene(0);
         }
     }
