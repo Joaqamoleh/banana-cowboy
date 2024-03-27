@@ -5,8 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    private static bool unlocksInitialized = false;
     private static Dictionary<string, bool> availableLevels = new Dictionary<string, bool>();
     public static string[] levelNames = { "Tutorial Level", "Orange Level", "Blueberry Level", "Strawberry Level", "Blender Boss Room" };
+
+    private void Awake()
+    {
+        if (!unlocksInitialized)
+        {
+            Init();
+            unlocksInitialized = true;
+        }
+    }
 
     public void BackToMainMenu()
     {

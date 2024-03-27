@@ -59,6 +59,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -98,17 +102,18 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EdgeDiffuse: 0.844
-    - _EdgeDistanceAttenuation: 0
+    - _EdgeDiffuse: 0.6
+    - _EdgeDistanceAttenuation: 0.05
     - _EdgeRim: 0.136
-    - _EdgeShadowAttenuation: 0
-    - _EdgeSpecular: 0
+    - _EdgeShadowAttenuation: 0.05
+    - _EdgeSpecular: 0.05
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
@@ -125,11 +130,12 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UVSec: 0
+    - _Using_Normal_Map: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _AmbientColor: {r: 0.23773581, g: 0.23773581, b: 0.23773581, a: 1}
-    - _BaseColor: {r: 0.105624735, g: 0.2603773, b: 0.14114171, a: 1}
+    - _BaseColor: {r: 0.27607688, g: 0.6226415, b: 0.35605332, a: 1}
     - _Color: {r: 0.21624058, g: 0.4566037, b: 0.27252355, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
