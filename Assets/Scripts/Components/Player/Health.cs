@@ -78,7 +78,6 @@ public class Health : MonoBehaviour
         LevelData.ResetCheckpointData();
         SoundManager.Instance().StopAllSFX();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }
 
     IEnumerator FlashInvincibility()

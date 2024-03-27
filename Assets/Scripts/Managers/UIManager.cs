@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
             indicatorStartingPos = throwBarIndicator.localPosition;
         }
         UpdateStars();
+        ShowReticle();
     }
 
     private void Start()
