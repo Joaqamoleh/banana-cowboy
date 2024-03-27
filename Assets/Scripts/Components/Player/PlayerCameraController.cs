@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerCameraController : MonoBehaviour
 {
@@ -126,6 +127,7 @@ public class PlayerCameraController : MonoBehaviour
         lastManualInputTime -= realignTime;
     }
 
+    Vector3 _moveCameraInput = Vector3.zero;
     void Update()
     {
         if (_cameraFocus == null) { return; }
@@ -150,7 +152,16 @@ public class PlayerCameraController : MonoBehaviour
 #else
             mouseX = cameraJoystick.Horizontal;
             mouseY = cameraJoystick.Vertical;
-            rotationHeld = true;
+            _moveCameraInput = new Vector3(mouseX, 0, mouseY);
+
+            if (_moveCameraInput != Vector3.zero)
+            {
+                rotationHeld = true;
+            }
+            else
+            {
+                rotationHeld = false;
+            }
 #endif
             if (invertY)
             {
@@ -306,7 +317,6 @@ public class PlayerCameraController : MonoBehaviour
         orbitRadius = Mathf.Lerp(orbitRadius, orbitDist, Time.deltaTime);
         targetBasisRot = basis.rotation;
         targetHeightOffset = hint.GetHeightOffset();
-
         return true;
     }
 
