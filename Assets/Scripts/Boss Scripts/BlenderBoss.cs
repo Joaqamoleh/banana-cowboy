@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 public class BlenderBoss : MonoBehaviour
 {
     [Header("Phases")]
@@ -524,7 +525,18 @@ public class BlenderBoss : MonoBehaviour
         else
         {
             // Play final cutscene
-            LevelSwitch.ChangeScene("Level Select");
+            // LevelSwitch.ChangeScene("Level Select");
+            print("CELEBRATION");
+            CutsceneManager.Instance().PlayCutsceneByName("Celebration");
+            CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
+            
+
+            // playerModel.SetActive(true);
+            playerModel.transform.position = playerWinLocation.transform.position;
+            playerModel.transform.rotation = playerWinLocation.transform.rotation;
+            playerAnimator.applyRootMotion = true;
+            playerAnimator.SetLayerWeight(1, 0.0f);
+            playerAnimator.Play("Base Layer.BC_Cheer");
 
             // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
             // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");
@@ -587,6 +599,32 @@ public class BlenderBoss : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
     }
+
+    /*
+    IEnumerator winUIAnimation()
+    {
+        // pause before animation
+        yield return new WaitForSeconds(1.5f);
+
+        // letters appear
+        foreach (Transform child in youWinUI.transform)
+        {
+            child.transform.DOScale(0.3753395f, 1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // letters jump
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(2.0f);
+            foreach (Transform child in youWinUI.transform)
+            {
+                child.DOJump(child.transform.position, 25, 1, 0.5f);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
+    */
 }
 
 
