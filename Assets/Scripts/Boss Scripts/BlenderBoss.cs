@@ -323,10 +323,13 @@ public class BlenderBoss : MonoBehaviour
         StartCoroutine(RestartAttackPattern());
     }
 
+    bool restarting = false;
     IEnumerator RestartAttackPattern()
     {
         modelAnimator.Play("BL_Open_Lid 0 0");
+        restarting = true;
         yield return new WaitForSeconds(18f);
+        restarting = false;
         modelAnimator.SetTrigger("Next");
     }
 
@@ -435,7 +438,10 @@ public class BlenderBoss : MonoBehaviour
         if (canBeDamaged)
         {
             //SoundManager.Instance().PlaySFX("BossHurt");
-            modelAnimator.Play("BL_Damage");
+            if (!restarting)
+            {
+                modelAnimator.Play("BL_Damage");
+            }
             health -= dmg;
 
             healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
@@ -522,6 +528,13 @@ public class BlenderBoss : MonoBehaviour
     {
         canBeDamaged = false;
         SetClimbObjectsActive(false);
+        for (int i = 0; i < indicatorSpawnObject.Length; i++)
+        {
+            if (indicatorSpawnObject[i] != null)
+            {
+                Destroy(indicatorSpawnObject[i]);
+            }
+        }
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
         PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);

@@ -421,6 +421,10 @@ public class OrangeBoss : MonoBehaviour
 
     void FinalCutsceneEnd(CutsceneObject o)
     {
+        // unlock next level 
+        // LevelManager.SetLevelUnlock("Blueberry Level", true);
+        LevelManager.SetLevelUnlock("Blender Boss Room", true);
+
         LevelSwitch.ChangeScene("Menu");
     }
 
