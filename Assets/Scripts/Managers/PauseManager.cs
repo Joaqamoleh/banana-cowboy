@@ -216,10 +216,8 @@ public class PauseManager : MonoBehaviour
         pauseActive = false;
         Time.timeScale = 1.0f;
         LevelData.ResetLevelData();
+        LevelSwitch.ChangeScene("Level Select");
         SoundManager.Instance().StopAllSFX();
-        SoundManager.Instance().StopAllMusic();
-        SoundManager.Instance().PlayMusic("Menu Music");
-        SceneManager.LoadScene(0);
     }
 
 }

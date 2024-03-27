@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("Menu");
+        LevelSwitch.ChangeScene("Menu");
     }
 
     public void SelectLevel(string planetName)

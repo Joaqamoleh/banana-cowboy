@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,51 +16,36 @@ public class LevelSwitch : MonoBehaviour
         }
     }
 
+    private static Dictionary<string, string> levelToMusic = new Dictionary<string, string>() { 
+        { "Menu", "Main Menu" }, 
+        { "Level Select", "Main Menu" },
+        { "Orange Level", "Orange Planet"},
+        { "Orange Boss Scene", "Orange Boss" },
+        { "Tutorial Level", "Tutorial" },
+        { "Blender Boss Room", "Blender Boss" },
+        { "Cutscene1", "Main Menu" },
+        { "Cutscene2", "Main Menu" }
+    };
+
     public static void ChangeScene(string scene)
     {
-        if (scene == "Menu" || scene == "Level Select")
-        {
-            if (SoundManager.Instance() != null)
-            {
-                SoundManager.Instance().StopAllMusic();
-                SoundManager.Instance().PlayMusic("Main Menu");
-            }
-        }
-        else if (scene == "Orange Level")
-        {
-            if (SoundManager.Instance() != null)
-            {
-                SoundManager.Instance().StopAllMusic();
-                SoundManager.Instance().PlayMusic("Orange Planet");
-            }
-        }
-        else if (scene == "Orange Boss Scene")
+        if (scene == "Orange Boss Scene")
         {
             LevelData.SetCheckpoint(0);
             LevelData.BeatLevel(); // save all your SS from last checkpoint
-            print(LevelData.starSparkleTotal);
-            if (SoundManager.Instance() != null)
-            {
-                SoundManager.Instance().StopAllMusic();
-                SoundManager.Instance().PlayMusic("Orange Boss");
-            }
+            //print(LevelData.starSparkleTotal);
         }
-        else if (scene == "Tutorial Level")
+
+        if (SoundManager.Instance() != null)
         {
-            SoundManager.Instance().StopAllMusic();
-            SoundManager.Instance().PlayMusic("Tutorial");
-        }
-        else if (scene == "Blender Boss Room")
-        {
-            SoundManager.Instance().StopAllMusic();
-            SoundManager.Instance().PlayMusic("Blender Boss");
+            SoundManager.Instance().PlayMusic(levelToMusic[scene]);
         }
 
         LevelData.ResetLevelData();
         CutsceneManager.ResetPlayStartingCutscene();
         SoundManager.Instance().StopAllSFX();
         SceneManager.LoadScene(scene);
-        if (scene == "Menu" || scene == "Level Select")
+        if (scene == "Menu" || scene == "Level Select" || scene == "Cutscene1" || scene == "Cutscene2")
         {
             PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
         }

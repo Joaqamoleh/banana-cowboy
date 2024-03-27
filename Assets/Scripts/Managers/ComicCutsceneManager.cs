@@ -46,10 +46,10 @@ public class ComicCutsceneManager : MonoBehaviour
         continueButton.SetActive(false);
 
         // change music if necessary
-        if (changeMusic)
-        {
-            ChangeMusic();
-        }
+        //if (changeMusic)
+        //{
+        //    ChangeMusic();
+        //}
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
 
         // fade in skip button
@@ -168,13 +168,13 @@ public class ComicCutsceneManager : MonoBehaviour
         StartCoroutine("ChangeScene");
     }
 
-    public void ChangeMusic()
-    {
-        if (SoundManager.Instance() != null)
-        {
-            SoundManager.Instance().StopMusic(previousMusic);
-            SoundManager.Instance().PlayMusic(currentMusic);
-        }
-    }
+    //public void ChangeMusic()
+    //{
+    //    if (SoundManager.Instance() != null)
+    //    {
+    //        SoundManager.Instance().StopMusic(previousMusic);
+    //        SoundManager.Instance().PlayMusic(currentMusic);
+    //    }
+    //}
 
 }

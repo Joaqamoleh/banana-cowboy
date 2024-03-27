@@ -15,7 +15,7 @@ public class PlayerCursor : MonoBehaviour
         CAMERA_PAN,
         HIDDEN
     }
-    CursorType activeType = CursorType.LASSO_AIM;
+    static CursorType activeType = CursorType.LASSO_AIM;
 
     private static PlayerCursor instance;
 
@@ -44,12 +44,11 @@ public class PlayerCursor : MonoBehaviour
         instance = this;
         Cursor.SetCursor(UICursorTexture, Vector2.zero, CursorMode.Auto);
         currentCursorPos = new Vector2(Screen.width / 2, Screen.height / 2);
-        SetCursorType(activeType);
     }
 
     private void OnEnable()
     {
-        SetCursorType(activeType);
+        SetActiveCursorType(activeType);
     }
 
     private void Update()

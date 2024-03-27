@@ -521,7 +521,22 @@ public class BlenderBoss : MonoBehaviour
         else
         {
             // Play final cutscene
+            LevelSwitch.ChangeScene("Level Select");
+
+            // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
+            // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");
         }
+    }
+
+    void BlenderDeathCutsceneComplete(CutsceneObject o)
+    {
+        CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
+        CutsceneManager.Instance().PlayCutsceneByName("Celebration");
+    }
+
+    void CelebrationComplete(CutsceneObject o)
+    {
+        LevelSwitch.ChangeScene("Level Select");
     }
 
     IEnumerator GoToSecondPhase()

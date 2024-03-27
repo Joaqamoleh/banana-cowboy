@@ -45,6 +45,7 @@ public class LevelSelectUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             GetComponent<Button>().interactable = false;
             isUnlocked = false;
         }
+        PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

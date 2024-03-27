@@ -182,7 +182,8 @@ public class SoundManager : MonoBehaviour
         Sound s = Array.Find(music, sound => sound.name == name);
         if (s == null) { return; }
         s.src.volume = s.volume * SFXVolume;
-
+        s.src.loop = s.loop;
+        StopAllMusicExcept(name);
         if (!s.src.isPlaying)
         {
             s.src.Play();
@@ -218,6 +219,17 @@ public class SoundManager : MonoBehaviour
             if (s.src.isPlaying)
             {
                 s.src.Stop();
+            }
+        }
+    }
+
+    public void StopAllMusicExcept(string name)
+    {
+        foreach (Sound m in music)
+        {
+            if (m.name != name && m.src.isPlaying)
+            {
+                m.src.Stop();
             }
         }
     }
