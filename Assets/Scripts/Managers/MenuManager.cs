@@ -49,7 +49,7 @@ public class MenuManager : MonoBehaviour
         {
             case "Play":
                 // Go to Backstory Cutscene
-                SceneManager.LoadScene("Cutscene1");
+                SceneManager.LoadScene("Level Select");
 
                 // Go to level selection screen
                 // if (SoundManager.Instance() != null)
