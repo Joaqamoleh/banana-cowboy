@@ -7793,47 +7793,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.75
+      value: 1.7142475
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.69
+      value: -17.7
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -21.13
+      value: -21.4
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.29
+      value: -3.7
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.34973964
+      value: -0.16563949
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.6143923
+      value: -0.7037138
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.17666551
+      value: 0.35509443
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.6848311
+      value: -0.5926706
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -42.201
+      value: 40.846
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -75.728
+      value: 108.706
       objectReference: {fileID: 0}
     - target: {fileID: 1751430070454597526, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -200.707
+      value: -156.352
       objectReference: {fileID: 0}
     - target: {fileID: 7906048078027301544, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
       propertyPath: m_Name
@@ -10249,6 +10249,7 @@ GameObject:
   - component: {fileID: 1304300147}
   - component: {fileID: 1304300146}
   - component: {fileID: 1304300145}
+  - component: {fileID: 1304300148}
   m_Layer: 10
   m_Name: Cutscene Trigger (2)
   m_TagString: Untagged
@@ -10306,6 +10307,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 24.343, y: -33.495, z: -1.229}
+--- !u!114 &1304300148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304300144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3879a66ca6b824289749982e8dfad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelToUnlock: Orange Level
 --- !u!1 &1315477784 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3098875959793126510, guid: d11febb403e188142a48d792704e6481, type: 3}
