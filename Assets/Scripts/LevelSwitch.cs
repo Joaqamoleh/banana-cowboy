@@ -39,11 +39,11 @@ public class LevelSwitch : MonoBehaviour
         if (SoundManager.Instance() != null)
         {
             SoundManager.Instance().PlayMusic(levelToMusic[scene]);
+            SoundManager.Instance().StopAllSFX();
         }
 
         LevelData.ResetLevelData();
         CutsceneManager.ResetPlayStartingCutscene();
-        SoundManager.Instance().StopAllSFX();
         SceneManager.LoadScene(scene);
         if (scene == "Menu" || scene == "Level Select" || scene == "Cutscene1" || scene == "Cutscene2")
         {
