@@ -75,6 +75,8 @@ public class BlenderBoss : MonoBehaviour
     private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
     public Coroutine currentDialog;
 
+    private bool introDialogComplete = false;
+
     // For sfxs
     private SoundPlayer soundPlayer;
 
@@ -89,7 +91,7 @@ public class BlenderBoss : MonoBehaviour
     {
         state = BossStates.IDLE; // Change this to idle when finshed with moves
         dialogHolder.SetActive(false);
-        //        CutsceneManager.Instance().OnCutsceneEnd += CutsceneEnd;
+        CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
 
         health = maxHealth;
         currMove = 0;
@@ -107,10 +109,9 @@ public class BlenderBoss : MonoBehaviour
         Debug.Assert(soundPlayer != null);
     }
 
-    void CutsceneEnd(CutsceneObject o)
+    void IntroCutsceneEnd(CutsceneObject o)
     {
-        healthHolder.SetActive(true);
-        //StartCoroutine(JuiceJam()); // Give a pause before boss battle starts
+        introDialogComplete = true;
     }
 
     void SetClimbObjectsActive(bool b)
@@ -336,6 +337,8 @@ public class BlenderBoss : MonoBehaviour
 
     private void Update()
     {
+        if (!introDialogComplete) { return; }
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             print("First Phase");
