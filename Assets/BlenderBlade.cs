@@ -12,6 +12,7 @@ public class BlenderBlade : MonoBehaviour
     public float minGrowthRate;
     private BlenderBoss blenderBoss;
     public float flatKnockback;
+    public GameObject windVFX;
 
     private void Start()
     {
@@ -42,6 +43,7 @@ public class BlenderBlade : MonoBehaviour
             newSize = currentSize < 10? currentSize + minGrowthRate * Time.deltaTime : currentSize + growthRate * Time.deltaTime;
             newSize = Mathf.Min(newSize, maxSize); // Clamp the size to maxSize
             transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
+            windVFX.transform.localScale = new Vector3(newSize, newSize, newSize);
             currentSize = newSize;
             yield return null;
         }
@@ -58,6 +60,7 @@ public class BlenderBlade : MonoBehaviour
             newSize = currentSize - growthRate * 10 * Time.deltaTime; // Subtract growthRate to shrink
             newSize = Mathf.Max(newSize, minSize); // Clamp the size to minSize
             transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
+            windVFX.transform.localScale = new Vector3(newSize, newSize, newSize);
             currentSize = newSize;
             yield return null;
         }
