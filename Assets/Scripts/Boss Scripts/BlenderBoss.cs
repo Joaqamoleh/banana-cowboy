@@ -24,7 +24,7 @@ public class BlenderBoss : MonoBehaviour
     private int currMove;
     public GameObject[] positions;
     public GameObject juiceProjectile;
-    private readonly int juiceProjectileAmount = 2; // how many times blender does this attack
+    private int juiceProjectileAmount; // how many times blender does this attack
     private int juiceProjectileCount = 0;
 
     public GameObject blenderBlade;
@@ -75,6 +75,9 @@ public class BlenderBoss : MonoBehaviour
     private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
     public Coroutine currentDialog;
 
+    // For sfxs
+    private SoundPlayer soundPlayer;
+
     [Header("Material")]
     public Material orangeSpawn;
     public enum BossStates
@@ -91,7 +94,7 @@ public class BlenderBoss : MonoBehaviour
         health = maxHealth;
         currMove = 0;
         _currentPhase = temp;
-
+        
         player = GameObject.FindWithTag("Player");
         bombSpawnPos = new List<Vector3>();
         indicatorSpawnObject = new GameObject[6];
@@ -99,6 +102,9 @@ public class BlenderBoss : MonoBehaviour
         climbObjects.SetActive(false);
         canBeDamaged = true;
         spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
+
+        soundPlayer = GetComponent<SoundPlayer>();
+        Debug.Assert(soundPlayer != null);
     }
 
     void CutsceneEnd(CutsceneObject o)
@@ -111,8 +117,8 @@ public class BlenderBoss : MonoBehaviour
     void JuiceAttack()
     {
         bombSpawnPos.Clear(); // Just in case
-
-        cooldownTimer = move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 2;
+        juiceProjectileAmount = 2;
+        cooldownTimer = move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 5;
         state = BossStates.COOLDOWN;
         juiceProjectileCount = 0;
         juiceProjectile.SetActive(false);
@@ -199,7 +205,7 @@ public class BlenderBoss : MonoBehaviour
         Vector3 positionSpawned = platform.position;
         positionSpawned.y += 5;
         GameObject blade = Instantiate(blenderBlade, positionSpawned, Quaternion.identity);
-        yield return new WaitForSeconds(move2Cooldown); // TODO: make it shrink before destroying
+        yield return new WaitForSeconds(move2Cooldown);
         StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
     }
 
@@ -220,7 +226,7 @@ public class BlenderBoss : MonoBehaviour
 
         if (bombIndicator != null && platform != null)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3 * _currentPhase; i++)
             {
                 if (_currentPhase == 1)
                 {
@@ -253,7 +259,7 @@ public class BlenderBoss : MonoBehaviour
 
     void ShootBombs()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 3 * _currentPhase; i++)
         {
             // Assuming bombSpawnPos[i] is a RectTransform
             Vector3 screenPos = bombSpawnPos[i];
@@ -309,17 +315,20 @@ public class BlenderBoss : MonoBehaviour
         StartCoroutine(RestartAttackPattern());
     }
 
+    bool restarting = false;
     IEnumerator RestartAttackPattern()
     {
         modelAnimator.Play("BL_Open_Lid 0 0");
+        restarting = true;
         yield return new WaitForSeconds(18f);
+        restarting = false;
         modelAnimator.SetTrigger("Next");
     }
 
 
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             print("First Phase");
             temp = 1;
@@ -330,7 +339,7 @@ public class BlenderBoss : MonoBehaviour
             print("Second Phase");
             temp = 2;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }*/
+        }
 
         switch (state)
         {
@@ -378,6 +387,9 @@ public class BlenderBoss : MonoBehaviour
 
     public void PlayDialogue(string dialog, bool announcingAttack)
     {
+        soundPlayer.PlaySFX("Laugh");
+        // Also have talk, but idk when you want that to play
+        // soundPlayer.PlaySFX("Talk");
         if (currentDialog != null)
         {
             StopCoroutine(currentDialog);
@@ -418,7 +430,10 @@ public class BlenderBoss : MonoBehaviour
         if (canBeDamaged)
         {
             //SoundManager.Instance().PlaySFX("BossHurt");
-            modelAnimator.Play("BL_Damage");
+            if (!restarting)
+            {
+                modelAnimator.Play("BL_Damage");
+            }
             health -= dmg;
 
             healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
@@ -504,6 +519,14 @@ public class BlenderBoss : MonoBehaviour
     IEnumerator GoToSecondPhase()
     {
         canBeDamaged = false;
+        climbObjects.SetActive(false);
+        for (int i = 0; i < indicatorSpawnObject.Length; i++)
+        {
+            if (indicatorSpawnObject[i] != null)
+            {
+                Destroy(indicatorSpawnObject[i]);
+            }
+        }
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
         PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
@@ -516,7 +539,6 @@ public class BlenderBoss : MonoBehaviour
         }
         health = maxHealth;
         canBeDamaged = true;
-        climbObjects.SetActive(false);
         currMove = 0;
         state = BossStates.IDLE;
     }
