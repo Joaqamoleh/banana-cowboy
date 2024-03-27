@@ -524,7 +524,18 @@ public class BlenderBoss : MonoBehaviour
         else
         {
             // Play final cutscene
-            LevelSwitch.ChangeScene("Level Select");
+            // LevelSwitch.ChangeScene("Level Select");
+            print("CELEBRATION");
+            CutsceneManager.Instance().PlayCutsceneByName("Celebration");
+            CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
+            
+
+            // playerModel.SetActive(true);
+            playerModel.transform.position = playerWinLocation.transform.position;
+            playerModel.transform.rotation = playerWinLocation.transform.rotation;
+            playerAnimator.applyRootMotion = true;
+            playerAnimator.SetLayerWeight(1, 0.0f);
+            playerAnimator.Play("Base Layer.BC_Cheer");
 
             // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
             // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");
