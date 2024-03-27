@@ -76,6 +76,9 @@ public class BlenderBoss : MonoBehaviour
     private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
     public Coroutine currentDialog;
 
+    public GameObject youWinUI;
+    public GameObject thirdPersonCamera;
+
     private bool introDialogComplete = false;
 
     // For sfxs
@@ -108,6 +111,12 @@ public class BlenderBoss : MonoBehaviour
 
         soundPlayer = GetComponent<SoundPlayer>();
         Debug.Assert(soundPlayer != null);
+
+        // hide win UI at the beginning
+        foreach (Transform child in youWinUI.transform)
+        {
+            child.transform.localScale = Vector3.zero;
+        }
     }
 
     void IntroCutsceneEnd(CutsceneObject o)
@@ -527,7 +536,10 @@ public class BlenderBoss : MonoBehaviour
             // Play final cutscene
             // LevelSwitch.ChangeScene("Level Select");
             print("CELEBRATION");
+
+            // thirdPersonCamera.SetActive(false);
             CutsceneManager.Instance().PlayCutsceneByName("Celebration");
+            StartCoroutine(winUIAnimation());
             CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
             
 
@@ -600,7 +612,6 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
     }
 
-    /*
     IEnumerator winUIAnimation()
     {
         // pause before animation
@@ -609,7 +620,7 @@ public class BlenderBoss : MonoBehaviour
         // letters appear
         foreach (Transform child in youWinUI.transform)
         {
-            child.transform.DOScale(0.3753395f, 1f);
+            child.transform.DOScale(0.9f, 1f);
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -620,11 +631,10 @@ public class BlenderBoss : MonoBehaviour
             foreach (Transform child in youWinUI.transform)
             {
                 child.DOJump(child.transform.position, 25, 1, 0.5f);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.2f);
             }
         }
     }
-    */
 }
 
 

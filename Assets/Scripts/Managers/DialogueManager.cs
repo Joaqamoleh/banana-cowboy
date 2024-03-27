@@ -115,7 +115,9 @@ public class DialogueManager : MonoBehaviour
             case TypeOfCharacter.Pete:
                 dialogTextDisplay.color = new Color(255 / 255f, 182 / 255f, 155 / 255f);
                 break;
-
+            case TypeOfCharacter.EvilBanana:
+                dialogTextDisplay.color = new Color(240 / 255f, 166 / 255f, 22 / 255f);
+                break;
         }
 
     }
@@ -185,7 +187,8 @@ public class Dialog
         Blueberry,
         Orange,
         Banana,
-        Pete
+        Pete,
+        EvilBanana
     };
 
     [HideInInspector]
