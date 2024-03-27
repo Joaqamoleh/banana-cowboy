@@ -521,7 +521,14 @@ public class BlenderBoss : MonoBehaviour
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         SetClimbObjectsActive(true);
         PlayDialogue("Ouchie Wowchie", false);
-
+        // TODO: Put this somewhere else
+        for (int i = 0; i < indicatorSpawnObject.Length; i++)
+        {
+            if (indicatorSpawnObject[i] != null)
+            {
+                Destroy(indicatorSpawnObject[i]);
+            }
+        }
         if (_currentPhase == 1)
         {
         }
