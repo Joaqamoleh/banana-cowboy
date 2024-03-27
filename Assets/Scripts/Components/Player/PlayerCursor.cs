@@ -15,7 +15,7 @@ public class PlayerCursor : MonoBehaviour
         CAMERA_PAN,
         HIDDEN
     }
-    CursorType activeType = CursorType.HIDDEN;
+    CursorType activeType = CursorType.LASSO_AIM;
 
     private static PlayerCursor instance;
 
@@ -188,27 +188,23 @@ public class PlayerCursor : MonoBehaviour
 
     void SetCursorType(CursorType type)
     {
-        if (activeType != type)
+        activeType = type;
+        print("Setting cursor type of " + type);
+        playerUI.HideReticle();
+        playerUI.HidePanHand();
+        switch (activeType)
         {
-            activeType = type;
-            print("Setting cursor type of " + type);
-            playerUI.HideReticle();
-            playerUI.HidePanHand();
-            switch (activeType)
-            {
-                case CursorType.UI:
-                    break;
-                case CursorType.LASSO_AIM:
-                    playerUI.ShowReticle();
-                    break;
-                case CursorType.CAMERA_PAN:
-                    playerUI.ShowPanHand();
-                    break;
-                case CursorType.HIDDEN:
-                    break;
-            }
+            case CursorType.UI:
+                break;
+            case CursorType.LASSO_AIM:
+                playerUI.ShowReticle();
+                break;
+            case CursorType.CAMERA_PAN:
+                playerUI.ShowPanHand();
+                break;
+            case CursorType.HIDDEN:
+                break;
         }
-
     }
     public static void SetActiveCursorType(CursorType type)
     {
