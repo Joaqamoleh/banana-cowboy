@@ -19,7 +19,7 @@ public class JuiceProjectile : MonoBehaviour
     IEnumerator JuiceBlast()
     {
         transform.localScale = defaultScale;
-        transform.localPosition = new Vector3(0, 14.1800003f, -6);
+        transform.localPosition = new Vector3(0, 12.8f, -6);
 
         Vector3 targetScale = Vector3.zero; // Target scale is Vector3.zero for complete disappearance
         Vector3 initialScale = transform.localScale;
@@ -33,7 +33,7 @@ public class JuiceProjectile : MonoBehaviour
             float t = Mathf.Clamp01(elapsedTime / blastDuration);
 
             transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
-            transform.localScale = new Vector3(defaultScale.x, transform.localScale.y, defaultScale.z);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, defaultScale.z);
             yield return null;
         }
 

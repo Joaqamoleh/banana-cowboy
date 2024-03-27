@@ -119,6 +119,7 @@ MonoBehaviour:
     speakerDialog: Don't split! This checkpoint's just ripe.
     speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
     typeOfCharacter: 4
+    showClickToContinue: 0
     dialogFullyDisplayed: 0
 --- !u!135 &4522955207488432433
 SphereCollider:
@@ -208,6 +209,7 @@ GameObject:
   - component: {fileID: 1421385818289145085}
   - component: {fileID: 3956047788800581197}
   - component: {fileID: 5040685756122349629}
+  - component: {fileID: 342991863665352615}
   m_Layer: 10
   m_Name: Checkpoint Trigger
   m_TagString: Untagged
@@ -265,6 +267,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <checkpointNum>k__BackingField: 1
   NPC_Animator: {fileID: 4700959748891096243}
+--- !u!114 &342991863665352615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4788768513184048506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Checkpoint
+    audioClip: {fileID: 8300000, guid: 6838a25d5b0f7a6479157cb24c47cbb1, type: 3}
+    alternatives:
+    - {fileID: 8300000, guid: 3ee9a8da7bb10284da12ded8f8ee5384, type: 3}
+    - {fileID: 8300000, guid: c799d750e9907244f9d37668a8d40fa0, type: 3}
+    - {fileID: 8300000, guid: 808b77b734926a5438df78a4a51934b1, type: 3}
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0
+    spatialMaxDist: 0
+    spatialMinDist: 0
+    type: 0
+    src: {fileID: 0}
 --- !u!1001 &1479667568367870542
 PrefabInstance:
   m_ObjectHideFlags: 0

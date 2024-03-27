@@ -22,7 +22,11 @@ public class CutsceneObject : MonoBehaviour
 
     private Coroutine dialogueScreenShake = null;
 
-
+    AudioSource audioSrc;
+    private void Awake()
+    {
+        audioSrc = gameObject.AddComponent<AudioSource>();
+    }
     public void Play()
     {
         _cutsceneComplete = false;
@@ -48,7 +52,7 @@ public class CutsceneObject : MonoBehaviour
         }
         _cutsceneComplete = true;
         DialogueManager.Instance().HideActiveDialog();
-        OnCutsceneComplete?.Invoke(this); // This is apparently a null check on OnCutsceneComplete, so things are good
+        OnCutsceneComplete?.Invoke(this);
     }
 
     void PlayScene(Scene scene)
@@ -57,6 +61,17 @@ public class CutsceneObject : MonoBehaviour
         {
             DialogueManager.Instance().DisplayDialog(scene.dialog);
             _shakeTimer = 0; // Stops screen from shaking if not finished shaking 
+        }
+        if (scene.sfx != null && scene.sfx.audioClip != null)
+        {
+            if (audioSrc.clip != null)
+            {
+                audioSrc.Stop();
+            }
+            audioSrc.clip = scene.sfx.audioClip;
+            audioSrc.volume = scene.sfx.volume * SoundManager.Instance().SFXVolume;
+            audioSrc.pitch = scene.sfx.pitch;
+            audioSrc.Play();
         }
 
         if (scene.cinemachineCamController != null)
@@ -104,7 +119,7 @@ public class CutsceneObject : MonoBehaviour
             StartCoroutine(EndTimelinePlayable(scene, _skip));
         }
 
-        if (scene.cinemachineCamController != null && (scenes[scenes.Length - 1] == scene || scenes[activeScene].cinemachineCamController != scene.cinemachineCamController))
+        if (scene.cinemachineCamController != null && (scenes.Length - 1 == activeScene || scenes[activeScene + 1].cinemachineCamController != scene.cinemachineCamController))
         {
             StartCoroutine(EndCinemachine(scene));
         }
@@ -295,11 +310,15 @@ public class Scene
     public KeyCode cutsceneInput = KeyCode.Mouse0;
     public KeyCode[] altInputs;
 
+    [Tooltip("Sound to be played for the cutscene. Assumes 2D sfx")]
+    public Sound sfx = null;
+
     public enum CompletionType
     {
         ON_INPUT,
         ON_DIALOG_COMPLETE,
-        ON_PLAYABLE_COMPLETE
+        ON_PLAYABLE_COMPLETE,
+        ON_SFX_COMPLETE
     }
     public CompletionType completionType = CompletionType.ON_INPUT;
     [Tooltip("This is the time between the completion of the scene and the start of the next scene")]

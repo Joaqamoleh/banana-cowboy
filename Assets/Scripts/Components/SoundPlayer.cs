@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 // TODO Make class to play sounds in 3D space
 public class SoundPlayer : MonoBehaviour
@@ -34,14 +34,14 @@ public class SoundPlayer : MonoBehaviour
 
     public void PlaySFX(string name)
     {
-        Sound s = Array.Find(sfxs, sound => sound.name == name);
+        Sound s = System.Array.Find(sfxs, sound => sound.name == name);
         if (s == null) { return; }
         PlaySound(s);
     }
 
     public void StopSFX(string name)
     {
-        Sound s = Array.Find(sfxs, sound => sound.name == name);
+        Sound s = System.Array.Find(sfxs, sound => sound.name == name);
         if (s == null) { return; }
         StopSound(s);
     }
@@ -53,7 +53,11 @@ public class SoundPlayer : MonoBehaviour
 
     void SetupSound(Sound s)
     {
-        s.src = gameObject.AddComponent<AudioSource>();
+        AudioSource src = s.src;
+        if (src == null)
+        {
+            s.src = gameObject.AddComponent<AudioSource>();
+        }
         s.src.spatialBlend = s.spatialBlend;
         s.src.minDistance = s.spatialMinDist;
         s.src.maxDistance = s.spatialMaxDist;
@@ -69,15 +73,27 @@ public class SoundPlayer : MonoBehaviour
         {
             if (s.loop)
             {
-                if (Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) == null)
+                if (System.Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) == null)
                 {
                     _loopedSounds.Add(s);
                 }
             }
+            else if (s.alternatives != null && s.alternatives.Length >= 1)
+            {
+                int random = Random.Range(0, s.alternatives.Length + 1);
+                if (random == s.alternatives.Length)
+                {
+                    s.src.clip = s.audioClip;
+                }
+                else
+                {
+                    s.src.clip = s.alternatives[random];
+                }
+                s.src.Play();
+            }
             else
             {
                 s.src.Play();
-                print("Playing sfx " + s.name);
             }
         }
     }
@@ -86,7 +102,7 @@ public class SoundPlayer : MonoBehaviour
     {
         if (s.loop)
         {
-            if (Array.Find(_loopedSounds.ToArray(), sound => sound == s) != null)
+            if (System.Array.Find(_loopedSounds.ToArray(), sound => sound == s) != null)
             {
                 _loopedSounds.Remove(s);
             }

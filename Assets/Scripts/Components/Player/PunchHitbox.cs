@@ -48,5 +48,20 @@ public class PunchHitbox : MonoBehaviour
             }
         }
 
+        print("Punch hit " + other.name);
+
+        SoundPlayer player = other.gameObject.GetComponent<SoundPlayer>();
+        if (player == null)
+        {
+            player = other.gameObject.GetComponentInParent<SoundPlayer>();
+        }
+        if (player == null && other.gameObject.transform.parent != null)
+        {
+            player = other.gameObject.transform.parent.GetComponentInParent<SoundPlayer>();
+        }
+        if (player != null)
+        {
+            player.PlaySFX("Punched");
+        }
     }
 }

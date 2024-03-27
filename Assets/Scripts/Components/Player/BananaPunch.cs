@@ -17,6 +17,8 @@ public class BananaPunch : MonoBehaviour
     [SerializeField]
     float punchCooldown = 0.4f, hitboxLifetime = 0.1f;
 
+    SoundPlayer punchSfxPlayer;
+
     float lastPunchTime;
 
     public bool canPunch;
@@ -29,6 +31,11 @@ public class BananaPunch : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        punchSfxPlayer = GetComponent<SoundPlayer>();
+    }
+
     private void Update()
     {
         if (!canPunch) { return; }
@@ -38,11 +45,13 @@ public class BananaPunch : MonoBehaviour
             {
                 print("Left Punch");
                 PerformPunch(leftPunchHitboxLocation.position);
+                GetComponent<PlayerAnimator>().DoLeftPunch();
             } 
             else if (Input.GetKeyDown(rightPunchButton))
             {
                 print("RIght Punch");
                 PerformPunch(rightPunchHitboxLocation.position);
+                GetComponent<PlayerAnimator>().DoRightPunch();
             }
         }
     }
@@ -56,5 +65,6 @@ public class BananaPunch : MonoBehaviour
         hitbox.transform.GetChild(random).gameObject.SetActive(true);
         hitbox.transform.SetPositionAndRotation(punchLocation, rot);
         lastPunchTime = Time.time;
+        punchSfxPlayer.PlaySFX("Punch");
     }
 }
