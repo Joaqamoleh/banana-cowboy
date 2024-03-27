@@ -38,17 +38,20 @@ public class PlayerCursor : MonoBehaviour
 
     float dMouseX;
     float dMouseY;
+    private void Awake()
+    {
+        instance = this;
+        currentCursorPos = new Vector2(Screen.width / 2, Screen.height / 2);
+        Cursor.SetCursor(UICursorTexture, Vector2.zero, CursorMode.Auto);
+        SetActiveCursorType(activeType);
+    }
 
     private void Start()
     {
-        instance = this;
-        Cursor.SetCursor(UICursorTexture, Vector2.zero, CursorMode.Auto);
-        currentCursorPos = new Vector2(Screen.width / 2, Screen.height / 2);
     }
 
     private void OnEnable()
     {
-        SetActiveCursorType(activeType);
     }
 
     private void Update()
