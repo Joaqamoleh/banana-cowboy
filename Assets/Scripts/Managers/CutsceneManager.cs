@@ -33,6 +33,10 @@ public class CutsceneManager : MonoBehaviour
     private void Awake()
     {
         s_instance = this;
+        for (int i = 0; i < cutscenes.Length; i++)
+        {
+            cutscenes[i].cutscene.index = i;
+        }
     }
 
     void Start()

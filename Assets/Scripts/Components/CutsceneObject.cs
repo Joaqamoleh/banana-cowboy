@@ -20,6 +20,9 @@ public class CutsceneObject : MonoBehaviour
     public event CutsceneCallback OnCutsceneStart;
     public event CutsceneCallback OnCutsceneComplete;
 
+    [HideInInspector]
+    public int index = 0;
+
     private Coroutine dialogueScreenShake = null;
 
     AudioSource audioSrc;

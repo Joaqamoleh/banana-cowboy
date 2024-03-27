@@ -108,6 +108,10 @@ public class BlenderBoss : MonoBehaviour
 
         soundPlayer = GetComponent<SoundPlayer>();
         Debug.Assert(soundPlayer != null);
+
+        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseTwo").OnCutsceneComplete += CutsceneEndPunchinG;
+        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunchinG;
+        CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
     }
 
     void IntroCutsceneEnd(CutsceneObject o)
@@ -505,13 +509,11 @@ public class BlenderBoss : MonoBehaviour
 
         if (_currentPhase == 1)
         {
-            CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunchinG;
         }
         else
         {
             print("BLENDER DEFEATED");
             //SceneManager.LoadScene(0);
-            CutsceneManager.Instance().GetCutsceneByName("PunchPhaseTwo").OnCutsceneComplete += CutsceneEndPunchinG;
         }
     }
 
@@ -527,8 +529,8 @@ public class BlenderBoss : MonoBehaviour
             // Play final cutscene
             // LevelSwitch.ChangeScene("Level Select");
             print("CELEBRATION");
+            FindAnyObjectByType<PlayerAnimator>().IgnorePlayerStateChange();
             CutsceneManager.Instance().PlayCutsceneByName("Celebration");
-            CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
             
 
             // playerModel.SetActive(true);

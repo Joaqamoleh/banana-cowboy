@@ -458,16 +458,22 @@ public class PlayerCameraController : MonoBehaviour
         JumpTo(_focusPoint - _cameraCurrent.forward * orbitRadius, Quaternion.identity); // TODO: Fix
     }
 
+    int lastCutsceneIndex = -1;
+
     void DisableForCutscene(CutsceneObject s)
     {
+        print("Disabled for cutscene " + s.name);
         if (_cinemachineCamController != null)
         {
             _cinemachineCamController.gameObject.SetActive(false);
         }
+        lastCutsceneIndex = s.index;
     }
 
     void EnableAfterCutscene(CutsceneObject s)
     {
+        if (s.index < lastCutsceneIndex) { return; }
+        print("Enabled for cutscene " + s.name);
         if (_cinemachineCamController != null)
         {
             _cinemachineCamController.gameObject.SetActive(true);

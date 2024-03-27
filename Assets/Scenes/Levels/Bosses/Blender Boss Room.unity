@@ -193,7 +193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &15680271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,7 +700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &59868958
 Transform:
   m_ObjectHideFlags: 0
@@ -1753,6 +1753,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563820261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &251698609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3879603049845090681, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+  m_PrefabInstance: {fileID: 502638563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &265235728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,6 +2017,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  index: 0
 --- !u!1 &353990779
 GameObject:
   m_ObjectHideFlags: 0
@@ -4098,6 +4104,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0.1
+  index: 0
 --- !u!1 &643030577
 GameObject:
   m_ObjectHideFlags: 0
@@ -9661,6 +9668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canSkipCutscene: 0
   scenes: []
+  index: 0
 --- !u!1 &1477556061
 GameObject:
   m_ObjectHideFlags: 0
@@ -12437,6 +12445,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  index: 0
 --- !u!1 &1891732820
 GameObject:
   m_ObjectHideFlags: 0
@@ -14077,6 +14086,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  index: 0
 --- !u!1001 &2085594538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14774,6 +14784,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 251698609}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: platform
       value: 

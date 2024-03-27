@@ -59,6 +59,12 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 
+    public void IgnorePlayerStateChange()
+    {
+        PlayerController p = GetComponent<PlayerController>();
+        p.OnStateChanged -= PlayerStateChanged;
+    }
+
     void LassoStateChanged(PlayerController.LassoState updatedState)
     {
         switch (updatedState)
