@@ -214,14 +214,17 @@ public class UIManager : MonoBehaviour
         }
         return LassoTossable.TossStrength.WEAK;
     }
-    
+
+    int lastCutsceneIndex = -1;
     void HideUIForCutscene(CutsceneObject s)
     {
         hudElementsCanvas.gameObject.SetActive(false);
+        lastCutsceneIndex = s.index;
     }
 
     void ShowUIPostCutscene(CutsceneObject s)
     {
+        if (s.index < lastCutsceneIndex) { return; }
         hudElementsCanvas.gameObject.SetActive(true);
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
     }

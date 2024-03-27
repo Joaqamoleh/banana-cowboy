@@ -744,6 +744,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.AddForce(endingVel + (transform.position - s.transform.position).normalized * 2f, ForceMode.VelocityChange);
     }
 
+    int lastCutsceneIndex = -1;
     void DisableCharacterForCutscene(CutsceneObject activeScene)
     {
         disabledForCutscene = true;
@@ -751,10 +752,12 @@ public class PlayerController : MonoBehaviour
         _moveInput = Vector3.zero;
         _jumpHeld = false;
         _playerUI.HideThrowBar();
+        lastCutsceneIndex = activeScene.index;
     }
 
     void EnableCharacterAfterCutscene(CutsceneObject activeScene)
     {
+        if (activeScene.index < lastCutsceneIndex) { return; }
         disabledForCutscene = false;
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
         if (_lassoState == LassoState.HOLD)

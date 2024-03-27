@@ -613,6 +613,7 @@ public class BlenderBoss : MonoBehaviour
 
     IEnumerator winUIAnimation()
     {
+        youWinUI.SetActive(true);
         // pause before animation
         yield return new WaitForSeconds(1.5f);
 
