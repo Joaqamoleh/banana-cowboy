@@ -9,11 +9,16 @@ public class LevelSelectUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 {
     public bool isHovered = false;
     public bool isActive = true;
+    public bool isUnlocked;
+    public string levelName;
+
     public float planetAnimDuration = 1.0f;
     public float planetAnimStrength = 5.0f;
     public float infoAnimDuration = 0.5f;
+
     public GameObject highlight;
     public GameObject planetInfo;
+    public GameObject lockedSticker;
     public List<GameObject> otherPlanets = new List<GameObject>();
 
 
@@ -26,26 +31,43 @@ public class LevelSelectUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         planetInfo.transform.position = transform.position;
         planetInfo.transform.localScale = Vector3.zero;
 
-        // loop through level names and set available 
-        // LevelManager.levelNames
+        // if unlocked
+        if (LevelManager.GetLevelUnlocked(levelName))
+        {
+            lockedSticker.SetActive(false);
+            isUnlocked = true;
+            GetComponent<Button>().interactable = true;
+        }
+        // if locked
+        else
+        {
+            lockedSticker.SetActive(true);
+            isUnlocked = false;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isHovered = true;
-        if (isActive)
+        if (isUnlocked)
         {
-            highlight.SetActive(true);
-            ResetTween();
-            transform.DOJump(transform.position, planetAnimStrength, 1, planetAnimDuration).SetEase(Ease.OutExpo).onComplete = ResetTween;
+            isHovered = true;
+            if (isActive)
+            {
+                highlight.SetActive(true);
+                ResetTween();
+                transform.DOJump(transform.position, planetAnimStrength, 1, planetAnimDuration).SetEase(Ease.OutExpo).onComplete = ResetTween;
+            }
         }
-        
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isHovered = false;
-        highlight.SetActive(false);
+        if (isUnlocked)
+        {
+            isHovered = false;
+            highlight.SetActive(false);
+        }
+        
     }
 
     public void ResetTween()
