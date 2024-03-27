@@ -44,6 +44,12 @@ public class PlayerCursor : MonoBehaviour
         instance = this;
         Cursor.SetCursor(UICursorTexture, Vector2.zero, CursorMode.Auto);
         currentCursorPos = new Vector2(Screen.width / 2, Screen.height / 2);
+        SetCursorType(activeType);
+    }
+
+    private void OnEnable()
+    {
+        SetCursorType(activeType);
     }
 
     private void Update()
@@ -184,7 +190,6 @@ public class PlayerCursor : MonoBehaviour
     {
         if (activeType != type)
         {
-
             activeType = type;
             print("Setting cursor type of " + type);
             playerUI.HideReticle();

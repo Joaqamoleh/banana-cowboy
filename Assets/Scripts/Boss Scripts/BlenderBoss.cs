@@ -17,7 +17,7 @@ public class BlenderBoss : MonoBehaviour
     bool canBeDamaged;
 
     [Header("Climbing")]
-    public GameObject climbObjects;
+    public GameObject[] climbObjects;
 
     [Header("Atacks")]
     private readonly int moves = 4;
@@ -99,7 +99,7 @@ public class BlenderBoss : MonoBehaviour
         bombSpawnPos = new List<Vector3>();
         indicatorSpawnObject = new GameObject[6];
         healthHolder.SetActive(true);
-        climbObjects.SetActive(false);
+        SetClimbObjectsActive(false);
         canBeDamaged = true;
         spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
 
@@ -111,6 +111,14 @@ public class BlenderBoss : MonoBehaviour
     {
         healthHolder.SetActive(true);
         //StartCoroutine(JuiceJam()); // Give a pause before boss battle starts
+    }
+
+    void SetClimbObjectsActive(bool b)
+    {
+        foreach (GameObject go in climbObjects)
+        {
+            go.SetActive(b);
+        }
     }
 
     bool moveToPosition;
@@ -482,7 +490,7 @@ public class BlenderBoss : MonoBehaviour
 
         modelAnimator.SetTrigger("Dizzy");
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
-        climbObjects.SetActive(true);
+        SetClimbObjectsActive(true);
         PlayDialogue("Ouchie Wowchie", false);
 
         if (_currentPhase == 1)
@@ -513,7 +521,7 @@ public class BlenderBoss : MonoBehaviour
     IEnumerator GoToSecondPhase()
     {
         canBeDamaged = false;
-        climbObjects.SetActive(false);
+        SetClimbObjectsActive(false);
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
         PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
