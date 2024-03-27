@@ -93,7 +93,7 @@ public class BlenderBoss : MonoBehaviour
 
     private void Start()
     {
-        state = BossStates.IDLE; // Change this to idle when finshed with moves
+        state = BossStates.NONE;
         dialogHolder.SetActive(false);
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
 
@@ -126,6 +126,7 @@ public class BlenderBoss : MonoBehaviour
     void IntroCutsceneEnd(CutsceneObject o)
     {
         introDialogComplete = true;
+        StartCoroutine(JuiceAttackStartUpHelper());
     }
 
     void SetClimbObjectsActive(bool b)
@@ -134,6 +135,11 @@ public class BlenderBoss : MonoBehaviour
         {
             go.SetActive(b);
         }
+    }
+    IEnumerator JuiceAttackStartUpHelper()
+    {
+        yield return new WaitForSeconds(1f);
+        state = BossStates.IDLE;
     }
 
     bool moveToPosition;
