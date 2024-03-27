@@ -42,6 +42,7 @@ public class LevelSelectUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         else
         {
             lockedSticker.SetActive(true);
+            GetComponent<Button>().interactable = false;
             isUnlocked = false;
         }
     }

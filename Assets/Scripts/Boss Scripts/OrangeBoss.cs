@@ -368,6 +368,7 @@ public class OrangeBoss : MonoBehaviour
             
             CutsceneManager.Instance().PlayCutsceneByName("Win");
             CutsceneManager.Instance().GetCutsceneByName("Win").OnCutsceneComplete += CelebrationCutscene;
+            SoundManager.Instance().StopAllMusic();
 
             // disable player 
             playerModel.SetActive(false);
@@ -425,7 +426,7 @@ public class OrangeBoss : MonoBehaviour
         // LevelManager.SetLevelUnlock("Blueberry Level", true);
         LevelManager.SetLevelUnlock("Blender Boss Room", true);
 
-        LevelSwitch.ChangeScene("Menu");
+        LevelSwitch.ChangeScene("Level Select");
     }
 
     // might be over kill. might 

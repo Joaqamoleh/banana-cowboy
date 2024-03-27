@@ -16,7 +16,7 @@ public class LevelSwitch : MonoBehaviour
 
     public static void ChangeScene(string scene)
     {
-        if (scene == "Menu")
+        if (scene == "Menu" || scene == "Level Select")
         {
             if (SoundManager.Instance() != null)
             {
@@ -48,7 +48,17 @@ public class LevelSwitch : MonoBehaviour
             SoundManager.Instance().StopAllMusic();
             SoundManager.Instance().PlayMusic("Tutorial");
         }
-        if (scene == "Menu")
+        else if (scene == "Blender Boss Room")
+        {
+            SoundManager.Instance().StopAllMusic();
+            SoundManager.Instance().PlayMusic("Blender Boss");
+        }
+
+        LevelData.ResetLevelData();
+        CutsceneManager.ResetPlayStartingCutscene();
+        SoundManager.Instance().StopAllSFX();
+        SceneManager.LoadScene(scene);
+        if (scene == "Menu" || scene == "Level Select")
         {
             PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
         }
@@ -56,9 +66,5 @@ public class LevelSwitch : MonoBehaviour
         {
             PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
         }
-        LevelData.ResetLevelData();
-        CutsceneManager.ResetPlayStartingCutscene();
-        SoundManager.Instance().StopAllSFX();
-        SceneManager.LoadScene(scene);
     }
 }

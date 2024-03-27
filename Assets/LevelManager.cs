@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
 
     public void SelectLevel(string planetName)
     {
-        SceneManager.LoadScene(planetName);
+        LevelSwitch.ChangeScene(planetName);
     }
 
     public static void Init()
