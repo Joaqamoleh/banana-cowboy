@@ -11,9 +11,12 @@ public class JuiceProjectile : MonoBehaviour
 
     private void OnEnable()
     {
-        defaultScale = new Vector3(0.9f, 1.2f, 1);
-        blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>(); 
-        StartCoroutine(JuiceBlast());
+        if (name == "Juice Holder")
+        {
+            defaultScale = new Vector3(0.9f, 1.2f, 1);
+            blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
+            StartCoroutine(JuiceBlast());
+        }
     }
 
     IEnumerator JuiceBlast()
@@ -46,6 +49,7 @@ public class JuiceProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print("HERE: "+other.name);
         if (other.CompareTag("Player"))
         {
             other.GetComponentInParent<Health>().Damage(1, ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));

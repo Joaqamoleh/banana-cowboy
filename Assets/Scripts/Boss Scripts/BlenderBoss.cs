@@ -100,7 +100,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
 
         health = maxHealth;
-        currMove = 2;
+        currMove = 0;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");
