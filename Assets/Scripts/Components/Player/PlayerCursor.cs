@@ -188,6 +188,13 @@ public class PlayerCursor : MonoBehaviour
         return Camera.main.ScreenPointToRay(currentCursorPos);
     }
 
+    public Vector3 GetCursorViewportPos()
+    {
+        Vector3 result = Camera.main.ScreenToViewportPoint(currentCursorPos);
+        result.z = 0;
+        return result;
+    }
+
     void SetCursorType(CursorType type)
     {
         activeType = type;

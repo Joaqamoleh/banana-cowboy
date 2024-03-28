@@ -14,6 +14,8 @@ public class LassoTossable : LassoObject
     [SerializeField]
     bool oneTimeThrow = true;
 
+    [SerializeField]
+    Collider[] lassoableColliders;
 
     private Rigidbody _rigidbody;
     bool tossed = false;
@@ -21,6 +23,7 @@ public class LassoTossable : LassoObject
 
     public delegate void LassoTossEvent(LassoTossable tossedObject, Vector3 tossDirection, Vector3 tossRelativeUp, TossStrength strength);
     public event LassoTossEvent OnTossableTossed;
+
     public enum TossStrength
     {
         WEAK,
@@ -28,11 +31,15 @@ public class LassoTossable : LassoObject
         STRONG
     }
 
+    LayerMask lassoableMask, ignoreMask;
+
     private void Start()
     {
         base.Start();
         _rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(_rigidbody != null);
+        lassoableMask = LayerMask.NameToLayer("Lassoable");
+        ignoreMask = LayerMask.NameToLayer("Ignore Raycast");
     }
 
     /// <summary>
@@ -44,6 +51,10 @@ public class LassoTossable : LassoObject
         if (t == 0)
         {
             // Set initial position of this object for lerping.
+            foreach (Collider c in lassoableColliders)
+            {
+                c.gameObject.layer = ignoreMask;
+            }
             _startingPullPos = transform.position;
             _rigidbody.isKinematic = true;
         }
@@ -68,12 +79,17 @@ public class LassoTossable : LassoObject
             + lassoHandPos.forward * swingRadius * Mathf.Cos(-t * swingSpeed), ref _swingVel, 0.1f);
     }
     
-    public void TossInDirection(Vector3 dir, Vector3 relativeUp, TossStrength strength)
+    public void TossInDirection(Vector3 dir, Vector3 relUp, TossStrength strength)
     {
-        print("Tossing!");
+        TossInDirection(dir, transform.position, relUp, strength);
+    }
+
+    public void TossInDirection(Vector3 dir, Vector3 start, Vector3 relativeUp, TossStrength strength)
+    {
         if (_rigidbody == null) { return; }
         if ((oneTimeThrow && !tossed) || !oneTimeThrow)
         {
+            transform.position = start;
             _rigidbody.isKinematic = false;
             float mult = 0.0f;
             switch (strength)
@@ -91,6 +107,10 @@ public class LassoTossable : LassoObject
             _rigidbody.AddForce((tossForwardForce * mult * dir + relativeUp * tossUpForce), ForceMode.Impulse);
             tossed = true;
             currentlyLassoed = false;
+            foreach (Collider c in lassoableColliders)
+            {
+                c.gameObject.layer = lassoableMask;
+            }
             OnTossableTossed?.Invoke(this, dir, relativeUp, strength);
         }
     }
