@@ -232,15 +232,16 @@ public class PlayerController : MonoBehaviour
     {
         Ray cursorRay = _cursor.GetCursorRay();
         Vector3 viewportDir = (_cursor.GetCursorViewportPos() - new Vector3(0.5f, 0.5f)).normalized;
-        print("Current cursor viewport " + _cursor.GetCursorViewportPos() + " and dir " + viewportDir);
-        Vector3 tossDir = _gravObject.characterOrientation.forward * viewportDir.y + _gravObject.characterOrientation.right * viewportDir.x;
-
-        RaycastHit hit;
-        if (Physics.Raycast(cursorRay, out hit, 100f, lassoAimMask, QueryTriggerInteraction.Ignore))
+        Vector3 tossDir = Vector3.ProjectOnPlane(Camera.main.transform.forward, _gravObject.characterOrientation.up).normalized * viewportDir.y + Camera.main.transform.right * viewportDir.x;
+        if (Physics.Raycast(cursorRay, out RaycastHit hit, 100f, lassoAimMask, QueryTriggerInteraction.Ignore))
         {
             tossDir = Vector3.ProjectOnPlane((hit.point - transform.position).normalized, _gravObject.characterOrientation.up);
             tossDir = (hit.point - transform.position).normalized;
         }
+        else
+        {
+        }
+
 
 
 
@@ -320,6 +321,7 @@ public class PlayerController : MonoBehaviour
                     {
                         // Perform Toss
                         LassoTossable.TossStrength strength = _playerUI.GetTossIndicatorStrength();
+                        strength = LassoableEnemy.TossStrength.STRONG;
                         Vector3 dirOfToss = GetLassoTossDir();
                         toss.TossInDirection(dirOfToss, GetLassoTossPos(), _gravObject.characterOrientation.up, strength);
                         dirOfToss = _gravObject.characterOrientation.InverseTransformDirection(dirOfToss);
@@ -735,7 +737,8 @@ public class PlayerController : MonoBehaviour
                 {
                     held.SwingLassoTossableAround(lassoSwingCenter, lassoCurTime);
                     _playerUI.SetThrowIndicatorPos(Mathf.Sin(lassoCurTime * lassoTossMinigameSpeed));
-                    _lassoRenderer.SetTossArrowDirection(GetLassoTossPos(), GetLassoTossDir(), _playerUI.GetTossIndicatorStrength());
+                    //_lassoRenderer.SetTossArrowDirection(GetLassoTossPos(), GetLassoTossDir(), _playerUI.GetTossIndicatorStrength());
+                    _lassoRenderer.SetTossArrowDirection(GetLassoTossPos(), GetLassoTossDir(), LassoTossable.TossStrength.STRONG);
                 }
                 break;
             case LassoState.RETRACT:
