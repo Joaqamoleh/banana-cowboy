@@ -13,7 +13,7 @@ public class SpawnOrangeEnemy : MonoBehaviour
         GameObject temp = Instantiate(character, transform.position, transform.rotation);
         if (SceneManager.GetActiveScene().name.Contains("Blender")) // Messy but works
         {
-            temp.GetComponent<OrangeEnemyController>().ChangeSightRange(0.5f);
+            temp.GetComponent<OrangeEnemyController>().ChangeSightRange(0.6f);
         }
         Destroy(gameObject);
     }

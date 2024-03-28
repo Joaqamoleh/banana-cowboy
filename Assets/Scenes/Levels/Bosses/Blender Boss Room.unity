@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1121181, g: 0.05808438, b: 0.23822227, a: 1}
+  m_IndirectSpecularColor: {r: 0.11198105, g: 0.058006793, b: 0.23796159, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3855,8 +3855,8 @@ MonoBehaviour:
     dialog:
       typingSpeed: 0.02
       speakerName: Evil Twin
-      speakerDialog: Well, well, well... Look who finally decided to show up. I must
-        say, brother, you've caused quite the stir with your feeble attempts at resistance.
+      speakerDialog: "\rOh, look who's come to town, the Banana Cowboy. I must say,
+        brother, did you enjoy your little adventure across the fruit planets?"
       speakerImage: {fileID: 21300000, guid: 764965f81fa010f499183b478bb92449, type: 3}
       typeOfCharacter: 6
       showClickToContinue: 1
@@ -3889,8 +3889,8 @@ MonoBehaviour:
     dialog:
       typingSpeed: 0.02
       speakerName: Evil Twin
-      speakerDialog: Well, well, well... Look who finally decided to show up. I must
-        say, brother, you've caused quite the stir with your feeble attempts at resistance.
+      speakerDialog: "\rOh, look who's come to town, the Banana Cowboy. I must say,
+        brother, did you enjoy your little adventure across the fruit planets?"
       speakerImage: {fileID: 21300000, guid: 764965f81fa010f499183b478bb92449, type: 3}
       typeOfCharacter: 6
       showClickToContinue: 1
@@ -3922,9 +3922,9 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Evil Twin
-      speakerDialog: Well, well, well... Look who finally decided to show up. I must
-        say, brother, you've caused quite the stir with your feeble attempts at resistance.
+      speakerName: Banana 'King'
+      speakerDialog: "\rOh, look who's come to town, the Banana Cowboy. I must say,
+        brother, did you enjoy your little adventure across the fruit planets?"
       speakerImage: {fileID: 21300000, guid: 764965f81fa010f499183b478bb92449, type: 3}
       typeOfCharacter: 6
       showClickToContinue: 1
@@ -3993,7 +3993,7 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Evil Twin
+      speakerName: Banana 'King'
       speakerDialog: Peace? Oh, how naive you are, dear brother. There can be no
         peace while I hold the power of the blender.
       speakerImage: {fileID: 21300000, guid: 764965f81fa010f499183b478bb92449, type: 3}
@@ -4027,9 +4027,9 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: Evil Twin
-      speakerDialog: And as for you... well, let's just say you've outlived your
-        usefulness.
+      speakerName: Banana 'King'
+      speakerDialog: And as for you... I should've given you the slip long ago. But
+        now that you're here, it's time to squash this mistake once and for all.
       speakerImage: {fileID: 21300000, guid: 764965f81fa010f499183b478bb92449, type: 3}
       typeOfCharacter: 6
       showClickToContinue: 1
@@ -4065,8 +4065,8 @@ MonoBehaviour:
     dialog:
       typingSpeed: 0.02
       speakerName: Banana Cowboy
-      speakerDialog: I knew it would come to this. Brother, your reign of terror
-        ends here and now!
+      speakerDialog: I've honed my skills, and now, as the rightful heir, I stand
+        ready to claim my birthright and dethrone you, the false king!
       speakerImage: {fileID: 21300000, guid: 32844e29e3c402e4f813d0186b9ac6f9, type: 3}
       typeOfCharacter: 4
       showClickToContinue: 1
@@ -4535,6 +4535,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714734710}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &714913065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1931297857206098091, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &714913077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714913065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f4a0d54589a774e844652c86acb3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!1 &773992730
 GameObject:
   m_ObjectHideFlags: 0
@@ -6031,6 +6049,7 @@ MonoBehaviour:
   bombIndicator: {fileID: 1847898043063097960, guid: 2900782729c3c574aadf0a4891801d50, type: 3}
   blueberryBombObject: {fileID: 8873178111891123840, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
   splatEffect: {fileID: 5768313165163680316, guid: df1a23dcd0a27964187c4fc03bdf00a4, type: 3}
+  bombObjectsFly: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
   cherrySpawnPoints:
@@ -11126,7 +11145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1720282454
 Transform:
   m_ObjectHideFlags: 0
@@ -11365,6 +11384,7 @@ MonoBehaviour:
   bombIndicator: {fileID: 1847898043063097960, guid: 2900782729c3c574aadf0a4891801d50, type: 3}
   blueberryBombObject: {fileID: 8873178111891123840, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
   splatEffect: {fileID: 5768313165163680316, guid: df1a23dcd0a27964187c4fc03bdf00a4, type: 3}
+  bombObjectsFly: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
   cherrySpawnPoints:
@@ -14727,49 +14747,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 138126019981489162, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 140046464963617456, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1105413141688248595, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_UiScaleMode
+    - target: {fileID: 2786201614058196497, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3272525912560517747, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1105413141688248595, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 1105413141688248595, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 1441292774870439655, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1441292774870439655, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1441292774870439655, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1441292774870439655, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1441292774870439655, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2480718848885441951, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -26
       objectReference: {fileID: 0}
     - target: {fileID: 3487658146441763437, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14811,17 +14799,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3938614707372669509, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 12.8
-      objectReference: {fileID: 0}
     - target: {fileID: 4174993819549553466, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: m_Name
       value: Blender Boss Holder
-      objectReference: {fileID: 0}
-    - target: {fileID: 4631420478083388863, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: player
@@ -14836,16 +14816,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 15680270}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: maxHealth
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerModel
       value: 
       objectReference: {fileID: 417764686}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: move1Cooldown
-      value: 20
+      propertyPath: move4Cooldown
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerAnimator
@@ -14860,10 +14836,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1226054759}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: climbObjects.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: climbObjects.Array.data[1]
       value: 
       objectReference: {fileID: 1720282453}
@@ -14875,26 +14847,6 @@ PrefabInstance:
       propertyPath: cherrySpawnPoints.Array.data[1]
       value: 
       objectReference: {fileID: 658918756}
-    - target: {fileID: 6505356626559151734, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505356626559151734, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505356626559151734, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6505356626559151734, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6557384603702378117, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 92e5e07a541eee94da520f9be45ddcbc, type: 2}
     - target: {fileID: 7121274470466184174, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: PhaseOneCutscene
       value: 
@@ -14907,38 +14859,13 @@ PrefabInstance:
       propertyPath: AnimatorRigidBody
       value: 
       objectReference: {fileID: 1777995641}
-    - target: {fileID: 8133584353054935568, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133584353054935568, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133584353054935568, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133584353054935568, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133584353054935568, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8133584353054935568, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026887858629166796, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1931297857206098091, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 714913077}
   m_SourcePrefab: {fileID: 100100000, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
 --- !u!4 &355407575110090795 stripped
 Transform:
