@@ -58,6 +58,7 @@ public class BlenderBoss : MonoBehaviour
     public GameObject origin;
     public GameObject originSpawningEnemies;
     public GameObject player;
+    public Health playerHealth;
     public GameObject playerModel;
     public GameObject playerWinLocation;
 
@@ -100,7 +101,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
 
         health = maxHealth;
-        currMove = 0;
+        currMove = 3;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");
@@ -120,8 +121,8 @@ public class BlenderBoss : MonoBehaviour
             child.transform.localScale = Vector3.zero;
         }
 
-        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseTwo").OnCutsceneComplete += CutsceneEndPunchinG;
-        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunchinG;
+        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseTwo").OnCutsceneComplete += CutsceneEndPunching;
+        CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunching;
         CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
     }
 
@@ -566,7 +567,7 @@ public class BlenderBoss : MonoBehaviour
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         SetClimbObjectsActive(true);
         PlayDialogue("Ouchie Wowchie", false);
-        // TODO: Put this somewhere else
+        // TODO: Put this somewhere else. I think this is fine. Might be a case where you can't make it to the boss if it covers the front.
         for (int i = 0; i < indicatorSpawnObject.Length; i++)
         {
             if (indicatorSpawnObject[i] != null)
@@ -584,15 +585,15 @@ public class BlenderBoss : MonoBehaviour
             {
                 SoundManager.Instance().StopAllMusic();
             }
-            //SceneManager.LoadScene(0);
         }
     }
 
-    void CutsceneEndPunchinG(CutsceneObject o)
+    void CutsceneEndPunching(CutsceneObject o)
     {
         if(_currentPhase == 1){
             _currentPhase = 2;
             modelAnimator.Play("BL_Recover");
+            playerHealth.Damage(-3, Vector3.zero); // Heal player back to full. TODO: Not sure if we'll have healing items
             StartCoroutine(GoToSecondPhase());
         }
         else
@@ -631,13 +632,6 @@ public class BlenderBoss : MonoBehaviour
     {
         canBeDamaged = false;
         SetClimbObjectsActive(false);
-        for (int i = 0; i < indicatorSpawnObject.Length; i++)
-        {
-            if (indicatorSpawnObject[i] != null)
-            {
-                Destroy(indicatorSpawnObject[i]);
-            }
-        }
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
         PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);

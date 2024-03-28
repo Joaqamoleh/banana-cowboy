@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.016965987, g: 0.37991637, b: 0.42246917, a: 1}
+  m_IndirectSpecularColor: {r: 0.016918253, g: 0.38016868, b: 0.42203343, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2883,6 +2883,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  index: 0
 --- !u!4 &257506829 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5031327551711260231, guid: e027990025ffc954d9c33a35877f547f, type: 3}
@@ -4652,6 +4653,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  index: 0
 --- !u!1 &526144147
 GameObject:
   m_ObjectHideFlags: 0
@@ -5825,6 +5827,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  index: 0
 --- !u!1 &647505835
 GameObject:
   m_ObjectHideFlags: 3
@@ -7444,6 +7447,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  index: 0
 --- !u!4 &896473528 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5031327551711260231, guid: e027990025ffc954d9c33a35877f547f, type: 3}
@@ -8717,6 +8721,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  index: 0
 --- !u!1 &1072986719
 GameObject:
   m_ObjectHideFlags: 0
@@ -8966,6 +8971,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  index: 0
 --- !u!1001 &1094151781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11037,6 +11043,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e027990025ffc954d9c33a35877f547f, type: 3}
+--- !u!1 &1454499554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1454499555}
+  - component: {fileID: 1454499556}
+  m_Layer: 0
+  m_Name: BANDAGE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1454499555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454499554}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.13799627, y: 0.055983324, z: 0.0052150562, w: 0.9888356}
+  m_LocalPosition: {x: -38.5, y: -7.2, z: 4.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2062633817}
+  m_LocalEulerAnglesHint: {x: 15.803, y: 6.694, z: 1.534}
+--- !u!65 &1454499556
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454499554}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20.5, y: 24.05, z: 1.8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1465951703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5031327551711260231, guid: e027990025ffc954d9c33a35877f547f, type: 3}
@@ -16987,7 +17046,8 @@ Transform:
   m_LocalPosition: {x: -10.665157, y: 26.747513, z: 8.415759}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1454499555}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2084967710
