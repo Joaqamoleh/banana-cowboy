@@ -1753,11 +1753,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563820261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &251698609 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3879603049845090681, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-  m_PrefabInstance: {fileID: 502638563}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &265235728
 GameObject:
   m_ObjectHideFlags: 0
@@ -4331,6 +4326,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
   m_PrefabInstance: {fileID: 502638563}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &699065664 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1268935481823884108, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+  m_PrefabInstance: {fileID: 502638563}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b3e358552ff2541a0b5e4107c464df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &702728609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6066,6 +6072,7 @@ MonoBehaviour:
   origin: {fileID: 222047525}
   originSpawningEnemies: {fileID: 0}
   player: {fileID: 0}
+  playerHealth: {fileID: 0}
   playerModel: {fileID: 0}
   playerWinLocation: {fileID: 0}
   state: 0
@@ -11401,6 +11408,7 @@ MonoBehaviour:
   origin: {fileID: 222047525}
   originSpawningEnemies: {fileID: 0}
   player: {fileID: 0}
+  playerHealth: {fileID: 0}
   playerModel: {fileID: 0}
   playerWinLocation: {fileID: 0}
   state: 0
@@ -14806,7 +14814,7 @@ PrefabInstance:
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 251698609}
+      objectReference: {fileID: 0}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: platform
       value: 
@@ -14819,6 +14827,10 @@ PrefabInstance:
       propertyPath: playerModel
       value: 
       objectReference: {fileID: 417764686}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 699065664}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: move4Cooldown
       value: 10

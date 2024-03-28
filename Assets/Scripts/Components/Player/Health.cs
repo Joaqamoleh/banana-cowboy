@@ -48,7 +48,7 @@ public class Health : MonoBehaviour
             }
             health = Mathf.Clamp(health - damage, 0, 3);
             playerUI.SetHealthUI(health, false);
-            ScreenShakeManager.Instance.ShakeCamera(2, 3, 0.1f);
+            ScreenShakeManager.Instance.ShakeCamera(3, 3, 0.1f);
             if (health <= 0)
             {
                 OnDamaged?.Invoke(damage, true); // true if player has died from hit
