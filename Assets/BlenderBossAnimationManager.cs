@@ -10,4 +10,9 @@ public class BlenderBossAnimationManager : MonoBehaviour
     {
         instance.PlayPlaceBombs();
     }
+
+    public void ShootBombObjects(int num)
+    {
+        instance.ShootBombObjects(num == 0);
+    }
 }

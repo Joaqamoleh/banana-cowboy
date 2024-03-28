@@ -37,6 +37,8 @@ public class BlenderBoss : MonoBehaviour
     private GameObject[] indicatorSpawnObject; // spawn indicator images
     public GameObject splatEffect;
 
+    public GameObject[] bombObjectsFly;
+
     private GameObject[] spawnPoints;
     public GameObject[] minions;
     public GameObject[] cherrySpawnPoints;
@@ -73,7 +75,7 @@ public class BlenderBoss : MonoBehaviour
     public GameObject dialogHolder;
     public TMP_Text dialogText;
     private string[] attackAnnouncement = { "Get ready to be juiced!", "Prepare for a whirlwind of flavor!", "Prepare for a fruity downpour!", "Feel the force of the fruity horde!" };
-    private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble! Cherry Bombs, rain destruction!" };
+    private string[] attackName = { "Juice Jet, coming your way!", "Blender Blade!", "Blueberry Bomb Blitz, coating the ground in dangerous juice!", "Minions, assemble!" };
     public Coroutine currentDialog;
 
     public GameObject youWinUI;
@@ -98,7 +100,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
 
         health = maxHealth;
-        currMove = 0;
+        currMove = 2;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");
@@ -150,7 +152,7 @@ public class BlenderBoss : MonoBehaviour
         cooldownTimer = (move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 5);
         if (_currentPhase == 2)
         {
-            cooldownTimer += 6;
+            cooldownTimer += 4;
         }
         state = BossStates.COOLDOWN;
         juiceProjectileCount = 0;
@@ -171,7 +173,7 @@ public class BlenderBoss : MonoBehaviour
             yield return MoveToPosition(transform.position, positions[1].transform.position);
         }
 
-        yield return new WaitForSeconds(_currentPhase % 2f + 0.5f);
+        yield return new WaitForSeconds(_currentPhase % 2f);
 
         doneMoving = false;
         modelAnimator.Play("BL_Juice_Attack_Windup");
@@ -280,16 +282,36 @@ public class BlenderBoss : MonoBehaviour
 
                 indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
                 bombSpawnPos.Add(spawnPosition);
+                if(_currentPhase == 1)
+                {
+                    yield return new WaitForSeconds(2);
+                    ShootBombs(i);
+                }
             }
         }
-        yield return new WaitForSeconds(3f / _currentPhase);
-        ShootBombs();
+        if (_currentPhase == 2)
+        {
+            yield return new WaitForSeconds(3f / 2);
+            ShootBombs_PhaseTwo();
+        }
     }
 
     void PlaceBombs()
     {
         modelAnimator.Play("BL_Open_Lid_BlueBerryBomb");
 
+    }
+    public void ShootBombObjects(bool val)
+    {
+        if (_currentPhase == 1)
+        {
+            bombObjectsFly[0].SetActive(val);
+        }
+        else
+        {
+            bombObjectsFly[1].SetActive(val);
+            bombObjectsFly[2].SetActive(val);
+        }
     }
 
     void SpawnRandomPosition()
@@ -299,7 +321,17 @@ public class BlenderBoss : MonoBehaviour
         spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), platform.transform.position.y + 3, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
     }
 
-    void ShootBombs()
+    void ShootBombs(int num)
+    {
+        Vector3 screenPos = bombSpawnPos[num];
+        Vector3 worldPos = screenPos;
+        worldPos.y = 50f;
+        GameObject temp = Instantiate(blueberryBombObject, worldPos, Quaternion.identity);
+        temp.GetComponent<BlueberryBomb>().pos = num;
+        Destroy(indicatorSpawnObject[num]);
+    }
+
+    void ShootBombs_PhaseTwo()
     {
         for (int i = 0; i < 3 * _currentPhase; i++)
         {
