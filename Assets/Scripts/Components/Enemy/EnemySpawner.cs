@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    LassoableEnemy enemyToSpawn;
+    EnemyController enemyToSpawn;
 
     [SerializeField]
     GameObject respawnVFX;
@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void OnSpawnedEnemyDeath(Collision c)
+    void OnSpawnedEnemyDeath(EnemyController.DeathSource s)
     {
         // do respawn vfx if it exists
         if (respawnVFX != null) {
@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        LassoableEnemy enemy = Instantiate(enemyToSpawn);
+        EnemyController enemy = Instantiate(enemyToSpawn);
         enemy.transform.position = transform.position;
         enemy.OnDeath += OnSpawnedEnemyDeath;
     }

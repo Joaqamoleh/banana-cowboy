@@ -2,24 +2,17 @@ using UnityEngine;
 
 public class LassoableEnemy : LassoTossable
 {
+    [SerializeField]
+    EnemyController controller;
+
     bool isDestroyed = false;
-
-    [Header("Item Drops")]
-    public GameObject item1;
-    public GameObject item2;
-
-    [Header("Death Juice Prefab")]
-    public GameObject deathJuiceEffect;
-
-    public delegate void LassoEnemyDeath(Collision c);
-    public event LassoEnemyDeath OnDeath;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (IsTossed() && !isDestroyed)
         {
             HandleCollision(collision);
-            OnDeath?.Invoke(collision);
+            isDestroyed = true;
         }
     }
 
@@ -31,8 +24,12 @@ public class LassoableEnemy : LassoTossable
         }
         else
         {
-            ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
-            DestroySelf();
+            controller.KillEnemy(EnemyController.DeathSource.TOSSED, true);
+        }
+
+        if (collision.collider.GetComponent<BodyColliderHandler>() != null && collision.collider.GetComponent<BodyColliderHandler>().GetEnemyController() != null)
+        {
+            collision.collider.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy(EnemyController.DeathSource.HIT_BY_TOSS);
         }
 
         if (collision.collider.CompareTag("Breakable"))
@@ -63,61 +60,18 @@ public class LassoableEnemy : LassoTossable
                 boss.Damage(1);
             }
         }
-         
-        DestroySelf();
+        controller.KillEnemy(EnemyController.DeathSource.TOSSED);
     }
 
-    public void DestroySelf(bool juiceProj = false)
-    {
-        if (juiceProj)
-        {
-            ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
-        }
-        isDestroyed = true;
-        DropItem();
-        SoundManager.Instance().PlaySFX("EnemySplat");
-        InstantiateDeathJuiceEffect();
-        Destroy(gameObject);
-    }
-
-    private void DropItem()
-    {
-        int shouldDropItem = Random.Range(1, 100);
-        if (shouldDropItem <= 60)
-        {
-            int whichItem = Random.Range(1, 100);
-            if (whichItem <= 100)
-            {
-                DropItem(item1);
-            }
-            else
-            {
-                DropItem(item2);
-            }
-        }
-        else
-        {
-            print("Didn't drop anything");
-        }
-    }
-
-    private void DropItem(GameObject item)
-    {
-        if (item != null)
-        {
-            print(item.name + " dropped");
-            GameObject spawnedItem = Instantiate(item, transform.position, Quaternion.identity);
-            spawnedItem.transform.GetChild(0).GetChild(0).GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
-        }
-    }
-
-    private void InstantiateDeathJuiceEffect()
-    {
-        if (deathJuiceEffect != null)
-        {
-            Instantiate(deathJuiceEffect, transform.position, transform.rotation);
-        }
-    }
+    //private void DropItem(GameObject item)
+    //{
+    //    if (item != null)
+    //    {
+    //        print(item.name + " dropped");
+    //        GameObject spawnedItem = Instantiate(item, transform.position, Quaternion.identity);
+    //        spawnedItem.transform.GetChild(0).GetChild(0).GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
+    //    }
+    //}
 }
 
 /*using UnityEngine;

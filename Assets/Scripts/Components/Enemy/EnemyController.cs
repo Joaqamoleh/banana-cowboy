@@ -1,8 +1,131 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField]
+    SoundPlayer sfxPlayer;
+
+    [SerializeField]
+    Renderer[] renderers;
+    [SerializeField]
+    Collider[] colliders;
+
+    [SerializeField]
+    GameObject deathEffect;
+
+    [SerializeField]
+    ItemDrop[] itemDrops;
+    [SerializeField, Range(0f, 100f)]
+    float chanceToDropItem;
     public bool enemyAIDisabled { get; set; } = false;
+
+    public enum DeathSource
+    {
+        OTHER,
+        TOSSED,
+        HIT_BY_TOSS,
+        EXPLOSION,
+    }
+    [SerializeField]
+    List<DeathSource> ignoreDeathBySource = new List<DeathSource>();
+
+
+    public delegate void EnemyDeath(DeathSource source);
+    public event EnemyDeath OnDeath;
+
+    public void OnValidate()
+    {
+        if (itemDrops != null) {        
+            float totalPercent = 0f;
+            foreach (var item in itemDrops)
+            {
+                if (totalPercent + item.percentageChance <= 100f)
+                {
+                    totalPercent += item.percentageChance;
+                }
+                else
+                {
+                    item.percentageChance = (100f - totalPercent);
+                    totalPercent = 100f;
+                }
+            }
+        }
+    }
+
+    public void KillEnemy(bool shakeCamOnDeath)
+    {
+        KillEnemy(DeathSource.OTHER, shakeCamOnDeath);
+    }
+
+    public void KillEnemy(DeathSource source = DeathSource.OTHER, bool shakeCamOnDeath = false)
+    {
+        if (ignoreDeathBySource.Contains(source)) { return; }
+
+        enemyAIDisabled = true;
+
+        if (deathEffect != null)
+        {
+            Instantiate(deathEffect, transform.position, transform.rotation);
+        }
+
+        if (shakeCamOnDeath && ScreenShakeManager.Instance)
+        {
+            ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
+        }
+
+        sfxPlayer.PlaySFX("Splat");
+
+        float shouldDropItem = Random.Range(0f, 100f);
+        if (shouldDropItem < chanceToDropItem)
+        {
+            shouldDropItem = Random.Range(0f, 100f);
+            float cumulative = 0f;
+            foreach (var item in itemDrops)
+            {
+                cumulative += item.percentageChance;
+                if (cumulative < shouldDropItem)
+                {
+                    if (item.drop != null)
+                    {
+                        Instantiate(item.drop, transform.position, Quaternion.identity);
+                        if (item.drop.GetComponent<Collectable>())
+                        {
+                            item.drop.GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach (var r in renderers)
+        {
+            Destroy(r);
+        }
+        foreach (var c in colliders)
+        {
+            Destroy(c);
+        }
+
+        OnDeath?.Invoke(source);
+
+        StartCoroutine(DestroyGameobject());
+    }
+
+    IEnumerator DestroyGameobject()
+    {
+        yield return new WaitForSeconds(sfxPlayer.GetSFX("Splat").src.clip.length + 0.2f);
+        Destroy(transform.gameObject);
+    }
+}
+
+[System.Serializable]
+public class ItemDrop
+{
+    public GameObject drop;
+    [Range(0f, 100f)]
+    public float percentageChance;
 }
