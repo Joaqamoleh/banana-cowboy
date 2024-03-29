@@ -1483,6 +1483,8 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 0
 --- !u!1 &320386585
 GameObject:
@@ -1640,6 +1642,8 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 2
 --- !u!65 &328998926
 BoxCollider:
@@ -2676,6 +2680,8 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 0
 --- !u!1 &719065541
 GameObject:
@@ -4897,6 +4903,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: forceReorientation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: orbitVerticalAngle
       value: 89
       objectReference: {fileID: 0}
@@ -6192,6 +6202,8 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 0
 --- !u!65 &1511545869
 BoxCollider:

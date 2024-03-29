@@ -20,8 +20,6 @@ public class PlayerCameraController : MonoBehaviour
     [Header("Parameters")]
     [SerializeField, Range(0f, 1f)]
     float focusCenteringFactor = 0.5f;
-    [SerializeField, Range(0f, 1f)]
-    float bottomBorder = 0.25f, topBorder = 0.85f;
     [SerializeField, Range(0f, 30f)]
     float realignTime = 5f, realignRadius = 1f, defaultHeightOffset = 3f;
     [SerializeField, Range(1f, 360f)]
@@ -122,7 +120,6 @@ public class PlayerCameraController : MonoBehaviour
         lastManualInputTime -= realignTime;
     }
 
-    Vector3 _moveCameraInput = Vector3.zero;
     void Update()
     {
         if (_cameraFocus == null) { return; }
@@ -246,6 +243,10 @@ public class PlayerCameraController : MonoBehaviour
                 orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
                 _orbitAngles = new Vector2(_orbitAngles.x + mouseY * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime, _orbitAngles.y + mouseX * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime);
                 lastManualInputTime = Time.unscaledTime;
+                if (highestHintPrioIndex != -1 && activeHints[highestHintPrioIndex].ShouldPerformForcedOrientation())
+                {
+                    activeHints[highestHintPrioIndex].UpdateForceOrientationTimer();
+                }
                 return true;
             }
         }
@@ -291,15 +292,16 @@ public class PlayerCameraController : MonoBehaviour
     bool PerformHintRotation(out bool performedHint)
     {
         performedHint = false;
-        if (Time.unscaledTime - lastManualInputTime < realignTime)
-        {
-            return false;
-        }
-
         if (highestHintPrioIndex == -1)
         {
             return false;
         }
+
+        if (Time.unscaledTime - lastManualInputTime < realignTime && !activeHints[highestHintPrioIndex].ShouldPerformForcedOrientation())
+        {
+            return false;
+        }
+
 
         CameraHint hint = activeHints[highestHintPrioIndex];
         Transform basis = hint.GetOrientationBasis();

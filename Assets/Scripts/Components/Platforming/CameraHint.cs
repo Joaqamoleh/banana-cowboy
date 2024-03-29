@@ -23,6 +23,12 @@ public class CameraHint : MonoBehaviour
     bool viewGizmosAtPlayer = true;
 
     [SerializeField]
+    bool forceReorientation = false;
+    [SerializeField]
+    float forceReorientationCooldown = 8.0f;
+    float lastForcedReorientationTime;
+
+    [SerializeField]
     int priority = 0;
 
     private void OnDrawGizmosSelected()
@@ -48,6 +54,11 @@ public class CameraHint : MonoBehaviour
         Gizmos.DrawWireSphere(lookPos, orbitDistance);
     }
 
+    private void Awake()
+    {
+        lastForcedReorientationTime = -forceReorientationCooldown;
+    }
+
     public float GetOrbitVertAngle()
     {
         return orbitVerticalAngle;
@@ -64,6 +75,16 @@ public class CameraHint : MonoBehaviour
             return angle;
         } 
         return orbitRotationAngle;
+    }
+
+    public bool ShouldPerformForcedOrientation()
+    {
+        return forceReorientation && Time.time - lastForcedReorientationTime > forceReorientationCooldown;
+    }
+
+    public void UpdateForceOrientationTimer()
+    {
+        lastForcedReorientationTime = Time.time;
     }
 
     public float GetOrbitDistance()
