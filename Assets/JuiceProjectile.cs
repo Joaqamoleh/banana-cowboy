@@ -13,7 +13,7 @@ public class JuiceProjectile : MonoBehaviour
     {
         if (name == "Juice Holder")
         {
-            defaultScale = new Vector3(0.9f, 1.2f, 1);
+            defaultScale = new Vector3(0.9f, 1.15f, 1);
             blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
             StartCoroutine(JuiceBlast());
         }

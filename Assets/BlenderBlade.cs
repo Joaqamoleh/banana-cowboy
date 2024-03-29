@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class BlenderBlade : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class BlenderBlade : MonoBehaviour
     public float flatKnockback;
     public GameObject windVFX;
 
+    private float elapsedTime = 0f;
+    public float spinDuration = 20;
+    bool done;
     private void Start()
     {
         transform.localScale = Vector3.one;
@@ -25,10 +29,37 @@ public class BlenderBlade : MonoBehaviour
         StartCoroutine(GrowSize());
     }
 
+    private bool isReversing = false;
+
     private void Update()
     {
+        if (blenderBoss.GetPhase() == 2 && !isReversing && !done)
+        {
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= spinDuration)
+            {
+                StartCoroutine(ReverseSpin());
+            }
+        }
+
         transform.Rotate(speed * direction * Time.deltaTime * Vector3.up);
     }
+
+    int directionStored;
+    IEnumerator ReverseSpin()
+    {
+        isReversing = true;
+        yield return new WaitForSeconds(2f);
+        directionStored = direction;
+        blenderBoss.modelAnimator.Play("BL_Press_Button_Switch_Rotation");
+        yield return new WaitForSeconds(0.6f);    
+        direction = 0;
+        yield return new WaitForSeconds(0.10f); // CHANGE IF NEED LONGER PAUSE TIME    
+        direction = (-1 * directionStored);
+        elapsedTime = 0f;
+        isReversing = false;
+    }
+
 
     IEnumerator GrowSize()
     {
@@ -38,7 +69,7 @@ public class BlenderBlade : MonoBehaviour
         {
             speed *= 1.2f;
         }
-        while (currentSize < maxSize) // TODO: Make it grow faster if x is at a certain size
+        while (currentSize < maxSize)
         {
             newSize = currentSize < 10? currentSize + minGrowthRate * Time.deltaTime : currentSize + growthRate * Time.deltaTime;
             newSize = Mathf.Min(newSize, maxSize); // Clamp the size to maxSize
@@ -50,8 +81,10 @@ public class BlenderBlade : MonoBehaviour
         print("GROWING DONE");
     }
 
-    public IEnumerator ShrinkSize()
+    public void ShrinkSize()
     {
+        done = true;
+        StopAllCoroutines();
         float currentSize = transform.localScale.x;
         float minSize = 0; // Define the minimum size as 0
         float newSize = 0;
@@ -62,7 +95,6 @@ public class BlenderBlade : MonoBehaviour
             transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
             windVFX.transform.localScale = new Vector3(newSize, newSize, newSize);
             currentSize = newSize;
-            yield return null;
         }
         Destroy(gameObject);
     }
