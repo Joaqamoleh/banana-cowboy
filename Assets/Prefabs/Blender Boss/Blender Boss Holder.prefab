@@ -166,10 +166,17 @@ MonoBehaviour:
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
   orangeSpawn: {fileID: 2100000, guid: 2db78658a05c9b34d98ecddfd0663853, type: 2}
-  secondPhaseColor: {fileID: 2100000, guid: a6e5a1f647d856f40963d564b8c3fea9, type: 2}
-  blenderBase: {fileID: 7877812964233666995}
-  blenderHandle: {fileID: 4222687050688689059}
-  blenderTop: {fileID: 6913424920848172691}
+  secondPhaseColor: {fileID: 2100000, guid: a69b145bf7e9420498fdfc43d4eb59b8, type: 2}
+  secondPhaseColorGlass: {fileID: 2100000, guid: d450db7be20646c4c9bde02cfa5498a3, type: 2}
+  blenderLimbs:
+  - {fileID: 818069540079001024}
+  - {fileID: 4059579570192387796}
+  - {fileID: 3362666964939158808}
+  - {fileID: 2315722427976155935}
+  - {fileID: 4222687050688689059}
+  - {fileID: 6913424920848172691}
+  - {fileID: 7877812964233666995}
+  blenderGlass: {fileID: 4428239947082161171}
   doneMoving: 1
 --- !u!65 &8206903907097065751
 BoxCollider:
@@ -5251,7 +5258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 999868716356141581, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 999868716356141581, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5679,9 +5686,34 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4577894711549968695}
   m_SourcePrefab: {fileID: 100100000, guid: 109f8303f7c06af45962f82475909670, type: 3}
+--- !u!137 &818069540079001024 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7796463624968574913, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2315722427976155935 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4085927101741086434, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3362666964939158808 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5314899004836544281, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4059579570192387796 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6862995079984334037, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &4222687050688689059 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -2454117880052532830, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4428239947082161171 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2730162753988815342, guid: 109f8303f7c06af45962f82475909670, type: 3}
   m_PrefabInstance: {fileID: 7451425166228736513}
   m_PrefabAsset: {fileID: 0}
 --- !u!137 &6913424920848172691 stripped

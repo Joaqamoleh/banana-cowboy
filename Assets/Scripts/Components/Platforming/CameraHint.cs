@@ -110,10 +110,11 @@ public class CameraHint : MonoBehaviour
         return priority;
     }
 
-    public void SetCameraValues(float distance, float vAngle, float height)
+    public void SetCameraValues(float distance, float vAngle, float height, bool forceRotate)
     {
         orbitDistance = distance;
         orbitVerticalAngle = vAngle;
         heightOffset = height;
+        forceReorientation = forceRotate;// TODO: Not sure if need this, doesn't really do anything for now.
     }
 }
