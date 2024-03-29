@@ -41,6 +41,12 @@ public class BlenderBoss : MonoBehaviour
 
     private GameObject[] spawnPoints;
     public GameObject[] minions;
+
+    public CameraHint cameraOrienter;
+    public Vector3 defaultCameraSettings = new Vector3(40, 12, 12);
+    public Vector3 bladeCameraSettings = new Vector3(50, 40, 30);
+
+    // Not sure if needed. Keep in case.
     public GameObject[] cherrySpawnPoints;
     public GameObject cherryBomb;
 
@@ -89,6 +95,10 @@ public class BlenderBoss : MonoBehaviour
 
     [Header("Material")]
     public Material orangeSpawn;
+    public Material secondPhaseColor;
+    public Material secondPhaseColorGlass;
+    public Renderer[] blenderLimbs;
+    public Renderer blenderGlass;
     public enum BossStates
     {
         IDLE, JUICE, BLADE, BOMB, SPAWN, COOLDOWN, NONE
@@ -99,7 +109,7 @@ public class BlenderBoss : MonoBehaviour
         state = BossStates.NONE;
         dialogHolder.SetActive(false);
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
-
+        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z);
         health = maxHealth;
         currMove = 3;
         _currentPhase = temp;
@@ -107,7 +117,7 @@ public class BlenderBoss : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         bombSpawnPos = new List<Vector3>();
         indicatorSpawnObject = new GameObject[6];
-        healthHolder.SetActive(true);
+        healthHolder.SetActive(false);
         SetClimbObjectsActive(false);
         canBeDamaged = true;
         spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
@@ -129,6 +139,7 @@ public class BlenderBoss : MonoBehaviour
     void IntroCutsceneEnd(CutsceneObject o)
     {
         introDialogComplete = true;
+        healthHolder.SetActive(true);
         StartCoroutine(JuiceAttackStartUpHelper());
     }
 
@@ -209,6 +220,7 @@ public class BlenderBoss : MonoBehaviour
                         Destroy(indicatorSpawnObject[i]);
                     }
                 }
+                cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z); // TODO: Delete when blade animation is done
             }
         }
     }
@@ -237,6 +249,7 @@ public class BlenderBoss : MonoBehaviour
     {
         cooldownTimer = move2Cooldown;
         state = BossStates.COOLDOWN;
+        cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z);
         StartCoroutine(BladeSpin());
     }
 
@@ -253,6 +266,7 @@ public class BlenderBoss : MonoBehaviour
     {
         cooldownTimer = move3Cooldown;
         state = BossStates.COOLDOWN;
+        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z);
         PlaceBombs();
     }
 
@@ -261,41 +275,51 @@ public class BlenderBoss : MonoBehaviour
     {
         StartCoroutine(PlayPlaceBombsHelper());
     }
-    IEnumerator PlayPlaceBombsHelper()
+IEnumerator PlayPlaceBombsHelper()
+{
+    if (bombIndicator != null && platform != null)
     {
-        if (bombIndicator != null && platform != null)
+        Vector3 previousPlayerPosition = player.transform.position;
+
+        for (int i = 0; i < 3 * _currentPhase; i++)
         {
-            for (int i = 0; i < 3 * _currentPhase; i++)
+            if (_currentPhase == 1)
             {
-                if (_currentPhase == 1)
+                SpawnRandomPosition();
+            }
+            else
+            {
+                Vector3 currentPlayerPosition = player.transform.position;
+                    print("HOW MANY: "+bombSpawnPos.Count);
+                if (currentPlayerPosition != previousPlayerPosition)
                 {
-                    SpawnRandomPosition();
+                    spawnPosition = currentPlayerPosition;
+                    bombSpawnPos.Add(spawnPosition);
+
                 }
                 else
                 {
-                    spawnPosition = new Vector3(player.transform.position.x, 0, player.transform.position.z);
-                    if (bombSpawnPos.Contains(spawnPosition))
-                    {
-                        SpawnRandomPosition();
-                    }
-                    yield return new WaitForSeconds(0.75f / _currentPhase);
+                    SpawnRandomPosition();
                 }
+                previousPlayerPosition = currentPlayerPosition;
+                yield return new WaitForSeconds(0.75f / _currentPhase);
+            }
 
-                indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
-                bombSpawnPos.Add(spawnPosition);
-                if(_currentPhase == 1)
-                {
-                    yield return new WaitForSeconds(2);
-                    ShootBombs(i);
-                }
+            indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
+            if (_currentPhase == 1)
+            {
+                yield return new WaitForSeconds(2);
+                ShootBombs(i);
             }
         }
-        if (_currentPhase == 2)
-        {
-            yield return new WaitForSeconds(3f / 2);
-            ShootBombs_PhaseTwo();
-        }
     }
+    if (_currentPhase == 2)
+    {
+        yield return new WaitForSeconds(3f / 2);
+        ShootBombs_PhaseTwo();
+    }
+}
+
 
     void PlaceBombs()
     {
@@ -320,6 +344,7 @@ public class BlenderBoss : MonoBehaviour
         Vector3 minBounds = platform.position - new Vector3(27, 0f, 32);
         Vector3 maxBounds = platform.position + new Vector3(27, 0f, 32);
         spawnPosition = new Vector3(UnityEngine.Random.Range(minBounds.x, maxBounds.x), platform.transform.position.y + 3, UnityEngine.Random.Range(minBounds.z, maxBounds.z));
+        bombSpawnPos.Add(spawnPosition);
     }
 
     void ShootBombs(int num)
@@ -552,7 +577,7 @@ public class BlenderBoss : MonoBehaviour
     {
         currMove = -1;
         state = BossStates.NONE;
-
+        healthHolder.SetActive(false);
         // Destroy objects when transitioning
         juiceProjectile.SetActive(false);
         GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("BossAttacks");
@@ -592,7 +617,6 @@ public class BlenderBoss : MonoBehaviour
     {
         if(_currentPhase == 1){
             _currentPhase = 2;
-            modelAnimator.Play("BL_Recover");
             playerHealth.Damage(-3, Vector3.zero); // Heal player back to full. TODO: Not sure if we'll have healing items
             StartCoroutine(GoToSecondPhase());
         }
@@ -632,10 +656,20 @@ public class BlenderBoss : MonoBehaviour
     {
         canBeDamaged = false;
         SetClimbObjectsActive(false);
+        yield return new WaitForSeconds(1);
+        modelAnimator.Play("BL_Recover");
+        yield return new WaitForSeconds(1);
+        healthHolder.SetActive(true);
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
         PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
         yield return new WaitForSeconds(3f);
+        //TODO: Change color of boss
+/*        foreach (Renderer obj in blenderLimbs)
+        {
+            obj.material = secondPhaseColor;
+        }
+        blenderGlass.material = secondPhaseColorGlass;*/
         while (currentFillAmount / (maxHealth * 1.0f) != 1)
         {
             currentFillAmount = Mathf.MoveTowards(currentFillAmount, maxHealth, 0.8f * Time.deltaTime);

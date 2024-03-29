@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.022667438, g: 0.11243814, b: 0.44657487, a: 1}
+  m_IndirectSpecularColor: {r: 0.022595622, g: 0.11238322, b: 0.44654787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -480,7 +480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
-      value: Bill
+      value: Beau
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4132,6 +4132,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  index: 0
 --- !u!1 &214753964 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7906048078027301544, guid: 8d8ea1c1b2b22ec4c8542856a6e853fa, type: 3}
@@ -13612,6 +13613,7 @@ GameObject:
   - component: {fileID: 656897655}
   - component: {fileID: 656897658}
   - component: {fileID: 656897656}
+  - component: {fileID: 656897659}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -13673,6 +13675,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &656897659
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656897654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &661443492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18935,7 +18954,7 @@ PrefabInstance:
       objectReference: {fileID: 634096947}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
-      value: Gretchen
+      value: Kacey
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerImage
@@ -19509,7 +19528,7 @@ PrefabInstance:
       objectReference: {fileID: 1458181492}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
-      value: Joe
+      value: Landon
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerImage
@@ -19517,8 +19536,8 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerDialog
-      value: When the Oranges drop their peels, pay attention to what's exposed.
-        It's like finding the ripest targets amongst the fruit frenzy!
+      value: When the Oranges drop their peels, pay attention to what's exposed on
+        their body. It's like finding the ripest targets amongst the fruit frenzy!
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.typeOfCharacter
@@ -27626,7 +27645,7 @@ PrefabInstance:
       objectReference: {fileID: 176150212}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
-      value: Bob
+      value: Joaquin
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerImage
@@ -33650,7 +33669,7 @@ PrefabInstance:
       objectReference: {fileID: 2090652563}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
-      value: Brad
+      value: Dain
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerImage
@@ -39873,8 +39892,8 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: John
-      speakerDialog: Hey!!!
+      speakerName: Toprac
+      speakerDialog: AHHH!!! TANKS!!!
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
       typeOfCharacter: 4
       showClickToContinue: 1
@@ -39882,8 +39901,8 @@ MonoBehaviour:
     isTimelineScene: 1
     timelinePlayable: {fileID: 1216850253}
     cinemachineCamController: {fileID: 927499857}
-    cameraShake: 0
-    shakeIntensity: 4
+    cameraShake: 1
+    shakeIntensity: 6
     shakeAmplitude: 6
     shakeDuration: 2
     cutsceneInput: 323
@@ -39906,8 +39925,9 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: John
-      speakerDialog: Thank goodness you're here, Banana Cowboy.
+      speakerName: Toprac
+      speakerDialog: Oh sorry, I didn't see you there, but thank goodness you're
+        here, Banana Cowboy!
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
       typeOfCharacter: 4
       showClickToContinue: 1
@@ -39939,7 +39959,7 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: John
+      speakerName: Toprac
       speakerDialog: 'That Evil King... After he started his rampage, the banana
         subjects scattered to other planets to escape. '
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
@@ -39973,7 +39993,7 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: John
+      speakerName: Toprac
       speakerDialog: I fled here to Orange Planet, home of the Orange Bikers.
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
       typeOfCharacter: 4
@@ -40006,7 +40026,7 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: John
+      speakerName: Toprac
       speakerDialog: 'But the Evil King soon took over, and now the Orange Leader
         is one of his followers. '
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
@@ -40040,7 +40060,7 @@ MonoBehaviour:
   - isDialogScene: 1
     dialog:
       typingSpeed: 0.02
-      speakerName: John
+      speakerName: Toprac
       speakerDialog: Save us, Banana Cowboy!!! Save us all!!!
       speakerImage: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
       typeOfCharacter: 4
@@ -40048,9 +40068,9 @@ MonoBehaviour:
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
-    cinemachineCamController: {fileID: 0}
-    cameraShake: 0
-    shakeIntensity: 4
+    cinemachineCamController: {fileID: 927499857}
+    cameraShake: 1
+    shakeIntensity: 6
     shakeAmplitude: 6
     shakeDuration: 2
     cutsceneInput: 323
@@ -40070,6 +40090,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  index: 0
 --- !u!4 &2132143830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9018121184063167161, guid: 04fd5731d18a1b143bf669d7058126f5, type: 3}
@@ -40313,7 +40334,7 @@ PrefabInstance:
       objectReference: {fileID: 833898591}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerName
-      value: Joey
+      value: Johan
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerImage
@@ -40321,7 +40342,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b4c4bec3aac56784f8fda61c7a14c101, type: 3}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.speakerDialog
-      value: Joe may be BANANAS, he also gives great advice!
+      value: Landon may be BANANAS, he also gives great advice!
       objectReference: {fileID: 0}
     - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: dialog.typeOfCharacter

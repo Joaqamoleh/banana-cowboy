@@ -88,4 +88,11 @@ public class CameraHint : MonoBehaviour
     {
         return priority;
     }
+
+    public void SetCameraValues(float distance, float vAngle, float height)
+    {
+        orbitDistance = distance;
+        orbitVerticalAngle = vAngle;
+        heightOffset = height;
+    }
 }

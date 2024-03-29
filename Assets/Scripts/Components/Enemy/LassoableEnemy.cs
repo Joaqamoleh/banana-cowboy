@@ -67,8 +67,12 @@ public class LassoableEnemy : LassoTossable
         DestroySelf();
     }
 
-    public void DestroySelf()
+    public void DestroySelf(bool juiceProj = false)
     {
+        if (juiceProj)
+        {
+            ScreenShakeManager.Instance.ShakeCamera(1.5f, 1, 0.1f);
+        }
         isDestroyed = true;
         DropItem();
         SoundManager.Instance().PlaySFX("EnemySplat");

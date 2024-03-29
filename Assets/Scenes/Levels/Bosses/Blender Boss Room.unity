@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1121181, g: 0.05808438, b: 0.23822227, a: 1}
+  m_IndirectSpecularColor: {r: 0.11198105, g: 0.058006793, b: 0.23796159, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -175,6 +175,11 @@ PlayableDirector:
     value: {fileID: 1777995640}
   m_ExposedReferences:
     m_References: []
+--- !u!137 &11913750 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4428239947082161171, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &15680270
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +918,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69790549}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!137 &85959649 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7877812964233666995, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &90168216
 GameObject:
   m_ObjectHideFlags: 0
@@ -3927,10 +3937,10 @@ MonoBehaviour:
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 1210287940}
-    cameraShake: 0
-    shakeIntensity: 0
-    shakeAmplitude: 0
-    shakeDuration: 0
+    cameraShake: 1
+    shakeIntensity: 6
+    shakeAmplitude: 7
+    shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
     sfx:
@@ -4158,6 +4168,17 @@ Transform:
   - {fileID: 1037858099}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &645217555 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
+  m_PrefabInstance: {fileID: 2085594538}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489f98bc2dc07334dad09a261af3b013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &658435520
 GameObject:
   m_ObjectHideFlags: 0
@@ -4541,24 +4562,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714734710}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &714913065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1931297857206098091, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-  m_PrefabInstance: {fileID: 355407575110090794}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &714913077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714913065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9f4a0d54589a774e844652c86acb3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!1 &773992730
 GameObject:
   m_ObjectHideFlags: 0
@@ -6058,6 +6061,9 @@ MonoBehaviour:
   bombObjectsFly: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
+  cameraOrienter: {fileID: 0}
+  defaultCameraSettings: {x: 40, y: 12, z: 12}
+  bladeCameraSettings: {x: 50, y: 40, z: 30}
   cherrySpawnPoints:
   - {fileID: 1302504544}
   - {fileID: 658918756}
@@ -6086,6 +6092,10 @@ MonoBehaviour:
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
   orangeSpawn: {fileID: 0}
+  secondPhaseColor: {fileID: 0}
+  secondPhaseColorGlass: {fileID: 0}
+  blenderLimbs: []
+  blenderGlass: {fileID: 0}
   doneMoving: 1
 --- !u!65 &1039359683
 BoxCollider:
@@ -7503,6 +7513,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167955528}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!137 &1178469688 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6913424920848172691, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1181319160 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3362666964939158808, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1189079971
 GameObject:
   m_ObjectHideFlags: 0
@@ -7774,6 +7794,11 @@ MonoBehaviour:
       m_Data: []
   m_Knots:
     m_KnotsLink: []
+--- !u!137 &1194473714 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 818069540079001024, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1198500347
 GameObject:
   m_ObjectHideFlags: 0
@@ -11061,6 +11086,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1516989775}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &1696915021 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4222687050688689059, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1713897964
 GameObject:
   m_ObjectHideFlags: 0
@@ -11394,6 +11424,9 @@ MonoBehaviour:
   bombObjectsFly: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
+  cameraOrienter: {fileID: 0}
+  defaultCameraSettings: {x: 40, y: 12, z: 12}
+  bladeCameraSettings: {x: 50, y: 40, z: 30}
   cherrySpawnPoints:
   - {fileID: 1302504544}
   - {fileID: 658918756}
@@ -11422,6 +11455,10 @@ MonoBehaviour:
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
   orangeSpawn: {fileID: 2100000, guid: 2db78658a05c9b34d98ecddfd0663853, type: 2}
+  secondPhaseColor: {fileID: 0}
+  secondPhaseColorGlass: {fileID: 0}
+  blenderLimbs: []
+  blenderGlass: {fileID: 0}
   doneMoving: 1
 --- !u!95 &1744626272
 Animator:
@@ -11638,6 +11675,7 @@ GameObject:
   - component: {fileID: 1785909235}
   - component: {fileID: 1785909234}
   - component: {fileID: 1785909233}
+  - component: {fileID: 1785909236}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -11721,6 +11759,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1785909236
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785909231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1791920572
 GameObject:
   m_ObjectHideFlags: 3
@@ -11996,6 +12051,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1822364094}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!137 &1853739649 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4059579570192387796, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1871179444
 GameObject:
   m_ObjectHideFlags: 0
@@ -13289,6 +13349,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993163336}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!137 &2028047519 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2315722427976155935, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+  m_PrefabInstance: {fileID: 355407575110090794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2037498151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14204,7 +14269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3098875959793126510, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: m_Name
-      value: View Orienter
+      value: View Orienter (DON'T DELETE OR CHANGE)
       objectReference: {fileID: 0}
     - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: focusElement
@@ -14755,18 +14820,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 140046464963617456, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2786201614058196497, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272525912560517747, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3487658146441763437, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -14812,10 +14865,6 @@ PrefabInstance:
       value: Blender Boss Holder
       objectReference: {fileID: 0}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: platform
       value: 
       objectReference: {fileID: 1871179448}
@@ -14828,17 +14877,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 417764686}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderGlass
+      value: 
+      objectReference: {fileID: 11913750}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 699065664}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: move4Cooldown
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: cameraOrienter
+      value: 
+      objectReference: {fileID: 645217555}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerAnimator
       value: 
       objectReference: {fileID: 495514319}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: secondPhaseColor
+      value: 
+      objectReference: {fileID: 2100000, guid: a69b145bf7e9420498fdfc43d4eb59b8, type: 2}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerWinLocation
       value: 
@@ -14847,6 +14904,42 @@ PrefabInstance:
       propertyPath: thirdPersonCamera
       value: 
       objectReference: {fileID: 1226054759}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: secondPhaseColorGlass
+      value: 
+      objectReference: {fileID: 2100000, guid: d450db7be20646c4c9bde02cfa5498a3, type: 2}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1194473714}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1853739649}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1181319160}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.data[3]
+      value: 
+      objectReference: {fileID: 2028047519}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.data[4]
+      value: 
+      objectReference: {fileID: 1696915021}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.data[5]
+      value: 
+      objectReference: {fileID: 1178469688}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderLimbs.Array.data[6]
+      value: 
+      objectReference: {fileID: 85959649}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: climbObjects.Array.data[1]
       value: 
@@ -14874,10 +14967,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1931297857206098091, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 714913077}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
 --- !u!4 &355407575110090795 stripped
 Transform:

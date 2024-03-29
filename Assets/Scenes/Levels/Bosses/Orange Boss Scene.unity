@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.022667438, g: 0.11243814, b: 0.44657487, a: 1}
+  m_IndirectSpecularColor: {r: 0.022595622, g: 0.11238322, b: 0.44654787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4276,6 +4276,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  index: 0
 --- !u!1001 &721723080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6095,7 +6096,7 @@ MonoBehaviour:
     timelinePlayable: {fileID: 639574311}
     cinemachineCamController: {fileID: 1981160464}
     cameraShake: 1
-    shakeIntensity: 4
+    shakeIntensity: 6
     shakeAmplitude: 6
     shakeDuration: 2
     cutsceneInput: 323
@@ -6150,11 +6151,12 @@ MonoBehaviour:
     completionDelay: 0
   - isDialogScene: 1
     dialog:
-      typingSpeed: 0.4
-      speakerName: Blaze Citruson
-      speakerDialog: ...
-      speakerImage: {fileID: 21300000, guid: f0b70310cd2696c43971a9f4c41ab5c8, type: 3}
-      typeOfCharacter: 3
+      typingSpeed: 0.02
+      speakerName: Banana Cowboy
+      speakerDialog: I heard you're working for the 'Banana King'. I'm here to gather
+        help and free the Oranges.
+      speakerImage: {fileID: 21300000, guid: 32844e29e3c402e4f813d0186b9ac6f9, type: 3}
+      typeOfCharacter: 4
       showClickToContinue: 1
       dialogFullyDisplayed: 0
     isTimelineScene: 1
@@ -6168,7 +6170,7 @@ MonoBehaviour:
     altInputs: 
     sfx:
       name: 
-      audioClip: {fileID: 0}
+      audioClip: {fileID: 8300000, guid: 26b9b00b49b440a4286332a1ef58d51f, type: 3}
       alternatives: []
       volume: 1
       pitch: 1
@@ -6230,7 +6232,7 @@ MonoBehaviour:
     timelinePlayable: {fileID: 639574311}
     cinemachineCamController: {fileID: 1981160464}
     cameraShake: 1
-    shakeIntensity: 4
+    shakeIntensity: 8
     shakeAmplitude: 6
     shakeDuration: 2
     cutsceneInput: 323
@@ -6317,6 +6319,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  index: 0
 --- !u!1 &989069277 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3050070285637734061, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
@@ -9048,6 +9051,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.913
       objectReference: {fileID: 0}
+    - target: {fileID: 6134213983048835659, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6369561918749010671, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: m_Name
       value: Orange Boss
@@ -9088,6 +9095,10 @@ PrefabInstance:
       propertyPath: playerWinLocation
       value: 
       objectReference: {fileID: 328670450}
+    - target: {fileID: 8381960522873835919, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14483,6 +14494,7 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  index: 0
 --- !u!1 &2040158438 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a97ca17d9e072f5458eb7d46801cf5f2, type: 3}

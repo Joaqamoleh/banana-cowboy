@@ -135,6 +135,9 @@ MonoBehaviour:
   - {fileID: 8695637122734247159}
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
+  cameraOrienter: {fileID: 0}
+  defaultCameraSettings: {x: 40, y: 12, z: 12}
+  bladeCameraSettings: {x: 50, y: 40, z: 30}
   cherrySpawnPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -149,6 +152,7 @@ MonoBehaviour:
   origin: {fileID: 1637387323039116964}
   originSpawningEnemies: {fileID: 6073799435572555648}
   player: {fileID: 0}
+  playerHealth: {fileID: 0}
   playerModel: {fileID: 0}
   playerWinLocation: {fileID: 0}
   state: 0
@@ -162,6 +166,10 @@ MonoBehaviour:
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
   orangeSpawn: {fileID: 2100000, guid: 2db78658a05c9b34d98ecddfd0663853, type: 2}
+  secondPhaseColor: {fileID: 2100000, guid: a6e5a1f647d856f40963d564b8c3fea9, type: 2}
+  blenderBase: {fileID: 7877812964233666995}
+  blenderHandle: {fileID: 4222687050688689059}
+  blenderTop: {fileID: 6913424920848172691}
   doneMoving: 1
 --- !u!65 &8206903907097065751
 BoxCollider:
@@ -1544,7 +1552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1053576353409829271
 Transform:
   m_ObjectHideFlags: 0
@@ -5334,13 +5342,34 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 4996104184091551621, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2415516350123516131, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4716940100316073937}
   m_SourcePrefab: {fileID: 100100000, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
 --- !u!1 &140046464963617456 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4231538657209096952, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
   m_PrefabInstance: {fileID: 4271939646851430472}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1931297857206098091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2415516350123516131, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
+  m_PrefabInstance: {fileID: 4271939646851430472}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4716940100316073937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931297857206098091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f4a0d54589a774e844652c86acb3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultScale: {x: 0, y: 0, z: 0}
 --- !u!4 &3938614707372669509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 999868716356141581, guid: 62d6bbe0c3171964aa313fd18c1bd49d, type: 3}
@@ -5650,6 +5679,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4577894711549968695}
   m_SourcePrefab: {fileID: 100100000, guid: 109f8303f7c06af45962f82475909670, type: 3}
+--- !u!137 &4222687050688689059 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2454117880052532830, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6913424920848172691 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4078481031655935122, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6981281773758262762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 109f8303f7c06af45962f82475909670, type: 3}
@@ -5694,6 +5733,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instance: {fileID: 4795659019768717932}
+--- !u!137 &7877812964233666995 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 737282549724031922, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  m_PrefabInstance: {fileID: 7451425166228736513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8250870364264129613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7644792936294863284, guid: 109f8303f7c06af45962f82475909670, type: 3}
