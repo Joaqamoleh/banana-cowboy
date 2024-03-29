@@ -243,8 +243,9 @@ public class PlayerCameraController : MonoBehaviour
                 orbitRadius = Mathf.Clamp(orbitRadius + mouseScroll * orbitZoomSensitivity, orbitMinRadius, orbitMaxRadius);
                 _orbitAngles = new Vector2(_orbitAngles.x + mouseY * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime, _orbitAngles.y + mouseX * orbitSensitivity * mobileConstant * Time.unscaledDeltaTime);
                 lastManualInputTime = Time.unscaledTime;
-                if (highestHintPrioIndex != -1 && activeHints[highestHintPrioIndex].ShouldPerformForcedOrientation())
+                if (highestHintPrioIndex != -1)
                 {
+                    // We update whenever there is input
                     activeHints[highestHintPrioIndex].UpdateForceOrientationTimer();
                 }
                 return true;

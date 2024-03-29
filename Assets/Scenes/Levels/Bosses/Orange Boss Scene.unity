@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.022595622, g: 0.11238322, b: 0.44654787, a: 1}
+  m_IndirectSpecularColor: {r: 0.022667438, g: 0.11243814, b: 0.44657487, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6909,8 +6909,16 @@ PrefabInstance:
       value: 33.2
       objectReference: {fileID: 0}
     - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: forceReorientation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: orbitVerticalAngle
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: forceReorientationCooldown
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
