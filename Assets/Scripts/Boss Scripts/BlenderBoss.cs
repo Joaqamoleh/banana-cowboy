@@ -109,9 +109,9 @@ public class BlenderBoss : MonoBehaviour
         state = BossStates.NONE;
         dialogHolder.SetActive(false);
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
-        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z);
+        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, false);
         health = maxHealth;
-        currMove = 3;
+        currMove = 0;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");
@@ -220,7 +220,7 @@ public class BlenderBoss : MonoBehaviour
                         Destroy(indicatorSpawnObject[i]);
                     }
                 }
-                cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z); // TODO: Delete when blade animation is done
+                cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true); // TODO: Delete when blade animation is done
             }
         }
     }
@@ -249,7 +249,7 @@ public class BlenderBoss : MonoBehaviour
     {
         cooldownTimer = move2Cooldown;
         state = BossStates.COOLDOWN;
-        cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z);
+        cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true);
         StartCoroutine(BladeSpin());
     }
 
@@ -259,14 +259,15 @@ public class BlenderBoss : MonoBehaviour
         positionSpawned.y += 5;
         GameObject blade = Instantiate(blenderBlade, positionSpawned, Quaternion.identity);
         yield return new WaitForSeconds(move2Cooldown);
-        StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
+        //StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
+        blade.GetComponent<BlenderBlade>().ShrinkSize();
     }
 
     void BlueberryBombs()
     {
         cooldownTimer = move3Cooldown;
         state = BossStates.COOLDOWN;
-        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z);
+        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, true);
         PlaceBombs();
     }
 
@@ -275,50 +276,40 @@ public class BlenderBoss : MonoBehaviour
     {
         StartCoroutine(PlayPlaceBombsHelper());
     }
-IEnumerator PlayPlaceBombsHelper()
-{
-    if (bombIndicator != null && platform != null)
+    IEnumerator PlayPlaceBombsHelper()
     {
-        Vector3 previousPlayerPosition = player.transform.position;
-
-        for (int i = 0; i < 3 * _currentPhase; i++)
+        if (bombIndicator != null && platform != null)
         {
-            if (_currentPhase == 1)
-            {
-                SpawnRandomPosition();
-            }
-            else
-            {
-                Vector3 currentPlayerPosition = player.transform.position;
-                    print("HOW MANY: "+bombSpawnPos.Count);
-                if (currentPlayerPosition != previousPlayerPosition)
-                {
-                    spawnPosition = currentPlayerPosition;
-                    bombSpawnPos.Add(spawnPosition);
+            Vector3 previousPlayerPosition = player.transform.position;
 
-                }
-                else
+            for (int i = 0; i < 3 * _currentPhase; i++)
+            {
+                if (_currentPhase == 1)
                 {
                     SpawnRandomPosition();
                 }
-                previousPlayerPosition = currentPlayerPosition;
-                yield return new WaitForSeconds(0.75f / _currentPhase);
-            }
+                else
+                {
+                    Vector3 currentPlayerPosition = player.transform.position;
+                    if (currentPlayerPosition != previousPlayerPosition || bombSpawnPos.Count == 0)
+                    {
+                        spawnPosition = currentPlayerPosition;
+                        bombSpawnPos.Add(spawnPosition);
 
-            indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
-            if (_currentPhase == 1)
-            {
-                yield return new WaitForSeconds(2);
+                    }
+                    else
+                    {
+                        SpawnRandomPosition();
+                    }
+                    previousPlayerPosition = currentPlayerPosition;
+                    yield return new WaitForSeconds(0.3f);
+                }
+                indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
+                yield return new WaitForSeconds(_currentPhase == 1? 2: 0.25f);
                 ShootBombs(i);
             }
         }
     }
-    if (_currentPhase == 2)
-    {
-        yield return new WaitForSeconds(3f / 2);
-        ShootBombs_PhaseTwo();
-    }
-}
 
 
     void PlaceBombs()
@@ -355,26 +346,6 @@ IEnumerator PlayPlaceBombsHelper()
         GameObject temp = Instantiate(blueberryBombObject, worldPos, Quaternion.identity);
         temp.GetComponent<BlueberryBomb>().pos = num;
         Destroy(indicatorSpawnObject[num]);
-    }
-
-    void ShootBombs_PhaseTwo()
-    {
-        for (int i = 0; i < 3 * _currentPhase; i++)
-        {
-            // Assuming bombSpawnPos[i] is a RectTransform
-            Vector3 screenPos = bombSpawnPos[i];
-
-            // Convert screen position to world position
-            Vector3 worldPos = screenPos;
-
-            // Set the z-coordinate to 50f or adjust as needed
-            worldPos.y = 50f;
-
-            // Instantiate the bomb using the world position
-            GameObject temp = Instantiate(blueberryBombObject, worldPos, Quaternion.identity);
-            temp.GetComponent<BlueberryBomb>().pos = i;
-            Destroy(indicatorSpawnObject[i]);
-        }
     }
 
     public void CreateSplat(int obj)
