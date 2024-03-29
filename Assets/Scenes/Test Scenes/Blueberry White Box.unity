@@ -1724,7 +1724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5549019841298714157, guid: bd4abb6dc7bdc0d4fb24127e5c8c0374, type: 3}
       propertyPath: endingGamma
-      value: 130
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5549019841298714157, guid: bd4abb6dc7bdc0d4fb24127e5c8c0374, type: 3}
       propertyPath: maxSwingSpeed
@@ -1740,7 +1740,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5549019841298714157, guid: bd4abb6dc7bdc0d4fb24127e5c8c0374, type: 3}
       propertyPath: startingGamma
-      value: 21
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5549019841298714157, guid: bd4abb6dc7bdc0d4fb24127e5c8c0374, type: 3}
+      propertyPath: splineMovement
+      value: 
+      objectReference: {fileID: 1740662976}
+    - target: {fileID: 5549019841298714157, guid: bd4abb6dc7bdc0d4fb24127e5c8c0374, type: 3}
+      propertyPath: splineMoveSpeed
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4800,6 +4808,138 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735298903}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1740662975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1740662977}
+  - component: {fileID: 1740662976}
+  m_Layer: 0
+  m_Name: Spiral Spline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1740662976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740662975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Spline:
+    m_EditModeType: 1
+    m_Knots: []
+    m_MetaData: []
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Splines:
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 0.34459472
+        y: 0.10683322
+        z: -0.2699237
+      TangentIn:
+        x: 0
+        y: 0
+        z: -0.7120003
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.7120003
+      Rotation:
+        value:
+          x: -0.16667537
+          y: 0.35115692
+          z: 0.06367701
+          w: 0.9191592
+    - Position:
+        x: -0.08097005
+        y: 0.5298352
+        z: 0.6416497
+      TangentIn:
+        x: -0.09939861
+        y: 0.00059485435
+        z: -0.83624744
+      TangentOut:
+        x: -0.034711838
+        y: 0.00022244453
+        z: 1.0560989
+      Rotation:
+        value:
+          x: -0.1261654
+          y: -0.69576025
+          z: -0.12616539
+          w: 0.69576025
+    - Position:
+        x: -0.31189203
+        y: 0.9254072
+        z: -0.9581981
+      TangentIn:
+        x: -0.12813568
+        y: 0.0011870861
+        z: -0.68240786
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.7120003
+      Rotation:
+        value:
+          x: -0.06999483
+          y: 0.90508044
+          z: 0.16412234
+          w: 0.38599765
+    m_MetaData:
+    - Mode: 4
+      Tension: 0.5
+    - Mode: 4
+      Tension: 0.5
+    - Mode: 4
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Knots:
+    m_KnotsLink: []
+--- !u!4 &1740662977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740662975}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.99925494, z: -0, w: -0.038595077}
+  m_LocalPosition: {x: 91.3, y: 107.7, z: 193.3}
+  m_LocalScale: {x: 34.633404, y: 34.633404, z: 34.633404}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -184.424, z: 0}
 --- !u!1001 &1741775548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6512,3 +6652,4 @@ SceneRoots:
   - {fileID: 704291814}
   - {fileID: 1375582749}
   - {fileID: 1710179138}
+  - {fileID: 1740662977}
