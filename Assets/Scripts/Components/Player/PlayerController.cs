@@ -83,17 +83,17 @@ public class PlayerController : MonoBehaviour
     float airControlRatio = 0.8f;
 
     private Vector3 _moveInput = Vector3.zero;
-    private bool _jumpHeld = false, _jumping = false, _running = false, _detectLanding = false, _jumpBuffered = false;
+    private bool _jumpHeld = false, _jumping = false, _running = false, _detectLanding = false, _jumpBuffered = false, _swingBuffered = false;
     private float _lastTimeOnGround = 0f, _currentJumpBufferTime = 0f;
 
     [Header("Lasso")]
     [SerializeField, Min(0f)]
-    float lassoThrowSpeed = 12.5f, timeToPullTarget = 0.4f, timeToToss = 0.1f, timeToRetract = 1.0f, lassoTossMinigameSpeed = 3f;
+    float lassoThrowSpeed = 12.5f, timeToPullTarget = 0.4f, timeToToss = 0.1f, timeToRetract = 1.0f, timeForBuffer = 0.6f, lassoTossMinigameSpeed = 3f;
     [SerializeField]
     LayerMask lassoAimMask;
 
-    private LassoObject _hoveredObject = null, _lassoObject = null;
-    private float lassoCurTime, lassoMaxTime;
+    private LassoObject _hoveredObject = null, _lassoObject = null, _bufferedObject;
+    private float lassoCurTime, lassoMaxTime, bufferLastTime;
 
     private static bool hasPunchAbility = false; // TODO: For testing, turn to false when building for game
 
@@ -345,6 +345,20 @@ public class PlayerController : MonoBehaviour
                         model.localRotation = targetRot;
                     }
                     break;
+                case LassoState.RETRACT:
+                    if (Time.time - bufferLastTime < timeForBuffer && _bufferedObject != null)
+                    {
+                        if (_bufferedObject as SwingableObject != null)
+                        {
+                            _lassoState = LassoState.SWING;
+                            _lassoObject = _bufferedObject;
+                            controlPlayerConnection.gameObject.SetActive(true);
+                            (_bufferedObject as SwingableObject).SwingEnd += EndLassoSwing;
+                            (_bufferedObject as SwingableObject).AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
+                            UpdateState(State.SWING);
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -556,6 +570,12 @@ public class PlayerController : MonoBehaviour
                     break;
                 case LassoState.SWING:
                     // Buffer next swing if clicked on a swingable object.
+                    LassoObject o = _cursor.GetHoveredLassoObject();
+                    if (o != null && o.isLassoable && !o.currentlyLassoed && o.isInRange)
+                    {
+                        _bufferedObject = o;
+                        bufferLastTime = Time.time;
+                    }
                     break;
 
                 case LassoState.HOLD:
@@ -763,10 +783,10 @@ public class PlayerController : MonoBehaviour
         s.SwingEnd -= EndLassoSwing;
         s.Release();
 
-        UpdateState(State.AIR);
-        UpdateLassoState(LassoState.RETRACT);
         controlPlayerConnection.gameObject.SetActive(false);
         _rigidbody.AddForce(endingVel + (transform.position - s.transform.position).normalized * 2f, ForceMode.VelocityChange);
+        UpdateState(State.AIR);
+        UpdateLassoState(LassoState.RETRACT);
     }
 
     int lastCutsceneIndex = -1;
