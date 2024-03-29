@@ -607,7 +607,14 @@ public class PlayerController : MonoBehaviour
     {
 
         // Transform the move input relative to the camera
-        _moveInput = _camera.TransformDirection(_moveInput);
+        if (Mathf.Abs(Vector3.Dot(_camera.forward, _gravObject.characterOrientation.up)) > 0.9f)
+        {
+            _moveInput = _camera.right * _moveInput.x + _camera.up * _moveInput.z;
+        }
+        else
+        {
+            _moveInput = _camera.TransformDirection(_moveInput);
+        }
         // Transform the move input relative to the player
         _moveInput =
             Vector3.Dot(_gravObject.characterOrientation.right, _moveInput) * _gravObject.characterOrientation.right

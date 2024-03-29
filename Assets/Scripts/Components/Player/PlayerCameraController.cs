@@ -176,9 +176,13 @@ public class PlayerCameraController : MonoBehaviour
         UpdateFocusPoint();
         UpdateBasisRot();
         Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
-        if (PerformManualRotation() || PerformHintRotation() || PerformAutomaticRotation())
+        bool performedHint = false;
+        if (PerformManualRotation() || PerformHintRotation(out performedHint) || PerformAutomaticRotation())
         {
-            ConstrainAngles();
+            if (!performedHint)
+            {
+                ConstrainAngles();
+            }
         }
         Vector3 lookDir = lookRot * Vector3.forward;
         Vector3 position = _focusPoint - lookDir * orbitRadius + basisRot * Vector3.up * _focusHeightOffset;
@@ -284,8 +288,9 @@ public class PlayerCameraController : MonoBehaviour
         return true;
     }
 
-    bool PerformHintRotation()
+    bool PerformHintRotation(out bool performedHint)
     {
+        performedHint = false;
         if (Time.unscaledTime - lastManualInputTime < realignTime)
         {
             return false;
@@ -312,6 +317,7 @@ public class PlayerCameraController : MonoBehaviour
         orbitRadius = Mathf.Lerp(orbitRadius, orbitDist, Time.deltaTime);
         targetBasisRot = basis.rotation;
         targetHeightOffset = hint.GetHeightOffset();
+        performedHint = true;
         return true;
     }
 
