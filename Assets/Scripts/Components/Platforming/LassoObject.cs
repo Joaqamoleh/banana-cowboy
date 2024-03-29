@@ -68,7 +68,7 @@ public class LassoObject : MonoBehaviour
     public event LassoObjectUpdate OnLassoObjectLassoed;
     public event LassoObjectUpdate OnLassoObjectReleased;
 
-    public void Start()
+    protected void Start()
     {
         if (lassoCenterBasis == null)
         {

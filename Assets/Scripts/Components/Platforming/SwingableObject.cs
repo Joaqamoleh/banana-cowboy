@@ -1,6 +1,8 @@
 using DG.Tweening;
+using Unity.Mathematics;
 using UnityEngine;
-
+using UnityEngine.Splines;
+using static SwingableObject;
 using static Unity.Mathematics.math;
 
 public class SwingableObject : LassoObject
@@ -41,12 +43,28 @@ public class SwingableObject : LassoObject
     [SerializeField, Range(0f, 1)]
     float paramVisualization = 0;
 
+    [SerializeField]
+    SplineContainer splineMovement = null;
+
+    [SerializeField, Min(0f)]
+    float splineMoveSpeed = 1f;
+
+    private float splineTotalDist, splineCurrentDist;
+
+    public enum MoveType
+    {
+        FORWARD,
+        OSCILATING,
+    }
+    [SerializeField]
+    MoveType splineMoveType = MoveType.FORWARD;
+
     Rigidbody attachedBody;
 
     public delegate void SwingEndDelegate(Vector3 endingVel);
     public event SwingEndDelegate SwingEnd;
 
-    private void OnValidate()
+    protected void OnValidate()
     {
         if (minSwingSpeed > maxSwingSpeed)
         {
@@ -54,7 +72,7 @@ public class SwingableObject : LassoObject
         }
     }
 
-    private void OnDrawGizmosSelected()
+    protected void OnDrawGizmosSelected()
     {
         if (swingBasis == null)
         {
@@ -135,7 +153,7 @@ public class SwingableObject : LassoObject
         }
         return distance;
     }
-    private void Awake()
+    protected void Awake()
     {
         if (swingBasis == null)
         {
@@ -145,9 +163,15 @@ public class SwingableObject : LassoObject
         {
             modelInitial = model.rotation;
         }
+        if (splineMovement != null)
+        {
+            splineTotalDist = splineMovement.CalculateLength();
+            splineCurrentDist = 0f;
+            transform.position = splineMovement.EvaluatePosition(0f);
+        }
         approximateArcLength = ApproximateArcLength();
     }
-    private void Update()
+    protected void Update()
     {
         if (attachedBody != null)
         {
@@ -165,34 +189,64 @@ public class SwingableObject : LassoObject
             } 
             else
             {
-                float t = currentArcPos / approximateArcLength;
+                if (approximateArcLength == 0f)
+                {
+                    attachedBody.position = GetSwingPosition(GetThetaGammaRadius(0f));
+                }
+                else
+                {
+                    float t = currentArcPos / approximateArcLength;
 
-                if (type == SwingType.REPEAT)
-                {
-                    t = frac(t);
-                }
-                else if (type == SwingType.ONE_TIME && t >= 1.0f)
-                {
-                    Vector3 vel = EndSwing();
-                    SwingEnd?.Invoke(vel);
-                    return;
-                }
-                else if (type == SwingType.OSCILATING)
-                {
-                    if (t >= 1.0f)
+                    if (type == SwingType.REPEAT)
                     {
-                        swingMult = -1.0f;
-                    } 
-                    else if (t <= 0.0f)
+                        t = frac(t);
+                    }
+                    else if (type == SwingType.ONE_TIME && t >= 1.0f)
                     {
-                        swingMult = 1.0f;
+                        Vector3 vel = EndSwing();
+                        SwingEnd?.Invoke(vel);
+                        return;
+                    }
+                    else if (type == SwingType.OSCILATING)
+                    {
+                        if (t >= 1.0f)
+                        {
+                            swingMult = -1.0f;
+                        } 
+                        else if (t <= 0.0f)
+                        {
+                            swingMult = 1.0f;
+                        }
+                    }
+
+                    Vector3 p = GetThetaGammaRadius(t);
+                    currentSwingSpeed = Mathf.Lerp(minSwingSpeed, maxSwingSpeed, Mathf.Sin(p.y)) * swingMult;
+                    attachedBody.position = GetSwingPosition(p);
+                    currentArcPos += currentSwingSpeed * Time.deltaTime;
+                }
+            }
+
+            if (splineMovement != null)
+            {
+                float t = splineCurrentDist / splineTotalDist;
+                //splineMovement.Spline.Evaluate(t, out float3 pos, out float3 tangent, out float3 up);
+                transform.position = splineMovement.EvaluatePosition(t); // , Quaternion.LookRotation(tangent, up));
+
+                if (splineMoveType == MoveType.FORWARD)
+                {
+                    if (splineCurrentDist < splineTotalDist)
+                    {
+                        splineCurrentDist += splineMoveSpeed * Time.deltaTime;
                     }
                 }
-
-                Vector3 p = GetThetaGammaRadius(t);
-                currentSwingSpeed = Mathf.Lerp(minSwingSpeed, maxSwingSpeed, Mathf.Sin(p.y)) * swingMult;
-                attachedBody.position = GetSwingPosition(p);
-                currentArcPos += currentSwingSpeed * Time.deltaTime;
+                else
+                {
+                    if ((splineCurrentDist + splineMoveSpeed * Time.deltaTime > splineTotalDist) || (splineCurrentDist + splineMoveSpeed * Time.deltaTime <= 0.0f))
+                    {
+                        splineMoveSpeed = -splineMoveSpeed;
+                    }
+                    splineCurrentDist += splineMoveSpeed * Time.deltaTime;
+                }
             }
 
             if (reorientModel && model != null)
@@ -229,6 +283,14 @@ public class SwingableObject : LassoObject
             pullingToStart = true;
             attachedStart = attachedBody.position;
         }
+
+        if (splineMovement != null)
+        {
+            if (splineMoveType == MoveType.FORWARD)
+            {
+                splineCurrentDist = 0f;
+            }
+        }
     }
 
     public Vector3 EndSwing()
@@ -237,6 +299,12 @@ public class SwingableObject : LassoObject
 
         Vector3 velocity = (GetSwingPosition(GetThetaGammaRadius(t)) - lastPos).normalized * Mathf.Abs(currentSwingSpeed);
         attachedBody = null;
+        if (splineMovement != null)
+        {
+            float s = splineCurrentDist / splineTotalDist;
+            splineMovement.Spline.Evaluate(s, out float3 pos, out float3 tangent, out float3 up);
+            velocity += splineMovement.transform.TransformDirection((Vector3)tangent) * splineMoveSpeed;
+        }
         return velocity * endingSwingMultForce;
     }
 

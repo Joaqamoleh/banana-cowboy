@@ -33,7 +33,7 @@ public class LassoTossable : LassoObject
 
     LayerMask lassoableMask, ignoreMask;
 
-    private void Start()
+    protected void Start()
     {
         base.Start();
         _rigidbody = GetComponent<Rigidbody>();
