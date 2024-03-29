@@ -232,8 +232,15 @@ public class SwingableObject : LassoObject
                 //splineMovement.Spline.Evaluate(t, out float3 pos, out float3 tangent, out float3 up);
                 transform.position = splineMovement.EvaluatePosition(t); // , Quaternion.LookRotation(tangent, up));
 
+                
                 if (splineMoveType == MoveType.FORWARD)
                 {
+                    if (splineCurrentDist > splineTotalDist)
+                    {
+                        Vector3 vel = EndSwing();
+                        SwingEnd?.Invoke(vel);
+                        return;
+                    }
                     if (splineCurrentDist < splineTotalDist)
                     {
                         splineCurrentDist += splineMoveSpeed * Time.deltaTime;
@@ -263,6 +270,11 @@ public class SwingableObject : LassoObject
             {
                 model.rotation = Quaternion.Slerp(model.rotation, modelInitial, Time.deltaTime * 8f);
             }
+            if (splineMovement != null)
+            {
+                splineCurrentDist = Mathf.Lerp(splineCurrentDist, 0f, Time.deltaTime);
+                transform.position = splineMovement.EvaluatePosition(splineCurrentDist / splineTotalDist);
+            }
         }
     }
 
@@ -282,14 +294,6 @@ public class SwingableObject : LassoObject
             startPos = GetSwingPosition(GetThetaGammaRadius(0));
             pullingToStart = true;
             attachedStart = attachedBody.position;
-        }
-
-        if (splineMovement != null)
-        {
-            if (splineMoveType == MoveType.FORWARD)
-            {
-                splineCurrentDist = 0f;
-            }
         }
     }
 
