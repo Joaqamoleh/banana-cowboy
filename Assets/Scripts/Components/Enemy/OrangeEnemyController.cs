@@ -134,7 +134,7 @@ public class OrangeEnemyController : EnemyController
                             {
                                 UpdateSubState(OrangeSubStates.ROAM);
                             }
-                            else if (rand < chanceToRoam + chanceToRoam)
+                            else if (rand < chanceToRoam + chanceToSleep)
                             {
                                 UpdateSubState(OrangeSubStates.SLEEP);
                             }

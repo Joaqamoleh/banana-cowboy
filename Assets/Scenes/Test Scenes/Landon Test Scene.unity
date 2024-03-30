@@ -5429,6 +5429,14 @@ PrefabInstance:
       value: Orange Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: chanceToRoam
+      value: 48.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
+      propertyPath: chanceToSleep
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8344437055072087473, guid: 2c142e73a8d31cb4e85b57ffa4bb0d4e, type: 3}
       propertyPath: ignoreDeathBySource.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -6530,6 +6538,75 @@ Transform:
   - {fileID: 1350770925}
   m_Father: {fileID: 2086018044}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1001 &1364581226
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 29.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -19.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5605030989652231462, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_Name
+      value: Blueberry Shooter Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5605030989652231462, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658279555195938679, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: enemyToSpawn
+      value: 
+      objectReference: {fileID: 2126039739425931106, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
+    - target: {fileID: 8658279555195938679, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
+      propertyPath: spawnOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
 --- !u!1 &1402779828
 GameObject:
   m_ObjectHideFlags: 0
@@ -7975,7 +8052,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40.5
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -8001,8 +8078,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735498531}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23161088, y: -0.17666455, z: 0.04281526, w: 0.95567405}
-  m_LocalPosition: {x: -0.5363426, y: 66.09371, z: 35.668343}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.72, y: 39.21, z: -15.199999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9297,63 +9374,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.78, y: 9.41, z: 1.68}
   m_Center: {x: 0, y: 4.53, z: 0}
---- !u!1001 &5739559440173783582
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -18.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 28.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -20.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984773047428699836, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6850959988197354532, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
-      propertyPath: m_Name
-      value: Blueberry Shooter Enemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 99e4ca119a2255a47bfb5796230aa883, type: 3}
 --- !u!1001 &6991006920872794211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9535,8 +9555,8 @@ SceneRoots:
   - {fileID: 512436894}
   - {fileID: 668247927}
   - {fileID: 256946793}
+  - {fileID: 1364581226}
   - {fileID: 1724470176}
-  - {fileID: 5739559440173783582}
   - {fileID: 1143631739}
   - {fileID: 639567741}
   - {fileID: 1009418211}

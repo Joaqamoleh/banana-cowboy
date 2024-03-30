@@ -211,7 +211,7 @@ MonoBehaviour:
   reorientTime: 0.5
   _freezeRotation: 1
   footPosition: {fileID: 1417368879578284906}
-  footCheckRadius: 0.16
+  footCheckRadius: 0.1
   groundMask:
     serializedVersion: 2
     m_Bits: 9
@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 3213255724882294091}
   - component: {fileID: 6238540330290742693}
   - component: {fileID: 7887145618409905628}
+  - component: {fileID: 5811433109501375964}
   m_Layer: 0
   m_Name: Body Collider
   m_TagString: Untagged
@@ -404,7 +405,7 @@ Transform:
   m_GameObject: {fileID: 8496534751553321836}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -429,7 +430,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.23
+  m_Radius: 0.75
   m_Center: {x: 0, y: 0.18, z: 0}
 --- !u!114 &7887145618409905628
 MonoBehaviour:
@@ -444,6 +445,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2126039739425931106}
+--- !u!135 &5811433109501375964
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496534751553321836}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.54
+  m_Center: {x: 0, y: -0.52, z: 0}
 --- !u!1001 &5582849534977823959
 PrefabInstance:
   m_ObjectHideFlags: 0

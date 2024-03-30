@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField, Range(0f, 100f)]
     float chanceToDropItem;
     public bool enemyAIDisabled { get; set; } = false;
-
+    bool killed = false;
     public enum DeathSource
     {
         OTHER,
@@ -63,8 +63,10 @@ public class EnemyController : MonoBehaviour
 
     public void KillEnemy(DeathSource source = DeathSource.OTHER, bool shakeCamOnDeath = false)
     {
+        if (killed) { return; }
         if (ignoreDeathBySource.Contains(source)) { return; }
 
+        killed = true;
         enemyAIDisabled = true;
 
         if (deathEffect != null)
