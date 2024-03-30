@@ -99,6 +99,9 @@ public class BlenderBoss : MonoBehaviour
     public Material secondPhaseColorGlass;
     public Renderer[] blenderLimbs;
     public Renderer blenderGlass;
+
+    [Header("Celebration VFX")]
+    public ParticleSystem confettiVFX;
     public enum BossStates
     {
         IDLE, JUICE, BLADE, BOMB, SPAWN, COOLDOWN, NONE
@@ -608,6 +611,11 @@ public class BlenderBoss : MonoBehaviour
             playerModel.transform.rotation = playerWinLocation.transform.rotation;
             playerAnimator.applyRootMotion = true;
             playerAnimator.SetLayerWeight(1, 0.0f);
+            // play confetti particle system here :3
+            if (confettiVFX != null) {
+                Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 10,
+                    playerWinLocation.transform.position.z), playerWinLocation.transform.rotation); 
+            }
             playerAnimator.Play("Base Layer.BC_Cheer");
 
             // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
