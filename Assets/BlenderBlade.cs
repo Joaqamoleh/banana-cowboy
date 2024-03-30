@@ -51,7 +51,7 @@ public class BlenderBlade : MonoBehaviour
         isReversing = true;
         yield return new WaitForSeconds(2f);
         directionStored = direction;
-        blenderBoss.modelAnimator.Play("BL_Press_Button_Switch_Rotation");
+        blenderBoss.modelAnimator.SetTrigger("BladeButton"); //Play("BL_Press_Button_Switch_Rotation");
         yield return new WaitForSeconds(0.6f);    
         direction = 0;
         yield return new WaitForSeconds(0.10f); // CHANGE IF NEED LONGER PAUSE TIME    
@@ -85,6 +85,7 @@ public class BlenderBlade : MonoBehaviour
     {
         done = true;
         StopAllCoroutines();
+        blenderBoss.modelAnimator.SetTrigger("BladeDone");
         float currentSize = transform.localScale.x;
         float minSize = 0; // Define the minimum size as 0
         float newSize = 0;
