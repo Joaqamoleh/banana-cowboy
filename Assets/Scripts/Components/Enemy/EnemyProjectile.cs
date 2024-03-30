@@ -8,7 +8,8 @@ public class EnemyProjectile : MonoBehaviour
     int damage = 0;
 
     [SerializeField]
-    float knockbackForce = 10f;
+    float knockbackForce = 10f, fireForce = 80f, lifetime = 5f;
+    float spawnTime;
 
     [SerializeField]
     GameObject hitParticleEffect, missParticleEffect;
@@ -34,7 +35,6 @@ public class EnemyProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     
@@ -46,7 +46,7 @@ public class EnemyProjectile : MonoBehaviour
         {
             gravObj.disabled = false;
         }
-        rb.AddForce(dir * 50f, ForceMode.Impulse);
+        rb.AddForce(dir * fireForce, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)

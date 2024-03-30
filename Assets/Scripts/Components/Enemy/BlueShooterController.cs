@@ -162,15 +162,24 @@ public class BlueShooterController : EnemyController
                 timeStateEnd = 0.0f;
                 if (projectileHeld != null)
                 {
-                    projectileHeld.transform.parent = null;
-                    projectileHeld.FireProjectile(-_gravObj.characterOrientation.up, projectileHeld.transform.position - _gravObj.characterOrientation.up * 5f);
+                    Destroy(projectileHeld.gameObject);
                     projectileHeld = null;
                 }
                 break;
             case ShooterState.PLAYER_SPOTTED:
+                if (projectileHeld != null)
+                {
+                    Destroy(projectileHeld.gameObject);
+                    projectileHeld = null;
+                }
                 timeStateEnd = spottedTime;
                 break;
             case ShooterState.PREPARING_SHOT:
+                if (projectileHeld != null)
+                {
+                    Destroy(projectileHeld.gameObject);
+                    projectileHeld = null;
+                }
                 timeStateEnd = prepareShotTime;
                 break;
             case ShooterState.AIMING:
@@ -181,7 +190,6 @@ public class BlueShooterController : EnemyController
                 timeStateEnd = shootingTime;
                 break;
             case ShooterState.COOLDOWN:
-                projectileHeld.transform.parent = null;
                 projectileHeld.FireProjectile(aimedDir, aimedPoint);
                 projectileHeld = null;
                 timeStateEnd = cooldownTime;
