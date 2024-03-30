@@ -613,7 +613,7 @@ public class BlenderBoss : MonoBehaviour
             playerAnimator.SetLayerWeight(1, 0.0f);
             // play confetti particle system here :3
             if (confettiVFX != null) {
-                Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 10,
+                Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 25,
                     playerWinLocation.transform.position.z), playerWinLocation.transform.rotation); 
             }
             playerAnimator.Play("Base Layer.BC_Cheer");

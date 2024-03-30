@@ -52,7 +52,9 @@ public class OrangeBoss : MonoBehaviour
     private string[] attackName = { "Orange Slice!", "Zesty Onslaught!", "Peel Out!" };
     public Coroutine currentDialog;
 
+    [Header("Win Celebration")]
     public GameObject youWinUI;
+    public ParticleSystem confettiVFX;
 
     public enum BossStates
     {
@@ -413,7 +415,12 @@ public class OrangeBoss : MonoBehaviour
         playerAnimator.applyRootMotion = true;
         playerAnimator.SetLayerWeight(1, 0.0f);
         playerAnimator.Play("Base Layer.BC_Cheer");
-
+        // play confetti particle system here :3
+        if (confettiVFX != null)
+        {
+            Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 25,
+                playerWinLocation.transform.position.z), playerWinLocation.transform.rotation);
+        }
         // ending cutscene and animation
         CutsceneManager.Instance().PlayCutsceneByName("Celebration");
         StartCoroutine(winUIAnimation());
