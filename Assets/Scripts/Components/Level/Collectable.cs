@@ -110,11 +110,15 @@ public class Collectable : MonoBehaviour
         if (targetToFollow != null)
         {
             float t = Mathf.Clamp((Time.time - timeEnteredRange) / timeToReachPlayer, 0f, 1f);
+            transform.position += (targetToFollow.position - transform.position) * easingFunction(t);
 
-            // TODO: Experiment with different lerp functions?
-            // transform.position = Vector3.SmoothDamp(transform.position, targetToFollow.position, ref currentVel, 1.0f, speed);
-            //transform.position += (targetToFollow.position - transform.position) * EasingsLibrary.EaseInCubic(t);
-            transform.position += (targetToFollow.position - transform.position) * EasingsLibrary.EaseOutCubic(t);
+            //float dist = Vector3.Distance(targetToFollow.position, transform.position);
+            //float a = 4f;
+            //if (dist != 0)
+            //{
+            //    float t = dist / (dist + a);
+            //    transform.position += (targetToFollow.position - transform.position).normalized * t * 10f;
+            //}
         }
     }
 

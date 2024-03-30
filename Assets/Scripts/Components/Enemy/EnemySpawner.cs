@@ -13,12 +13,19 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     bool spawnOnStart = true;
+    [SerializeField]
+    EnemyController existingEnemy = null;
 
     public void Start()
     {
         if (spawnOnStart)
         {
             SpawnEnemy();
+        }
+        if (!spawnOnStart)
+        {
+            Debug.Assert(existingEnemy != null);
+            existingEnemy.OnDeath += OnSpawnedEnemyDeath;
         }
     }
 

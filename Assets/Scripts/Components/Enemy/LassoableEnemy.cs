@@ -32,10 +32,15 @@ public class LassoableEnemy : LassoTossable
             collision.collider.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy(EnemyController.DeathSource.HIT_BY_TOSS);
         }
 
-        if (collision.collider.CompareTag("Breakable"))
+        //if (collision.collider.CompareTag("Breakable"))
+        //{
+        //    SoundManager.Instance().PlaySFX("BarrierBreak");
+        //    Destroy(collision.collider.gameObject);
+        //}
+        print("Collision with " + collision.collider.name);
+        if (collision.collider.GetComponent<Breakable>())
         {
-            SoundManager.Instance().PlaySFX("BarrierBreak");
-            Destroy(collision.collider.gameObject);
+            collision.collider.GetComponent<Breakable>().Break();
         }
     }
 

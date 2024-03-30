@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1751430070454597526}
   - component: {fileID: 5503866932029042070}
-  - component: {fileID: 2519928137629785637}
+  - component: {fileID: 4968861659059965255}
+  - component: {fileID: 1081493288727823687}
+  - component: {fileID: 211493240979752188}
   m_Layer: 0
   m_Name: Plank Wall
   m_TagString: Breakable
@@ -55,7 +57,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 14, z: 1}
   m_Center: {x: 0, y: 6, z: 0}
---- !u!54 &2519928137629785637
+--- !u!114 &4968861659059965255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7906048078027301544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3c7903271e3a84cab8c49f9360088a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxPlayer: {fileID: 1081493288727823687}
+  renderers:
+  - {fileID: 4497370559150298279}
+  - {fileID: 3501961224371902872}
+  colliders:
+  - {fileID: 5503866932029042070}
+  root: {fileID: 7906048078027301544}
+--- !u!114 &1081493288727823687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7906048078027301544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Break
+    audioClip: {fileID: 8300000, guid: af12383909059a44ca674a31c69e917e, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.712
+    spatialMaxDist: 40
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
+--- !u!54 &211493240979752188
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,6 +209,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fdfa4a8cd3f8f0f43b4b82c8f80df5e0, type: 3}
   m_PrefabInstance: {fileID: 1969324031720952057}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &3501961224371902872 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6067185528594298527, guid: fdfa4a8cd3f8f0f43b4b82c8f80df5e0, type: 3}
+  m_PrefabInstance: {fileID: 1969324031720952057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8993887302754983877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -228,6 +279,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c11ddb86f572c4c4cba5be018b1532c5, type: 3}
+--- !u!23 &4497370559150298279 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4807991087940455266, guid: c11ddb86f572c4c4cba5be018b1532c5, type: 3}
+  m_PrefabInstance: {fileID: 8993887302754983877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8888431816221276206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c11ddb86f572c4c4cba5be018b1532c5, type: 3}
