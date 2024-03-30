@@ -159,8 +159,8 @@ MonoBehaviour:
   maxHealth: 2
   healthHolder: {fileID: 7058369862148893136}
   healthUI: {fileID: 1683391520140860730}
-  normalColor: {fileID: 0}
-  hurtColor: {fileID: 0}
+  normalColor: {fileID: -8047211330816495349, guid: 109f8303f7c06af45962f82475909670, type: 3}
+  hurtColor: {fileID: 2100000, guid: 0ec4ab9b191a8ae4e9a268fd7f675318, type: 2}
   dialogHolder: {fileID: 114180502954551911}
   dialogText: {fileID: 8061973483947842468}
   youWinUI: {fileID: 0}
@@ -177,6 +177,7 @@ MonoBehaviour:
   - {fileID: 6913424920848172691}
   - {fileID: 7877812964233666995}
   blenderGlass: {fileID: 4428239947082161171}
+  confettiVFX: {fileID: 8763353590595174887, guid: d0d5edf31701b8b449fec6305415d61a, type: 3}
   doneMoving: 1
 --- !u!65 &8206903907097065751
 BoxCollider:
@@ -5396,47 +5397,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 705169332118358875, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 705169332118358875, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 705169332118358875, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 2152
       objectReference: {fileID: 0}
     - target: {fileID: 705169332118358875, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1246
       objectReference: {fileID: 0}
     - target: {fileID: 1425658409100898450, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 677.6
       objectReference: {fileID: 0}
     - target: {fileID: 2553157567704690493, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2553157567704690493, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2553157567704690493, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 477.6
       objectReference: {fileID: 0}
     - target: {fileID: 2553157567704690493, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 106.91
       objectReference: {fileID: 0}
     - target: {fileID: 2553157567704690493, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 338.8
       objectReference: {fileID: 0}
     - target: {fileID: 2553157567704690493, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2905781351204555160, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_LocalScale.x
@@ -5456,8 +5457,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4354710963643285129, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_text
-      value: You've honed your skills since last time, impressive! Brace yourself
-        as I unleash the full might of the Blender!
+      value: So, THIS is the power of the lasso, impressive! Brace yourself as I
+        unleash the full might of the Blender!
       objectReference: {fileID: 0}
     - target: {fileID: 4354710963643285129, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_fontSize
@@ -5485,23 +5486,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5156173537439773642, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5156173537439773642, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5156173537439773642, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 677.6
       objectReference: {fileID: 0}
     - target: {fileID: 5156173537439773642, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 338.8
       objectReference: {fileID: 0}
     - target: {fileID: 5156173537439773642, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 5238488965850653047, guid: 506a037063282d24e8e48d91202950ee, type: 3}
       propertyPath: m_Sprite

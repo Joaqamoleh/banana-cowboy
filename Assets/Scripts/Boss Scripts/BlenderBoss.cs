@@ -99,6 +99,9 @@ public class BlenderBoss : MonoBehaviour
     public Material secondPhaseColorGlass;
     public Renderer[] blenderLimbs;
     public Renderer blenderGlass;
+
+    [Header("Celebration VFX")]
+    public ParticleSystem confettiVFX;
     public enum BossStates
     {
         IDLE, JUICE, BLADE, BOMB, SPAWN, COOLDOWN, NONE
@@ -161,7 +164,7 @@ public class BlenderBoss : MonoBehaviour
     {
         bombSpawnPos.Clear(); // Just in case
         juiceProjectileAmount = _currentPhase == 1? 2: 3;
-        cooldownTimer = (move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 5);
+        cooldownTimer = (move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 8);
         if (_currentPhase == 2)
         {
             cooldownTimer += 4;
@@ -249,7 +252,13 @@ public class BlenderBoss : MonoBehaviour
     {
         cooldownTimer = move2Cooldown;
         state = BossStates.COOLDOWN;
+        modelAnimator.Play("BL_Blade_Windup");
         cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true);
+/*        StartCoroutine(BladeSpin());
+*/    }
+
+    public void BlenderSpinHelper()
+    {
         StartCoroutine(BladeSpin());
     }
 
@@ -509,15 +518,14 @@ public class BlenderBoss : MonoBehaviour
             }
             health -= dmg;
 
-            healthAnimator.SetTrigger("DamageWeak"); // in case we want to make weak spots have diff anim
+            healthAnimator.SetTrigger("DamageWeak");
             healthUI.fillAmount = health / (1.0f * maxHealth);
             StartCoroutine(FlashDamage());
-            if (dmg == 1)
-            {
-                ScreenShakeManager.Instance.ShakeCamera(2, 1, 0.1f);
-            }
+            ScreenShakeManager.Instance.ShakeCamera(6, 3, 0.5f);
+
             if (health <= 0)
             {
+                ScreenShakeManager.Instance.ShakeCamera(8, 3, 1f);
                 DizzySetup();
             }
             /*        if (health <= 0)
@@ -562,7 +570,7 @@ public class BlenderBoss : MonoBehaviour
         modelAnimator.Play("BL_Dizzy_Loop");
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         SetClimbObjectsActive(true);
-        PlayDialogue("Ouchie Wowchie", false);
+        PlayDialogue("Ahh curses! You insolent fruits! I'll make you all pay for this!", false);
         // TODO: Put this somewhere else. I think this is fine. Might be a case where you can't make it to the boss if it covers the front.
         for (int i = 0; i < indicatorSpawnObject.Length; i++)
         {
@@ -571,10 +579,7 @@ public class BlenderBoss : MonoBehaviour
                 Destroy(indicatorSpawnObject[i]);
             }
         }
-        if (_currentPhase == 1)
-        {
-        }
-        else
+        if (_currentPhase == 2)
         {
             print("BLENDER DEFEATED");
             if (SoundManager.Instance() != null)
@@ -606,6 +611,11 @@ public class BlenderBoss : MonoBehaviour
             playerModel.transform.rotation = playerWinLocation.transform.rotation;
             playerAnimator.applyRootMotion = true;
             playerAnimator.SetLayerWeight(1, 0.0f);
+            // play confetti particle system here :3
+            if (confettiVFX != null) {
+                Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 25,
+                    playerWinLocation.transform.position.z), playerWinLocation.transform.rotation); 
+            }
             playerAnimator.Play("Base Layer.BC_Cheer");
 
             // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
@@ -630,10 +640,11 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(1);
         modelAnimator.Play("BL_Recover");
         yield return new WaitForSeconds(1);
+        blenderGlass.material = normalColor;
         healthHolder.SetActive(true);
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
-        PlayDialogue("You've honed your skills since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
+        PlayDialogue("You have gotten stronger since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
         yield return new WaitForSeconds(3f);
         //TODO: Change color of boss
 /*        foreach (Renderer obj in blenderLimbs)
@@ -669,7 +680,9 @@ public class BlenderBoss : MonoBehaviour
 
     IEnumerator FlashDamage()
     {
+        blenderGlass.material = hurtColor;
         yield return new WaitForSeconds(0.3f);
+        blenderGlass.material = normalColor;
     }
 
     IEnumerator winUIAnimation()

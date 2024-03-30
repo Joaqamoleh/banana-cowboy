@@ -1319,7 +1319,66 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 0
+--- !u!1001 &288684198
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7083269669712242929, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_Name
+      value: SpawnerCherryBomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -69.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 69.49474
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.856649
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765308643980546581, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5321f438ebfa1d9459f19f54135b3c2a, type: 3}
 --- !u!1 &320386585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,6 +1465,8 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 2
 --- !u!65 &328998926
 BoxCollider:
@@ -1960,6 +2021,8 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 0
 --- !u!1 &719065541
 GameObject:
@@ -2406,6 +2469,7 @@ MonoBehaviour:
   tossMedMult: 0.7
   tossStrongMult: 1
   oneTimeThrow: 0
+  lassoableColliders: []
 --- !u!54 &824940874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4038,6 +4102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cutscene Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 277584117697552697, guid: 9451b49e5053d9441a5c4c0e0b60ca4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6251246688604634806, guid: 9451b49e5053d9441a5c4c0e0b60ca4a, type: 3}
       propertyPath: cutsceneOnStart
       value: 
@@ -5090,6 +5158,8 @@ MonoBehaviour:
   heightOffset: 0
   focusElement: {fileID: 0}
   viewGizmosAtPlayer: 1
+  forceReorientation: 0
+  forceReorientationCooldown: 8
   priority: 0
 --- !u!65 &1511545869
 BoxCollider:
@@ -5448,7 +5518,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.09
+      value: -65.9
       objectReference: {fileID: 0}
     - target: {fileID: 41965436072088536, guid: 970dd0c4bedd79340b7bce3c97e6244f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7181,3 +7251,4 @@ SceneRoots:
   - {fileID: 824940875}
   - {fileID: 1610521801}
   - {fileID: 1715410317}
+  - {fileID: 288684198}

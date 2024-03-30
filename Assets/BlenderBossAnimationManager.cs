@@ -15,4 +15,9 @@ public class BlenderBossAnimationManager : MonoBehaviour
     {
         instance.ShootBombObjects(num == 0);
     }
+
+    public void BlenderSpinHelper()
+    {
+        instance.BlenderSpinHelper();
+    }
 }
