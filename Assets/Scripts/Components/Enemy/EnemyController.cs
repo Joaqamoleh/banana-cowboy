@@ -91,11 +91,8 @@ public class EnemyController : MonoBehaviour
                 {
                     if (item.drop != null)
                     {
-                        Instantiate(item.drop, transform.position, Quaternion.identity);
-                        if (item.drop.GetComponent<Collectable>())
-                        {
-                            item.drop.GetComponent<Collectable>().locationCameFrom = Collectable.SOURCE.ENEMY;
-                        }
+                        Collectable drop = Instantiate(item.drop, transform.position, Quaternion.identity);
+                        drop.src = Collectable.Source.ENEMY;
                     }
                 }
             }
@@ -125,7 +122,7 @@ public class EnemyController : MonoBehaviour
 [System.Serializable]
 public class ItemDrop
 {
-    public GameObject drop;
+    public Collectable drop;
     [Range(0f, 100f)]
     public float percentageChance;
 }
