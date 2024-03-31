@@ -68,6 +68,7 @@ public class OrangeEnemyController : EnemyController
     [SerializeField]
     LayerMask roamCollisionMask = -1;
 
+    bool _playerInView;
     private void OnValidate()
     {
         if (chanceToRoam + chanceToSleep > 100f)
@@ -79,8 +80,8 @@ public class OrangeEnemyController : EnemyController
     public void Awake()
     {
         sightRange.OnTriggerEntered += OnEnterSight;
-        loseSightRange.OnTriggerExited += OnExitSight;
-
+        sightRange.OnTriggerExited += OnExitSight;
+        // loseSightRange.OnTriggerExited += OnExitSight; This makes the range way too big CHANGED
         _lassoComp = GetComponent<LassoableEnemy>();
         _lassoComp.isLassoable = false;
         _gravObj = GetComponent<GravityObject>();
@@ -110,7 +111,7 @@ public class OrangeEnemyController : EnemyController
         switch (_state)
         {
             case OrangeState.IDLE:
-                if (target != null)
+                if (_playerInView)
                 {
                     UpdateState(OrangeState.COOLDOWN);
                     subState = OrangeSubStates.SWAY;
@@ -161,11 +162,13 @@ public class OrangeEnemyController : EnemyController
                 }
                 break;
             case OrangeState.REV_UP:
-                if (target == null)
+                // Removed since added playerInView CHANGED
+                /*if (target == null)
                 {
                     UpdateState(OrangeState.IDLE);
                 }
-                else if (Time.time - timeStateChanged > timeToStateEnd)
+                else*/
+                if (Time.time - timeStateChanged > timeToStateEnd)
                 {
                     UpdateState(OrangeState.CHARGE);
                 }
@@ -283,6 +286,7 @@ public class OrangeEnemyController : EnemyController
     {
         if (c.CompareTag("Player"))
         {
+            _playerInView = true;
             target = c.transform;
         }
     }
@@ -291,7 +295,8 @@ public class OrangeEnemyController : EnemyController
     {
         if (c.CompareTag("Player"))
         {
-            target = null;
+            //target = null; CHANGED
+            _playerInView = false;
         }
     }
 
@@ -484,7 +489,22 @@ public class OrangeEnemyController : EnemyController
     public void ChangeSightRange(float num)
     {
         sightRange.transform.localScale = new Vector3(num, num, num);
-        loseSightRange.transform.localScale = new Vector3(num, num, num);
+        //loseSightRange.transform.localScale = new Vector3(num, num, num);
+    }
+
+    // Makes enemy go through player CHANGED
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" && _state == OrangeState.CHARGE)
+        {
+            StartCoroutine("ChangeCollisionInteraction", collision.collider);
+        }
+    }
+    private IEnumerator ChangeCollisionInteraction(Collider collider)
+    {
+        Physics.IgnoreCollision(bodyCollider, collider, true);
+        yield return new WaitForSeconds(0.5f);
+        Physics.IgnoreCollision(bodyCollider.GetComponent<Collider>(), collider, false);
     }
 
 

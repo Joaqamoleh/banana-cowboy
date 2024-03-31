@@ -115,7 +115,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, false);
         health = maxHealth;
-        currMove = 0;
+        currMove = 1;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");
@@ -269,8 +269,8 @@ public class BlenderBoss : MonoBehaviour
         positionSpawned.y += 5;
         GameObject blade = Instantiate(blenderBlade, positionSpawned, Quaternion.identity);
         yield return new WaitForSeconds(move2Cooldown);
-        //StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
-        blade.GetComponent<BlenderBlade>().ShrinkSize();
+        StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
+        //blade.GetComponent<BlenderBlade>().ShrinkSize();
     }
 
     void BlueberryBombs()
