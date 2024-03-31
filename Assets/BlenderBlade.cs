@@ -85,7 +85,7 @@ public class BlenderBlade : MonoBehaviour
         print("GROWING DONE");
     }
 
-    public void ShrinkSize()
+    public IEnumerator ShrinkSize()
     {
         done = true;
         StopAllCoroutines();
@@ -100,6 +100,8 @@ public class BlenderBlade : MonoBehaviour
             transform.localScale = new Vector3(newSize, transform.localScale.y, newSize);
             windVFX.transform.localScale = new Vector3(newSize, newSize, newSize);
             currentSize = newSize;
+            yield return null;
+
         }
         Destroy(gameObject);
     }
