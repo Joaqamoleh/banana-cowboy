@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.EventSystems;
@@ -16,6 +17,7 @@ public class ComicCutsceneManager : MonoBehaviour
     public string currentMusic;
     public GameObject continueButton;
     public GameObject skipButton;
+    public TMP_Text clickToSkipText;
 
     public List<GameObject> panelGroups = new List<GameObject>();
     private int currPanel = 0;
@@ -52,9 +54,11 @@ public class ComicCutsceneManager : MonoBehaviour
         //}
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
 
-        // fade in skip button
+        // fade in skip button and text
         skipButton.GetComponent<Image>().color -= new Color(0, 0, 0, 1);
+        clickToSkipText.color -= new Color(0, 0, 0, 1);
         StartCoroutine("SkipButtonAnimation");
+        StartCoroutine("SkipTextAnimation");
 
         // start cutscene
         StartCoroutine("PanelAnimation");
@@ -73,6 +77,10 @@ public class ComicCutsceneManager : MonoBehaviour
                 Color endColor = box.GetComponent<Image>().color + new Color(0, 0, 0, 1);
                 box.GetComponent<Image>().color = endColor;
             }
+            
+            clickToSkipText.color -= new Color(0, 0, 0, 1);
+            clickToSkipText.gameObject.SetActive(false);
+
             continueButton.SetActive(true);
             Color buttonEndColor = continueButton.GetComponent<Image>().color + new Color(0, 0, 0, 1);
             continueButton.GetComponent<Image>().color = buttonEndColor;
@@ -86,6 +94,13 @@ public class ComicCutsceneManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Color endColor = skipButton.GetComponent<Image>().color + new Color(0, 0, 0, 1);
         skipButton.GetComponent<Image>().DOColor(endColor, 1f).SetEase(Ease.OutExpo);
+    }
+
+    IEnumerator SkipTextAnimation()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Color textEndColor = clickToSkipText.color + new Color(0, 0, 0, 1);
+        clickToSkipText.DOColor(textEndColor, 1f).SetEase(Ease.OutExpo);
     }
 
 
@@ -115,9 +130,11 @@ public class ComicCutsceneManager : MonoBehaviour
             box.GetComponent<Image>().DOColor(endColor, fadeTime).SetEase(Ease.OutExpo);
             yield return new WaitForSeconds(timeBetweenBoxes);
         }
+        
+        clickToSkipText.color -= new Color(0, 0, 0, 1);
 
-        continueButton.SetActive(true);
         // button
+        continueButton.SetActive(true);
         Color buttonEndColor = continueButton.GetComponent<Image>().color + new Color(0, 0, 0, 1);
         // box.transform.DOScale(1f, fadeTime).SetEase(Ease.OutSine);
         continueButton.GetComponent<Image>().DOColor(buttonEndColor, fadeTime).SetEase(Ease.OutExpo);
@@ -131,6 +148,8 @@ public class ComicCutsceneManager : MonoBehaviour
 
         continueButton.GetComponent<Image>().DOFade(0f, fadeTime);
         continueButton.SetActive(false);
+
+        StartCoroutine("SkipTextAnimation");
     }
     
     // continue button is pressed, should fade out the entire panel and start the next one 
@@ -142,6 +161,7 @@ public class ComicCutsceneManager : MonoBehaviour
         {
             FadeOut(currPanel);
             currPanel += 1;
+            clickToSkipText.gameObject.SetActive(true);
             if (currPanel < panels.Count)
             {   
                 StartCoroutine("PanelAnimation");

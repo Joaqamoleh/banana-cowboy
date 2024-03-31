@@ -4574,25 +4574,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2972479973646420562, guid: f8f82f67e138a7f459234262c4a4823b, type: 3}
       propertyPath: m_text
-      value: 'Back
-
-'
+      value: BACK
       objectReference: {fileID: 0}
     - target: {fileID: 2972479973646420562, guid: f8f82f67e138a7f459234262c4a4823b, type: 3}
       propertyPath: m_fontColor.b
-      value: 0
+      value: 0.7686275
       objectReference: {fileID: 0}
     - target: {fileID: 2972479973646420562, guid: f8f82f67e138a7f459234262c4a4823b, type: 3}
       propertyPath: m_fontColor.g
-      value: 0
+      value: 0.9058824
       objectReference: {fileID: 0}
     - target: {fileID: 2972479973646420562, guid: f8f82f67e138a7f459234262c4a4823b, type: 3}
       propertyPath: m_fontColor.r
-      value: 0
+      value: 0.9960785
       objectReference: {fileID: 0}
     - target: {fileID: 2972479973646420562, guid: f8f82f67e138a7f459234262c4a4823b, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4278190080
+      value: 4291094526
       objectReference: {fileID: 0}
     - target: {fileID: 4533420824398634879, guid: f8f82f67e138a7f459234262c4a4823b, type: 3}
       propertyPath: m_Name
@@ -4750,8 +4748,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseOverPanel: 0
   isAnimated: 1
-  animDuration: 1
-  animStrength: 5
+  animDuration: 0.5
+  animStrength: 7
 --- !u!1 &1353054601
 GameObject:
   m_ObjectHideFlags: 0
@@ -6858,7 +6856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4dcd2d96f91904283298ba01e5dbc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugUnlockAllLevels: 0
 --- !u!4 &1967426924
 Transform:
   m_ObjectHideFlags: 0
