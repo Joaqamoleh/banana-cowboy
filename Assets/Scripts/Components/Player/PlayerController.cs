@@ -301,6 +301,7 @@ public class PlayerController : MonoBehaviour
                     }
                     else
                     {
+                        controlPlayerConnection.position = transform.position;
                         controlPlayerConnection.gameObject.SetActive(true);
                         swingable.SwingEnd += EndLassoSwing;
                         swingable.AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
@@ -624,7 +625,9 @@ public class PlayerController : MonoBehaviour
         if (_lastTimeOnGround > 0)
             accelRate = (Vector3.Dot(targetVelocity, _gravObject.GetMoveVelocity()) > 0) ? accelSpeed : deccelSpeed;
         else
-            accelRate = (Vector3.Dot(targetVelocity, _gravObject.GetMoveVelocity()) > 0) ? accelSpeed * airControlRatio : 0.1f; // changed the aircontrol ratio for deccel to make it feel like more momenum
+            //accelRate = (Vector3.Dot(targetVelocity, _gravObject.GetMoveVelocity()) > 0) ? accelSpeed * airControlRatio : 0.1f; // changed the aircontrol ratio for deccel to make it feel like more momenum
+            accelRate = (Vector3.Dot(targetVelocity, _gravObject.GetMoveVelocity()) > 0) ? accelSpeed * airControlRatio : deccelSpeed * airControlRatio; // changed the aircontrol ratio for deccel to make it feel like more momenum
+
 
 
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
