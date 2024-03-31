@@ -148,9 +148,19 @@ public class OrangeEnemyController : EnemyController
                 }
                 break;
             case OrangeState.COOLDOWN:
-                if (Time.time - timeLastAttackEnd > attackCooldown)
+                if (target == null)
+                {
+                    UpdateState(OrangeState.IDLE);
+                }
+                else if (Time.time - timeLastAttackEnd > attackCooldown)
                 {
                     UpdateState(OrangeState.PLAYER_SPOTTED);
+                }
+                else
+                {
+                    // Look at player
+                    Vector3 lookDir = Vector3.ProjectOnPlane((target.position - transform.position), _gravObj.characterOrientation.up).normalized;
+                    model.rotation = Quaternion.LookRotation(lookDir, _gravObj.characterOrientation.up);
                 }
                 break;
             case OrangeState.PLAYER_SPOTTED:
@@ -306,7 +316,7 @@ public class OrangeEnemyController : EnemyController
                     Health h = collision.collider.transform.parent.GetComponentInParent<Health>();
                     Vector3 impulseForce = (collision.collider.transform.position - transform.position).normalized;
                     impulseForce = Vector3.ProjectOnPlane(impulseForce, _gravObj.characterOrientation.up).normalized * knockbackForce;
-                    h.Damage(0, impulseForce + _gravObj.characterOrientation.up * 3f);
+                    h.Damage(1, impulseForce + _gravObj.characterOrientation.up * 3f);
                     _rb.velocity = _gravObj.GetFallingVelocity();
                     _rb.AddForce(-impulseForce * 0.7f + _gravObj.characterOrientation.up * 25f, ForceMode.Impulse);
                     UpdateState(OrangeState.BOUNCE_BACK);

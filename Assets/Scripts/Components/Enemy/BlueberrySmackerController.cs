@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class BlueberrySmackerController : EnemyController
 {
@@ -20,12 +22,14 @@ public class BlueberrySmackerController : EnemyController
     public enum SmackerState
     {
         IDLE,
+        COOLDOWN,
         PLAYER_SPOTTED,
         CHASING,
         WAIT_AT_EDGE,
         SMACK_WINDUP,
         SMACK_ATTACK,
         DIZZY,
+        HIT_SUCCESS,
         HELD,
         TOSSED,
     }
@@ -42,63 +46,14 @@ public class BlueberrySmackerController : EnemyController
     [SerializeField]
     LayerMask chaseCollisionMask = -1;
 
-    // Start is called before the first frame update
     void Start()
     {
         UpdateState(SmackerState.IDLE);
     }
 
-    private void UpdateState(SmackerState state)
-    {
-        if (_state != state)
-        {
-            timeStateChange = Time.time;
-            UpdateAnimState(state);
-
-            switch (state)
-            {
-                case SmackerState.IDLE:
-                    // Substates?
-                    break;
-                case SmackerState.PLAYER_SPOTTED:
-                    timeStateEnd = spottedTime;
-                    break;
-                case SmackerState.CHASING:
-                    // Max chasing time, 20 seconds for now
-                    timeStateEnd = 20f;
-                    break;
-                case SmackerState.WAIT_AT_EDGE:
-                    // Wait for some time, then go back to idle (patrol?)
-                    break;
-                case SmackerState.SMACK_WINDUP:
-                    timeStateEnd = smackWindupTime;
-                    break;
-                case SmackerState.SMACK_ATTACK:
-                    timeStateEnd = smackAttackTime;
-                    timeLastAttack = Time.time;
-                    break;
-                case SmackerState.DIZZY:
-                    timeStateEnd = dizzyTime;
-                    break;
-                case SmackerState.HELD:
-                    enemyAIDisabled = true;
-                    break;
-                case SmackerState.TOSSED:
-                    enemyAIDisabled = true;
-                    break;
-            }
-        }
-    }
-
-    private void UpdateAnimState(SmackerState state)
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        switch(_state)
+        switch (_state)
         {
             case SmackerState.IDLE:
                 if (target != null)
@@ -154,6 +109,10 @@ public class BlueberrySmackerController : EnemyController
                 }
                 break;
             case SmackerState.SMACK_WINDUP:
+                if (Time.time - timeStateChange > timeStateEnd)
+                {
+                    UpdateState(SmackerState.SMACK_ATTACK);
+                }
                 break;
             case SmackerState.SMACK_ATTACK:
                 break;
@@ -165,4 +124,80 @@ public class BlueberrySmackerController : EnemyController
                 break;
         }
     }
+    private void UpdateState(SmackerState state)
+    {
+        if (_state != state)
+        {
+            timeStateChange = Time.time;
+            UpdateAnimState(state);
+
+            switch (state)
+            {
+                case SmackerState.IDLE:
+                    // Substates?
+                    break;
+                case SmackerState.PLAYER_SPOTTED:
+                    timeStateEnd = spottedTime;
+                    break;
+                case SmackerState.CHASING:
+                    // Max chasing time, 20 seconds for now
+                    timeStateEnd = 20f;
+                    break;
+                case SmackerState.WAIT_AT_EDGE:
+                    // Wait for some time, then go back to idle (patrol?)
+                    timeStateEnd = 5f; // Timeout time
+                    break;
+                case SmackerState.SMACK_WINDUP:
+                    timeStateEnd = smackWindupTime;
+                    break;
+                case SmackerState.SMACK_ATTACK:
+                    timeStateEnd = smackAttackTime;
+                    timeLastAttack = Time.time;
+                    break;
+                case SmackerState.DIZZY:
+                    timeStateEnd = dizzyTime;
+                    break;
+                case SmackerState.HIT_SUCCESS:
+                    // TODO: time to play attack success animation
+                    timeStateEnd = 0.2f;
+                    break;
+                case SmackerState.HELD:
+                    enemyAIDisabled = true;
+                    break;
+                case SmackerState.TOSSED:
+                    enemyAIDisabled = true;
+                    break;
+            }
+        }
+    }
+
+    private void UpdateAnimState(SmackerState state)
+    {
+        switch (state)
+        {
+            case SmackerState.IDLE:
+                break;
+            case SmackerState.COOLDOWN:
+                break;
+            case SmackerState.PLAYER_SPOTTED:
+                break;
+            case SmackerState.CHASING:
+                break;
+            case SmackerState.WAIT_AT_EDGE:
+                break;
+            case SmackerState.SMACK_WINDUP:
+                break;
+            case SmackerState.SMACK_ATTACK:
+                break;
+            case SmackerState.DIZZY:
+                break;
+            case SmackerState.HIT_SUCCESS:
+                break;
+            case SmackerState.HELD:
+                break;
+            case SmackerState.TOSSED:
+                break;
+        }
+    }
+
 }
