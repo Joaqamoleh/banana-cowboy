@@ -66,7 +66,7 @@ public class ComicCutsceneManager : MonoBehaviour
 
     public void Update()
     {
-        if (mouseOverUI.mouseOverPanel && Input.GetMouseButtonDown(0) && !wasSkipped)
+        if (mouseOverUI.mouseOverPanel && Input.GetMouseButtonDown(0) && !wasSkipped && currPanel < panels.Count) // this makes it not throw an error in the end
         {
             // stop animation
             StopCoroutine("PanelAnimation");
@@ -82,6 +82,7 @@ public class ComicCutsceneManager : MonoBehaviour
             clickToSkipText.gameObject.SetActive(false);
 
             continueButton.SetActive(true);
+            continueButton.GetComponent<Image>().DOFade(255f, fadeTime); // Fade to 255 alpha
             Color buttonEndColor = continueButton.GetComponent<Image>().color + new Color(0, 0, 0, 1);
             continueButton.GetComponent<Image>().color = buttonEndColor;
 
@@ -130,8 +131,9 @@ public class ComicCutsceneManager : MonoBehaviour
             box.GetComponent<Image>().DOColor(endColor, fadeTime).SetEase(Ease.OutExpo);
             yield return new WaitForSeconds(timeBetweenBoxes);
         }
-        
+
         clickToSkipText.color -= new Color(0, 0, 0, 1);
+        clickToSkipText.gameObject.SetActive(false);
 
         // button
         continueButton.SetActive(true);
@@ -169,6 +171,8 @@ public class ComicCutsceneManager : MonoBehaviour
             else
             {
                 endOfCutscene = true;
+                clickToSkipText.gameObject.SetActive(false);
+                skipButton.gameObject.SetActive(false);
                 StartCoroutine("ChangeScene");
             }
         }
