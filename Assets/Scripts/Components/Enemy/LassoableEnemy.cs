@@ -18,6 +18,7 @@ public class LassoableEnemy : LassoTossable
 
     private void HandleCollision(Collision collision)
     {
+        // handle collision
         if (collision.collider.CompareTag("Boss"))
         {
             HandleBossCollision(collision);

@@ -11,6 +11,7 @@ public class CherryBomb : LassoTossable
 
     [Header("Death Juice Prefab")]
     public GameObject deathJuiceEffect;
+    public GameObject vfxLocation;
 
     bool isDestroyed = false;
 
@@ -25,7 +26,14 @@ public class CherryBomb : LassoTossable
             }
             if (deathJuiceEffect != null)
             {
-                Instantiate(deathJuiceEffect, transform.position, transform.rotation);
+                if (vfxLocation != null)
+                {
+                    Instantiate(deathJuiceEffect, vfxLocation.transform.position, transform.rotation);
+                }
+                else
+                {
+                    Instantiate(deathJuiceEffect, transform.position, transform.rotation);
+                }
             }
             SpawnExplosion();
             OnExplode?.Invoke(collision);

@@ -29,6 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3472083427217598586}
   - {fileID: 8979804120381420366}
   - {fileID: 1699420003199491810}
   - {fileID: 7128838441895469394}
@@ -178,7 +179,39 @@ MonoBehaviour:
   lassoableColliders:
   - {fileID: 4618305672843438467}
   explosion: {fileID: 5669016145455679879, guid: ad58d7c04cb40224cbbc76cb00d16ec4, type: 3}
-  deathJuiceEffect: {fileID: 8615972876567255314, guid: 03397526b90a72f4988cc0af576433c0, type: 3}
+  deathJuiceEffect: {fileID: 8615972876567255314, guid: 4dcaf4bd7ed472d418a5311f70dc9ff9, type: 3}
+  vfxLocation: {fileID: 6034210574073620561}
+--- !u!1 &6034210574073620561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3472083427217598586}
+  m_Layer: 0
+  m_Name: VFXSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3472083427217598586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034210574073620561}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3285677746079740160}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7981144115022165262
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,8 +14,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     Collider[] colliders;
 
+    [Header("Death Juice Effect")]
     [SerializeField]
     GameObject deathEffect;
+    [SerializeField]
+    GameObject vfxLocation;
 
     [SerializeField]
     ItemDrop[] itemDrops;
@@ -69,9 +72,19 @@ public class EnemyController : MonoBehaviour
         killed = true;
         enemyAIDisabled = true;
 
+        // instantiate death effect
         if (deathEffect != null)
         {
-            Instantiate(deathEffect, transform.position, transform.rotation);
+            // instantiate VFX at a certain location if it exists
+
+            if (vfxLocation != null)
+            {
+                Instantiate(deathEffect, vfxLocation.transform.position, transform.rotation);
+            }
+            else {
+                Instantiate(deathEffect, transform.position, transform.rotation);
+            }
+            
         }
 
         if (shakeCamOnDeath && ScreenShakeManager.Instance)
