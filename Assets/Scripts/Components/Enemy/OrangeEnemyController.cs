@@ -27,7 +27,8 @@ public class OrangeEnemyController : EnemyController
         ROAM,
         TALK, 
         SLEEP,
-        SWAY
+        SWAY,
+        STANDUP
     }
 
     private OrangeState _state = OrangeState.TOSSED;
@@ -56,7 +57,7 @@ public class OrangeEnemyController : EnemyController
     Vector3 chargeTarget, moveDir;
 
     [SerializeField, Min(0f)]
-    float timeToRoam = 3.0f, timeRoam = 2.0f, timeSleep = 5f, timeSpot = 0.3f, timeRevUp = 1.5f, timeCharge = 2.5f, timeSlowDown = 0.5f, timeDizzy = 2.5f, attackCooldown = 1.5f;
+    float timeToRoam = 3.0f, timeRoam = 2.0f, timeSleep = 5f, timeSpot = 0.3f, timeRevUp = 1.5f, timeCharge = 2.5f, timeSlowDown = 0.5f, timeDizzy = 2.5f, attackCooldown = 1.5f, timeToStandup = 1.4f;
     float timeStateChanged = 0f, timeToStateEnd = 1.0f, timeLastAttackEnd = 0f;
     
     [SerializeField, Range(0f, 100f)]
@@ -109,7 +110,7 @@ public class OrangeEnemyController : EnemyController
         switch (_state)
         {
             case OrangeState.IDLE:
-                if (target != null)
+                if (target != null && subState != OrangeSubStates.STANDUP)
                 {
                     UpdateState(OrangeState.COOLDOWN);
                     subState = OrangeSubStates.SWAY;
@@ -139,6 +140,9 @@ public class OrangeEnemyController : EnemyController
                             {
                                 UpdateSubState(OrangeSubStates.SLEEP);
                             }
+                            break;
+                        case OrangeSubStates.STANDUP:
+                            UpdateSubState(OrangeSubStates.SWAY);
                             break;
                     }
                 }
@@ -222,7 +226,9 @@ public class OrangeEnemyController : EnemyController
             case OrangeState.DIZZY:
                 if (Time.time - timeStateChanged > timeToStateEnd)
                 {
+                    subState = OrangeSubStates.STANDUP;
                     UpdateState(OrangeState.IDLE);
+
                 }
                 break;
             case OrangeState.HELD:
@@ -298,7 +304,7 @@ public class OrangeEnemyController : EnemyController
 
     void OnExitSight(Collider c)
     {
-        if (c.CompareTag("Player"))
+        if (c.CompareTag("Player") && _state != OrangeState.PLAYER_SPOTTED && _state != OrangeState.REV_UP)
         {
             target = null;
         }
@@ -361,7 +367,14 @@ public class OrangeEnemyController : EnemyController
             {
                 case OrangeState.IDLE:
                     // update based on subState
-                    timeToStateEnd = timeToRoam;
+                    if (subState == OrangeSubStates.STANDUP)
+                    {
+                        timeToStateEnd = timeToStandup;
+                    }
+                    else
+                    {
+                        timeToStateEnd = timeToRoam;
+                    }
                     _rb.velocity = _gravObj.GetFallingVelocity();
                     break;
                 case OrangeState.PLAYER_SPOTTED:
@@ -461,6 +474,9 @@ public class OrangeEnemyController : EnemyController
                     break;
                 case OrangeSubStates.SWAY:
                     orangeEnemyAnimator.Play("Base Layer.OE_Idle_Dance");
+                    break;
+                case OrangeSubStates.STANDUP:
+                    orangeEnemyAnimator.Play("Base Layer.OE_Stun_Reset");
                     break;
             }
         }
