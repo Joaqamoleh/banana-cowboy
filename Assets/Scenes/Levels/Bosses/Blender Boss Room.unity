@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1121181, g: 0.05808438, b: 0.23822227, a: 1}
+  m_IndirectSpecularColor: {r: 0.11198105, g: 0.058006793, b: 0.23796159, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6051,6 +6051,7 @@ MonoBehaviour:
   bombObjectsFly: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
+  fruitInHand: {fileID: 0}
   cameraOrienter: {fileID: 0}
   defaultCameraSettings: {x: 40, y: 12, z: 12}
   bladeCameraSettings: {x: 50, y: 40, z: 30}
@@ -6086,6 +6087,7 @@ MonoBehaviour:
   secondPhaseColorGlass: {fileID: 0}
   blenderLimbs: []
   blenderGlass: {fileID: 0}
+  confettiVFX: {fileID: 0}
   doneMoving: 1
 --- !u!65 &1039359683
 BoxCollider:
@@ -11394,6 +11396,7 @@ MonoBehaviour:
   bombObjectsFly: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
+  fruitInHand: {fileID: 0}
   cameraOrienter: {fileID: 0}
   defaultCameraSettings: {x: 40, y: 12, z: 12}
   bladeCameraSettings: {x: 50, y: 40, z: 30}
@@ -11429,6 +11432,7 @@ MonoBehaviour:
   secondPhaseColorGlass: {fileID: 0}
   blenderLimbs: []
   blenderGlass: {fileID: 0}
+  confettiVFX: {fileID: 0}
   doneMoving: 1
 --- !u!95 &1744626272
 Animator:
@@ -14852,6 +14856,10 @@ PrefabInstance:
       propertyPath: playerAnimator
       value: 
       objectReference: {fileID: 495514319}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: secondPhaseColor
+      value: 
+      objectReference: {fileID: 2100000, guid: 4646cb57a07e1cf46b0adbb88ae053a0, type: 2}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerWinLocation
       value: 
