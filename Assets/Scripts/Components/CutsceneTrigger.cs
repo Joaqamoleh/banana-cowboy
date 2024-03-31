@@ -8,6 +8,7 @@ public class CutsceneTrigger : MonoBehaviour
     public bool cutscenePlayOnce;
 
     bool cutscenePlayed = false;
+    bool previousUIDeleted = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,6 +22,12 @@ public class CutsceneTrigger : MonoBehaviour
             else if (!cutscenePlayOnce)
             {
                 CutsceneManager.Instance().PlayCutsceneByName(cutsceneToPlay);
+            }
+
+            if (FindObjectOfType<TutorialUI>() != null && !previousUIDeleted)
+            {
+                FindObjectOfType<TutorialUI>().ResetAllTutorialUI();
+                previousUIDeleted = true;
             }
         }
     }
