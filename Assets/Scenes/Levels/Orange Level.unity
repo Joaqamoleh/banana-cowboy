@@ -17702,6 +17702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21347,6 +21351,7 @@ GameObject:
   - component: {fileID: 1129232716}
   - component: {fileID: 1129232718}
   - component: {fileID: 1129232717}
+  - component: {fileID: 1129232719}
   m_Layer: 3
   m_Name: NPC Tire
   m_TagString: Untagged
@@ -21363,8 +21368,8 @@ Transform:
   m_GameObject: {fileID: 1129232715}
   serializedVersion: 2
   m_LocalRotation: {x: 0.53474206, y: 0.49003232, z: 0.29772198, w: 0.62071}
-  m_LocalPosition: {x: -51.50538, y: -133.44475, z: 277.80542}
-  m_LocalScale: {x: 0.011207702, y: 0.011207699, z: 0.011207702}
+  m_LocalPosition: {x: -51.82, y: -134.19, z: 277.68}
+  m_LocalScale: {x: 1.4223573, y: 1.4223568, z: 1.4223573}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1855430977}
@@ -21419,7 +21424,28 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1129232715}
-  m_Mesh: {fileID: -1067026263786837032, guid: f09e3b0b3200fa746a5a2cacfef2f90d, type: 3}
+  m_Mesh: {fileID: -1067026263786837032, guid: c9f4977c81a6acc4389066b67d05727f, type: 3}
+--- !u!65 &1129232719
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129232715}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.8260703, y: 4.7050714, z: 1.8233743}
+  m_Center: {x: -0.00000014207693, y: 2.3836553, z: -0.000003779178}
 --- !u!1001 &1129308230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21890,6 +21916,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23786,16 +23816,20 @@ PrefabInstance:
       value: 11.620064
       objectReference: {fileID: 0}
     - target: {fileID: 3450492572937583007, guid: 98c0c02d78d3d294292cf047cae5e820, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 18.751299
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450492572937583007, guid: 98c0c02d78d3d294292cf047cae5e820, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 66.85593
+      value: 67.2
       objectReference: {fileID: 0}
     - target: {fileID: 3450492572937583007, guid: 98c0c02d78d3d294292cf047cae5e820, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 35.83712
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3450492572937583007, guid: 98c0c02d78d3d294292cf047cae5e820, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 302.44666
+      value: 301.4
       objectReference: {fileID: 0}
     - target: {fileID: 3450492572937583007, guid: 98c0c02d78d3d294292cf047cae5e820, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24309,6 +24343,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35199,6 +35237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35353,6 +35395,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
