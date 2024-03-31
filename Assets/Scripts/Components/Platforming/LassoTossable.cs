@@ -89,6 +89,7 @@ public class LassoTossable : LassoObject
         if (_rigidbody == null) { return; }
         if ((oneTimeThrow && !tossed) || !oneTimeThrow)
         {
+
             transform.position = start;
             _rigidbody.isKinematic = false;
             float mult = 0.0f;
