@@ -370,6 +370,7 @@ public class OrangeEnemyController : EnemyController
                 case OrangeState.DIZZY:
                     _soundPlayer.StopSFX("Charge");
                     _soundPlayer.PlaySFX("Dizzy");
+                    GetComponentInChildren<ParticleSystem>().Play();
                     timeToStateEnd = timeDizzy;
                     break;
                 case OrangeState.HELD:
