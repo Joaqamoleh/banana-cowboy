@@ -318,7 +318,7 @@ public class PlayerController : MonoBehaviour
                     {
                         // Perform Toss
                         LassoTossable.TossStrength strength = _playerUI.GetTossIndicatorStrength();
-                        strength = LassoableEnemy.TossStrength.STRONG;
+                        strength = LassoTossable.TossStrength.STRONG;
                         Vector3 dirOfToss = GetLassoTossDir();
                         toss.TossInDirection(dirOfToss, GetLassoTossPos(), _gravObject.characterOrientation.up, strength);
                         dirOfToss = _gravObject.characterOrientation.InverseTransformDirection(dirOfToss);
