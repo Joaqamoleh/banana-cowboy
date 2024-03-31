@@ -324,7 +324,6 @@ public class BlueberrySmackerController : EnemyController
                     timeStateEnd = 0.2f;
                     break;
                 case SmackerState.HELD:
-                    enemyAIDisabled = true;
                     break;
                 case SmackerState.TOSSED:
                     enemyAIDisabled = true;

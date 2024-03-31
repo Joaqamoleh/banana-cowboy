@@ -409,7 +409,6 @@ public class OrangeEnemyController : EnemyController
                     break;
                 case OrangeState.HELD:
                     _soundPlayer.StopSFX("Dizzy");
-                    enemyAIDisabled = true;
                     break;
                 case OrangeState.TOSSED:
                     _soundPlayer.PlaySFX("Thrown");
