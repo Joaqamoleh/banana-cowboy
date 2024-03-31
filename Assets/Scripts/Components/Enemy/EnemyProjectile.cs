@@ -30,11 +30,16 @@ public class EnemyProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Debug.Assert(rb != null);
         rb.isKinematic = true;
+        spawnTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.time - spawnTime > lifetime)
+        {
+            Destroy(gameObject);
+        }
     }
 
     
