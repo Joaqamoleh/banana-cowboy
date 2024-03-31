@@ -115,7 +115,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, false);
         health = maxHealth;
-        currMove = 1;
+        currMove = 0;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");
@@ -361,6 +361,7 @@ public class BlenderBoss : MonoBehaviour
 
     public void CreateSplat(int obj)
     {
+        ScreenShakeManager.Instance.ShakeCamera(4, 3, 1);
         Vector3 pos = bombSpawnPos[obj];
         pos.y = platform.transform.position.y + 3;
         GameObject tmp = Instantiate(splatEffect, pos, splatEffect.transform.rotation);
