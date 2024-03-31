@@ -46,6 +46,11 @@ public class SoundPlayer : MonoBehaviour
         StopSound(s);
     }
 
+    public Sound GetSFX(string name)
+    {
+        return System.Array.Find(sfxs, sound => sound.name == name);
+    }
+
     public void StopLoopedSounds()
     {
         _loopedSounds.Clear();

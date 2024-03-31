@@ -198,7 +198,6 @@ public class PlayerCursor : MonoBehaviour
     void SetCursorType(CursorType type)
     {
         activeType = type;
-        print("Setting cursor type of " + type);
         playerUI.HideReticle();
         playerUI.HidePanHand();
         switch (activeType)

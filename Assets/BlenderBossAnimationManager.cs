@@ -20,4 +20,14 @@ public class BlenderBossAnimationManager : MonoBehaviour
     {
         instance.BlenderSpinHelper();
     }
+
+    public void GrabFruitMinion(int num)
+    {
+        instance.GrabFruitMinion(num);
+    }
+
+    public void HideFruitMinion()
+    {
+        instance.HideFruitMinion();
+    }
 }

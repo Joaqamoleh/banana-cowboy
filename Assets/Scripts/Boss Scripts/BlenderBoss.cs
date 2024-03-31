@@ -41,6 +41,7 @@ public class BlenderBoss : MonoBehaviour
 
     private GameObject[] spawnPoints;
     public GameObject[] minions;
+    public GameObject fruitInHand;
 
     public CameraHint cameraOrienter;
     public Vector3 defaultCameraSettings = new Vector3(40, 12, 12);
@@ -108,7 +109,7 @@ public class BlenderBoss : MonoBehaviour
     };
 
     private void Start()
-    {
+    {        
         state = BossStates.NONE;
         dialogHolder.SetActive(false);
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
@@ -223,7 +224,7 @@ public class BlenderBoss : MonoBehaviour
                         Destroy(indicatorSpawnObject[i]);
                     }
                 }
-                cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true); // TODO: Delete when blade animation is done
+                cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true);
             }
         }
     }
@@ -303,6 +304,7 @@ public class BlenderBoss : MonoBehaviour
                     if (currentPlayerPosition != previousPlayerPosition || bombSpawnPos.Count == 0)
                     {
                         spawnPosition = currentPlayerPosition;
+                        spawnPosition.y = platform.transform.position.y + 3;
                         bombSpawnPos.Add(spawnPosition);
 
                     }
@@ -405,6 +407,26 @@ public class BlenderBoss : MonoBehaviour
         modelAnimator.SetTrigger("Finished");
     }
 
+    public void GrabFruitMinion(int num)
+    {
+        if (num > fruitInHand.transform.childCount - 1)
+        {
+            fruitInHand.transform.GetChild(0).gameObject.SetActive(true);
+
+        }
+        else
+        {
+            fruitInHand.transform.GetChild(num).gameObject.SetActive(true);
+        }
+    }
+
+    public void HideFruitMinion()
+    {
+        foreach(Transform child in fruitInHand.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
 
     private void Update()
     {
@@ -467,7 +489,7 @@ public class BlenderBoss : MonoBehaviour
         }
     }
 
-    public void PlayDialogue(string dialog, bool announcingAttack)
+    public void PlayDialogue(string dialog, bool announcingAttack, float time = 3)
     {
         soundPlayer.PlaySFX("Laugh");
         // Also have talk, but idk when you want that to play
@@ -476,10 +498,10 @@ public class BlenderBoss : MonoBehaviour
         {
             StopCoroutine(currentDialog);
         }
-        currentDialog = StartCoroutine(PlayDialogueHelper(dialog, announcingAttack));
+        currentDialog = StartCoroutine(PlayDialogueHelper(dialog, announcingAttack, time));
     }
 
-    IEnumerator PlayDialogueHelper(string dialog, bool announcingAttack)
+    IEnumerator PlayDialogueHelper(string dialog, bool announcingAttack, float time)
     {
         dialogText.text = "";
         dialogHolder.SetActive(true);
@@ -488,7 +510,7 @@ public class BlenderBoss : MonoBehaviour
             dialogText.text = attackAnnouncement[currMove % moves] + " ";
         }
         dialogText.text += dialog;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(time);
         dialogHolder.SetActive(false);
     }
 
@@ -562,9 +584,9 @@ public class BlenderBoss : MonoBehaviour
         GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("BossAttacks");
         foreach (GameObject obj in tempObjects)
         {
-            print("DESTROYING STUFF");
             Destroy(obj);
         }
+        HideFruitMinion();
         StopAllCoroutines();
 
         modelAnimator.Play("BL_Dizzy_Loop");
@@ -598,6 +620,8 @@ public class BlenderBoss : MonoBehaviour
         }
         else
         {
+            // TODO: Before the celebration, kill on the enemies present in the scene
+
             // Play final cutscene
             // LevelSwitch.ChangeScene("Level Select");
             print("CELEBRATION");
@@ -644,14 +668,14 @@ public class BlenderBoss : MonoBehaviour
         healthHolder.SetActive(true);
         modelAnimator.Play("BL_Idle");
         float currentFillAmount = 0;
-        PlayDialogue("You have gotten stronger since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false);
-        yield return new WaitForSeconds(3f);
+        PlayDialogue("You have gotten stronger since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false, 5);
+        yield return new WaitForSeconds(5f);
         //TODO: Change color of boss
-/*        foreach (Renderer obj in blenderLimbs)
+        foreach (Renderer obj in blenderLimbs)
         {
             obj.material = secondPhaseColor;
         }
-        blenderGlass.material = secondPhaseColorGlass;*/
+        //blenderGlass.material = secondPhaseColorGlass;
         while (currentFillAmount / (maxHealth * 1.0f) != 1)
         {
             currentFillAmount = Mathf.MoveTowards(currentFillAmount, maxHealth, 0.8f * Time.deltaTime);

@@ -16,16 +16,20 @@ public class BlenderBlade : MonoBehaviour
     public GameObject windVFX;
 
     private float elapsedTime = 0f;
-    public float spinDuration = 20;
-    bool done;
+    private float spinDuration = 2;
+    bool done = false;
+
     private void Start()
     {
+        done = false;
         transform.localScale = Vector3.one;
         if (Random.Range(0, 2) == 1)
         {
             direction = -1;
         }
         blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
+        blenderBoss.modelAnimator.ResetTrigger("BladeDone");
+
         StartCoroutine(GrowSize());
     }
 
@@ -49,7 +53,7 @@ public class BlenderBlade : MonoBehaviour
     IEnumerator ReverseSpin()
     {
         isReversing = true;
-        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(2f);
         directionStored = direction;
         blenderBoss.modelAnimator.SetTrigger("BladeButton"); //Play("BL_Press_Button_Switch_Rotation");
         yield return new WaitForSeconds(0.6f);    

@@ -200,7 +200,6 @@ public class PlayerController : MonoBehaviour
 
     public void AttachToRigidbody(Rigidbody rb)
     {
-        print("attached joint");
         FixedJoint joint = gameObject.AddComponent<FixedJoint>();
         if (joint != null)
         {
@@ -219,7 +218,6 @@ public class PlayerController : MonoBehaviour
 
     public void DetachFromRigidbody(Rigidbody rb)
     {
-        print("Destroy Attached joint");
         FixedJoint[] joints = GetComponents<FixedJoint>();
         foreach (FixedJoint joint in joints) { 
             if (joint.connectedBody == rb) {
@@ -276,7 +274,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_state != newState)
         {
-            print("State updated to " + newState);
             OnStateChanged?.Invoke(newState);
             if (newState == State.AIR)
             {
