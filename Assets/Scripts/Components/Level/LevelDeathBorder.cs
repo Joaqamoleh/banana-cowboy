@@ -12,6 +12,10 @@ public class LevelDeathBorder : MonoBehaviour
             {
                 other.gameObject.GetComponentInParent<Health>().Damage(999, Vector3.zero);
             }
+            else if (other.GetComponent<BodyColliderHandler>() != null && other.GetComponent<BodyColliderHandler>().GetEnemyController() != null)
+            {
+                other.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy();
+            }
             else
             {
                 Destroy(other.gameObject);

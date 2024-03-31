@@ -105,7 +105,7 @@ public class UIManager : MonoBehaviour
 
     IEnumerator HealthIconTransition(int health, bool healed)
     {
-        if (!healed)
+        if (!healed && health < healthBlinkSprites.Length)
         {
             healthImage.GetComponent<Image>().sprite = healthBlinkSprites[health];
             yield return new WaitForSeconds(0.5f);

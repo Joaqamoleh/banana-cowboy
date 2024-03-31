@@ -8,24 +8,20 @@ public class LevelManager : MonoBehaviour
     private static bool unlocksInitialized = false;
     private static Dictionary<string, bool> availableLevels = new Dictionary<string, bool>();
     public static string[] levelNames = { "Tutorial Level", "Orange Level", "Blueberry Level", "Strawberry Level", "Blender Boss Room" };
-    public bool DebugUnlockAllLevels = false;
     private void Awake()
     {
-        if (DebugUnlockAllLevels)
+#if DEBUG || DEVELOPMENT_BUILD
+        foreach (string levelName in levelNames)
         {
-            foreach (string levelName in levelNames)
-            {
-                availableLevels[levelName] = true;
-            }
-        } 
-        else
-        {
-            if (!unlocksInitialized)
-            {
-                Init();
-                unlocksInitialized = true;
-            }
+            availableLevels[levelName] = true;
         }
+#else
+        if (!unlocksInitialized)
+        {
+            Init();
+            unlocksInitialized = true;
+        }
+#endif
     }
 
     public void BackToMainMenu()

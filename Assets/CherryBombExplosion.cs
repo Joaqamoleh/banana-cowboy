@@ -43,15 +43,21 @@ public class CherryBombExplosion : MonoBehaviour
                 }
             }
         }
-        else if (other.name.Contains("Body") && other.CompareTag("Enemy"))
-        {
-            Destroy(other.gameObject.transform.root.gameObject);
-        }
-        else if (other.CompareTag("Breakable"))
-        {
-            SoundManager.Instance().PlaySFX("BarrierBreak");
-            Destroy(other.gameObject);
+        //else if (other.CompareTag("Breakable"))
+        //{
+        //    SoundManager.Instance().PlaySFX("BarrierBreak");
+        //    Destroy(other.gameObject);
 
+        //}
+
+        print("Collision with " + other.name);
+        if (other.GetComponent<BodyColliderHandler>() != null && other.GetComponent<BodyColliderHandler>().GetEnemyController() != null)
+        {
+            other.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy(EnemyController.DeathSource.EXPLOSION);
+        }
+        else if (other.gameObject.GetComponent<Breakable>() != null)
+        {
+            other.gameObject.GetComponent<Breakable>().Break();
         }
     }
 }
