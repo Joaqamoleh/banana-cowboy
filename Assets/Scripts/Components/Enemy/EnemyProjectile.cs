@@ -40,13 +40,16 @@ public class EnemyProjectile : MonoBehaviour
     
     public void FireProjectile(Vector3 dir, Vector3 targetPoint)
     {
-        fired = true;
-        rb.isKinematic = false;
-        if (gravObj != null)
+        if (!fired)
         {
-            gravObj.disabled = false;
+            fired = true;
+            rb.isKinematic = false;
+            if (gravObj != null)
+            {
+                gravObj.disabled = false;
+            }
+            rb.AddForce(dir * fireForce, ForceMode.Impulse);
         }
-        rb.AddForce(dir * fireForce, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)

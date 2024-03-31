@@ -146,7 +146,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1431571044963862908}
   - component: {fileID: 6294413306404470211}
-  - component: {fileID: 686581924682369553}
   - component: {fileID: 8721676036906083646}
   m_Layer: 16
   m_Name: Shooter Projectile
@@ -199,27 +198,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &686581924682369553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4926118607281424149}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 516eda5e65a052c4b8e65c95e6161e0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gravityIncreaseOnFall: 1.5
-  characterOrientation: {fileID: 7862499832064851643}
-  reorientTime: 0.5
-  _freezeRotation: 1
-  footPosition: {fileID: 517420480323109345}
-  footCheckRadius: 0.54
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 16393
 --- !u!114 &8721676036906083646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,5 +213,6 @@ MonoBehaviour:
   damage: 0
   knockbackForce: 10
   fireForce: 79
+  lifetime: 10
   hitParticleEffect: {fileID: 0}
   missParticleEffect: {fileID: 0}

@@ -11,6 +11,7 @@ public class OrangeEnemyController : EnemyController
     enum OrangeState
     {
         IDLE,
+        COOLDOWN,
         PLAYER_SPOTTED,
         REV_UP,
         CHARGE,
@@ -18,7 +19,7 @@ public class OrangeEnemyController : EnemyController
         BOUNCE_BACK,
         DIZZY,
         HELD,
-        TOSSED
+        TOSSED,
     }
 
     public enum OrangeSubStates
@@ -55,8 +56,8 @@ public class OrangeEnemyController : EnemyController
     Vector3 chargeTarget, moveDir;
 
     [SerializeField, Min(0f)]
-    float timeToRoam = 3.0f, timeRoam = 2.0f, timeSleep = 5f, timeSpot = 0.3f, timeRevUp = 1.5f, timeCharge = 2.5f, timeSlowDown = 0.5f, timeDizzy = 2.5f;
-    float timeStateChanged = 0f, timeToStateEnd = 1.0f;
+    float timeToRoam = 3.0f, timeRoam = 2.0f, timeSleep = 5f, timeSpot = 0.3f, timeRevUp = 1.5f, timeCharge = 2.5f, timeSlowDown = 0.5f, timeDizzy = 2.5f, attackCooldown = 1.5f;
+    float timeStateChanged = 0f, timeToStateEnd = 1.0f, timeLastAttackEnd = 0f;
     
     [SerializeField, Range(0f, 100f)]
     float chanceToRoam = 0f, chanceToSleep = 10f, chanceToWake = 40f;
@@ -111,7 +112,8 @@ public class OrangeEnemyController : EnemyController
             case OrangeState.IDLE:
                 if (target != null)
                 {
-                    UpdateState(OrangeState.PLAYER_SPOTTED);
+                    UpdateState(OrangeState.COOLDOWN);
+                    subState = OrangeSubStates.SWAY;
                 }
                 else if (Time.time - timeStateChanged > timeToStateEnd)
                 {
@@ -144,6 +146,12 @@ public class OrangeEnemyController : EnemyController
                 else
                 {
                     PerformSubstate();
+                }
+                break;
+            case OrangeState.COOLDOWN:
+                if (Time.time - timeLastAttackEnd > attackCooldown)
+                {
+                    UpdateState(OrangeState.PLAYER_SPOTTED);
                 }
                 break;
             case OrangeState.PLAYER_SPOTTED:
@@ -197,7 +205,7 @@ public class OrangeEnemyController : EnemyController
                 }
                 break;
             case OrangeState.BOUNCE_BACK:
-                if (_gravObj.IsOnGround() || Time.time - timeStateChanged > timeToStateEnd)
+                if (_gravObj.IsOnGround() && Time.time - timeStateChanged > timeToStateEnd)
                 {
                     UpdateState(OrangeState.IDLE);
                 }
@@ -263,7 +271,6 @@ public class OrangeEnemyController : EnemyController
                 if (partner != null)
                 {
                     Vector3 lookDir = Vector3.ProjectOnPlane((partner.position - transform.position), _gravObj.characterOrientation.up).normalized;
-                    Debug.DrawRay(transform.position, lookDir * 10f, Color.cyan);
                 }
                 break;
             case OrangeSubStates.SLEEP:
@@ -298,9 +305,11 @@ public class OrangeEnemyController : EnemyController
                 if (collision.collider.CompareTag("Player") && collision.collider.transform.parent != null)
                 {
                     Health h = collision.collider.transform.parent.GetComponentInParent<Health>();
-                    Vector3 impulseForce = (collision.collider.transform.position - transform.position).normalized * knockbackForce;
-                    h.Damage(1, impulseForce + _gravObj.characterOrientation.up * 3f);
-                    _rb.AddForce(-impulseForce + _gravObj.characterOrientation.up * 3f, ForceMode.Impulse);
+                    Vector3 impulseForce = (collision.collider.transform.position - transform.position).normalized;
+                    impulseForce = Vector3.ProjectOnPlane(impulseForce, _gravObj.characterOrientation.up).normalized * knockbackForce;
+                    h.Damage(0, impulseForce + _gravObj.characterOrientation.up * 3f);
+                    _rb.velocity = _gravObj.GetFallingVelocity();
+                    _rb.AddForce(-impulseForce + _gravObj.characterOrientation.up * 25f, ForceMode.Impulse);
                     UpdateState(OrangeState.BOUNCE_BACK);
                 }
                 else if (o != null && !ignoredObstacles.Contains(o))
@@ -323,9 +332,10 @@ public class OrangeEnemyController : EnemyController
 
     void UpdateState(OrangeState state)
     {
+        print("Updating State to " + state);
         if (state != _state)
         {
-            print("Updating orange state to " + state);
+            print("state updated");
             _state = state;
             timeStateChanged = Time.time;
             UpdateAnimState();
@@ -348,6 +358,7 @@ public class OrangeEnemyController : EnemyController
                 case OrangeState.PLAYER_SPOTTED:
                     _soundPlayer.PlaySFX("Alert");
                     timeToStateEnd = timeSpot;
+                    _rb.velocity = _gravObj.GetFallingVelocity();
                     break;
                 case OrangeState.REV_UP:
                     _soundPlayer.PlaySFX("RevUp");
@@ -365,7 +376,8 @@ public class OrangeEnemyController : EnemyController
                     timeToStateEnd = timeSlowDown;
                     break;
                 case OrangeState.BOUNCE_BACK:
-                    timeToStateEnd = timeCharge;
+                    timeToStateEnd = timeSlowDown;
+                    timeLastAttackEnd = Time.time;
                     break;
                 case OrangeState.DIZZY:
                     _soundPlayer.StopSFX("Charge");
