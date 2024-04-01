@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,6 +87,11 @@ public class CutsceneObject : MonoBehaviour
             scene.timelinePlayable.extrapolationMode = DirectorWrapMode.Hold;
             scene.timelinePlayable.Play();
         }
+        if (scene.splineMovement != null)
+        {
+            scene.splineMovement.ResetMovement();
+            scene.splineMovement.SetSplineActive(true);
+        }
 
         if (scene.cameraShake && scene.cinemachineCamController != null && scene.cinemachineCamController.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>() != null)
         {
@@ -125,6 +131,11 @@ public class CutsceneObject : MonoBehaviour
         if (scene.cinemachineCamController != null && (scenes.Length - 1 == activeScene || scenes[activeScene + 1].cinemachineCamController != scene.cinemachineCamController))
         {
             StartCoroutine(EndCinemachine(scene));
+        }
+
+        if (scene.splineMovement != null)
+        {
+            scene.splineMovement.SetSplineActive(false);
         }
     }
 
@@ -175,6 +186,12 @@ public class CutsceneObject : MonoBehaviour
                 break;
             case Scene.CompletionType.ON_PLAYABLE_COMPLETE:
                 yield return WaitForPlayable(scene.timelinePlayable);
+                break;
+            case Scene.CompletionType.ON_SFX_COMPLETE:
+                yield return WaitForSFX(scene.sfx);
+                break;
+            case Scene.CompletionType.ON_SPLINE_COMPLETE:
+                yield return WaitForSpline(scene.splineMovement);
                 break;
         }
         if (!_skip)
@@ -269,6 +286,28 @@ public class CutsceneObject : MonoBehaviour
         }
     }
 
+    IEnumerator WaitForSFX(Sound sfx)
+    {
+        if (sfx != null && sfx.src != null)
+        {
+            while (sfx.src.isPlaying)
+            {
+                yield return null;
+            }
+        }
+    }
+
+    IEnumerator WaitForSpline(SplineMovement movement)
+    {
+        if (movement != null)
+        {
+            while (!movement.IsComplete()) 
+            {
+                yield return null;
+            }
+        }
+    }
+
     public void SkipToEndOfCutscene()
     {
         foreach (Scene s in scenes)
@@ -313,6 +352,8 @@ public class Scene
     public KeyCode cutsceneInput = KeyCode.Mouse0;
     public KeyCode[] altInputs;
 
+    public SplineMovement splineMovement = null;
+
     [Tooltip("Sound to be played for the cutscene. Assumes 2D sfx")]
     public Sound sfx = null;
 
@@ -321,7 +362,8 @@ public class Scene
         ON_INPUT,
         ON_DIALOG_COMPLETE,
         ON_PLAYABLE_COMPLETE,
-        ON_SFX_COMPLETE
+        ON_SFX_COMPLETE,
+        ON_SPLINE_COMPLETE,
     }
     public CompletionType completionType = CompletionType.ON_INPUT;
     [Tooltip("This is the time between the completion of the scene and the start of the next scene")]
