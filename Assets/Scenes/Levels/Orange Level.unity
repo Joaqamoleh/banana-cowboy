@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.022595622, g: 0.11238322, b: 0.44654787, a: 1}
+  m_IndirectSpecularColor: {r: 0.022667438, g: 0.11243814, b: 0.44657487, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4084,6 +4084,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 0}
@@ -4117,6 +4118,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 0}
@@ -4748,7 +4750,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4781,7 +4783,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -6250,6 +6252,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Name
       value: street_light (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12632,6 +12638,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17703,6 +17713,10 @@ PrefabInstance:
       value: street_light (7)
       objectReference: {fileID: 0}
     - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
@@ -19724,6 +19738,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21386,7 +21404,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -21915,6 +21933,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Name
       value: street_light (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -24344,6 +24366,10 @@ PrefabInstance:
       value: street_light (8)
       objectReference: {fileID: 0}
     - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
@@ -24420,6 +24446,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Name
       value: street_light (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25600,6 +25630,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26285,10 +26319,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: stop (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2586607309129781981, guid: 95f0f2589cf60234496e1e5b1553e0bf, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566390031902043909, guid: 95f0f2589cf60234496e1e5b1553e0bf, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3566390031902043909, guid: 95f0f2589cf60234496e1e5b1553e0bf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 95f6f61e266265a48ab36301916be584, type: 2}
+      objectReference: {fileID: 2100000, guid: fe4962486b497f94fb6425dc842f3f93, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33845,6 +33887,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35237,6 +35283,10 @@ PrefabInstance:
       value: street_light (4)
       objectReference: {fileID: 0}
     - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f91c2027cecf16a40841aa28d8bcd6f1, type: 2}
@@ -35393,6 +35443,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Name
       value: street_light (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -39558,6 +39612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: street_light (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8205444177914769359, guid: 78e9b7b3f2614a54d988d0ca3df82172, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40007,6 +40065,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 894f1981d258c914995bea35ae0e120b, type: 3}
@@ -40041,6 +40100,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: f22c275b26eff1241a7d3801f2cd7f51, type: 3}
@@ -40075,6 +40135,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 6bafde2b76ae6ce4196e647325f295d9, type: 3}
@@ -40108,6 +40169,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 6bafde2b76ae6ce4196e647325f295d9, type: 3}
@@ -40142,6 +40204,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: f22c275b26eff1241a7d3801f2cd7f51, type: 3}
@@ -40175,6 +40238,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 894f1981d258c914995bea35ae0e120b, type: 3}
