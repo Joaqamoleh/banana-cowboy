@@ -21,13 +21,28 @@ public class BlenderBossAnimationManager : MonoBehaviour
         instance.BlenderSpinHelper();
     }
 
-    public void GrabFruitMinion(int num)
+    public void GrabFruitMinion()
     {
-        instance.GrabFruitMinion(num);
+        instance.GrabFruitMinion();
     }
 
     public void HideFruitMinion()
     {
         instance.HideFruitMinion();
+    }
+
+    public void SFXManagerPlay(string sfx)
+    {
+        instance.BlenderSFXManager(sfx, true);
+    }
+
+    public void SFXManagerStop(string sfx)
+    {
+        instance.BlenderSFXManager(sfx, false);
+    }
+
+    public void PlayBombSFX()
+    {
+        instance.BlenderSFXManager("BombLaunch", true);
     }
 }

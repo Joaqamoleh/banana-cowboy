@@ -92,7 +92,7 @@ public class BlenderBoss : MonoBehaviour
     private bool introDialogComplete = false;
 
     // For sfxs
-    private SoundPlayer soundPlayer;
+    private SoundPlayer _soundPlayer;
 
     [Header("Material")]
     public Material orangeSpawn;
@@ -126,8 +126,8 @@ public class BlenderBoss : MonoBehaviour
         canBeDamaged = true;
         spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
 
-        soundPlayer = GetComponent<SoundPlayer>();
-        Debug.Assert(soundPlayer != null);
+        _soundPlayer = GetComponent<SoundPlayer>();
+        Debug.Assert(_soundPlayer != null);
 
         // hide win UI at the beginning
         foreach (Transform child in youWinUI.transform)
@@ -229,6 +229,20 @@ public class BlenderBoss : MonoBehaviour
         }
     }
 
+    // This is so we can call from animation events (time it better)
+    // True means play, False means stop
+    public void BlenderSFXManager(string sfx, bool sfxEvent)
+    {
+        if (sfxEvent)
+        {
+            _soundPlayer.PlaySFX(sfx);
+        }
+        else 
+        {
+            _soundPlayer.StopSFX(sfx);
+        }
+    }
+
     public void SettingJuiceBlast(bool val)
     {
         juiceProjectile.SetActive(val);
@@ -268,8 +282,10 @@ public class BlenderBoss : MonoBehaviour
         Vector3 positionSpawned = platform.position;
         positionSpawned.y += 5;
         GameObject blade = Instantiate(blenderBlade, positionSpawned, Quaternion.identity);
+        _soundPlayer.PlaySFX("BlenderBlade");
         yield return new WaitForSeconds(move2Cooldown);
         StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
+        _soundPlayer.StopSFX("BlenderBlade");
         //blade.GetComponent<BlenderBlade>().ShrinkSize();
     }
 
@@ -361,7 +377,7 @@ public class BlenderBoss : MonoBehaviour
 
     public void CreateSplat(int obj)
     {
-        ScreenShakeManager.Instance.ShakeCamera(4, 3, 1);
+        ScreenShakeManager.Instance.ShakeCamera(3, 2, 1);
         Vector3 pos = bombSpawnPos[obj];
         pos.y = platform.transform.position.y + 3;
         GameObject tmp = Instantiate(splatEffect, pos, splatEffect.transform.rotation);
@@ -376,6 +392,7 @@ public class BlenderBoss : MonoBehaviour
             Instantiate(minions[0], spawnPosition, spawnPoints[i].transform.rotation);
         }*/
         StartCoroutine(MoveToPosition(transform.position, originSpawningEnemies.transform.position));
+        _soundPlayer.PlaySFX("BlenderSpawn");
         foreach (GameObject point in spawnPoints)
         {
             point.SetActive(false);
@@ -408,16 +425,16 @@ public class BlenderBoss : MonoBehaviour
         modelAnimator.SetTrigger("Finished");
     }
 
-    public void GrabFruitMinion(int num)
+    public void GrabFruitMinion()
     {
-        if (num > fruitInHand.transform.childCount - 1)
+        if (currMove != 2)
         {
             fruitInHand.transform.GetChild(0).gameObject.SetActive(true);
 
         }
         else
         {
-            fruitInHand.transform.GetChild(num).gameObject.SetActive(true);
+            fruitInHand.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
 
@@ -492,7 +509,7 @@ public class BlenderBoss : MonoBehaviour
 
     public void PlayDialogue(string dialog, bool announcingAttack, float time = 3)
     {
-        soundPlayer.PlaySFX("Laugh");
+        _soundPlayer.PlaySFX("Laugh");
         // Also have talk, but idk when you want that to play
         // soundPlayer.PlaySFX("Talk");
         if (currentDialog != null)
@@ -589,11 +606,18 @@ public class BlenderBoss : MonoBehaviour
         }
         HideFruitMinion();
         StopAllCoroutines();
-
+        _soundPlayer.PlaySFX("Dizzy");
         modelAnimator.Play("BL_Dizzy_Loop");
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         SetClimbObjectsActive(true);
-        PlayDialogue("Ahh curses! You insolent fruits! I'll make you all pay for this!", false);
+        if (_currentPhase == 1)
+        {
+            PlayDialogue("Ahh curses! You insolent fruit! I'll make you all pay for this!", false);
+        }
+        else
+        {
+            PlayDialogue("No, this can't be happening! Bested by a Banana with a hat and a lasso??", false);
+        }
         // TODO: Put this somewhere else. I think this is fine. Might be a case where you can't make it to the boss if it covers the front.
         for (int i = 0; i < indicatorSpawnObject.Length; i++)
         {
@@ -605,6 +629,7 @@ public class BlenderBoss : MonoBehaviour
         if (_currentPhase == 2)
         {
             print("BLENDER DEFEATED");
+            _soundPlayer.PlaySFX("BlenderDeath");
             if (SoundManager.Instance() != null)
             {
                 SoundManager.Instance().StopAllMusic();

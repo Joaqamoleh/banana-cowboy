@@ -78,7 +78,7 @@ public class SoundPlayer : MonoBehaviour
         {
             if (s.loop)
             {
-                if (System.Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) == null)
+                if (System.Array.Find(_loopedSounds.ToArray(), sound => sound.name == s.name) == null)
                 {
                     _loopedSounds.Add(s);
                 }
@@ -109,6 +109,7 @@ public class SoundPlayer : MonoBehaviour
         {
             if (System.Array.Find(_loopedSounds.ToArray(), sound => sound == s) != null)
             {
+                s.src.Stop();
                 _loopedSounds.Remove(s);
             }
         }
