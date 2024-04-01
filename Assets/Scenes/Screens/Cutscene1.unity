@@ -3075,6 +3075,7 @@ GameObject:
   - component: {fileID: 1161549989}
   - component: {fileID: 1161549988}
   - component: {fileID: 1161549991}
+  - component: {fileID: 1161549992}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -3212,6 +3213,19 @@ MonoBehaviour:
   isAnimated: 1
   animDuration: 0.5
   animStrength: 7
+--- !u!114 &1161549992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161549986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782e05f6e80d6064e864c829aecc8f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1161549988}
 --- !u!1 &1213320425
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,6 +4933,7 @@ GameObject:
   - component: {fileID: 1937530028}
   - component: {fileID: 1937530027}
   - component: {fileID: 1937530031}
+  - component: {fileID: 1937530032}
   m_Layer: 5
   m_Name: SkipButton
   m_TagString: Untagged
@@ -5056,6 +5071,19 @@ MonoBehaviour:
   isAnimated: 1
   animDuration: 0.5
   animStrength: 7
+--- !u!114 &1937530032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937530026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782e05f6e80d6064e864c829aecc8f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1937530027}
 --- !u!1 &1940432876
 GameObject:
   m_ObjectHideFlags: 0

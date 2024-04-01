@@ -133,20 +133,20 @@ public class SoundManager : MonoBehaviour
         s.src.volume = s.volume * SFXVolume;
         s.src.pitch = s.pitch + UnityEngine.Random.Range(0.0f, s.pitchVariance);
 
-        if (!s.src.isPlaying && !PauseManager.pauseActive)
+        if (s.loop)
         {
-            if (s.loop)
+            if (Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) == null)
             {
-                if (Array.Find(_loopedSounds.ToArray(), sound => sound.name == name) == null)
-                {
-                    _loopedSounds.Add(s);
-                }
-            } 
-            else
-            {
-                s.src.Play();
+                _loopedSounds.Add(s);
             }
+        } 
+        else
+        {
+            s.src.Play();
         }
+        //if (!s.src.isPlaying && !PauseManager.pauseActive)
+        //{
+        //}
     }
 
     public Sound GetSFX(string name)

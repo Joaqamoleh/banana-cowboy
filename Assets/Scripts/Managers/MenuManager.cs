@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public GameObject settings;
-    public GameObject help;
     public GameObject credits;
 
     public Slider musicSlider = null;
@@ -73,7 +72,6 @@ public class MenuManager : MonoBehaviour
                 break;
             case "Back":
                 settings.SetActive(false);
-                help.SetActive(false);
                 credits.SetActive(false);
                 break;
         }
