@@ -73,7 +73,7 @@ public class OrangeBoss : MonoBehaviour
         //state = BossStates.PEEL;
         resetAnimations = new List<string>();
         health = maxHealth;
-        currMove = 0;
+        currMove = 1;
 
         player = GameObject.FindWithTag("Player");
         indicating = false;
@@ -175,6 +175,7 @@ public class OrangeBoss : MonoBehaviour
             //SoundManager.Instance().PlaySFX("OrangeBossBoomerangs");
             sfxsPlayer.PlaySFX("OrangeBossBoomerangs");
         }
+        sfxsPlayer.StopSFX("OrangeBossBoomerangs");
     }
     IEnumerator BoomerangStartUpHelper()
     {

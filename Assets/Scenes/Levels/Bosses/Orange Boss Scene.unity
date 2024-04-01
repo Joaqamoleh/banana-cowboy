@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.022667438, g: 0.11243814, b: 0.44657487, a: 1}
+  m_IndirectSpecularColor: {r: 0.022595622, g: 0.11238322, b: 0.44654787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2441,7 +2441,7 @@ Transform:
   m_GameObject: {fileID: 328670450}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: -6.02, z: 3.98}
+  m_LocalPosition: {x: 0.15, y: -5, z: 3.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9144,6 +9144,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3981581672300043866, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: sfxs.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4792375295655101336, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -410.1549
@@ -9206,7 +9210,7 @@ PrefabInstance:
       objectReference: {fileID: 1210291202}
     - target: {fileID: 8184012128182721529, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: maxHealth
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8184012128182721529, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: dialogText
@@ -14514,7 +14518,7 @@ GameObject:
   - component: {fileID: 2009634502}
   - component: {fileID: 2009634501}
   m_Layer: 3
-  m_Name: Platform (Covers gap)
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
