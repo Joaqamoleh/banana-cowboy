@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.022595622, g: 0.11238322, b: 0.44654787, a: 1}
+  m_IndirectSpecularColor: {r: 0.022667438, g: 0.11243814, b: 0.44657487, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3759,6 +3759,10 @@ PrefabInstance:
       value: stop
       objectReference: {fileID: 0}
     - target: {fileID: 3566390031902043909, guid: 95f0f2589cf60234496e1e5b1553e0bf, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566390031902043909, guid: 95f0f2589cf60234496e1e5b1553e0bf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fe4962486b497f94fb6425dc842f3f93, type: 2}
@@ -4379,6 +4383,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 0b0a3aa8357ed6346bcd517b1d5345b8, type: 3}
@@ -6186,6 +6191,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 0}
@@ -6219,6 +6225,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: e619d43dbda76084abcfddf8f17591fc, type: 3}
@@ -6252,6 +6259,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: e619d43dbda76084abcfddf8f17591fc, type: 3}
@@ -6286,6 +6294,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 26b9b00b49b440a4286332a1ef58d51f, type: 3}
@@ -6320,6 +6329,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 7da34c16adca93e4dbcabb7b6db9c5fa, type: 3}
@@ -6355,6 +6365,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 6ed73d2c9b7815149b9a66419c50a3ba, type: 3}
@@ -6389,6 +6400,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 7da34c16adca93e4dbcabb7b6db9c5fa, type: 3}
@@ -6422,6 +6434,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 0}
@@ -7100,6 +7113,10 @@ PrefabInstance:
       value: stop (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3566390031902043909, guid: 95f0f2589cf60234496e1e5b1553e0bf, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566390031902043909, guid: 95f0f2589cf60234496e1e5b1553e0bf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fe4962486b497f94fb6425dc842f3f93, type: 2}
@@ -7235,8 +7252,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6354880753579613520, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5800796185683667076, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -884142583348748651, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 825894089210680117, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 833059864525144782, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
       propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833059864525144782, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
+      propertyPath: m_StaticShadowCaster
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 833059864525144782, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
@@ -7246,6 +7283,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
       propertyPath: m_Name
       value: cage2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8803798556126859134, guid: c2dd47d2b96e7324a947e6441d8a1329, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9128,6 +9173,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1036199680}
     m_Modifications:
+    - target: {fileID: 170827338650159690, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 358501878966268849, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437649425855834709, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789356808477450769, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431112703161950121, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094123513294350629, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4420246752431329052, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4792375295655101336, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -410.1549
@@ -9168,9 +9241,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.913
       objectReference: {fileID: 0}
+    - target: {fileID: 5321204377543512225, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632924078444936929, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6369561918749010671, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: m_Name
       value: Orange Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7797124137569616368, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923388463135477607, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150989829553178853, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8184012128182721529, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: youWinUI
@@ -9196,6 +9289,10 @@ PrefabInstance:
       propertyPath: playerWinLocation
       value: 
       objectReference: {fileID: 328670450}
+    - target: {fileID: 8924151894339297834, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12959,7 +13056,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -14660,6 +14757,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 661759272e58f7044a7c313e1463b0a3, type: 3}
@@ -14694,6 +14792,7 @@ MonoBehaviour:
     shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
+    splineMovement: {fileID: 0}
     sfx:
       name: 
       audioClip: {fileID: 8300000, guid: 6ed73d2c9b7815149b9a66419c50a3ba, type: 3}
