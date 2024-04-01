@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 8407238848452925988}
   - component: {fileID: 5600630195848538896}
   - component: {fileID: 5567951755585114793}
+  - component: {fileID: 7519368551765951811}
   m_Layer: 8
   m_Name: CherryBomb
   m_TagString: Untagged
@@ -181,6 +182,39 @@ MonoBehaviour:
   explosion: {fileID: 5669016145455679879, guid: ad58d7c04cb40224cbbc76cb00d16ec4, type: 3}
   deathJuiceEffect: {fileID: 8615972876567255314, guid: 4dcaf4bd7ed472d418a5311f70dc9ff9, type: 3}
   vfxLocation: {fileID: 6034210574073620561}
+  renderers:
+  - {fileID: 8207252514814776948}
+  - {fileID: 1748624629786575383}
+  - {fileID: 3136851424923893940}
+  - {fileID: 2268157851371124908}
+  colliders:
+  - {fileID: 4618305672843438467}
+  sfxPlayer: {fileID: 7519368551765951811}
+--- !u!114 &7519368551765951811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029137887942377159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Explode
+    audioClip: {fileID: 8300000, guid: 8f129c0c81b37514f992f2ab77367006, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.825
+    spatialMaxDist: 40
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
 --- !u!1 &6034210574073620561
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,5 +484,25 @@ PrefabInstance:
 --- !u!4 &1699420003199491810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9999d57e308be6848a5afe325912ed69, type: 3}
+  m_PrefabInstance: {fileID: 1161704404837693705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1748624629786575383 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8621181791732565218, guid: 9999d57e308be6848a5afe325912ed69, type: 3}
+  m_PrefabInstance: {fileID: 1161704404837693705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2268157851371124908 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8114033471809764955, guid: 9999d57e308be6848a5afe325912ed69, type: 3}
+  m_PrefabInstance: {fileID: 1161704404837693705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3136851424923893940 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4929363789341574723, guid: 9999d57e308be6848a5afe325912ed69, type: 3}
+  m_PrefabInstance: {fileID: 1161704404837693705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8207252514814776948 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2163644622240469123, guid: 9999d57e308be6848a5afe325912ed69, type: 3}
   m_PrefabInstance: {fileID: 1161704404837693705}
   m_PrefabAsset: {fileID: 0}

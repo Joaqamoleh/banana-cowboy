@@ -9,6 +9,9 @@ public class TimerPlatforms : MonoBehaviour
     //public Collider gravityBox;
     public Material[] colors;
 
+    [SerializeField]
+    SoundPlayer sfxPlayer;
+
     // TODO: Fix the hitbox. IDK what it is for leaves
     private void OnCollisionEnter(Collision other)
     {
@@ -59,13 +62,13 @@ public class TimerPlatforms : MonoBehaviour
     {
         // TODO: Test lowering the amount
         yield return new WaitForSeconds(0.75f);
-        SoundManager.Instance().PlaySFX("BreakableCrackFirst");
+        sfxPlayer.PlaySFX("BreakableCrackFirst");
         GetComponent<Renderer>().material = colors[1];
         yield return new WaitForSeconds(0.75f);
-        SoundManager.Instance().PlaySFX("BreakableCrackSecond");
+        sfxPlayer.PlaySFX("BreakableCrackSecond");
         GetComponent<Renderer>().material = colors[2];
         yield return new WaitForSeconds(0.75f);
-        SoundManager.Instance().PlaySFX("BreakableCrackLast");
+        sfxPlayer.PlaySFX("BreakableCrackLast");
         GetComponent<Renderer>().enabled = false;
         collisionBox.enabled = false;
         //gravityBox.enabled = false;

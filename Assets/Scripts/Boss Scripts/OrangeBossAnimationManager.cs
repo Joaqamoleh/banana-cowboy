@@ -12,6 +12,9 @@ public class OrangeBossAnimationManager : MonoBehaviour
     public float frequency;
     public float time;
 
+    [SerializeField]
+    SoundPlayer sfxsPlayer;
+
     public void ShowWeakSpot(int weakSpotIndex)
     {
         instance.ShowWeakSpot(weakSpotIndex);
@@ -19,12 +22,14 @@ public class OrangeBossAnimationManager : MonoBehaviour
 
     public void PlaySlamSFX()
     {
-        SoundManager.Instance().PlaySFX("OrangeBossPeelSlam");
+        //SoundManager.Instance().PlaySFX("OrangeBossPeelSlam");
+        sfxsPlayer.PlaySFX("OrangeBossPeelSlam");
     }
 
     public void BoomerangStartupSFX()
     {
-        SoundManager.Instance().PlaySFX("OrangeBossBoomerangStartup");
+        //SoundManager.Instance().PlaySFX("OrangeBossBoomerangStartup");
+        sfxsPlayer.PlaySFX("OrangeBossBoomerangStartup");
     }
 
     public void HideWeakSpots()

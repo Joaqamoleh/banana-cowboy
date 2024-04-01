@@ -44,6 +44,8 @@ public class OrangeBoss : MonoBehaviour
     public Material normalColor;
     public Material hurtColor;
     public GameObject[] partsOfModel;
+    [SerializeField]
+    SoundPlayer sfxsPlayer;
 
     [Header("Dialogue")]
     public GameObject dialogHolder;
@@ -55,6 +57,7 @@ public class OrangeBoss : MonoBehaviour
     [Header("Win Celebration")]
     public GameObject youWinUI;
     public ParticleSystem confettiVFX;
+
 
     public enum BossStates
     {
@@ -75,6 +78,8 @@ public class OrangeBoss : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         indicating = false;
         boomerangSpinning = false;
+
+        Debug.Assert(sfxsPlayer != null);
 
         // hide win UI at the beginning
         foreach (Transform child in youWinUI.transform)
@@ -167,7 +172,8 @@ public class OrangeBoss : MonoBehaviour
         while (boomerangSpinning)
         {
             yield return new WaitForEndOfFrame();
-            SoundManager.Instance().PlaySFX("OrangeBossBoomerangs");
+            //SoundManager.Instance().PlaySFX("OrangeBossBoomerangs");
+            sfxsPlayer.PlaySFX("OrangeBossBoomerangs");
         }
     }
     IEnumerator BoomerangStartUpHelper()
@@ -205,7 +211,8 @@ public class OrangeBoss : MonoBehaviour
     {
         // Add animation here
 
-        SoundManager.Instance().PlaySFX("OrangeBossSummon");
+        //SoundManager.Instance().PlaySFX("OrangeBossSummon");
+        sfxsPlayer.PlaySFX("OrangeBossSummon");
         modelAnimator.SetTrigger("Spawn Orange");
         for (int i = 0; i < spawnPoints.Length; i++)
         {
@@ -334,7 +341,8 @@ public class OrangeBoss : MonoBehaviour
 
     public void Damage(int dmg)
     {
-        SoundManager.Instance().PlaySFX("BossHurt");
+        //SoundManager.Instance().PlaySFX("BossHurt");
+        sfxsPlayer.PlaySFX("BossHurt");
         health -= dmg;
         if (health == maxHealth - 1 || health == maxHealth - 2)
         {
@@ -367,10 +375,15 @@ public class OrangeBoss : MonoBehaviour
             BossDeathSetup();
 
             // play cutscenes
-            
-            CutsceneManager.Instance().PlayCutsceneByName("Win");
-            CutsceneManager.Instance().GetCutsceneByName("Win").OnCutsceneComplete += CelebrationCutscene;
-            SoundManager.Instance().StopAllMusic();
+            if (CutsceneManager.Instance() != null)
+            {
+                CutsceneManager.Instance().PlayCutsceneByName("Win");
+                CutsceneManager.Instance().GetCutsceneByName("Win").OnCutsceneComplete += CelebrationCutscene;
+            }
+            if (SoundManager.Instance() != null)
+            {
+                SoundManager.Instance().StopAllMusic();
+            }
 
             // disable player 
             playerModel.SetActive(false);

@@ -13,6 +13,15 @@ public class CherryBomb : LassoTossable
     public GameObject deathJuiceEffect;
     public GameObject vfxLocation;
 
+    [SerializeField]
+    Renderer[] renderers;
+    [SerializeField]
+    Collider[] colliders;
+
+    [SerializeField]
+    SoundPlayer sfxPlayer;
+    float deathDelay = 1.0f;
+
     bool isDestroyed = false;
 
     private void OnCollisionEnter(Collision collision)
@@ -22,7 +31,8 @@ public class CherryBomb : LassoTossable
             isDestroyed = true;
             if (SoundManager.Instance() != null)
             {
-                SoundManager.Instance().PlaySFX("CherryBombExplode");
+                sfxPlayer.PlaySFX("Explode");
+                deathDelay = sfxPlayer.GetSFX("Explode").audioClip.length + 0.1f;
             }
             if (deathJuiceEffect != null)
             {
@@ -37,9 +47,24 @@ public class CherryBomb : LassoTossable
             }
             SpawnExplosion();
             OnExplode?.Invoke(collision);
-            Destroy(gameObject);
+            foreach (var r in renderers)
+            {
+                Destroy(r);
+            }
+            foreach (var c in colliders)
+            {
+                Destroy(c);
+            }
+            StartCoroutine(DestroyRoot());
         }
     }
+
+    IEnumerator DestroyRoot()
+    {
+        yield return new WaitForSeconds(deathDelay);
+        Destroy(gameObject);
+    }
+
     void SpawnExplosion()
     {
         Instantiate(explosion, gameObject.transform.position, Quaternion.identity);

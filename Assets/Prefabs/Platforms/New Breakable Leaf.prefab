@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2770023726824118399}
   - component: {fileID: 5169361000366268216}
   - component: {fileID: 5766401018066561011}
+  - component: {fileID: 2177616562795806990}
   m_Layer: 0
   m_Name: New Breakable Leaf
   m_TagString: Untagged
@@ -71,6 +72,55 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.82900876, y: 1.9935644, z: 1.2888167}
   m_Center: {x: -0.051622864, y: 0.8416723, z: 0.14440888}
+--- !u!114 &2177616562795806990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265881147809974200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: BreakableCrackFirst
+    audioClip: {fileID: 8300000, guid: 0974c4bc4a5e7d74a9d664d2ec0df305, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.8
+    spatialMaxDist: 25
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
+  - name: BreakableCrackSecond
+    audioClip: {fileID: 8300000, guid: dfe0c527d83a6bf44a52c2b646c0eadf, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.8
+    spatialMaxDist: 25
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
+  - name: BreakableCrackLast
+    audioClip: {fileID: 8300000, guid: 6f645853a4863794aa8506cb06ad38fe, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.8
+    spatialMaxDist: 25
+    spatialMinDist: 15
+    type: 0
+    src: {fileID: 0}
 --- !u!1 &3985008407557631686
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +223,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: edd5dc0477041694898199e144ce642f, type: 2}
   - {fileID: 2100000, guid: 5f2d410a2df154e4abdeef66d341c9ce, type: 2}
   - {fileID: 2100000, guid: 71e79426460c22742982bc8011777a12, type: 2}
+  sfxPlayer: {fileID: 2177616562795806990}
 --- !u!64 &4532293469560167049
 MeshCollider:
   m_ObjectHideFlags: 0
