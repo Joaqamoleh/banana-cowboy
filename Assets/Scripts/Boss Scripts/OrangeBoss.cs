@@ -73,7 +73,7 @@ public class OrangeBoss : MonoBehaviour
         //state = BossStates.PEEL;
         resetAnimations = new List<string>();
         health = maxHealth;
-        currMove = 1;
+        currMove = 0;
 
         player = GameObject.FindWithTag("Player");
         indicating = false;
