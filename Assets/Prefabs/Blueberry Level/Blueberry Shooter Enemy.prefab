@@ -238,6 +238,7 @@ MonoBehaviour:
   colliders:
   - {fileID: 6238540330290742693}
   deathEffect: {fileID: 8615972876567255314, guid: a45886de00470384fab9547bb1d44765, type: 3}
+  vfxLocation: {fileID: 0}
   itemDrops: []
   chanceToDropItem: 0
   ignoreDeathBySource: 
@@ -247,11 +248,12 @@ MonoBehaviour:
   spottedTime: 0.2
   prepareShotTime: 0.4
   aimingTime: 1.2
-  shootingTime: 0.1
-  cooldownTime: 0
+  shootingTime: 0.6
+  cooldownTime: 0.5
   projectileToShoot: {fileID: 8721676036906083646, guid: 449ef4cd9f7b3f14db371f5171d62e65, type: 3}
   projectileAttachLocation: {fileID: 2519159497787384172}
   model: {fileID: 7577258860240049040}
+  animator: {fileID: 251113072352276811}
 --- !u!114 &298148095497709614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,6 +541,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
+--- !u!95 &251113072352276811 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5622293407529264540, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
+  m_PrefabInstance: {fileID: 5582849534977823959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2519159497787384172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8038817745672205755, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}

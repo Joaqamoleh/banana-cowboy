@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlueShooterController : EnemyController
@@ -31,13 +32,15 @@ public class BlueShooterController : EnemyController
     GravityObject _gravObj;
 
     [SerializeField, Min(0f)]
-    float spottedTime = 0.2f, prepareShotTime = 0.4f, aimingTime = 1.2f, shootingTime = 0.1f, cooldownTime = 0.0f;
+    float aimingTime = 1.2f, cooldownTime = 0.0f;
 
     [SerializeField]
     EnemyProjectile projectileToShoot;
 
     [SerializeField]
     Transform projectileAttachLocation, model;
+    [SerializeField]
+    Animator animator;
 
     private Transform target;
     private EnemyProjectile projectileHeld;
@@ -76,6 +79,11 @@ public class BlueShooterController : EnemyController
                 {
                     UpdateState(ShooterState.PREPARING_SHOT);
                 }
+                else
+                {
+                    Vector3 lookDir = Vector3.ProjectOnPlane((target.position - transform.position).normalized, _gravObj.characterOrientation.up);
+                    model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(lookDir, _gravObj.characterOrientation.up), ((Time.time - timeStateChange) / timeStateEnd) * 3f);
+                }
                 break;
             case ShooterState.PREPARING_SHOT:
                 // Wait for shot to be prepared (again animation to complete)
@@ -86,6 +94,11 @@ public class BlueShooterController : EnemyController
                 else if (Time.time - timeStateChange > timeStateEnd)
                 {
                     UpdateState(ShooterState.AIMING);
+                }
+                else
+                {
+                    Vector3 lookDir = Vector3.ProjectOnPlane((target.position - transform.position).normalized, _gravObj.characterOrientation.up);
+                    model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(lookDir, _gravObj.characterOrientation.up), ((Time.time - timeStateChange) / timeStateEnd) * 3f);
                 }
                 break;
             case ShooterState.AIMING:
@@ -110,14 +123,23 @@ public class BlueShooterController : EnemyController
                 }
                 break;
             case ShooterState.SHOOTING:
-                // Play toss animation
                 if (Time.time - timeStateChange > timeStateEnd)
                 {
                     UpdateState(ShooterState.COOLDOWN);
                 }
+                else if (Time.time - timeStateChange > timeStateEnd - 0.3f)
+                {
+                    projectileHeld.FireProjectile(aimedDir, aimedPoint);
+                }
                 else
                 {
+                    projectileHeld.transform.position = projectileAttachLocation.position;
 
+                    aimedDir = (target.position - projectileHeld.transform.position).normalized;
+                    Vector3 lookDir = Vector3.ProjectOnPlane((target.position - transform.position).normalized, _gravObj.characterOrientation.up);
+                    aimedPoint = target.position;
+
+                    model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(lookDir, _gravObj.characterOrientation.up), ((Time.time - timeStateChange) / timeStateEnd) * 3f);
                 }
                 break;
             case ShooterState.COOLDOWN:
@@ -131,6 +153,11 @@ public class BlueShooterController : EnemyController
                     {
                         UpdateState(ShooterState.PREPARING_SHOT);
                     }
+                }
+                else if (target != null)
+                {
+                    Vector3 lookDir = Vector3.ProjectOnPlane((target.position - transform.position).normalized, _gravObj.characterOrientation.up);
+                    model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(lookDir, _gravObj.characterOrientation.up), ((Time.time - timeStateChange) / timeStateEnd) * 3f);
                 }
                 break;
         }
@@ -154,25 +181,19 @@ public class BlueShooterController : EnemyController
 
     private void UpdateState(ShooterState state)
     {
+        print("Shooter state: " + state);
         this.state = state;
         timeStateChange = Time.time;
+        UpdateAnimState(state);
         switch (state)
         {
             case ShooterState.IDLE:
-                timeStateEnd = 0.0f;
-                if (projectileHeld != null)
-                {
-                    Destroy(projectileHeld.gameObject);
-                    projectileHeld = null;
-                }
-                break;
             case ShooterState.PLAYER_SPOTTED:
                 if (projectileHeld != null)
                 {
                     Destroy(projectileHeld.gameObject);
                     projectileHeld = null;
                 }
-                timeStateEnd = spottedTime;
                 break;
             case ShooterState.PREPARING_SHOT:
                 if (projectileHeld != null)
@@ -180,19 +201,43 @@ public class BlueShooterController : EnemyController
                     Destroy(projectileHeld.gameObject);
                     projectileHeld = null;
                 }
-                timeStateEnd = prepareShotTime;
+                projectileHeld = Instantiate(projectileToShoot, null, false);
                 break;
             case ShooterState.AIMING:
-                projectileHeld = Instantiate(projectileToShoot, null, false);
                 timeStateEnd = aimingTime;
                 break;
             case ShooterState.SHOOTING:
-                timeStateEnd = shootingTime;
                 break;
             case ShooterState.COOLDOWN:
-                projectileHeld.FireProjectile(aimedDir, aimedPoint);
                 projectileHeld = null;
                 timeStateEnd = cooldownTime;
+                break;
+        }
+    }
+
+    private void UpdateAnimState(ShooterState state)
+    {
+        switch(state)
+        {
+            case ShooterState.IDLE:
+            case ShooterState.COOLDOWN:
+                animator.Play("BE_Idle_1");
+                break;
+            case ShooterState.PLAYER_SPOTTED:
+                animator.Play("BE_Notice_Player");
+                timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length - 0.2f;
+                break;
+            case ShooterState.PREPARING_SHOT:
+                //timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length;
+                timeStateEnd = 0f;
+                break;
+            case ShooterState.AIMING:
+                animator.Play("BE_Throw_Windup");
+                //animator.Play("BE_Throw_Loop");
+                break;
+            case ShooterState.SHOOTING:
+                animator.Play("BE_Throw_Attack");
+                timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length;
                 break;
         }
     }

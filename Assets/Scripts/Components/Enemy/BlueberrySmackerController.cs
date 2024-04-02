@@ -25,7 +25,8 @@ public class BlueberrySmackerController : EnemyController
     MeleeHitbox _meleeHitbox;
 
     [SerializeField]
-    GameObject attackDebugIndicator, dizzyDebugIndicator, attackSuccessIndicator;
+    Animator animator;
+
 
     public enum SmackerState
     {
@@ -44,13 +45,13 @@ public class BlueberrySmackerController : EnemyController
     private SmackerState _state = SmackerState.TOSSED;
 
     [SerializeField, Min(0f)]
-    float spottedTime = 0.2f, smackWindupTime = 0.2f, smackAttackTime = 0.2f, dizzyTime = 2.5f, attackCooldown = 1.5f, 
+    float smackWindupTime = 0.2f, smackAttackTime = 0.2f, dizzyTime = 2.5f, attackCooldown = 1.5f, 
         chaseSpeed = 15f, accelSpeed = (50f * 1f) / 19f, deccelSpeed = (50f * 1f) / 19f, knockbackForce = 60f;
     private float timeStateChange = 0f, timeStateEnd = 1.0f, timeLastAttack = 0f;
 
     Transform target = null;
     Vector3 attackPos;
-    bool playerInAttackRange = false;
+    bool playerInAttackRange = false, hasPerformedAttack = false, attackSuccess;
 
 
     [SerializeField]
@@ -69,7 +70,7 @@ public class BlueberrySmackerController : EnemyController
         UpdateState(SmackerState.IDLE);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (enemyAIDisabled) { return; }
 
@@ -184,8 +185,7 @@ public class BlueberrySmackerController : EnemyController
             case SmackerState.SMACK_ATTACK:
                 if (Time.time - timeStateChange > timeStateEnd)
                 {
-                    Vector3 knockback = Vector3.ProjectOnPlane((attackPos - transform.position), _gravObj.characterOrientation.up).normalized * knockbackForce;
-                    if (_meleeHitbox.PerformAttack(0, knockback))
+                    if (attackSuccess)
                     {
                         // Attack success!
                         UpdateState(SmackerState.HIT_SUCCESS);
@@ -196,6 +196,12 @@ public class BlueberrySmackerController : EnemyController
                         UpdateState(SmackerState.DIZZY);
                     }
                     timeLastAttack = Time.time;
+                }
+                else if (Time.time - timeStateChange > 0.3f && !hasPerformedAttack)
+                {
+                    Vector3 knockback = Vector3.ProjectOnPlane((attackPos - transform.position), _gravObj.characterOrientation.up).normalized * knockbackForce;
+                    _meleeHitbox.PerformAttack(0, knockback);
+                    hasPerformedAttack = true;
                 }
                 break;
             case SmackerState.HIT_SUCCESS:
@@ -291,12 +297,13 @@ public class BlueberrySmackerController : EnemyController
             switch (state)
             {
                 case SmackerState.IDLE:
+                case SmackerState.COOLDOWN:
                     // Substates?
                     break;
                 case SmackerState.PLAYER_SPOTTED:
-                    timeStateEnd = spottedTime;
                     break;
                 case SmackerState.CHASING:
+                    _rb.isKinematic = false;
                     // Max chasing time, 20 seconds for now
                     timeStateEnd = 20f;
                     break;
@@ -305,13 +312,13 @@ public class BlueberrySmackerController : EnemyController
                     timeStateEnd = 5f; // Timeout time
                     break;
                 case SmackerState.SMACK_WINDUP:
-                    timeStateEnd = smackWindupTime;
+                    _rb.isKinematic = true;
                     _meleeHitbox = Instantiate(hitboxPrefab);
                     _meleeHitbox.transform.position = attackRangeTrigger.transform.position;
                     attackPos = _meleeHitbox.transform.position;
+                    hasPerformedAttack = false;
                     break;
                 case SmackerState.SMACK_ATTACK:
-                    timeStateEnd = smackAttackTime;
                     break;
                 case SmackerState.DIZZY:
                     Destroy(_meleeHitbox.gameObject);
@@ -321,7 +328,7 @@ public class BlueberrySmackerController : EnemyController
                 case SmackerState.HIT_SUCCESS:
                     Destroy(_meleeHitbox.gameObject);
                     _meleeHitbox = null;
-                    timeStateEnd = 0.2f;
+                    timeStateEnd = 0.0f;
                     break;
                 case SmackerState.HELD:
                     break;
@@ -334,27 +341,42 @@ public class BlueberrySmackerController : EnemyController
 
     private void UpdateAnimState(SmackerState state)
     {
-        dizzyDebugIndicator.SetActive(state == SmackerState.DIZZY);
-        attackDebugIndicator.SetActive(state == SmackerState.SMACK_WINDUP);
-        attackSuccessIndicator.SetActive(state == SmackerState.HIT_SUCCESS);
 
         switch (state)
         {
             case SmackerState.IDLE:
+                animator.Play("BE_Idle_1");
                 break;
             case SmackerState.COOLDOWN:
                 break;
             case SmackerState.PLAYER_SPOTTED:
+                animator.Play("BE_Notice_Player");
+                timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length - 0.2f;
                 break;
             case SmackerState.CHASING:
+                animator.Play("BE_Run");
                 break;
             case SmackerState.WAIT_AT_EDGE:
                 break;
             case SmackerState.SMACK_WINDUP:
+                animator.Play("BE_Melee_Windup");
+                timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length;
                 break;
             case SmackerState.SMACK_ATTACK:
+                attackSuccess = _meleeHitbox.PlayerInRange();
+                if (attackSuccess)
+                {
+                    animator.Play("BE_Melee_Success");
+                }
+                else
+                {
+                    animator.Play("BE_Melee_Fail");
+                }
+                timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length;
                 break;
             case SmackerState.DIZZY:
+                animator.Play("BE_Dizzy_Loop");
+
                 break;
             case SmackerState.HIT_SUCCESS:
                 break;

@@ -207,7 +207,7 @@ MonoBehaviour:
   attackDebugIndicator: {fileID: 1889215419518330372}
   dizzyDebugIndicator: {fileID: 925328901260219250}
   attackSuccessIndicator: {fileID: 2134456384823223570}
-  spottedTime: 0.2
+  animator: {fileID: 1886122320096993558}
   smackWindupTime: 0.2
   smackAttackTime: 0.2
   dizzyTime: 2.5
@@ -239,7 +239,7 @@ MonoBehaviour:
   swingHeight: 5
   swingRadius: 4
   swingSpeed: 1
-  tossForwardForce: 100
+  tossForwardForce: 50
   tossUpForce: 0
   tossWeakMult: 0.5
   tossMedMult: 0.7
@@ -1034,43 +1034,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.071
+      value: -0.348
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: -0.371
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.17
+      value: -0.172
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.8029393
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.5115288
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.25806504
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.16440567
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -47.442
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 59.479
       objectReference: {fileID: 0}
     - target: {fileID: 1684032929327099739, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -51.327
       objectReference: {fileID: 0}
     - target: {fileID: 1882145673001563383, guid: b542f4ea6627c4040a92f776233f217f, type: 3}
       propertyPath: m_Name
@@ -1146,6 +1146,11 @@ PrefabInstance:
       addedObject: {fileID: 3378921304009961773}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
+--- !u!95 &1886122320096993558 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5622293407529264540, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
+  m_PrefabInstance: {fileID: 6064866905068160138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &3615319844422084916 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7351720050374389182, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
