@@ -12,7 +12,7 @@ public class BlueberryBomb : MonoBehaviour
 
     private void Start()
     {
-        blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
+        //blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
     }
 
     private void Update()
@@ -33,7 +33,10 @@ public class BlueberryBomb : MonoBehaviour
             else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 // Create a splat effect
-                blenderBoss.CreateSplat(pos);
+                if (blenderBoss != null)
+                {
+                    blenderBoss.CreateSplat(pos);
+                }
                 HitSomething();
             }
         }

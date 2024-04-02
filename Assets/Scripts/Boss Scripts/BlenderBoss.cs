@@ -365,6 +365,7 @@ public class BlenderBoss : MonoBehaviour
         bombSpawnPos.Add(spawnPosition);
     }
 
+    // TODO: Implement object pooling
     void ShootBombs(int num)
     {
         Vector3 screenPos = bombSpawnPos[num];
