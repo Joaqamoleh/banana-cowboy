@@ -9,6 +9,7 @@ public class BlueberryBombTrigger : MonoBehaviour
 
     private bool isBombDropped = false;
     private GameObject indicatorInstance;
+    private GameObject bombObjectInstance;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,18 +23,15 @@ public class BlueberryBombTrigger : MonoBehaviour
     {
         isBombDropped = true;
 
-        // Object pooling
-        if (indicatorInstance == null)
-            indicatorInstance = Instantiate(bombIndicator, transform.position, Quaternion.identity);
-        else
-            indicatorInstance.SetActive(true);
+        indicatorInstance = Instantiate(bombIndicator, transform.position, Quaternion.identity);
+        indicatorInstance.transform.localScale = transform.localScale * 0.4f;
 
         yield return new WaitForSeconds(time);
 
-        if (indicatorInstance != null)
-            indicatorInstance.SetActive(false);
+        Destroy(indicatorInstance);
 
-        Instantiate(bombObject, new Vector3(transform.position.x, bombObject.transform.position.y, transform.position.z), Quaternion.identity);
+        bombObjectInstance = Instantiate(bombObject, new Vector3(transform.position.x, bombObject.transform.position.y, transform.position.z), Quaternion.identity);
+        bombObjectInstance.transform.localScale = transform.localScale * 2f;
         isBombDropped = false;
     }
 }

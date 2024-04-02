@@ -70,6 +70,38 @@ MonoBehaviour:
   knockback: {x: 0, y: 0, z: 0}
   damage: 1
   killsEnemies: 1
+--- !u!1 &1943628282952920077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 925544464815396726}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &925544464815396726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943628282952920077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0.019431304, y: 0.023378162, z: -0.006477046}
+  m_LocalScale: {x: 0.025, y: 0.11111112, z: 0.04}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6745435828023465142}
+  m_Father: {fileID: 6093730168955801155}
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!1 &3341761203624366132
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,13 +128,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3341761203624366132}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.38268346, z: -0, w: 0.9238795}
+  m_LocalPosition: {x: -0.45799926, y: -0.21040346, z: -0.22900109}
+  m_LocalScale: {x: 25, y: 9, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2330731597839648795}
-  m_Father: {fileID: 6093730168955801155}
+  m_Father: {fileID: 925544464815396726}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &4297701542026288872
 MeshFilter:
@@ -276,6 +308,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4366744276039999233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 666288350373681470}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &666288350373681470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4366744276039999233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0.019431304, y: 0.023378162, z: -0.006477046}
+  m_LocalScale: {x: 0.025, y: 0.11111112, z: 0.04}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2064336236226720184}
+  m_Father: {fileID: 6093730168955801155}
+  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
 --- !u!1 &6873823697151337601
 GameObject:
   m_ObjectHideFlags: 0
@@ -5190,13 +5254,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7878691605657953839}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
+  m_LocalPosition: {x: -0.22900109, y: -0.21040346, z: 0.4579993}
+  m_LocalScale: {x: 25, y: 9, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 812082592649116351}
-  m_Father: {fileID: 6093730168955801155}
+  m_Father: {fileID: 666288350373681470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &2043940066434538930
 MeshRenderer:
@@ -5278,9 +5342,9 @@ Transform:
   m_LocalScale: {x: 25, y: 9, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2064336236226720184}
-  - {fileID: 6745435828023465142}
   - {fileID: 4614808293999134054}
+  - {fileID: 666288350373681470}
+  - {fileID: 925544464815396726}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5084649498192027423
@@ -5303,4 +5367,3 @@ MonoBehaviour:
   minGrowthRate: 2
   flatKnockback: 20
   windVFX: {fileID: 6873823697151337601}
-  spinDuration: 20

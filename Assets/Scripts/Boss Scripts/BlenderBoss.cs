@@ -378,7 +378,6 @@ public class BlenderBoss : MonoBehaviour
 
     public void CreateSplat(int obj)
     {
-        ScreenShakeManager.Instance.ShakeCamera(3, 2, 1);
         Vector3 pos = bombSpawnPos[obj];
         pos.y = platform.transform.position.y + 3;
         GameObject tmp = Instantiate(splatEffect, pos, splatEffect.transform.rotation);

@@ -19,6 +19,11 @@ public class BlenderBlade : MonoBehaviour
     private float spinDuration = 2;
     bool done = false;
 
+    // Slow down variables
+    float slowDownDuration = 0.75f; // Duration for slowing down
+    float passedTime = 0f;
+    float startSpeed;
+
     private void Start()
     {
         done = false;
@@ -29,7 +34,7 @@ public class BlenderBlade : MonoBehaviour
         }
         blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
         blenderBoss.modelAnimator.ResetTrigger("BladeDone");
-
+        startSpeed = speed;
         StartCoroutine(GrowSize());
     }
 
@@ -53,16 +58,35 @@ public class BlenderBlade : MonoBehaviour
     IEnumerator ReverseSpin()
     {
         isReversing = true;
-        //yield return new WaitForSeconds(2f);
         directionStored = direction;
         blenderBoss.modelAnimator.SetTrigger("BladeButton"); //Play("BL_Press_Button_Switch_Rotation");
-        yield return new WaitForSeconds(0.6f);    
+
+        passedTime = 0f;
+
+        while (passedTime < slowDownDuration)
+        {
+            speed = Mathf.Lerp(startSpeed, 0f, passedTime / slowDownDuration);
+            passedTime += Time.deltaTime;
+            yield return null;
+        }
+
         direction = 0;
-        yield return new WaitForSeconds(0.10f); // CHANGE IF NEED LONGER PAUSE TIME    
+        yield return new WaitForSeconds(0.1f); // CHANGE IF NEED LONGER PAUSE TIME    
         direction = (-1 * directionStored);
+        elapsedTime = 0f;
+
+        while (passedTime < slowDownDuration)
+        {
+            speed = Mathf.Lerp(0f, startSpeed, passedTime / slowDownDuration);
+            passedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        speed = startSpeed;
         elapsedTime = 0f;
         isReversing = false;
     }
+
 
 
     IEnumerator GrowSize()

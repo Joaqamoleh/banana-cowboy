@@ -12,7 +12,7 @@ public class BlueberryBomb : MonoBehaviour
 
     private void Start()
     {
-        //blenderBoss = GameObject.FindWithTag("Boss").GetComponent<BlenderBoss>();
+        blenderBoss = GameObject.FindWithTag("Boss")?.GetComponent<BlenderBoss>();
     }
 
     private void Update()
@@ -44,6 +44,7 @@ public class BlueberryBomb : MonoBehaviour
 
     void HitSomething()
     {
+        ScreenShakeManager.Instance.ShakeCamera(3, 2, 1);
         SoundManager.Instance().PlaySFX("CherryBombExplode");
         hitObject = true;
         Instantiate(deathJuiceEffect, transform.position, transform.rotation);
