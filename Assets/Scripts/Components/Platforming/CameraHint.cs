@@ -22,8 +22,11 @@ public class CameraHint : MonoBehaviour
     [SerializeField]
     bool viewGizmosAtPlayer = true;
 
+
     [SerializeField]
     bool forceReorientation = false;
+    [SerializeField]
+    Transform overrideCameraTarget;
     [SerializeField]
     float forceReorientationCooldown = 8.0f;
     float lastForcedReorientationTime;
@@ -98,6 +101,18 @@ public class CameraHint : MonoBehaviour
             return transform;
         }
         return orientationBasis;
+    }
+
+    public Vector3 GetOverrideTargetPos()
+    {
+        if (overrideCameraTarget == null)
+        {
+            return Vector3.zero;
+        }
+        else
+        {
+            return overrideCameraTarget.position;
+        }
     }
 
     public float GetHeightOffset()
