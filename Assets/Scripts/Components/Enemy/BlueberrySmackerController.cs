@@ -21,8 +21,7 @@ public class BlueberrySmackerController : EnemyController
     Transform model, detectFallLocation;
 
     [SerializeField]
-    MeleeHitbox hitboxPrefab;
-    MeleeHitbox _meleeHitbox;
+    MeleeHitbox meleeHitbox;
 
     [SerializeField]
     Animator animator;
@@ -200,7 +199,7 @@ public class BlueberrySmackerController : EnemyController
                 else if (Time.time - timeStateChange > 0.3f && !hasPerformedAttack)
                 {
                     Vector3 knockback = Vector3.ProjectOnPlane((attackPos - transform.position), _gravObj.characterOrientation.up).normalized * knockbackForce;
-                    _meleeHitbox.PerformAttack(0, knockback);
+                    meleeHitbox.PerformAttack(0, knockback);
                     hasPerformedAttack = true;
                 }
                 break;
@@ -313,21 +312,14 @@ public class BlueberrySmackerController : EnemyController
                     break;
                 case SmackerState.SMACK_WINDUP:
                     _rb.isKinematic = true;
-                    _meleeHitbox = Instantiate(hitboxPrefab);
-                    _meleeHitbox.transform.position = attackRangeTrigger.transform.position;
-                    attackPos = _meleeHitbox.transform.position;
                     hasPerformedAttack = false;
                     break;
                 case SmackerState.SMACK_ATTACK:
                     break;
                 case SmackerState.DIZZY:
-                    Destroy(_meleeHitbox.gameObject);
-                    _meleeHitbox = null;
                     timeStateEnd = dizzyTime;
                     break;
                 case SmackerState.HIT_SUCCESS:
-                    Destroy(_meleeHitbox.gameObject);
-                    _meleeHitbox = null;
                     timeStateEnd = 0.0f;
                     break;
                 case SmackerState.HELD:
@@ -363,7 +355,7 @@ public class BlueberrySmackerController : EnemyController
                 timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length;
                 break;
             case SmackerState.SMACK_ATTACK:
-                attackSuccess = _meleeHitbox.PlayerInRange();
+                attackSuccess = meleeHitbox.PlayerInRange();
                 if (attackSuccess)
                 {
                     animator.Play("BE_Melee_Success");
