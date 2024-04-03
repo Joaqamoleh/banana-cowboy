@@ -25,6 +25,7 @@ public class LevelSwitch : MonoBehaviour
         { "Blender Boss Room", "Blender Boss" },
         { "Cutscene1", "Main Menu" },
         { "Cutscene2", "Main Menu" },
+        { "Cutscene3", "Main Menu" },
         { "Blueberry Level", "Blueberry Planet" }
     };
 
@@ -46,7 +47,7 @@ public class LevelSwitch : MonoBehaviour
         LevelData.ResetLevelData();
         CutsceneManager.ResetPlayStartingCutscene();
         SceneManager.LoadScene(scene);
-        if (scene == "Menu" || scene == "Level Select" || scene == "Cutscene1" || scene == "Cutscene2")
+        if (scene == "Menu" || scene == "Level Select" || scene == "Cutscene1" || scene == "Cutscene2" || scene == "Cutscene3")
         {
             PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
         }
