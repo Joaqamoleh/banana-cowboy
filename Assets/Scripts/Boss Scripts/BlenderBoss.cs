@@ -696,7 +696,7 @@ public class BlenderBoss : MonoBehaviour
 
     void CelebrationComplete(CutsceneObject o)
     {
-        LevelSwitch.ChangeScene("Level Select");
+        LevelSwitch.ChangeScene("Cutscene3");
     }
 
     IEnumerator GoToSecondPhase()
