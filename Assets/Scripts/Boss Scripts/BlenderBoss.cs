@@ -118,7 +118,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, false);
         health = maxHealth;
-        currMove = 3;
+        currMove = 0;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");

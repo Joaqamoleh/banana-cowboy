@@ -24,6 +24,7 @@ public class BlenderBossAnimationManager : MonoBehaviour
     public void GrabFruitMinion()
     {
         instance.GrabFruitMinion();
+        SFXManagerPlay("MinionGrab");
     }
 
     public void HideFruitMinion()
