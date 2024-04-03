@@ -203,15 +203,18 @@ public class PlayerCameraController : MonoBehaviour
     {
         _previousFocusPoint = _focusPoint;
         Vector3 targetPoint = _cameraFocus.position;
+        float refocusFactor = focusCenteringFactor;
         if (Time.unscaledTime - lastManualInputTime > realignTime && highestHintPrioIndex != -1 && activeHints[highestHintPrioIndex].GetOverrideTargetPos() != Vector3.zero)
         {
             targetPoint = activeHints[highestHintPrioIndex].GetOverrideTargetPos();
+            refocusFactor = 0.9f;
+
         }
         float distance = Vector3.Distance(targetPoint, _focusPoint);
         float t = 1f;
-        if (distance > 0.01f && focusCenteringFactor > 0f)
+        if (distance > 0.01f && refocusFactor > 0f)
         {
-            t = Mathf.Pow(1f - focusCenteringFactor, Time.unscaledDeltaTime);
+            t = Mathf.Pow(1f - refocusFactor, Time.unscaledDeltaTime);
         }
         if (distance > realignRadius)
         {

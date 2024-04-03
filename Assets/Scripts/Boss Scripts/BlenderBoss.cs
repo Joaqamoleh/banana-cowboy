@@ -46,6 +46,7 @@ public class BlenderBoss : MonoBehaviour
     public GameObject blueberryMinion;
 
     public CameraHint cameraOrienter;
+    public Transform bladeCameraTarget;
     public Vector3 defaultCameraSettings = new Vector3(40, 12, 12);
     public Vector3 bladeCameraSettings = new Vector3(50, 40, 30);
 
@@ -230,7 +231,7 @@ public class BlenderBoss : MonoBehaviour
                     }
                 }
                 cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true);
-                cameraOrienter.topDown = true;
+                cameraOrienter.overrideCameraTarget = bladeCameraTarget;
             }
         }
     }
@@ -275,7 +276,7 @@ public class BlenderBoss : MonoBehaviour
         state = BossStates.COOLDOWN;
         modelAnimator.Play("BL_Blade_Windup");
         cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true);
-        cameraOrienter.topDown = true;
+        cameraOrienter.overrideCameraTarget = bladeCameraTarget;
     }
 
     public void BlenderSpinHelper()
@@ -300,7 +301,7 @@ public class BlenderBoss : MonoBehaviour
         cooldownTimer = move3Cooldown;
         state = BossStates.COOLDOWN;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, true);
-        cameraOrienter.topDown = false;
+        cameraOrienter.overrideCameraTarget = null;
         PlaceBombs();
     }
 

@@ -17,7 +17,7 @@ public class LassoRenderer : MonoBehaviour
     Renderer[] lassoTossIndicatorRenderers;
 
     [SerializeField]
-    Material lowPowMat, medPowMat, highPowMat;
+    Material lowPowMat, medPowMat, highPowMat, swingMat;
 
     [SerializeField]
     float hipLoopRadius = 0.4f, smoothSpeed = 0.01f, wiggleSpeed = 0.2f, wiggleAmplitude = 0.2f, loopWiggleSpeed = 0.2f;
@@ -116,7 +116,7 @@ public class LassoRenderer : MonoBehaviour
                 loopStartRadius = prevLoopRadius;
                 break;
         }
-        if (curInfo.state == PlayerController.LassoState.HOLD)
+        if (curInfo.state == PlayerController.LassoState.HOLD || curInfo.state == PlayerController.LassoState.SWING)
         {
             ShowTossArrow();
         }
@@ -424,6 +424,20 @@ public class LassoRenderer : MonoBehaviour
             r.material = indicatorMat;
         }
         Quaternion rot = Quaternion.LookRotation(direction, o.GetLassoCenterBasis().up);
+        lassoTossIndicator.transform.SetPositionAndRotation(pos, rot);
+        lassoTossPos = pos;
+    }
+
+    public void SetSwingArrowDirection(Vector3 pos)
+    {
+        SwingableObject o = curInfo.o as SwingableObject;
+        Material indicatorMat = swingMat;
+        foreach (Renderer r in lassoTossIndicatorRenderers)
+        {
+            r.material = indicatorMat;
+        }
+
+        Quaternion rot = Quaternion.LookRotation(Vector3.ProjectOnPlane(o.GetApproximateSwingDirection(), hipJoint.up).normalized, o.GetLassoCenterBasis().up);
         lassoTossIndicator.transform.SetPositionAndRotation(pos, rot);
         lassoTossPos = pos;
     }

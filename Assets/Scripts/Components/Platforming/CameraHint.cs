@@ -25,9 +25,9 @@ public class CameraHint : MonoBehaviour
 
     [SerializeField]
     bool forceReorientation = false;
-    [SerializeField]
-    Transform overrideCameraTarget;
-    public bool topDown;
+
+    public Transform overrideCameraTarget = null;
+
     [SerializeField]
     float forceReorientationCooldown = 8.0f;
     float lastForcedReorientationTime;
@@ -46,6 +46,7 @@ public class CameraHint : MonoBehaviour
         {
             lookPos = pc.transform.position;
         }
+        lookPos += basis.up * heightOffset;
 
         Quaternion lookRot = basis.rotation * Quaternion.Euler(new Vector2(GetOrbitVertAngle(), GetOrbitRotationAngle(lookPos)));
         Vector3 lookDir = lookRot * Vector3.forward;
@@ -106,7 +107,7 @@ public class CameraHint : MonoBehaviour
 
     public Vector3 GetOverrideTargetPos()
     {
-        if (overrideCameraTarget == null || !topDown)
+        if (overrideCameraTarget == null)
         {
             return Vector3.zero;
         }

@@ -6064,6 +6064,7 @@ MonoBehaviour:
   fruitInHand: {fileID: 0}
   blueberryMinion: {fileID: 0}
   cameraOrienter: {fileID: 0}
+  bladeCameraTarget: {fileID: 0}
   defaultCameraSettings: {x: 40, y: 12, z: 12}
   bladeCameraSettings: {x: 50, y: 40, z: 30}
   cherrySpawnPoints:
@@ -11443,6 +11444,7 @@ MonoBehaviour:
   fruitInHand: {fileID: 0}
   blueberryMinion: {fileID: 0}
   cameraOrienter: {fileID: 0}
+  bladeCameraTarget: {fileID: 0}
   defaultCameraSettings: {x: 40, y: 12, z: 12}
   bladeCameraSettings: {x: 50, y: 40, z: 30}
   cherrySpawnPoints:
@@ -14331,10 +14333,6 @@ PrefabInstance:
       propertyPath: viewGizmosAtPlayer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
-      propertyPath: overrideCameraTarget
-      value: 
-      objectReference: {fileID: 1172255330}
     - target: {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: m_Size.x
       value: 160
@@ -15076,6 +15074,10 @@ PrefabInstance:
       propertyPath: firstPhaseColor
       value: 
       objectReference: {fileID: 8934926406445219608, guid: 109f8303f7c06af45962f82475909670, type: 3}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: bladeCameraTarget
+      value: 
+      objectReference: {fileID: 1172255330}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: blenderColorSpawn
       value: 

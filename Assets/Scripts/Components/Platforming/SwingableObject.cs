@@ -49,6 +49,10 @@ public class SwingableObject : LassoObject
     [SerializeField, Min(0f)]
     float splineMoveSpeed = 1f;
 
+    [SerializeField, Range(0f, 4f)]
+    float gracePeroidSeconds = 0.4f;
+    float lastGracePeroidUpdate = -0.4f;
+
     private float splineTotalDist, splineCurrentDist;
 
     public enum MoveType
@@ -175,7 +179,11 @@ public class SwingableObject : LassoObject
     {
         if (attachedBody != null)
         {
-            lastPos = attachedBody.position;
+            if (Time.time - lastGracePeroidUpdate > gracePeroidSeconds)
+            {
+                lastPos = attachedBody.position;
+                lastGracePeroidUpdate = Time.time;
+            } 
             if (pullingToStart)
             {
                 float dist = Vector3.Distance(attachedBody.position, startPos);

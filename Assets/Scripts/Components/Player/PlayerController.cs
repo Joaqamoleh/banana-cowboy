@@ -233,34 +233,9 @@ public class PlayerController : MonoBehaviour
         Vector3 tossDir = Vector3.ProjectOnPlane(Camera.main.transform.forward, _gravObject.characterOrientation.up).normalized * viewportDir.y + Camera.main.transform.right * viewportDir.x;
         if (Physics.Raycast(cursorRay, out RaycastHit hit, 100f, lassoAimMask, QueryTriggerInteraction.Ignore))
         {
-            tossDir = Vector3.ProjectOnPlane((hit.point - transform.position).normalized, _gravObject.characterOrientation.up);
+            //tossDir = Vector3.ProjectOnPlane((hit.point - transform.position).normalized, _gravObject.characterOrientation.up);
             tossDir = (hit.point - transform.position).normalized;
         }
-        else
-        {
-        }
-
-
-
-
-        //Vector3 playerViewport = Camera.main.WorldToViewportPoint(transform.position);
-        //Vector3 cursorPosViewport = Camera.main.WorldToViewportPoint(_cursor.GetCursorRay().origin);
-        //playerViewport.z = 0;
-        //cursorPosViewport.z = 0;
-
-        //Vector3 viewportDirection = (cursorPosViewport - playerViewport);
-        //float vertScale = ((cursorPosViewport.y - 0.65f) / ((1.0f - 0.65f) * 2f));
-        //if (viewportDirection.y < 0)
-        //{
-        //    vertScale = ((0.2f - cursorPosViewport.y) / 0.8f);
-        //}
-        //Vector3 rightBasis = Vector3.ProjectOnPlane(Camera.main.transform.right, _gravObject.characterOrientation.up);
-        //Vector3 forwardBasis = Vector3.ProjectOnPlane(Camera.main.transform.forward, _gravObject.characterOrientation.up);
-        //Vector3 tossDir = forwardBasis * viewportDirection.y + rightBasis * viewportDirection.x;
-        //tossDir = Vector3.Lerp(tossDir, _gravObject.characterOrientation.up, Mathf.Clamp(vertScale, 0.0f, 0.5f));
-        //tossDir.Normalize();
-        //Debug.DrawLine(transform.position, Camera.main.ViewportToWorldPoint(cursorPosViewport), Color.magenta);
-        //Debug.DrawRay(transform.position + transform.up * 3f, tossDir * 10f, Color.yellow);
         return tossDir;
     }
 
@@ -732,6 +707,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case LassoState.SWING:
                 // TODO: Swinging stuff :P
+                _lassoRenderer.SetSwingArrowDirection(transform.position + _gravObject.characterOrientation.up * -2f);
                 break;
             case LassoState.PULL:
                 // Perform pulling process
