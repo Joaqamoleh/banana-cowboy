@@ -32,6 +32,7 @@ public class OrangeBoss : MonoBehaviour
     public GameObject playerModel;
     public List<GameObject> boomerangObjects;
     public List<GameObject> weakSpots;
+    public List<ParticleSystem> weakSpotVFX;
     public GameObject playerWinLocation;
 
     public BossStates state;
@@ -85,6 +86,12 @@ public class OrangeBoss : MonoBehaviour
         foreach (Transform child in youWinUI.transform)
         {
             child.transform.localScale = Vector3.zero;
+        }
+
+        // hide particle systems at the beginning
+        foreach (ParticleSystem ps in weakSpotVFX)
+        {
+            ps.Stop();
         }
     }
 
@@ -287,7 +294,7 @@ public class OrangeBoss : MonoBehaviour
     {
         yield return new WaitForSeconds(peelCooldown);
         modelAnimator.SetTrigger("Peel Reset");
-        HideWeakSpots();
+        HideWeakSpots();    
         foreach (string temp in resetAnimations)
         {
             modelAnimator.SetTrigger(temp);
@@ -481,9 +488,11 @@ public class OrangeBoss : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
     }
 
+    // show/hide weakspots and their respective particle systems
     public void ShowWeakSpot(int weakSpotIndex)
     {
         weakSpots[weakSpotIndex].SetActive(true);
+        weakSpotVFX[weakSpotIndex].Play();
     }
 
     public void HideWeakSpots()
@@ -492,10 +501,15 @@ public class OrangeBoss : MonoBehaviour
         {
             o.SetActive(false);
         }
+
+        foreach (ParticleSystem ps in weakSpotVFX) {
+            ps.Stop();
+        }
     }
 
     public void HideWeakSpot(int weakSpotIndex)
     {
         weakSpots[weakSpotIndex].SetActive(false);
+        weakSpotVFX[weakSpotIndex].Stop();
     }
 }
