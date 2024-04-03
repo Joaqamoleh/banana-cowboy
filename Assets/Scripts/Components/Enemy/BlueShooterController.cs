@@ -134,12 +134,13 @@ public class BlueShooterController : EnemyController
                 else
                 {
                     projectileHeld.transform.position = projectileAttachLocation.position;
-
-                    aimedDir = (target.position - projectileHeld.transform.position).normalized;
-                    Vector3 lookDir = Vector3.ProjectOnPlane((target.position - transform.position).normalized, _gravObj.characterOrientation.up);
-                    aimedPoint = target.position;
-
-                    model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(lookDir, _gravObj.characterOrientation.up), ((Time.time - timeStateChange) / timeStateEnd) * 3f);
+                    if (target != null) // Not having null checks produces errors
+                    {
+                        aimedDir = (target.position - projectileHeld.transform.position).normalized;
+                        Vector3 lookDir = Vector3.ProjectOnPlane((target.position - transform.position).normalized, _gravObj.characterOrientation.up);
+                        aimedPoint = target.position;
+                        model.rotation = Quaternion.Slerp(model.rotation, Quaternion.LookRotation(lookDir, _gravObj.characterOrientation.up), ((Time.time - timeStateChange) / timeStateEnd) * 3f);
+                    }
                 }
                 break;
             case ShooterState.COOLDOWN:
