@@ -24,7 +24,8 @@ public class LevelSwitch : MonoBehaviour
         { "Tutorial Level", "Tutorial" },
         { "Blender Boss Room", "Blender Boss" },
         { "Cutscene1", "Main Menu" },
-        { "Cutscene2", "Main Menu" }
+        { "Cutscene2", "Main Menu" },
+        { "Blueberry Level", "Blueberry Planet" }
     };
 
     public static void ChangeScene(string scene)
