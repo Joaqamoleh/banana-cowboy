@@ -3439,15 +3439,15 @@ MonoBehaviour:
   - prefab: {fileID: 0}
     Prefab: {fileID: 1509409734330999128, guid: f22c7c7b91b536c44bb3789246a044ef, type: 3}
     probability: 0
-    Probability: 33
+    Probability: 50
   - prefab: {fileID: 0}
     Prefab: {fileID: 1509409734330999128, guid: cef801cb37a89f347817d2b5f1f745a7, type: 3}
     probability: 0
-    Probability: 33
+    Probability: 25
   - prefab: {fileID: 0}
     Prefab: {fileID: 1509409734330999128, guid: 0a227e3a92c824e4aa32206c2a3a9ce0, type: 3}
     probability: 0
-    Probability: 33
+    Probability: 25
   m_Method: 1
   m_Space: 0
   m_Spacing: {x: 7.8, y: 7.8}
@@ -3479,7 +3479,7 @@ MonoBehaviour:
     space: 0
   m_DeprecatedInstances: []
   m_AutoRefresh: 1
-  m_Seed: -20664
+  m_Seed: 2021203540
 --- !u!114 &590451781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6058,9 +6058,11 @@ MonoBehaviour:
   blueberryBombObject: {fileID: 8873178111891123840, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
   splatEffect: {fileID: 5768313165163680316, guid: df1a23dcd0a27964187c4fc03bdf00a4, type: 3}
   bombObjectsFly: []
+  spawnPointsBlueberry: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
   fruitInHand: {fileID: 0}
+  blueberryMinion: {fileID: 0}
   cameraOrienter: {fileID: 0}
   defaultCameraSettings: {x: 40, y: 12, z: 12}
   bladeCameraSettings: {x: 50, y: 40, z: 30}
@@ -6091,7 +6093,8 @@ MonoBehaviour:
   dialogText: {fileID: 1331855257}
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
-  orangeSpawn: {fileID: 0}
+  blenderColorSpawn: {fileID: 0}
+  firstPhaseColor: {fileID: 0}
   secondPhaseColor: {fileID: 0}
   secondPhaseColorGlass: {fileID: 0}
   blenderLimbs: []
@@ -7514,6 +7517,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167955528}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1172255329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1172255330}
+  m_Layer: 0
+  m_Name: BlenderBladeCameraPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1172255330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172255329}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: -47}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1189079971
 GameObject:
   m_ObjectHideFlags: 0
@@ -7564,15 +7598,15 @@ MonoBehaviour:
   - prefab: {fileID: 0}
     Prefab: {fileID: 1509409734330999128, guid: f22c7c7b91b536c44bb3789246a044ef, type: 3}
     probability: 0
-    Probability: 33
+    Probability: 50
   - prefab: {fileID: 0}
     Prefab: {fileID: 1509409734330999128, guid: cef801cb37a89f347817d2b5f1f745a7, type: 3}
     probability: 0
-    Probability: 33
+    Probability: 25
   - prefab: {fileID: 0}
     Prefab: {fileID: 1509409734330999128, guid: 0a227e3a92c824e4aa32206c2a3a9ce0, type: 3}
     probability: 0
-    Probability: 33
+    Probability: 25
   m_Method: 1
   m_Space: 0
   m_Spacing: {x: 7.8, y: 7.8}
@@ -7604,7 +7638,7 @@ MonoBehaviour:
     space: 0
   m_DeprecatedInstances: []
   m_AutoRefresh: 1
-  m_Seed: -20664
+  m_Seed: 2021203540
 --- !u!114 &1189079974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11403,9 +11437,11 @@ MonoBehaviour:
   blueberryBombObject: {fileID: 8873178111891123840, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
   splatEffect: {fileID: 5768313165163680316, guid: df1a23dcd0a27964187c4fc03bdf00a4, type: 3}
   bombObjectsFly: []
+  spawnPointsBlueberry: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
   fruitInHand: {fileID: 0}
+  blueberryMinion: {fileID: 0}
   cameraOrienter: {fileID: 0}
   defaultCameraSettings: {x: 40, y: 12, z: 12}
   bladeCameraSettings: {x: 50, y: 40, z: 30}
@@ -11436,7 +11472,8 @@ MonoBehaviour:
   dialogText: {fileID: 1331855257}
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
-  orangeSpawn: {fileID: 2100000, guid: 2db78658a05c9b34d98ecddfd0663853, type: 2}
+  blenderColorSpawn: {fileID: 0}
+  firstPhaseColor: {fileID: 0}
   secondPhaseColor: {fileID: 0}
   secondPhaseColorGlass: {fileID: 0}
   blenderLimbs: []
@@ -14267,6 +14304,10 @@ PrefabInstance:
       value: View Orienter (DON'T DELETE OR CHANGE)
       objectReference: {fileID: 0}
     - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: topDown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: focusElement
       value: 
       objectReference: {fileID: 203656832}
@@ -14290,6 +14331,10 @@ PrefabInstance:
       propertyPath: viewGizmosAtPlayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5176916842183382501, guid: d11febb403e188142a48d792704e6481, type: 3}
+      propertyPath: overrideCameraTarget
+      value: 
+      objectReference: {fileID: 1172255330}
     - target: {fileID: 6556394883194953125, guid: d11febb403e188142a48d792704e6481, type: 3}
       propertyPath: m_Size.x
       value: 160
@@ -14924,6 +14969,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 699065664}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderCamera
+      value: 
+      objectReference: {fileID: 1172255329}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: move2Cooldown
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: cameraOrienter
       value: 
       objectReference: {fileID: 645217555}
@@ -14932,6 +14985,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 495514319}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: firstPhaseColor
+      value: 
+      objectReference: {fileID: 8934926406445219608, guid: 109f8303f7c06af45962f82475909670, type: 3}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: blenderColorSpawn
+      value: 
+      objectReference: {fileID: 2100000, guid: 2db78658a05c9b34d98ecddfd0663853, type: 2}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerWinLocation
       value: 
       objectReference: {fileID: 1108429201}
@@ -14939,6 +15000,14 @@ PrefabInstance:
       propertyPath: thirdPersonCamera
       value: 
       objectReference: {fileID: 1226054759}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: minions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+      propertyPath: minions.Array.data[1]
+      value: 
+      objectReference: {fileID: 1097669473973715207, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: climbObjects.Array.data[1]
       value: 
@@ -29973,3 +30042,4 @@ SceneRoots:
   - {fileID: 1108429202}
   - {fileID: 560150722}
   - {fileID: 15680274}
+  - {fileID: 1172255330}

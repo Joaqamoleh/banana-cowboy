@@ -27,6 +27,7 @@ public class CameraHint : MonoBehaviour
     bool forceReorientation = false;
     [SerializeField]
     Transform overrideCameraTarget;
+    public bool topDown;
     [SerializeField]
     float forceReorientationCooldown = 8.0f;
     float lastForcedReorientationTime;
@@ -105,7 +106,7 @@ public class CameraHint : MonoBehaviour
 
     public Vector3 GetOverrideTargetPos()
     {
-        if (overrideCameraTarget == null)
+        if (overrideCameraTarget == null || !topDown)
         {
             return Vector3.zero;
         }

@@ -49,7 +49,6 @@ public class JuiceProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("HERE: "+other.name);
         if (other.CompareTag("Player"))
         {
             other.GetComponentInParent<Health>().Damage(1, ((transform.position - other.transform.position).normalized + Vector3.back + Vector3.up));

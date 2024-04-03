@@ -814,7 +814,7 @@ public class PlayerController : MonoBehaviour
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.LASSO_AIM);
         if (_lassoState == LassoState.HOLD)
         {
-            _playerUI.ShowThrowBar();
+           // _playerUI.ShowThrowBar();
         }
     }
 }

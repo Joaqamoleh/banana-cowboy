@@ -124,4 +124,9 @@ public class Health : MonoBehaviour
     {
         this.health = health;
     }
+
+    public bool GetCanTakeDamage()
+    {
+        return _canTakeDamage;
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SpawnOrangeEnemy : MonoBehaviour
+public class SpawnEnemyIndicator : MonoBehaviour
 {
 
     public GameObject character;

@@ -39,9 +39,11 @@ public class BlenderBoss : MonoBehaviour
 
     public GameObject[] bombObjectsFly;
 
-    private GameObject[] spawnPoints;
+    private GameObject[] spawnPointsOrange;
+    public GameObject[] spawnPointsBlueberry;
     public GameObject[] minions;
     public GameObject fruitInHand;
+    public GameObject blueberryMinion;
 
     public CameraHint cameraOrienter;
     public Vector3 defaultCameraSettings = new Vector3(40, 12, 12);
@@ -95,7 +97,8 @@ public class BlenderBoss : MonoBehaviour
     private SoundPlayer _soundPlayer;
 
     [Header("Material")]
-    public Material orangeSpawn;
+    public Material blenderColorSpawn;
+    public Material firstPhaseColor;
     public Material secondPhaseColor;
     public Material secondPhaseColorGlass;
     public Renderer[] blenderLimbs;
@@ -115,7 +118,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, false);
         health = maxHealth;
-        currMove = 0;
+        currMove = 3;
         _currentPhase = temp;
         
         player = GameObject.FindWithTag("Player");
@@ -124,7 +127,8 @@ public class BlenderBoss : MonoBehaviour
         healthHolder.SetActive(false);
         SetClimbObjectsActive(false);
         canBeDamaged = true;
-        spawnPoints = GameObject.FindGameObjectsWithTag("Statue");
+        spawnPointsOrange = GameObject.FindGameObjectsWithTag("Statue- Orange");
+        spawnPointsBlueberry = GameObject.FindGameObjectsWithTag("Statue- Blueberry");
 
         _soundPlayer = GetComponent<SoundPlayer>();
         Debug.Assert(_soundPlayer != null);
@@ -165,7 +169,8 @@ public class BlenderBoss : MonoBehaviour
     {
         bombSpawnPos.Clear(); // Just in case
         juiceProjectileAmount = _currentPhase == 1? 2: 3;
-        cooldownTimer = (move1Cooldown - ((_currentPhase - 1) % _totalPhases) * 8);
+        cooldownTimer = move1Cooldown;
+        cooldownTimer -= _currentPhase == 1? 2: 8;
         if (_currentPhase == 2)
         {
             cooldownTimer += 4;
@@ -213,7 +218,7 @@ public class BlenderBoss : MonoBehaviour
             else
             {
                 StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
-                foreach (GameObject point in spawnPoints)
+                foreach (GameObject point in spawnPointsOrange)
                 {
                     point.SetActive(true);
                 }
@@ -225,6 +230,7 @@ public class BlenderBoss : MonoBehaviour
                     }
                 }
                 cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true);
+                cameraOrienter.topDown = true;
             }
         }
     }
@@ -269,8 +275,8 @@ public class BlenderBoss : MonoBehaviour
         state = BossStates.COOLDOWN;
         modelAnimator.Play("BL_Blade_Windup");
         cameraOrienter.SetCameraValues(bladeCameraSettings.x, bladeCameraSettings.y, bladeCameraSettings.z, true);
-/*        StartCoroutine(BladeSpin());
-*/    }
+        cameraOrienter.topDown = true;
+    }
 
     public void BlenderSpinHelper()
     {
@@ -294,6 +300,7 @@ public class BlenderBoss : MonoBehaviour
         cooldownTimer = move3Cooldown;
         state = BossStates.COOLDOWN;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, true);
+        cameraOrienter.topDown = false;
         PlaceBombs();
     }
 
@@ -317,7 +324,7 @@ public class BlenderBoss : MonoBehaviour
                 else
                 {
                     Vector3 currentPlayerPosition = player.transform.position;
-                    if (currentPlayerPosition != previousPlayerPosition || bombSpawnPos.Count == 0)
+                    if ((currentPlayerPosition != previousPlayerPosition || bombSpawnPos.Count == 0) && playerHealth.GetCanTakeDamage())
                     {
                         spawnPosition = currentPlayerPosition;
                         spawnPosition.y = platform.transform.position.y + 3;
@@ -393,11 +400,20 @@ public class BlenderBoss : MonoBehaviour
         }*/
         StartCoroutine(MoveToPosition(transform.position, originSpawningEnemies.transform.position));
         _soundPlayer.PlaySFX("BlenderSpawn");
+        GameObject[] spawnPoints = _currentPhase == 1 ? spawnPointsOrange : spawnPointsBlueberry;
         foreach (GameObject point in spawnPoints)
         {
             point.SetActive(false);
-            GameObject minionInstance = Instantiate(minions[0], point.transform.position, Quaternion.identity);
-            minionInstance.transform.GetChild(0).GetComponent<Renderer>().material = orangeSpawn;
+            GameObject minionInstance;
+            if (_currentPhase == 1)
+            {
+                minionInstance = Instantiate(minions[0], point.transform.position, Quaternion.identity);
+                minionInstance.transform.GetChild(0).GetComponent<Renderer>().material = blenderColorSpawn;
+            }
+            else
+            {
+                minionInstance = Instantiate(minions[1], point.transform.position, Quaternion.identity);
+            }
             Vector3 directionToMiddle = Vector3.zero - minionInstance.transform.position;
             Quaternion rotationToMiddle = Quaternion.LookRotation(directionToMiddle, Vector3.up);
             minionInstance.transform.rotation = rotationToMiddle;
@@ -628,7 +644,6 @@ public class BlenderBoss : MonoBehaviour
         }
         if (_currentPhase == 2)
         {
-            print("BLENDER DEFEATED");
             _soundPlayer.PlaySFX("BlenderDeath");
             if (SoundManager.Instance() != null)
             {
@@ -696,12 +711,8 @@ public class BlenderBoss : MonoBehaviour
         float currentFillAmount = 0;
         PlayDialogue("You have gotten stronger since last time, impressive! Brace yourself as I unleash the full might of the Blender!", false, 5);
         yield return new WaitForSeconds(5f);
-        //TODO: Change color of boss
-        foreach (Renderer obj in blenderLimbs)
-        {
-            obj.material = secondPhaseColor;
-        }
-        //blenderGlass.material = secondPhaseColorGlass;
+
+        StartCoroutine(ChangeColor());
         while (currentFillAmount / (maxHealth * 1.0f) != 1)
         {
             currentFillAmount = Mathf.MoveTowards(currentFillAmount, maxHealth, 0.8f * Time.deltaTime);
@@ -712,6 +723,31 @@ public class BlenderBoss : MonoBehaviour
         canBeDamaged = true;
         currMove = 0;
         state = BossStates.IDLE;
+    }
+
+    IEnumerator ChangeColor()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            foreach (Renderer obj in blenderLimbs)
+            {
+                obj.material = secondPhaseColor;
+            }
+
+            yield return new WaitForSeconds(0.2f);
+
+            foreach (Renderer obj in blenderLimbs)
+            {
+                obj.material = firstPhaseColor;
+            }
+            yield return new WaitForSeconds(0.2f);
+
+        }
+        foreach (Renderer obj in blenderLimbs)
+        {
+            obj.material = secondPhaseColor;
+        }
+
     }
 
     void FinalCutsceneEnd(CutsceneObject o)
