@@ -182,7 +182,6 @@ public class BlueShooterController : EnemyController
 
     private void UpdateState(ShooterState state)
     {
-        print("Shooter state: " + state);
         this.state = state;
         timeStateChange = Time.time;
         UpdateAnimState(state);

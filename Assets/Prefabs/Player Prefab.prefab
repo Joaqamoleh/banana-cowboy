@@ -1166,7 +1166,7 @@ Transform:
   - {fileID: 3537890142686293665}
   - {fileID: 7838862824688470847}
   - {fileID: 5688568690316987658}
-  - {fileID: 1210679586731007106}
+  - {fileID: 2716281801118138534}
   - {fileID: 8403571118578190757}
   m_Father: {fileID: 1526105572669686172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1802,6 +1802,72 @@ Transform:
   - {fileID: 9093232786344403118}
   m_Father: {fileID: 5503662033258183763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3130885741432898584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2973522493878949262}
+  - component: {fileID: 1844065487804721572}
+  - component: {fileID: 9147380420737911282}
+  m_Layer: 10
+  m_Name: Lasso Range Leave Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2973522493878949262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130885741432898584}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2716281801118138534}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1844065487804721572
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130885741432898584}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 30
+  m_Center: {x: 0, y: 5, z: 0}
+--- !u!114 &9147380420737911282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130885741432898584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6762285eac606764ba062442f02a2946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3423473375855337316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,9 +1995,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1210679586731007106}
   - component: {fileID: 6488118857752694896}
-  - component: {fileID: 3160791960650424697}
+  - component: {fileID: 8551967266962360668}
   m_Layer: 10
-  m_Name: Lasso Range Trigger
+  m_Name: Lasso Range Enter Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1945,12 +2011,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3731298389575625560}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5503662033258183763}
+  m_Father: {fileID: 2716281801118138534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &6488118857752694896
 SphereCollider:
@@ -1973,7 +2039,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 25
   m_Center: {x: 0, y: 5, z: 0}
---- !u!114 &3160791960650424697
+--- !u!114 &8551967266962360668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1982,7 +2048,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3731298389575625560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9e7ba4ab4234346b5b95c4af363fb5, type: 3}
+  m_Script: {fileID: 11500000, guid: 6762285eac606764ba062442f02a2946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3879603049845090681
@@ -2674,6 +2740,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7838862824688470847}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5720357633273938676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2716281801118138534}
+  - component: {fileID: 5137562556552748053}
+  m_Layer: 10
+  m_Name: Lasso Range Triggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2716281801118138534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720357633273938676}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1210679586731007106}
+  - {fileID: 2973522493878949262}
+  m_Father: {fileID: 5503662033258183763}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5137562556552748053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720357633273938676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9e7ba4ab4234346b5b95c4af363fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enterRange: {fileID: 8551967266962360668}
+  exitRange: {fileID: 9147380420737911282}
 --- !u!1 &5724474050856554619
 GameObject:
   m_ObjectHideFlags: 0

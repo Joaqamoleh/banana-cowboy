@@ -244,7 +244,6 @@ public class BlueberrySmackerController : EnemyController
     }
     void OnSightEntered(Collider c)
     {
-        print("Sight entered " + c.name);
         if (c.CompareTag("Player"))
         {
             print("target updated");
@@ -254,7 +253,6 @@ public class BlueberrySmackerController : EnemyController
 
     void OnSightExited(Collider c)
     {
-        print("Sight left " + c.name);
         if (c.CompareTag("Player"))
         {
             print("target updated null");
@@ -282,7 +280,6 @@ public class BlueberrySmackerController : EnemyController
     {
         if (_state != state)
         {
-            print("In state " + state);
             _state = state;
             timeStateChange = Time.time;
             UpdateAnimState(state);

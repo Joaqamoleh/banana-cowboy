@@ -118,6 +118,7 @@ public class PlayerCameraController : MonoBehaviour
         _focusHeightOffset = defaultHeightOffset;
         cameraHalfExtends = GetCameraHalfExtends();
         lastManualInputTime -= realignTime;
+        Invoke("JumpToPlayer", 0.05f);
     }
 
     void Update()
@@ -170,6 +171,12 @@ public class PlayerCameraController : MonoBehaviour
     private void LateUpdate()
     {
         if (frozenCam || _cameraFocus == null || PauseManager.pauseActive || !_cinemachineCamController.gameObject.activeSelf) { return; }
+        GetCameraPosAndRot(out Vector3 position, out Quaternion lookRot);
+        _cameraCurrent.SetPositionAndRotation(position, lookRot);
+    }
+
+    void GetCameraPosAndRot(out Vector3 pos, out Quaternion rot)
+    {
         UpdateFocusPoint();
         UpdateBasisRot();
         Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
@@ -196,7 +203,8 @@ public class PlayerCameraController : MonoBehaviour
             rectPosition = castFrom + castDirection * hit.distance;
             position = rectPosition - rectOffset;
         }
-        _cameraCurrent.SetPositionAndRotation(position, lookRot);
+        pos = position;
+        rot = lookRot;
     }
 
     void UpdateFocusPoint()
@@ -464,13 +472,26 @@ public class PlayerCameraController : MonoBehaviour
         Camera.main.transform.position = position;
         Camera.main.transform.rotation = orientation;
         Camera.main.GetComponent<CinemachineBrain>().enabled = true;
-        _cameraCurrent.position = position;
-        _cameraCurrent.rotation = orientation;
+        _cameraCurrent.SetPositionAndRotation(position, orientation);
     }
 
     public void JumpToPlayer()
     {
-        JumpTo(_focusPoint - _cameraCurrent.forward * orbitRadius, Quaternion.identity); // TODO: Fix
+        if (highestHintPrioIndex != -1)
+        {
+            _orbitAngles.x = activeHints[highestHintPrioIndex].GetOrbitVertAngle();
+            _orbitAngles.y = activeHints[highestHintPrioIndex].GetOrbitRotationAngle(_focusPoint);
+        }
+        else
+        {
+            _orbitAngles.x = 45f;
+            _orbitAngles.y = 0;
+        }
+        Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
+        Vector3 lookDir = lookRot * Vector3.forward;
+        Vector3 position = _focusPoint - lookDir * orbitRadius + basisRot * Vector3.up * _focusHeightOffset;
+        _cameraCurrent.SetPositionAndRotation(position, lookRot);
+        print("Jumping to player with pos " + position + " and rot " + lookRot.eulerAngles);
     }
 
     int lastCutsceneIndex = -1;

@@ -28,6 +28,7 @@ public class SwingableObject : LassoObject
     
     [SerializeField, Tooltip("The point at which the swing is based.")]
     Transform swingBasis;
+    Transform characterBasis = null;
 
     [SerializeField]
     Transform model;
@@ -286,12 +287,14 @@ public class SwingableObject : LassoObject
         }
     }
 
-    public void AttachToSwingable(Rigidbody attachedObject, Vector3 up)
+    public void AttachToSwingable(Rigidbody attachedObject, Transform characterBasis)
     {
         currentArcPos = 0f;
         attachedBody = attachedObject;
         attachedBody.isKinematic = true;
         lastPos = attachedBody.position;
+        this.characterBasis = characterBasis;
+        Vector3 up = characterBasis.up;
         if (reorientSwing)
         {
             Vector3 right = Vector3.ProjectOnPlane((swingBasis.position - attachedBody.transform.position), up);
@@ -308,15 +311,16 @@ public class SwingableObject : LassoObject
     public Vector3 EndSwing()
     {
         float t = Mathf.Clamp((currentArcPos + 0.01f * currentSwingSpeed) / approximateArcLength, 0f, 1f);
-
-        Vector3 velocity = (GetSwingPosition(GetThetaGammaRadius(t)) - lastPos).normalized * Mathf.Abs(currentSwingSpeed);
+        Vector3 characterUp = characterBasis.up;
+        Vector3 velocity = Vector3.ProjectOnPlane((GetSwingPosition(GetThetaGammaRadius(t)) - lastPos), characterUp).normalized * Mathf.Abs(currentSwingSpeed);
         attachedBody = null;
         if (splineMovement != null)
         {
             float s = splineCurrentDist / splineTotalDist;
             splineMovement.Spline.Evaluate(s, out float3 pos, out float3 tangent, out float3 up);
-            velocity += splineMovement.transform.TransformDirection((Vector3)tangent) * splineMoveSpeed;
+            velocity += Vector3.ProjectOnPlane(splineMovement.transform.TransformDirection((Vector3)tangent), characterUp).normalized * Mathf.Abs(splineMoveSpeed);
         }
+        isLassoable = true;
         return velocity * endingSwingMultForce;
     }
 

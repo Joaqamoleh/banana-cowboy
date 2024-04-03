@@ -9,10 +9,8 @@ public class MeleeHitbox : MonoBehaviour
 
     public bool PerformAttack(int damage, Vector3 knockbackForce)
     {
-        print("Player attacked");
         if (player != null)
         {
-            print("Attack on null player");
             player.Damage(damage, knockbackForce);
             return true;
         }
@@ -29,7 +27,6 @@ public class MeleeHitbox : MonoBehaviour
         if (other != null && other.transform.parent != null && other.CompareTag("Player"))
         {
             player = other.transform.parent.GetComponentInParent<Health>();
-            print("Player updated to " + player.name);
         }
     }
 
@@ -37,7 +34,6 @@ public class MeleeHitbox : MonoBehaviour
     {
         if (other != null && other.transform.parent != null && other.transform.parent.GetComponentInParent<Health>() == player)
         {
-            print("Player Left;");
             player = null;
         }
     }

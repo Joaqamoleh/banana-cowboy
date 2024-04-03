@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
                         controlPlayerConnection.position = transform.position;
                         controlPlayerConnection.gameObject.SetActive(true);
                         swingable.SwingEnd += EndLassoSwing;
-                        swingable.AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
+                        swingable.AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation);
                         UpdateState(State.SWING);
                     }
                     break;
@@ -327,7 +327,7 @@ public class PlayerController : MonoBehaviour
                             _lassoObject = _bufferedObject;
                             controlPlayerConnection.gameObject.SetActive(true);
                             (_bufferedObject as SwingableObject).SwingEnd += EndLassoSwing;
-                            (_bufferedObject as SwingableObject).AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation.up);
+                            (_bufferedObject as SwingableObject).AttachToSwingable(controlPlayerConnection, _gravObject.characterOrientation);
                             UpdateState(State.SWING);
                         }
                     }

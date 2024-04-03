@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class LassoRangeTrigger : MonoBehaviour
 {
+    [SerializeField]
+    DetectionTriggerHandler enterRange, exitRange;
 
-    private void OnTriggerEnter(Collider other)
+    private void Awake()
+    {
+        Debug.Assert(enterRange != null);
+        Debug.Assert(exitRange != null);
+        enterRange.OnTriggerEntered += TriggerEntered;
+        exitRange.OnTriggerExited += TriggerExited;
+    }
+    private void TriggerEntered(Collider other)
     {
         if (other == null || other.gameObject == null) return;
 
@@ -16,7 +25,7 @@ public class LassoRangeTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void TriggerExited(Collider other)
     {
         if (other == null || other.gameObject == null) return;
 
