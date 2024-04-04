@@ -239,16 +239,15 @@ MonoBehaviour:
   - {fileID: 6238540330290742693}
   deathEffect: {fileID: 8615972876567255314, guid: a45886de00470384fab9547bb1d44765, type: 3}
   vfxLocation: {fileID: 0}
-  itemDrops: []
-  chanceToDropItem: 0
+  itemDrops:
+  - drop: {fileID: 7173857445364796711, guid: c430eb38484debc45a4b4f13c0b3e504, type: 3}
+    percentageChance: 100
+  chanceToDropItem: 60
   ignoreDeathBySource: 
   sightAgroRange: {fileID: 6376495880555238077}
   loseAgroRange: {fileID: 6964949058093831991}
   _gravObj: {fileID: 1615838651974152438}
-  spottedTime: 0.2
-  prepareShotTime: 0.4
   aimingTime: 1.2
-  shootingTime: 0.6
   cooldownTime: 0.5
   projectileToShoot: {fileID: 8721676036906083646, guid: 449ef4cd9f7b3f14db371f5171d62e65, type: 3}
   projectileAttachLocation: {fileID: 2519159497787384172}

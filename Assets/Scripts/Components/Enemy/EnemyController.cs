@@ -102,12 +102,13 @@ public class EnemyController : MonoBehaviour
             foreach (var item in itemDrops)
             {
                 cumulative += item.percentageChance;
-                if (cumulative < shouldDropItem)
+
+                if (cumulative >= shouldDropItem)
                 {
                     if (item.drop != null)
                     {
                         Collectable drop = Instantiate(item.drop, transform.position, Quaternion.identity);
-                        drop.src = Collectable.Source.ENEMY;
+                        //drop.src = Collectable.Source.ENEMY; doesn't work, make a new prefab
                     }
                 }
             }

@@ -62,6 +62,11 @@ public class Collectable : MonoBehaviour
         collectTrigger.OnTriggerEntered += CollectEntered;
     }
 
+    public Collectable(Source source)
+    {
+        src = source;
+    }
+
     private void RangeEntered(Collider c)
     {
         if (c.CompareTag("Player"))

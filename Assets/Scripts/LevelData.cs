@@ -79,6 +79,7 @@ public class LevelData : MonoBehaviour
     {
         starSparkleCheckpoint += starSparkleTemp;
         starSparkleTemp = 0;
+        GameObject.Find("Player Prefab").GetComponent<Health>().Damage(-3, Vector3.zero);
         foreach (var temp in starSparkleObjectTemp)
         {
             if (!starSparkleObjectCheckpoint.ContainsKey(temp.Key))
