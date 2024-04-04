@@ -12,6 +12,7 @@ public class ComicCutsceneManager : MonoBehaviour
     public float fadeTime = 0.5f;
     public float timeBetweenBoxes = 1.5f;
     public string nextScene;
+    public string cutsceneToUnlock;
     public bool changeMusic;
     public string previousMusic;
     public string currentMusic;
@@ -181,6 +182,7 @@ public class ComicCutsceneManager : MonoBehaviour
     IEnumerator ChangeScene()
     {
         yield return new WaitForSeconds(1.2f);
+        ComicSelectManager.SetComicUnlock(cutsceneToUnlock, true);
         LevelSwitch.ChangeScene(nextScene);
     }
 

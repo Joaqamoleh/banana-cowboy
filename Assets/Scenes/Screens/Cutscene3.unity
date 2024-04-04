@@ -1338,14 +1338,14 @@ RectTransform:
   m_GameObject: {fileID: 1082733802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.94483167, y: 0.94483167, z: 0.94483167}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1865664510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 56}
   m_SizeDelta: {x: 1721, y: 945}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082733804
@@ -1584,7 +1584,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 694, y: -281}
+  m_AnchoredPosition: {x: 674, y: -281}
   m_SizeDelta: {x: 511, y: 218}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163622134
@@ -2308,8 +2308,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: 0.5
-  timeBetweenBoxes: 1
+  timeBetweenBoxes: 0.8
   nextScene: Level Select
+  cutsceneToUnlock: Cutscene3
   changeMusic: 0
   previousMusic: Tutorial
   currentMusic: Main Menu
