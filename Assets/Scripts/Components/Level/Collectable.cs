@@ -62,11 +62,6 @@ public class Collectable : MonoBehaviour
         collectTrigger.OnTriggerEntered += CollectEntered;
     }
 
-    public Collectable(Source source)
-    {
-        src = source;
-    }
-
     private void RangeEntered(Collider c)
     {
         if (c.CompareTag("Player"))
@@ -95,8 +90,8 @@ public class Collectable : MonoBehaviour
             // Collectable Effect
             if (type == Type.STAR)
             {
-                LevelData.starSparkleTemp++;
-                UIManager.UpdateStars();
+                LevelData.AddStarSparkles();
+                UIManager.UpdateStars(true);
                 if (src == Source.LEVEL)
                 {
                     if (LevelData.starSparkleObjectTemp != null && LevelData.starSparkleObjectTemp.ContainsKey(positionKey))

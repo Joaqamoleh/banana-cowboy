@@ -16,7 +16,7 @@ public class LevelData : MonoBehaviour
     public static Dictionary<Vector3, bool> starSparkleObjectTemp = new Dictionary<Vector3, bool>();
     public static Dictionary<Vector3, bool> starSparkleObjectCheckpoint = new Dictionary<Vector3, bool>();
 
-
+    Health _playerHealth;
     // set these manually
     /*    private static Vector3[] OrangeRespawnArray = new[] {
             new Vector3(-40.4f, 26.1f, 38.65f),
@@ -34,6 +34,16 @@ public class LevelData : MonoBehaviour
     private void Start()
     {
         instance = this;
+        _playerHealth = GameObject.Find("Player Prefab").GetComponent<Health>();
+    }
+
+    public static void AddStarSparkles()
+    {
+        starSparkleTemp++;
+        if (instance._playerHealth != null && (starSparkleTemp + starSparkleTotal + starSparkleCheckpoint) % 10 == 0)
+        {
+            instance._playerHealth.Damage(-1, Vector3.zero);
+        }
     }
 
     // resets temporary data. Do this when loading into a level or leaving a level.
@@ -79,7 +89,7 @@ public class LevelData : MonoBehaviour
     {
         starSparkleCheckpoint += starSparkleTemp;
         starSparkleTemp = 0;
-        GameObject.Find("Player Prefab").GetComponent<Health>().Damage(-3, Vector3.zero);
+
         foreach (var temp in starSparkleObjectTemp)
         {
             if (!starSparkleObjectCheckpoint.ContainsKey(temp.Key))
@@ -95,6 +105,13 @@ public class LevelData : MonoBehaviour
          * by only storing if they've found a "greater"
          * checkpoint. */
         if (c > checkpointReached)
+        {
             checkpointReached = c;
+
+            if (instance._playerHealth != null)
+            {
+                instance._playerHealth.Damage(-3, Vector3.zero);
+            }
+        }
     }
 }

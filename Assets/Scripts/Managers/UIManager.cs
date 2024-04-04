@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     private static UIManager instance;
 
     public Animator healthAnimator = null;
+    public Animator starAnimator = null;
 
     [SerializeField]
     Canvas hudElementsCanvas;
@@ -81,9 +82,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public static void UpdateStars()
+    public static void UpdateStars(bool gain = false)
     {
         if (instance == null) { return; }
+        if (gain)
+        {
+            instance.starAnimator.SetTrigger("AddStar");
+        }
         instance.starSparkles.text = "X " + (LevelData.starSparkleTotal + LevelData.starSparkleCheckpoint + LevelData.starSparkleTemp);    
     }
 

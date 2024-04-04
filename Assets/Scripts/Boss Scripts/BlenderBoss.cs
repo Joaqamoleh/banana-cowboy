@@ -662,6 +662,8 @@ public class BlenderBoss : MonoBehaviour
         }
         else
         {
+            LevelData.BeatLevel();
+
             // TODO: Before the celebration, kill on the enemies present in the scene
 
             // Play final cutscene
