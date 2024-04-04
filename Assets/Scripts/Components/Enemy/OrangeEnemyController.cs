@@ -99,6 +99,7 @@ public class OrangeEnemyController : EnemyController
         UpdateSubState(subState);
     }
 
+    OrangeSubStates prevState;
     public void Update()
     {
         if (enemyAIDisabled) { return; }
@@ -125,9 +126,12 @@ public class OrangeEnemyController : EnemyController
                         case OrangeSubStates.TALK:
                             break;
                         case OrangeSubStates.SLEEP:
-                            if (UnityEngine.Random.Range(0f, 100f) < chanceToWake)
+                            prevState = OrangeSubStates.SLEEP;
+                            float temp = UnityEngine.Random.Range(0f, 100f);
+                            if (temp < chanceToWake)
                             {
                                 UpdateSubState(OrangeSubStates.SWAY);
+                                prevState = OrangeSubStates.SWAY;
                             }
                             break;
                         case OrangeSubStates.SWAY:
@@ -145,6 +149,7 @@ public class OrangeEnemyController : EnemyController
                             UpdateSubState(OrangeSubStates.SWAY);
                             break;
                     }
+                    timeStateChanged = Time.time;
                 }
                 else
                 {
@@ -469,10 +474,21 @@ public class OrangeEnemyController : EnemyController
                     }
                     break;
                 case OrangeSubStates.SLEEP:
-                    orangeEnemyAnimator.Play("Base Layer.OE_Idle_Laying_Start");
+                    if (prevState != OrangeSubStates.SLEEP)
+                    {
+                        print("AHHHHH");
+                        orangeEnemyAnimator.Play("Base Layer.OE_Idle_Laying_Start");
+                    }
                     break;
                 case OrangeSubStates.SWAY:
-                    orangeEnemyAnimator.Play("Base Layer.OE_Idle_Dance");
+                    if (prevState == OrangeSubStates.SLEEP)
+                    {
+                        orangeEnemyAnimator.Play("Base Layer.OE_Idle_Laying_Reset");
+                    }
+                    else
+                    {
+                        orangeEnemyAnimator.Play("Base Layer.OE_Idle_Dance");
+                    }
                     break;
                 case OrangeSubStates.STANDUP:
                     orangeEnemyAnimator.Play("Base Layer.OE_Stun_Reset");
