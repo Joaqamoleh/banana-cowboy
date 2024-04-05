@@ -19,6 +19,7 @@ public class LevelSwitch : MonoBehaviour
     private static Dictionary<string, string> levelToMusic = new Dictionary<string, string>() { 
         { "Menu", "Main Menu" }, 
         { "Level Select", "Main Menu" },
+        { "Comic Select", "Main Menu"},
         { "Orange Level", "Orange Planet"},
         { "Orange Boss Scene", "Orange Boss" },
         { "Tutorial Level", "Tutorial" },
@@ -31,6 +32,18 @@ public class LevelSwitch : MonoBehaviour
 
     public static void ChangeScene(string scene)
     {
+        if (scene == "Cutscene2")
+        {
+            ComicCutsceneManager.comicSelect = false;
+            ComicSelectManager.SetComicUnlock("Cutscene2", true);
+        }
+
+        if (scene == "Cutscene3")
+        {
+            ComicCutsceneManager.comicSelect = false;
+            ComicSelectManager.SetComicUnlock("Cutscene3", true);
+        }
+
         if (scene == "Orange Boss Scene")
         {
             LevelData.SetCheckpoint(0);
