@@ -48,6 +48,7 @@ public class MenuManager : MonoBehaviour
         {
             case "Play":
                 // Go to Backstory Cutscene
+                ComicCutsceneManager.comicSelect = false;
                 SceneManager.LoadScene("Cutscene1");
 
                 // Go to level selection screen
