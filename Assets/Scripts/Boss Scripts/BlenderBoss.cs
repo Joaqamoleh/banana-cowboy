@@ -293,6 +293,9 @@ public class BlenderBoss : MonoBehaviour
         yield return new WaitForSeconds(move2Cooldown);
         StartCoroutine(blade.GetComponent<BlenderBlade>().ShrinkSize());
         _soundPlayer.StopSFX("BlenderBlade");
+        yield return new WaitForSeconds(1);
+        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, true);
+        cameraOrienter.overrideCameraTarget = null;
         //blade.GetComponent<BlenderBlade>().ShrinkSize();
     }
 
@@ -300,8 +303,6 @@ public class BlenderBoss : MonoBehaviour
     {
         cooldownTimer = move3Cooldown;
         state = BossStates.COOLDOWN;
-        cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, true);
-        cameraOrienter.overrideCameraTarget = null;
         PlaceBombs();
     }
 
@@ -373,7 +374,6 @@ public class BlenderBoss : MonoBehaviour
         bombSpawnPos.Add(spawnPosition);
     }
 
-    // TODO: Implement object pooling
     void ShootBombs(int num)
     {
         Vector3 screenPos = bombSpawnPos[num];
@@ -466,19 +466,6 @@ public class BlenderBoss : MonoBehaviour
     private void Update()
     {
         if (!introDialogComplete) { return; }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            print("First Phase");
-            temp = 1;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            print("Second Phase");
-            temp = 2;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
 
         switch (state)
         {
@@ -621,6 +608,9 @@ public class BlenderBoss : MonoBehaviour
         {
             Destroy(obj);
         }
+
+        _soundPlayer.StopSFX("BlenderJuice");
+
         HideFruitMinion();
         StopAllCoroutines();
         _soundPlayer.PlaySFX("Dizzy");
@@ -635,7 +625,7 @@ public class BlenderBoss : MonoBehaviour
         {
             PlayDialogue("No, this can't be happening! Bested by a Banana with a hat and a lasso??", false);
         }
-        // TODO: Put this somewhere else. I think this is fine. Might be a case where you can't make it to the boss if it covers the front.
+        // Might be a case where you can't make it to the boss if it covers the front.
         for (int i = 0; i < indicatorSpawnObject.Length; i++)
         {
             if (indicatorSpawnObject[i] != null)
@@ -672,11 +662,11 @@ public class BlenderBoss : MonoBehaviour
             FindAnyObjectByType<PlayerAnimator>().IgnorePlayerStateChange();
             CutsceneManager.Instance().PlayCutsceneByName("Celebration");
             StartCoroutine(winUIAnimation());
-            
+            StartCoroutine(SetPlayerPos());
 
-            // playerModel.SetActive(true);
-            playerModel.transform.position = playerWinLocation.transform.position;
-            playerModel.transform.rotation = playerWinLocation.transform.rotation;
+/*            // playerModel.SetActive(true);
+            player.transform.position = playerWinLocation.transform.position;
+            player.transform.rotation = playerWinLocation.transform.rotation;
             playerAnimator.applyRootMotion = true;
             playerAnimator.SetLayerWeight(1, 0.0f);
             // play confetti particle system here :3
@@ -687,8 +677,29 @@ public class BlenderBoss : MonoBehaviour
             playerAnimator.Play("Base Layer.BC_Cheer");
 
             // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
-            // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");
+            // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");*/
         }
+    }
+
+    IEnumerator SetPlayerPos()
+    {
+        //TODO: Test the change seconds
+        yield return new WaitForSeconds(0.5f);
+        // playerModel.SetActive(true);
+        player.transform.position = playerWinLocation.transform.position;
+        player.transform.rotation = playerWinLocation.transform.rotation;
+        playerAnimator.applyRootMotion = true;
+        playerAnimator.SetLayerWeight(1, 0.0f);
+        // play confetti particle system here :3
+        if (confettiVFX != null)
+        {
+            Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 25,
+                playerWinLocation.transform.position.z), playerWinLocation.transform.rotation);
+        }
+        playerAnimator.Play("Base Layer.BC_Cheer");
+
+        // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
+        // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");
     }
 
     void BlenderDeathCutsceneComplete(CutsceneObject o)

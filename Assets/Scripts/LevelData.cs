@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,9 @@ public class LevelData : MonoBehaviour
     public static Dictionary<Vector3, bool> starSparkleObjectTemp = new Dictionary<Vector3, bool>();
     public static Dictionary<Vector3, bool> starSparkleObjectCheckpoint = new Dictionary<Vector3, bool>();
 
-    Health _playerHealth;
+    public static event Action<int> OnStarSparkleChanged; // Event to notify when star sparkle count changes
+    public static event Action CheckpointReached; // Event to notify when a checkpoint is reached
+
     // set these manually
     /*    private static Vector3[] OrangeRespawnArray = new[] {
             new Vector3(-40.4f, 26.1f, 38.65f),
@@ -34,16 +37,12 @@ public class LevelData : MonoBehaviour
     private void Start()
     {
         instance = this;
-        _playerHealth = GameObject.Find("Player Prefab").GetComponent<Health>();
     }
 
     public static void AddStarSparkles()
     {
         starSparkleTemp++;
-        if (instance._playerHealth != null && (starSparkleTemp + starSparkleTotal + starSparkleCheckpoint) % 10 == 0)
-        {
-            instance._playerHealth.Damage(-1, Vector3.zero);
-        }
+        OnStarSparkleChanged?.Invoke(starSparkleTemp + starSparkleTotal + starSparkleCheckpoint);
     }
 
     // resets temporary data. Do this when loading into a level or leaving a level.
@@ -108,10 +107,7 @@ public class LevelData : MonoBehaviour
         {
             checkpointReached = c;
 
-            if (instance._playerHealth != null)
-            {
-                instance._playerHealth.Damage(-3, Vector3.zero);
-            }
+            CheckpointReached?.Invoke();
         }
     }
 }

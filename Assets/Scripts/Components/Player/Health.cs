@@ -28,7 +28,29 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        health = maxHealth;   
+        health = maxHealth;
+        LevelData.OnStarSparkleChanged += OnStarSparkleChangedHandler;
+        LevelData.CheckpointReached += OnCheckpointReached;
+    }
+
+    private void OnDestroy()
+    {
+        LevelData.OnStarSparkleChanged -= OnStarSparkleChangedHandler;
+        LevelData.CheckpointReached -= OnCheckpointReached;
+    }
+
+    // Callback method for the OnStarSparkleChanged event
+    private void OnStarSparkleChangedHandler(int totalStarSparkleCount)
+    {
+        if (totalStarSparkleCount % 10 == 0)
+        {
+            Damage(-1, Vector3.zero);
+        }
+    }
+
+    private void OnCheckpointReached()
+    {
+        Damage(-3, Vector3.zero);
     }
 
     public void Damage(int damage, Vector3 knockback)

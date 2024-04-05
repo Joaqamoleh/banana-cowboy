@@ -352,7 +352,7 @@ public class OrangeEnemyController : EnemyController
 
     void UpdateState(OrangeState state)
     {
-        print("Updating State to " + state);
+        //print("Updating State to " + state);
         if (state != _state)
         {
             print("state updated");
@@ -476,7 +476,6 @@ public class OrangeEnemyController : EnemyController
                 case OrangeSubStates.SLEEP:
                     if (prevState != OrangeSubStates.SLEEP)
                     {
-                        print("AHHHHH");
                         orangeEnemyAnimator.Play("Base Layer.OE_Idle_Laying_Start");
                     }
                     break;
