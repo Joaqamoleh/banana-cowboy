@@ -32,6 +32,13 @@ public class LevelManager : MonoBehaviour
     public void SelectLevel(string planetName)
     {
         LevelSwitch.ChangeScene(planetName);
+        ComicCutsceneManager.comicSelect = false;
+    }
+
+    public void SelectCutscene(string cutscene)
+    {
+        LevelSwitch.ChangeScene(cutscene);
+        ComicCutsceneManager.comicSelect = true;
     }
 
     public static void Init()

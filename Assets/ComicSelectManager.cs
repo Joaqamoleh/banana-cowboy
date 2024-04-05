@@ -12,10 +12,14 @@ public class ComicSelectManager : MonoBehaviour
     {
         if (!unlocksInitialized)
         {
+            print("FKASLDFJLASKDJFLAKSJDFLAKSDJLFASDFLKJASLDKFJALSKDJF");
             Init();
             unlocksInitialized = true;
         }
-
+        else
+        {
+            print("ELSE ELSE ELSE");
+        }
     }
 
     public void Init()

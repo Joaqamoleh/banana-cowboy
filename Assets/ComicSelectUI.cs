@@ -22,12 +22,16 @@ public class ComicSelectUI : MonoBehaviour
             isUnlocked = true;
             lockedSticker.SetActive(false);
             GetComponent<Button>().interactable = true;
+            print(comicName);
+            print("UNLOCKED");
         }
         else // false = locked
         {
             isUnlocked = false;
             lockedSticker.SetActive(true);
             GetComponent<Button>().interactable = false;
+            print(comicName);
+            print("LOCKED");
         }
         PlayerCursor.SetActiveCursorType(PlayerCursor.CursorType.UI);
     }
@@ -36,6 +40,11 @@ public class ComicSelectUI : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetComicSelect(bool fromSelectScreen)
+    {
+        ComicCutsceneManager.comicSelect = fromSelectScreen;
     }
 
     // pointer enter/exit for highlight when hovered

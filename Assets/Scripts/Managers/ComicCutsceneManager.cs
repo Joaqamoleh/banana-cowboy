@@ -28,6 +28,8 @@ public class ComicCutsceneManager : MonoBehaviour
     public MouseOverUI mouseOverUI;
     bool wasSkipped = false;
 
+    public static bool comicSelect = false;
+
     [System.Serializable]
     public class Boxes
     {
@@ -183,7 +185,15 @@ public class ComicCutsceneManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.2f);
         ComicSelectManager.SetComicUnlock(cutsceneToUnlock, true);
-        LevelSwitch.ChangeScene(nextScene);
+        if (comicSelect)
+        {
+            LevelSwitch.ChangeScene("Comic Select");
+        }
+        else
+        {
+            LevelSwitch.ChangeScene(nextScene);
+        }
+        
     }
 
     public void SkipCutscene()
