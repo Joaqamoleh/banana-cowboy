@@ -49,7 +49,6 @@ public class BlueberrySmackerController : EnemyController
     private float timeStateChange = 0f, timeStateEnd = 1.0f, timeLastAttack = 0f;
 
     Transform target = null;
-    Vector3 attackPos;
     bool playerInAttackRange = false, hasPerformedAttack = false, attackSuccess;
 
 
@@ -198,7 +197,7 @@ public class BlueberrySmackerController : EnemyController
                 }
                 else if (Time.time - timeStateChange > 0.3f && !hasPerformedAttack)
                 {
-                    Vector3 knockback = Vector3.ProjectOnPlane((attackPos - transform.position), _gravObj.characterOrientation.up).normalized * knockbackForce;
+                    Vector3 knockback = Vector3.ProjectOnPlane((meleeHitbox.transform.position - transform.position), _gravObj.characterOrientation.up).normalized * knockbackForce;
                     meleeHitbox.PerformAttack(0, knockback);
                     hasPerformedAttack = true;
                 }

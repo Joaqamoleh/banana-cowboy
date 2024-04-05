@@ -353,6 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8483807823776214399}
+  - component: {fileID: 2285453190697127522}
   m_Layer: 5
   m_Name: StarSparkle Holder
   m_TagString: Untagged
@@ -370,7 +371,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 813021238938759159}
   - {fileID: 2800445057615858487}
@@ -381,6 +382,27 @@ RectTransform:
   m_AnchoredPosition: {x: -780, y: 190}
   m_SizeDelta: {x: 270.64343, y: 58.111603}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &2285453190697127522
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320351062543092219}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7247ef3fdb84dac4a80a2a1b2cf24f33, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1349528824458023868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,6 +1076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthAnimator: {fileID: 6132763969182505666}
+  starAnimator: {fileID: 2285453190697127522}
   hudElementsCanvas: {fileID: 7087595360672470737}
   healthSprites:
   - {fileID: 21300000, guid: c769deeef3246fa4d8a955589ebc022c, type: 3}
