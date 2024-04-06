@@ -6,30 +6,53 @@ public class CherryBombSpawner : MonoBehaviour
 {
     [SerializeField]
     CherryBomb cherryBombPrefab;
+    CherryBomb cb;
+
 
     [SerializeField]
     GameObject respawnVFX;
 
     [SerializeField]
     public float spawnDelay = 3f;
-    void Start()
+    bool spawnActive = false;
+    void OnEnable()
     {
-        SpawnCherryBomb();
+        SpawnCherry();
+        spawnActive = true;
+    }
+
+    private void OnDisable()
+    {
+        spawnActive = false;
+        StopAllCoroutines();
+        if (cb != null)
+        {
+            cb.TossInDirection(Vector3.zero, Vector3.up, LassoTossable.TossStrength.STRONG);
+        }
     }
 
     void OnCherryExplode(Collision c)
     {
+        if (spawnActive)
+        {
+            StartCoroutine(SpawnOnDelay());
+        }
+    }
+
+    IEnumerator SpawnOnDelay()
+    {
         // do respawn vfx if it exists
         if (respawnVFX != null)
         {
-            Instantiate(respawnVFX, transform.position, transform.rotation);
+            Instantiate(respawnVFX, transform);
         }
-        Invoke("SpawnCherryBomb", spawnDelay);
+        yield return new WaitForSeconds(spawnDelay);
+        SpawnCherry();
     }
 
-    void SpawnCherryBomb()
+    void SpawnCherry()
     {
-        CherryBomb cb = Instantiate(cherryBombPrefab);
+        cb = Instantiate(cherryBombPrefab);
         cb.transform.position = transform.position;
         cb.OnExplode += OnCherryExplode;
     }

@@ -16,7 +16,9 @@ public class BlueberryPhaseOne : BossController
     DetectionTriggerHandler bossAttackTrigger;
 
     [SerializeField]
-    ArenaSpawners[] obstacleSpawners, barrelSpawners;
+    int numBreakablePoles = 3;
+    List<BreakablePole> poles = new List<BreakablePole>();
+    
 
     [SerializeField]
     CutsceneObject phaseOneCutscene;
@@ -36,7 +38,10 @@ public class BlueberryPhaseOne : BossController
 
 
     [SerializeField]
-    GameObject barrierToArena, healthUIHolder;
+    GameObject[] disableOnEnd, enableOnEnd;
+
+    [SerializeField]
+    GameObject healthUIHolder;
     [SerializeField]
     Image healthUI;
 
@@ -79,14 +84,17 @@ public class BlueberryPhaseOne : BossController
 
     void OnDamaged(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        if (_state == State.STUCK)
         {
-            UpdateState(State.END_PHASE);
-        }
-        else
-        {
-            UpdateState(State.DAMAGED);
+            health -= damage;
+            if (health <= 0)
+            {
+                UpdateState(State.END_PHASE);
+            }
+            else
+            {
+                UpdateState(State.DAMAGED);
+            }
         }
     }
 
@@ -94,9 +102,12 @@ public class BlueberryPhaseOne : BossController
     {
         if (other != null && other.gameObject != null && _state == State.ATTACK)
         {
-            if (other.gameObject.CompareTag("CherryBomb"))
+            if (other.transform.parent != null && other.transform.parent.GetComponentInParent<BreakablePole>() != null)
             {
-                Destroy(other);
+                BreakablePole p = other.transform.parent.GetComponentInParent<BreakablePole>();
+                p.BreakPole();
+                poles.Add(p);
+                UpdateState(State.STUCK);
             }
             else if (other.gameObject.CompareTag("Player"))
             {
@@ -111,11 +122,6 @@ public class BlueberryPhaseOne : BossController
     {
         _state = state;
         timeStateChange = Time.time;
-        if (debugAttack != null)
-        {
-            bossAttackTrigger.transform.rotation = bossOrientation.rotation * Quaternion.Euler(0f, attackStartAngle, 0f);
-            debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP);
-        }
         switch (state)
         {
             case State.DAMAGED:
@@ -124,10 +130,19 @@ public class BlueberryPhaseOne : BossController
                 break;
             case State.LOOK_AT_PLAYER:
                 timeStateEnd = attackCooldown;
+                if (numBreakablePoles == poles.Count)
+                {
+                    foreach (var pole in poles)
+                    {
+                        pole.RespawnPole();
+                    }
+                    poles.Clear();
+                }
                 print("Looking at player!");
                 break;
             case State.WINDUP:
                 timeStateEnd = windupDuration;
+                attackAngle = attackStartAngle;
                 print("Boss windup!");
                 break;
             case State.ATTACK:
@@ -141,9 +156,21 @@ public class BlueberryPhaseOne : BossController
             case State.END_PHASE:
                 print("Boss end phase 1!");
                 bossOrientation.rotation = bossRoot.rotation;
-                barrierToArena.SetActive(false);
+                foreach (var o in disableOnEnd)
+                {
+                    o.SetActive(false);
+                }
+                foreach (var o in enableOnEnd)
+                {
+                    o.SetActive(true);
+                }
                 CutsceneManager.Instance().PlayCutsceneByName("Phase 1 End");
                 break;
+        }
+        if (debugAttack != null)
+        {
+            bossAttackTrigger.transform.rotation = bossOrientation.rotation * Quaternion.Euler(0f, attackAngle, 0f);
+            debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP || state == State.STUCK);
         }
     }
 
@@ -188,6 +215,10 @@ public class BlueberryPhaseOne : BossController
                     }
                     break;
                 case State.STUCK:
+                    if (Time.time - timeStateChange > timeStateEnd)
+                    {
+                        UpdateState(State.LOOK_AT_PLAYER);
+                    }
                     break;
             }
         }
