@@ -452,7 +452,7 @@ public class OrangeBoss : MonoBehaviour
     {
         // unlock next level 
         // LevelManager.SetLevelUnlock("Blueberry Level", true);
-        LevelManager.SetLevelUnlock("Blender Boss Room", true);
+        LevelManager.SetLevelUnlock("Blueberry Level", true);
 
         LevelSwitch.ChangeScene("Level Select");
     }

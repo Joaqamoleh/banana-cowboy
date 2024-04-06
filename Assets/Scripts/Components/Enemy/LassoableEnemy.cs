@@ -28,9 +28,16 @@ public class LassoableEnemy : LassoTossable
             controller.KillEnemy(EnemyController.DeathSource.TOSSED, true);
         }
 
-        if (collision.collider.GetComponent<BodyColliderHandler>() != null && collision.collider.GetComponent<BodyColliderHandler>().GetEnemyController() != null)
+        if (collision.collider.GetComponent<BodyColliderHandler>() != null)
         {
-            collision.collider.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy(EnemyController.DeathSource.HIT_BY_TOSS);
+            if (collision.collider.GetComponent<BodyColliderHandler>().GetEnemyController() != null)
+            {
+                collision.collider.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy(EnemyController.DeathSource.HIT_BY_TOSS);
+            }
+            else if (collision.collider.GetComponent<BodyColliderHandler>().GetBossController() != null)
+            {
+                collision.collider.GetComponent<BodyColliderHandler>().GetBossController().DamageBoss(1);
+            }
         }
 
         //if (collision.collider.CompareTag("Breakable"))

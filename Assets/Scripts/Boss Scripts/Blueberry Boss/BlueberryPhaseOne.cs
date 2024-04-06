@@ -21,7 +21,7 @@ public class BlueberryPhaseOne : BossController
     
 
     [SerializeField]
-    CutsceneObject phaseOneCutscene;
+    CutsceneObject phaseOneCutscene, phaseTwoCutscene, finalCutscene;
 
     [SerializeField]
     Transform player, bossOrientation, bossRoot;
@@ -36,16 +36,22 @@ public class BlueberryPhaseOne : BossController
     float attackSpeed = 15f;
     float attackAngle = 0f;
 
-
+    [Header("Phase 1")]
     [SerializeField]
-    GameObject[] disableOnEnd, enableOnEnd;
+    GameObject[] disableOnEnd;
+    [SerializeField]
+    GameObject[] enableOnEnd;
+
+    [Header("Phase 2")]
+    [SerializeField]
+    GameObject[] enableOnBegin;
 
     [SerializeField]
     GameObject healthUIHolder;
     [SerializeField]
     Image healthUI;
 
-    bool active = false;
+    bool active = false, inPhaseTwo = false;
 
     [Header("Debug")]
     [SerializeField]
@@ -67,6 +73,8 @@ public class BlueberryPhaseOne : BossController
     void Start()
     {
         phaseOneCutscene.OnCutsceneComplete += StartPhaseOne;
+        phaseTwoCutscene.OnCutsceneComplete += StartPhaseTwo;
+        finalCutscene.OnCutsceneComplete += EndLevel;
         onDamage += OnDamaged;
         bossAttackTrigger.OnTriggerEntered += DetectAttack;
         active = false;
@@ -78,8 +86,33 @@ public class BlueberryPhaseOne : BossController
 
     void StartPhaseOne(CutsceneObject o)
     {
+        inPhaseTwo = false;
+        health = 3;
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
+    }
+
+    void StartPhaseTwo(CutsceneObject o)
+    {
+        inPhaseTwo = true;
+        health = 3;
+        active = true;
+        UpdateState(State.LOOK_AT_PLAYER);
+        Invoke("EnablePhaseTwo", 0.1f);
+    }
+
+    void EndLevel(CutsceneObject o)
+    {
+        LevelManager.SetLevelUnlock("Blender Boss Room", true);
+        LevelSwitch.ChangeScene("Level Select");
+    }
+
+    void EnablePhaseTwo()
+    {
+        foreach (var o in enableOnBegin)
+        {
+            o.SetActive(true);
+        }
     }
 
     void OnDamaged(int damage)
@@ -154,17 +187,17 @@ public class BlueberryPhaseOne : BossController
                 print("Boss attack got stuck!");
                 break;
             case State.END_PHASE:
-                print("Boss end phase 1!");
                 bossOrientation.rotation = bossRoot.rotation;
-                foreach (var o in disableOnEnd)
+                if (inPhaseTwo)
                 {
-                    o.SetActive(false);
+                    print("Boss end phase 2!");
+                    CutsceneManager.Instance().PlayCutsceneByName("Phase 2 End");
                 }
-                foreach (var o in enableOnEnd)
+                else
                 {
-                    o.SetActive(true);
+                    print("Boss end phase 1!");
+                    CutsceneManager.Instance().PlayCutsceneByName("Phase 1 End");
                 }
-                CutsceneManager.Instance().PlayCutsceneByName("Phase 1 End");
                 break;
         }
         if (debugAttack != null)
@@ -219,6 +252,17 @@ public class BlueberryPhaseOne : BossController
                     {
                         UpdateState(State.LOOK_AT_PLAYER);
                     }
+                    break;
+                case State.END_PHASE:
+                    foreach (var o in disableOnEnd)
+                    {
+                        o.SetActive(false);
+                    }
+                    foreach (var o in enableOnEnd)
+                    {
+                        o.SetActive(true);
+                    }
+                    active = false;
                     break;
             }
         }

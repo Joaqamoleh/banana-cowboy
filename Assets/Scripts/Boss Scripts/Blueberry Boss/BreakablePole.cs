@@ -13,27 +13,37 @@ public class BreakablePole : MonoBehaviour
     [SerializeField]
     CherryBombSpawner cherrySpawner;
 
+
     Vector3 initPos;
     Quaternion initRot;
 
     public void BreakPole()
     {
         poleObject.SetActive(false);
-        cherrySpawner.gameObject.SetActive(true);
+        if (cherrySpawner != null)
+        {
+            cherrySpawner.gameObject.SetActive(true);
+        }
     }
 
     public void Awake()
     {
         initPos = cherryBombBarrel.transform.position;
         initRot = cherryBombBarrel.transform.rotation;
-        cherrySpawner.gameObject.SetActive(false);
+        if (cherrySpawner != null)
+        {
+            cherrySpawner.gameObject.SetActive(false);
+        }
     }
 
     public void RespawnPole()
     {
         poleObject.SetActive(true);
-        cherrySpawner.gameObject.SetActive(false);
         cherryBombBarrel.transform.SetPositionAndRotation(initPos, initRot);
+        if (cherrySpawner != null)
+        {
+            cherrySpawner.gameObject.SetActive(false);
+        }
     }
 
     public bool IsBroken()

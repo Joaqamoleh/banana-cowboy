@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -16,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     EnemyController existingEnemy = null;
 
-    public void Start()
+    public void OnEnable()
     {
         if (spawnOnStart)
         {
@@ -24,18 +25,32 @@ public class EnemySpawner : MonoBehaviour
         }
         if (!spawnOnStart)
         {
-            Debug.Assert(existingEnemy != null);
             existingEnemy.OnDeath += OnSpawnedEnemyDeath;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        if (existingEnemy != null)
+        {
+            Destroy(existingEnemy.gameObject);
+            existingEnemy = null;
         }
     }
 
     void OnSpawnedEnemyDeath(EnemyController.DeathSource s)
     {
-        // do respawn vfx if it exists
+        StartCoroutine(SpawnEnemyDelayed());
+    }
+
+    IEnumerator SpawnEnemyDelayed()
+    {
         if (respawnVFX != null) {
             Instantiate(respawnVFX, transform.position, transform.rotation);
         }
-        Invoke("SpawnEnemy", delayOfRespawnAfterDeath);
+        yield return new WaitForSeconds(delayOfRespawnAfterDeath);
+        SpawnEnemy();
     }
 
     void SpawnEnemy()
