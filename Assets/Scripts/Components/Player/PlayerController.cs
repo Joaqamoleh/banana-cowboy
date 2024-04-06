@@ -640,6 +640,7 @@ public class PlayerController : MonoBehaviour
                 _jumpHeld = false;
                 _jumping = false;
                 _jumpBuffered = false;
+                _currentJumpBufferTime = 0f;
             }
             return;
         }
