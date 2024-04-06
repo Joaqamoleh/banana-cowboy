@@ -11,9 +11,17 @@ public class BodyColliderHandler : MonoBehaviour
     [SerializeField]
     EnemyController controller;
 
+    [SerializeField]
+    BossController bossController;
+
     public EnemyController GetEnemyController()
     {
         return controller;
+    }
+
+    public BossController GetBossController()
+    {
+        return bossController;
     }
 
     public void OnCollisionEnter(Collision collision)

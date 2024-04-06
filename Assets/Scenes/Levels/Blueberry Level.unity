@@ -1075,12 +1075,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197377674}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.95371693, z: 0, w: 0.30070582}
+  m_LocalRotation: {x: 0.000000007450581, y: -0.953717, z: -0.000000011175871, w: 0.30070582}
   m_LocalPosition: {x: 0, y: 9.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 739176133}
+  m_Father: {fileID: 725405604}
   m_LocalEulerAnglesHint: {x: 0, y: -145, z: 0}
 --- !u!65 &197377676
 BoxCollider:
@@ -2951,6 +2951,40 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4028940225643683866, guid: 013266734606cfa4d843317822002ea8, type: 3}
   m_PrefabInstance: {fileID: 772400592}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &725405603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 725405604}
+  m_Layer: 0
+  m_Name: Boss Orientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &725405604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725405603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 823231186}
+  - {fileID: 1720636796}
+  - {fileID: 197377675}
+  m_Father: {fileID: 739176133}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &739176132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,9 +3016,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 823231186}
-  - {fileID: 1720636796}
-  - {fileID: 197377675}
+  - {fileID: 725405604}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0.1480364, y: -0.00000006975733, z: 0.0000001431517}
 --- !u!95 &739176134
@@ -3020,6 +3052,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a78a0824c92ef4885d700e13679a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 3
+  bossRenderers: []
+  bossDamageMats: []
+  bossAttackTrigger: {fileID: 197377677}
+  obstacleSpawners: []
+  barrelSpawners: []
+  phaseOneCutscene: {fileID: 210145292}
+  player: {fileID: 345045437}
+  bossOrientation: {fileID: 725405604}
+  damageStunDuration: 0.5
+  windupDuration: 1
+  attackCooldown: 1
+  stuckDuration: 2
+  attackStartAngle: -45
+  attackFinishAngle: 45
+  attackSpeed: 15
+  healthUIHolder: {fileID: 0}
+  healthUI: {fileID: 0}
 --- !u!1 &752950887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,13 +3724,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823231185}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1981387123}
-  m_Father: {fileID: 739176133}
+  m_Father: {fileID: 725405604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &836736369
 PrefabInstance:
@@ -9205,6 +9255,7 @@ GameObject:
   - component: {fileID: 1720636796}
   - component: {fileID: 1720636798}
   - component: {fileID: 1720636797}
+  - component: {fileID: 1720636799}
   m_Layer: 0
   m_Name: Boss Collider
   m_TagString: Untagged
@@ -9220,12 +9271,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720636795}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.63, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 9.630002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 739176133}
+  m_Father: {fileID: 725405604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1720636797
 MonoBehaviour:
@@ -9240,6 +9291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  bossController: {fileID: 739176135}
 --- !u!135 &1720636798
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9261,6 +9313,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 7.94
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1720636799
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720636795}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1738995672
 GameObject:
   m_ObjectHideFlags: 0

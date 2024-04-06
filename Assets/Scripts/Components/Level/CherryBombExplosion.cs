@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CherryBombExplosion : MonoBehaviour
 {
-
+    
     private void Start()
     {
         StartCoroutine(SpawnExplosion());
@@ -51,9 +51,16 @@ public class CherryBombExplosion : MonoBehaviour
         //}
 
         print("Collision with " + other.name);
-        if (other.GetComponent<BodyColliderHandler>() != null && other.GetComponent<BodyColliderHandler>().GetEnemyController() != null)
+        if (other.GetComponent<BodyColliderHandler>() != null)
         {
-            other.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy(EnemyController.DeathSource.EXPLOSION);
+            if (other.GetComponent<BodyColliderHandler>().GetEnemyController() != null)
+            {
+                other.GetComponent<BodyColliderHandler>().GetEnemyController().KillEnemy(EnemyController.DeathSource.EXPLOSION);
+            }
+            else if (other.GetComponent<BodyColliderHandler>().GetBossController() != null)
+            {
+                other.GetComponent<BodyColliderHandler>().GetBossController().DamageBoss(1);
+            }
         }
         else if (other.gameObject.GetComponent<Breakable>() != null)
         {
