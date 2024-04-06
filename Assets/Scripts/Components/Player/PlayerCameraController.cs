@@ -249,6 +249,10 @@ public class PlayerCameraController : MonoBehaviour
 
     bool PerformManualRotation()
     {
+        if (!rotationHeld || (Time.unscaledTime - lastManualInputTime < realignTime && (highestHintPrioIndex == -1 || (!activeHints[highestHintPrioIndex].ShouldPerformForcedOrientation()))))
+        {
+            targetBasisRot = _focusBasis.rotation;
+        }
         if (rotationHeld)
         {
             const float e = 0.001f;
@@ -275,7 +279,6 @@ public class PlayerCameraController : MonoBehaviour
 
         if (Time.unscaledTime - lastManualInputTime < realignTime)
         {
-            targetBasisRot = _focusBasis.rotation;
             return false;
         }
 
@@ -487,6 +490,7 @@ public class PlayerCameraController : MonoBehaviour
             _orbitAngles.x = 45f;
             _orbitAngles.y = 0;
         }
+        basisRot = _focusBasis.rotation;
         Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
         Vector3 lookDir = lookRot * Vector3.forward;
         Vector3 position = _focusPoint - lookDir * orbitRadius + basisRot * Vector3.up * _focusHeightOffset;
