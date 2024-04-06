@@ -32,6 +32,9 @@ public class Collectable : MonoBehaviour
     EasingsLibrary.FunctionName easingFunctionToUse;
     EasingsLibrary.Function easingFunction;
 
+    [Header("Pickup VFX")]
+    public ParticleSystem pickupVFX;
+
     float timeEnteredRange = 0f;
     Vector3 positionKey;
     SoundPlayer sfxPlayer = null;
@@ -85,6 +88,10 @@ public class Collectable : MonoBehaviour
             foreach (var r in renderers)
             {
                 Destroy(r);
+            }
+            // play VFX
+            if (pickupVFX != null) {
+                Instantiate(pickupVFX, transform.position, transform.rotation);
             }
 
             // Collectable Effect
