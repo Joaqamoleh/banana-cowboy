@@ -431,8 +431,9 @@ public class OrangeBoss : MonoBehaviour
         // cutscene cannot be skipped
         // reset player
         playerModel.SetActive(true);
-        player.transform.position = playerWinLocation.transform.position;
-        player.transform.rotation = playerWinLocation.transform.rotation;
+        // This works now, don't change
+        playerModel.transform.position = playerWinLocation.transform.position;
+        playerModel.transform.rotation = playerWinLocation.transform.rotation;
         playerAnimator.applyRootMotion = true;
         playerAnimator.SetLayerWeight(1, 0.0f);
         playerAnimator.Play("Base Layer.BC_Cheer");

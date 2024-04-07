@@ -219,10 +219,21 @@ public class BlenderBoss : MonoBehaviour
             else
             {
                 StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
-                foreach (GameObject point in spawnPointsOrange)
+                if (_currentPhase == 1)
                 {
-                    point.SetActive(true);
+                    foreach (GameObject point in spawnPointsOrange)
+                    {
+                        point.SetActive(true);
+                    }
                 }
+                else
+                {
+                    foreach (GameObject point in spawnPointsBlueberry)
+                    {
+                        point.SetActive(true);
+                    }
+                }
+
                 for (int i = 0; i < indicatorSpawnObject.Length; i++)
                 {
                     if (indicatorSpawnObject[i] != null)
@@ -466,7 +477,11 @@ public class BlenderBoss : MonoBehaviour
     private void Update()
     {
         if (!introDialogComplete) { return; }
-
+        //Test purposes
+/*        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Damage(1);
+        }*/
         switch (state)
         {
             case BossStates.IDLE:
@@ -683,7 +698,7 @@ public class BlenderBoss : MonoBehaviour
 
     IEnumerator SetPlayerPos()
     {
-        //TODO: Test the change seconds
+        //This works. Different from the other boss because the ending punch cutscene puts player here already. Don't change unless more errors happen
         yield return new WaitForSeconds(0.5f);
         // playerModel.SetActive(true);
         player.transform.position = playerWinLocation.transform.position;

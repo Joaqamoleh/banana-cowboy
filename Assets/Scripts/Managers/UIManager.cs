@@ -96,9 +96,9 @@ public class UIManager : MonoBehaviour
     {
         if (health >= 0 && health < 4)
         {
-            if (healed)
+            if (healed && health != 3)
             {
-
+                healthAnimator.SetTrigger("Heal");
             }
             else
             {

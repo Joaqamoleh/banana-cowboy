@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Collectable : MonoBehaviour
 {
@@ -41,6 +43,7 @@ public class Collectable : MonoBehaviour
     float destroyObjectDelay = 1.0f;
 
     private Transform targetToFollow = null;
+    private bool bossBattle;
 
     private void Awake()
     {
@@ -57,6 +60,11 @@ public class Collectable : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
+        }
+        else if (SceneManager.GetActiveScene().name.Contains("Boss"))
+        {
+            targetToFollow = GameObject.Find("Player Prefab").transform;
+            bossBattle = true;
         }
         Debug.Assert(rangeTrigger != null);
         Debug.Assert(collectTrigger != null);
@@ -116,9 +124,15 @@ public class Collectable : MonoBehaviour
     {
         if (targetToFollow != null)
         {
-            float t = Mathf.Clamp((Time.time - timeEnteredRange) / timeToReachPlayer, 0f, 1f);
-            transform.position += (targetToFollow.position - transform.position) * easingFunction(t);
-
+            if (bossBattle) // Some cases where the star is too high to reach
+            {
+                transform.position += 25 * Time.deltaTime * (targetToFollow.position - transform.position).normalized;
+            }
+            else
+            {
+                float t = Mathf.Clamp((Time.time - timeEnteredRange) / timeToReachPlayer, 0f, 1f);
+                transform.position += (targetToFollow.position - transform.position) * easingFunction(t);
+            }
             //float dist = Vector3.Distance(targetToFollow.position, transform.position);
             //float a = 4f;
             //if (dist != 0)

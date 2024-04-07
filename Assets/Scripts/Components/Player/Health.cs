@@ -69,7 +69,9 @@ public class Health : MonoBehaviour
                 StartCoroutine(FlashInvincibility());
             }
             health = Mathf.Clamp(health - damage, 0, 3);
-            playerUI.SetHealthUI(health, false);
+            if (damage != 0) {
+                playerUI.SetHealthUI(health, false);
+            }
             ScreenShakeManager.Instance.ShakeCamera(3, 3, 0.1f);
             if (health <= 0)
             {
