@@ -113,7 +113,7 @@ public class BlenderBoss : MonoBehaviour
     };
 
     private void Start()
-    {        
+    {
         state = BossStates.NONE;
         dialogHolder.SetActive(false);
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
@@ -121,7 +121,7 @@ public class BlenderBoss : MonoBehaviour
         health = maxHealth;
         currMove = 0;
         _currentPhase = temp;
-        
+
         player = GameObject.FindWithTag("Player");
         bombSpawnPos = new List<Vector3>();
         indicatorSpawnObject = new GameObject[6];
@@ -142,6 +142,7 @@ public class BlenderBoss : MonoBehaviour
 
         CutsceneManager.Instance().GetCutsceneByName("PunchPhaseTwo").OnCutsceneComplete += CutsceneEndPunching;
         CutsceneManager.Instance().GetCutsceneByName("PunchPhaseOne").OnCutsceneComplete += CutsceneEndPunching;
+        CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
         CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += CelebrationComplete;
     }
 
@@ -169,9 +170,9 @@ public class BlenderBoss : MonoBehaviour
     void JuiceAttack()
     {
         bombSpawnPos.Clear(); // Just in case
-        juiceProjectileAmount = _currentPhase == 1? 2: 3;
+        juiceProjectileAmount = _currentPhase == 1 ? 2 : 3;
         cooldownTimer = move1Cooldown;
-        cooldownTimer -= _currentPhase == 1? 2: 8;
+        cooldownTimer -= _currentPhase == 1 ? 2 : 8;
         if (_currentPhase == 2)
         {
             cooldownTimer += 4;
@@ -255,7 +256,7 @@ public class BlenderBoss : MonoBehaviour
         {
             _soundPlayer.PlaySFX(sfx);
         }
-        else 
+        else
         {
             _soundPlayer.StopSFX(sfx);
         }
@@ -352,7 +353,7 @@ public class BlenderBoss : MonoBehaviour
                     yield return new WaitForSeconds(0.3f);
                 }
                 indicatorSpawnObject[i] = Instantiate(bombIndicator, spawnPosition, Quaternion.identity);
-                yield return new WaitForSeconds(_currentPhase == 1? 2: 0.25f);
+                yield return new WaitForSeconds(_currentPhase == 1 ? 2 : 0.25f);
                 ShootBombs(i);
             }
         }
@@ -468,7 +469,7 @@ public class BlenderBoss : MonoBehaviour
 
     public void HideFruitMinion()
     {
-        foreach(Transform child in fruitInHand.transform)
+        foreach (Transform child in fruitInHand.transform)
         {
             child.gameObject.SetActive(false);
         }
@@ -478,10 +479,10 @@ public class BlenderBoss : MonoBehaviour
     {
         if (!introDialogComplete) { return; }
         //Test purposes
-/*        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Damage(1);
-        }*/
+        /*        if (Input.GetKeyDown(KeyCode.L))
+                {
+                    Damage(1);
+                }*/
         switch (state)
         {
             case BossStates.IDLE:
@@ -660,7 +661,8 @@ public class BlenderBoss : MonoBehaviour
 
     void CutsceneEndPunching(CutsceneObject o)
     {
-        if(_currentPhase == 1){
+        if (_currentPhase == 1)
+        {
             _currentPhase = 2;
             playerHealth.Damage(-3, Vector3.zero); // Heal player back to full. TODO: Not sure if we'll have healing items
             StartCoroutine(GoToSecondPhase());
@@ -671,28 +673,24 @@ public class BlenderBoss : MonoBehaviour
 
             // TODO: Before the celebration, kill on the enemies present in the scene
 
-            // Play final cutscene
-            // LevelSwitch.ChangeScene("Level Select");
-            print("CELEBRATION");
+            // Play final cutscenes
             FindAnyObjectByType<PlayerAnimator>().IgnorePlayerStateChange();
-            CutsceneManager.Instance().PlayCutsceneByName("Celebration");
-            StartCoroutine(winUIAnimation());
-            StartCoroutine(SetPlayerPos());
+            CutsceneManager.Instance().PlayCutsceneByName("Blender Death");
 
-/*            // playerModel.SetActive(true);
-            player.transform.position = playerWinLocation.transform.position;
-            player.transform.rotation = playerWinLocation.transform.rotation;
-            playerAnimator.applyRootMotion = true;
-            playerAnimator.SetLayerWeight(1, 0.0f);
-            // play confetti particle system here :3
-            if (confettiVFX != null) {
-                Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 25,
-                    playerWinLocation.transform.position.z), playerWinLocation.transform.rotation); 
-            }
-            playerAnimator.Play("Base Layer.BC_Cheer");
+            /*            // playerModel.SetActive(true);
+                        player.transform.position = playerWinLocation.transform.position;
+                        player.transform.rotation = playerWinLocation.transform.rotation;
+                        playerAnimator.applyRootMotion = true;
+                        playerAnimator.SetLayerWeight(1, 0.0f);
+                        // play confetti particle system here :3
+                        if (confettiVFX != null) {
+                            Instantiate(confettiVFX, new Vector3(playerWinLocation.transform.position.x, playerWinLocation.transform.position.y + 25,
+                                playerWinLocation.transform.position.z), playerWinLocation.transform.rotation); 
+                        }
+                        playerAnimator.Play("Base Layer.BC_Cheer");
 
-            // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
-            // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");*/
+                        // CutsceneManager.Instance().GetCutsceneByName("Blender Death").OnCutsceneComplete += BlenderDeathCutsceneComplete;
+                        // CutsceneManager.Instance().PlayCutsceneByName("Blender Death");*/
         }
     }
 
@@ -720,10 +718,14 @@ public class BlenderBoss : MonoBehaviour
     void BlenderDeathCutsceneComplete(CutsceneObject o)
     {
         CutsceneManager.Instance().PlayCutsceneByName("Celebration");
+        StartCoroutine(winUIAnimation());
+        StartCoroutine(SetPlayerPos());
     }
 
     void CelebrationComplete(CutsceneObject o)
     {
+        ComicCutsceneManager.comicSelect = false;
+        ComicSelectManager.SetComicUnlock("Cutscene3", true);
         LevelSwitch.ChangeScene("Cutscene3");
     }
 
@@ -825,5 +827,3 @@ public class BlenderBoss : MonoBehaviour
         }
     }
 }
-
-

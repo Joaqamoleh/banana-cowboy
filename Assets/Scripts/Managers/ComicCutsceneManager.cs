@@ -183,8 +183,8 @@ public class ComicCutsceneManager : MonoBehaviour
 
     IEnumerator ChangeScene()
     {
-        yield return new WaitForSeconds(1.2f);
         ComicSelectManager.SetComicUnlock(cutsceneToUnlock, true);
+        yield return new WaitForSeconds(1.2f);
         if (comicSelect)
         {
             LevelSwitch.ChangeScene("Comic Select");

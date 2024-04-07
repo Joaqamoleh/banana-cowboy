@@ -23,6 +23,8 @@ public class BananaPunch : MonoBehaviour
 
     public bool canPunch;
 
+    public Animator evilBananaAnimator;
+
     private void OnEnable()
     {
         if (charOrientation == null)
@@ -46,12 +48,14 @@ public class BananaPunch : MonoBehaviour
                 print("Left Punch");
                 PerformPunch(leftPunchHitboxLocation.position);
                 GetComponent<PlayerAnimator>().DoLeftPunch();
+                evilBananaAnimator.Play("EB_Hurt_1");
             } 
             else if (Input.GetKeyDown(rightPunchButton))
             {
                 print("RIght Punch");
                 PerformPunch(rightPunchHitboxLocation.position);
                 GetComponent<PlayerAnimator>().DoRightPunch();
+                evilBananaAnimator.Play("EB_Hurt_2");
             }
         }
     }
