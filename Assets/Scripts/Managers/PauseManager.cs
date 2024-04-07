@@ -208,6 +208,7 @@ public class PauseManager : MonoBehaviour
     public void OnRestartLevelPressed()
     {
         LevelData.ResetLevelData();
+        CutsceneManager.ResetPlayedCutscenes();
         OnCheckpointRestartPressed();
     }
 

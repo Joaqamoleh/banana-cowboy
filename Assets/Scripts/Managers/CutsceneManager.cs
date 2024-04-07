@@ -11,24 +11,22 @@ using UnityEngine.Playables;
 public class CutsceneManager : MonoBehaviour
 {
     private static CutsceneManager s_instance = null;
-    private static bool hasPlayedStartingCutscene = false;
 
     
     [Tooltip("The name of the cutscene to play when the scene starts")]
     public string cutsceneOnStart = string.Empty;
-    public bool repeatCutsceneOnRestart = false;
     [Tooltip("The list of cutscenes that can be played by this manager")]
     public Cutscene[] cutscenes;
     [Tooltip("Key to skip cutscenes (If the cutscene is skipable")]
     KeyCode skipkey = KeyCode.Mouse0;
+
+    static List<string> playedCutscenes = new List<string>();
 
     private Cutscene activeCutscene = null;
 
     public delegate void CutsceneEventCallback(CutsceneObject activeCutscene);
     public event CutsceneEventCallback OnCutsceneStart;
     public event CutsceneEventCallback OnCutsceneEnd;
-
-    
 
     private void Awake()
     {
@@ -46,7 +44,14 @@ public class CutsceneManager : MonoBehaviour
 
     void PlayStartOnDelay()
     {
-        s_instance.PlayStartCutscene();
+        PlayStartCutscene();
+        foreach (var played in playedCutscenes)
+        {
+            print("Skipping cutscene: " + played);
+            CutsceneObject skipped = GetCutsceneByName(played);
+            skipped.SkipToEndOfCutscene();
+            OnCutsceneEnd?.Invoke(skipped);
+        }
     }
 
     private void Update()
@@ -62,19 +67,19 @@ public class CutsceneManager : MonoBehaviour
 
     public void PlayStartCutscene()
     {
-        if (cutsceneOnStart != string.Empty)
+        if (cutsceneOnStart != string.Empty && !playedCutscenes.Contains(cutsceneOnStart))
         {
-            if (hasPlayedStartingCutscene && !repeatCutsceneOnRestart)
-            {
-                Cutscene cs = Array.Find(cutscenes, cs => cs.name == cutsceneOnStart);
-                OnCutsceneEnd?.Invoke(cs.cutscene);
-                cs.cutscene.SkipToEndOfCutscene();
-            }
-            if (repeatCutsceneOnRestart || (!repeatCutsceneOnRestart && !hasPlayedStartingCutscene))
-            {
-                PlayCutsceneByName(cutsceneOnStart);
-                hasPlayedStartingCutscene = true;
-            }
+            PlayCutsceneByName(cutsceneOnStart);
+            //if (hasPlayedStartingCutscene && !repeatCutsceneOnRestart)
+            //{
+            //    Cutscene cs = Array.Find(cutscenes, cs => cs.name == cutsceneOnStart);
+            //    OnCutsceneEnd?.Invoke(cs.cutscene);
+            //    cs.cutscene.SkipToEndOfCutscene();
+            //}
+            //if (repeatCutsceneOnRestart || (!repeatCutsceneOnRestart && !hasPlayedStartingCutscene))
+            //{
+            //    hasPlayedStartingCutscene = true;
+            //}
         }
     }
 
@@ -82,6 +87,7 @@ public class CutsceneManager : MonoBehaviour
     {
         Cutscene cs = Array.Find(cutscenes, cs => cs.name == name);
         if (cs == null) { return; }
+        if (cs.cutscene.hasPlayed && cs.cutscene.playCutsceneOncePerLevel) { return; }
         if (activeCutscene != null) { 
             activeCutscene.cutscene.Stop();
             activeCutscene.cutscene.OnCutsceneComplete -= CutsceneFinished;
@@ -102,10 +108,28 @@ public class CutsceneManager : MonoBehaviour
         return s_instance;
     }
 
-    public static void ResetPlayStartingCutscene()
+    //public static void ResetPlayStartingCutscene()
+    //{
+    //    hasPlayedStartingCutscene = false;
+    //}
+
+    public static void ResetPlayedCutscenes()
     {
-        hasPlayedStartingCutscene = false;
+        playedCutscenes = new List<string>();
     }
+
+    public void HasPlayedCutscene(CutsceneObject completedScene)
+    {
+        if (name != cutsceneOnStart)
+        {
+            Cutscene cs = Array.Find(cutscenes, cs => cs.cutscene == completedScene);
+            if (cs != null)
+            {
+                playedCutscenes.Add(cs.name);
+            }
+        }
+    }
+
 
     public CutsceneObject GetCutsceneByName(string name)
     {

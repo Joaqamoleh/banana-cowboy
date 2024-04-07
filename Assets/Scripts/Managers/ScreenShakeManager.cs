@@ -16,7 +16,6 @@ public class ScreenShakeManager : MonoBehaviour
     {
         Instance = this;
         cinCamera = GameObject.Find("Third Person Camera").GetComponentInChildren<CinemachineBasicMultiChannelPerlin>();
-        print(cinCamera);
     }
 
     public void ShakeCamera(float intensity, float frequency, float time)

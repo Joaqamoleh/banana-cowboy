@@ -495,16 +495,16 @@ public class PlayerCameraController : MonoBehaviour
         Vector3 lookDir = lookRot * Vector3.forward;
         Vector3 position = _focusPoint - lookDir * orbitRadius + basisRot * Vector3.up * _focusHeightOffset;
         _cameraCurrent.SetPositionAndRotation(position, lookRot);
-        print("Jumping to player with pos " + position + " and rot " + lookRot.eulerAngles);
     }
 
     int lastCutsceneIndex = -1;
 
     void DisableForCutscene(CutsceneObject s)
     {
-        print("Disabled for cutscene " + s.name);
+        Debug.Log("Disabled for " + s.name);
         if (_cinemachineCamController != null)
         {
+            print("Disable succeeded ");
             _cinemachineCamController.gameObject.SetActive(false);
         }
         lastCutsceneIndex = s.index;
@@ -512,10 +512,12 @@ public class PlayerCameraController : MonoBehaviour
 
     void EnableAfterCutscene(CutsceneObject s)
     {
+        Debug.Log("Enabled for " + s.name);
+
         if (s.index < lastCutsceneIndex) { return; }
-        print("Enabled for cutscene " + s.name);
         if (_cinemachineCamController != null)
         {
+            print("Enable succeeded ");
             _cinemachineCamController.gameObject.SetActive(true);
         }
     }

@@ -12,6 +12,10 @@ public class CutsceneObject : MonoBehaviour
     [Tooltip("Plays scenes in the order they are listed in the array")]
     public Scene[] scenes;
 
+    public bool playCutsceneOncePerLevel = true;
+    [HideInInspector]
+    public bool hasPlayed = false;
+
     private int activeScene = 0;
     private bool _cutsceneComplete = false;
     private bool _skip = false;
@@ -31,8 +35,22 @@ public class CutsceneObject : MonoBehaviour
     {
         audioSrc = gameObject.AddComponent<AudioSource>();
     }
+    void CutsceneRegisterComplete()
+    {
+        if (playCutsceneOncePerLevel)
+        {
+            print("Registering cutscene " + name);
+            CutsceneManager.Instance().HasPlayedCutscene(this);
+            hasPlayed = true;
+        }
+    }
+
     public void Play()
     {
+        if (playCutsceneOncePerLevel && hasPlayed)
+        {
+            return;
+        }
         _cutsceneComplete = false;
         _stopCutscene = false;
         StopAllCoroutines();
@@ -57,6 +75,7 @@ public class CutsceneObject : MonoBehaviour
         _cutsceneComplete = true;
         DialogueManager.Instance().HideActiveDialog();
         OnCutsceneComplete?.Invoke(this);
+        CutsceneRegisterComplete();
     }
 
     void PlayScene(Scene scene)
@@ -172,6 +191,10 @@ public class CutsceneObject : MonoBehaviour
     {
         _stopCutscene = true;
         SkipActiveScene();
+        if (!hasPlayed)
+        {
+            CutsceneRegisterComplete();
+        }
     }
 
     IEnumerator WaitForSceneCompletion(Scene scene)
@@ -310,9 +333,10 @@ public class CutsceneObject : MonoBehaviour
 
     public void SkipToEndOfCutscene()
     {
+        hasPlayed = true;
         foreach (Scene s in scenes)
         {
-            if (s.isTimelineScene)
+            if (s.isTimelineScene && s.timelinePlayable != null)
             {
                 if (s.cinemachineCamController != null)
                 {

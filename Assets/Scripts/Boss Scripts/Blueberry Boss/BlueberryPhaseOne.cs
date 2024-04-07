@@ -74,6 +74,7 @@ public class BlueberryPhaseOne : BossController
     {
         phaseOneCutscene.OnCutsceneComplete += StartPhaseOne;
         phaseTwoCutscene.OnCutsceneComplete += StartPhaseTwo;
+        CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += MakeEndPhaseState;
         finalCutscene.OnCutsceneComplete += EndLevel;
         onDamage += OnDamaged;
         bossAttackTrigger.OnTriggerEntered += DetectAttack;
@@ -82,6 +83,11 @@ public class BlueberryPhaseOne : BossController
         {
             debugAttack.SetActive(false);
         }
+    }
+
+    void MakeEndPhaseState(CutsceneObject o)
+    {
+        UpdateState(State.END_PHASE);
     }
 
     void StartPhaseOne(CutsceneObject o)
@@ -145,7 +151,7 @@ public class BlueberryPhaseOne : BossController
             else if (other.gameObject.CompareTag("Player"))
             {
                 print("Damaged Player!");
-                player.GetComponent<Health>().Damage(0, bossOrientation.up * 5f);
+                player.GetComponent<Health>().Damage(1, bossOrientation.up * 30f);
             }
         }
 

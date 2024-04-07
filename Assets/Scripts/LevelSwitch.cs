@@ -58,7 +58,7 @@ public class LevelSwitch : MonoBehaviour
         }
 
         LevelData.ResetLevelData();
-        CutsceneManager.ResetPlayStartingCutscene();
+        CutsceneManager.ResetPlayedCutscenes();
         SceneManager.LoadScene(scene);
         if (scene == "Menu" || scene == "Level Select" || scene == "Cutscene1" || scene == "Cutscene2" || scene == "Cutscene3")
         {
