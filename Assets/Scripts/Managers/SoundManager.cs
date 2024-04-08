@@ -20,6 +20,9 @@ public class SoundManager : MonoBehaviour
 
     // This should be on a range [0, 1] (representing the 0% to 100%)
 
+    public delegate void SFXVolumeAdjusted(float newValue);
+    public event SFXVolumeAdjusted OnSFXVolumeChanged;
+
     [SerializeField]
     private float m_sfxvolume = 1.0f;
     [SerializeField]
@@ -30,6 +33,7 @@ public class SoundManager : MonoBehaviour
         set
         {
             m_sfxvolume = value;
+            OnSFXVolumeChanged?.Invoke(m_sfxvolume);
             if (sfxs != null)
             {
                 foreach (Sound s in sfxs)

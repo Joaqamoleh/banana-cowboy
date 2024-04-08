@@ -17,6 +17,18 @@ public class SoundPlayer : MonoBehaviour
         {
             SetupSound(s);
         }
+        if (SoundManager.Instance() != null)
+        {
+            SoundManager.Instance().OnSFXVolumeChanged += UpdateSFXVolume;
+        }
+    }
+
+    void UpdateSFXVolume(float newVolumeMult)
+    {
+        foreach (Sound s in sfxs)
+        {
+            s.src.volume = s.volume * newVolumeMult;
+        }
     }
 
     void Update()
