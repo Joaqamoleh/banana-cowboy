@@ -34,6 +34,7 @@ public class CutsceneManager : MonoBehaviour
         for (int i = 0; i < cutscenes.Length; i++)
         {
             cutscenes[i].cutscene.index = i;
+            cutscenes[i].cutscene.hasPlayed = playedCutscenes.Contains(cutscenes[i].name);
         }
     }
 

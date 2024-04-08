@@ -14,8 +14,9 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (other != null && other.tag == "Player")
         {
-            if (cutscenePlayOnce && !cutscenePlayed)
+            if (cutscenePlayOnce && (!cutscenePlayed && !CutsceneManager.Instance().GetCutsceneByName(cutsceneToPlay).hasPlayed))
             {
+                print("Playing cutscene " + cutsceneToPlay + " by trigger " + name);
                 CutsceneManager.Instance().PlayCutsceneByName(cutsceneToPlay);
                 cutscenePlayed = true;
             }
