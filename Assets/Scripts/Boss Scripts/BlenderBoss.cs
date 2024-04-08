@@ -14,7 +14,7 @@ public class BlenderBoss : MonoBehaviour
     [Header("Phases")]
     private readonly int _totalPhases = 2;
     private int _currentPhase = 1;
-    public static int temp = 1;
+    public static int temp = 2;
     bool canBeDamaged;
 
     [Header("Climbing")]
@@ -98,7 +98,8 @@ public class BlenderBoss : MonoBehaviour
     private SoundPlayer _soundPlayer;
 
     [Header("Material")]
-    public Material blenderColorSpawn;
+    public Material orangeColorSpawn;
+    public Material blueColorSpawn;
     public Material firstPhaseColor;
     public Material secondPhaseColor;
     public Material secondPhaseColorGlass;
@@ -119,7 +120,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, false);
         health = maxHealth;
-        currMove = 0;
+        currMove = 3;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
@@ -421,11 +422,12 @@ public class BlenderBoss : MonoBehaviour
             if (_currentPhase == 1)
             {
                 minionInstance = Instantiate(minions[0], point.transform.position, Quaternion.identity);
-                minionInstance.transform.GetChild(0).GetComponent<Renderer>().material = blenderColorSpawn;
+                minionInstance.transform.GetChild(0).GetComponent<Renderer>().material = orangeColorSpawn;
             }
             else
             {
                 minionInstance = Instantiate(minions[1], point.transform.position, Quaternion.identity);
+                minionInstance.transform.GetChild(0).GetComponent<Renderer>().material = blueColorSpawn;
             }
             Vector3 directionToMiddle = Vector3.zero - minionInstance.transform.position;
             Quaternion rotationToMiddle = Quaternion.LookRotation(directionToMiddle, Vector3.up);
@@ -467,7 +469,7 @@ public class BlenderBoss : MonoBehaviour
         }
     }
 
-    public void HideFruitMinion()
+    public void HideFruitMinionInHand()
     {
         foreach (Transform child in fruitInHand.transform)
         {
@@ -479,10 +481,10 @@ public class BlenderBoss : MonoBehaviour
     {
         if (!introDialogComplete) { return; }
         //Test purposes
-        /*        if (Input.GetKeyDown(KeyCode.L))
-                {
-                    Damage(1);
-                }*/
+/*        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Damage(1);
+        }*/
         switch (state)
         {
             case BossStates.IDLE:
@@ -627,7 +629,7 @@ public class BlenderBoss : MonoBehaviour
 
         _soundPlayer.StopSFX("BlenderJuice");
 
-        HideFruitMinion();
+        HideFruitMinionInHand();
         StopAllCoroutines();
         _soundPlayer.PlaySFX("Dizzy");
         modelAnimator.Play("BL_Dizzy_Loop");
@@ -672,7 +674,11 @@ public class BlenderBoss : MonoBehaviour
             LevelData.BeatLevel();
 
             // TODO: Before the celebration, kill on the enemies present in the scene
-
+            EnemyController[] allEnemies = GameObject.FindObjectsOfType<EnemyController>();
+            foreach (EnemyController e in allEnemies)
+            {
+                e.KillEnemy(EnemyController.DeathSource.OTHER, false, true);
+            }
             // Play final cutscenes
             FindAnyObjectByType<PlayerAnimator>().IgnorePlayerStateChange();
             CutsceneManager.Instance().PlayCutsceneByName("Blender Death");
@@ -694,13 +700,11 @@ public class BlenderBoss : MonoBehaviour
         }
     }
 
-    IEnumerator SetPlayerPos()
+    void SetPlayerPos()
     {
-        //This works. Different from the other boss because the ending punch cutscene puts player here already. Don't change unless more errors happen
-        yield return new WaitForSeconds(0.5f);
         // playerModel.SetActive(true);
-        player.transform.position = playerWinLocation.transform.position;
-        player.transform.rotation = playerWinLocation.transform.rotation;
+        playerModel.transform.position = playerWinLocation.transform.position;
+        playerModel.transform.rotation = playerWinLocation.transform.rotation;
         playerAnimator.applyRootMotion = true;
         playerAnimator.SetLayerWeight(1, 0.0f);
         // play confetti particle system here :3
@@ -719,7 +723,7 @@ public class BlenderBoss : MonoBehaviour
     {
         CutsceneManager.Instance().PlayCutsceneByName("Celebration");
         StartCoroutine(winUIAnimation());
-        StartCoroutine(SetPlayerPos());
+        SetPlayerPos();
     }
 
     void CelebrationComplete(CutsceneObject o)

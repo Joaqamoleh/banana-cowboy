@@ -64,7 +64,7 @@ public class EnemyController : MonoBehaviour
         KillEnemy(DeathSource.OTHER, shakeCamOnDeath);
     }
 
-    public void KillEnemy(DeathSource source = DeathSource.OTHER, bool shakeCamOnDeath = false)
+    public void KillEnemy(DeathSource source = DeathSource.OTHER, bool shakeCamOnDeath = false, bool allowDrops = true)
     {
         if (killed) { return; }
         if (ignoreDeathBySource.Contains(source)) { return; }
@@ -94,21 +94,24 @@ public class EnemyController : MonoBehaviour
 
         sfxPlayer.PlaySFX("Splat");
 
-        float shouldDropItem = Random.Range(0f, 100f);
-        if (shouldDropItem < chanceToDropItem)
+        if (allowDrops)
         {
-            shouldDropItem = Random.Range(0f, 100f);
-            float cumulative = 0f;
-            foreach (var item in itemDrops)
+            float shouldDropItem = Random.Range(0f, 100f);
+            if (shouldDropItem < chanceToDropItem)
             {
-                cumulative += item.percentageChance;
-
-                if (cumulative >= shouldDropItem)
+                shouldDropItem = Random.Range(0f, 100f);
+                float cumulative = 0f;
+                foreach (var item in itemDrops)
                 {
-                    if (item.drop != null)
+                    cumulative += item.percentageChance;
+
+                    if (cumulative >= shouldDropItem)
                     {
-                        Collectable drop = Instantiate(item.drop, transform.position, Quaternion.identity);
-                        //drop.src = Collectable.Source.ENEMY; doesn't work, make a new prefab
+                        if (item.drop != null)
+                        {
+                            Collectable drop = Instantiate(item.drop, transform.position, Quaternion.identity);
+                            //drop.src = Collectable.Source.ENEMY; doesn't work, make a new prefab
+                        }
                     }
                 }
             }

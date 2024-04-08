@@ -13,7 +13,7 @@ public class SpawnEnemyIndicator : MonoBehaviour
         GameObject temp = Instantiate(character, transform.position, transform.rotation);
         if (SceneManager.GetActiveScene().name.Contains("Blender")) // Messy but works
         {
-            temp.GetComponent<OrangeEnemyController>().ChangeSightRange(0.7f);
+            temp.GetComponent<OrangeEnemyController>()?.ChangeSightRange(0.7f);
         }
         Destroy(gameObject);
     }

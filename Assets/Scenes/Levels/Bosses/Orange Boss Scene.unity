@@ -4399,6 +4399,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1001 &721723080
 PrefabInstance:
@@ -6450,6 +6452,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &989069277 stripped
 GameObject:
@@ -9234,6 +9238,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3764426658495177794}
     - target: {fileID: 8184012128182721529, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
+      propertyPath: playerShadow
+      value: 
+      objectReference: {fileID: 2060545346}
+    - target: {fileID: 8184012128182721529, guid: d7696f80df4009b4c8f2afff70bda57e, type: 3}
       propertyPath: playerAnimator
       value: 
       objectReference: {fileID: 131797947}
@@ -9597,10 +9605,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 960174554081978571, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1526105572669686172, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9641,30 +9645,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2123129286803018558, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123129286803018558, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123129286803018558, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123129286803018558, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123129286803018558, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3135388256612513573, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3879603049845090681, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: m_Name
       value: Player Prefab
@@ -9677,26 +9657,6 @@ PrefabInstance:
       propertyPath: _cinemachineCamController
       value: 
       objectReference: {fileID: 141494500}
-    - target: {fileID: 5577803411208878517, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: _cinemachineCamController
-      value: 
-      objectReference: {fileID: 141494500}
-    - target: {fileID: 6200573083992608338, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6200573083992608338, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6200573083992608338, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6200573083992608338, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14756,6 +14716,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &2040158438 stripped
 GameObject:
@@ -14907,6 +14869,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 312016494}
   m_SourcePrefab: {fileID: 100100000, guid: a97ca17d9e072f5458eb7d46801cf5f2, type: 3}
+--- !u!1 &2060545346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2628326583575476359, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+  m_PrefabInstance: {fileID: 1463580145}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060843390 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a97ca17d9e072f5458eb7d46801cf5f2, type: 3}

@@ -29,7 +29,7 @@ public class BlenderBossAnimationManager : MonoBehaviour
 
     public void HideFruitMinion()
     {
-        instance.HideFruitMinion();
+        instance.HideFruitMinionInHand();
     }
 
     public void SFXManagerPlay(string sfx)

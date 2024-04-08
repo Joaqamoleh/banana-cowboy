@@ -2964,6 +2964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 3999188900261137746, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
+      propertyPath: m_text
+      value: X 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 4364513797610872878, guid: b953fa1acc53b4446b30f097302a0d30, type: 3}
       propertyPath: _cinemachineCamController
       value: 
@@ -6240,7 +6244,8 @@ MonoBehaviour:
   dialogText: {fileID: 1331855257}
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
-  blenderColorSpawn: {fileID: 0}
+  orangeColorSpawn: {fileID: 0}
+  blueColorSpawn: {fileID: 0}
   firstPhaseColor: {fileID: 0}
   secondPhaseColor: {fileID: 0}
   secondPhaseColorGlass: {fileID: 0}
@@ -6880,8 +6885,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108429201}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5631323, y: -1.5, z: 0.56}
+  m_LocalRotation: {x: -0.0000009132491, y: -0.0000000036126813, z: -0.00000024233572, w: 1}
+  m_LocalPosition: {x: -0, y: -2, z: -4.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8416,32 +8421,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240223167}
   m_CullTransparentMesh: 1
---- !u!1 &1245604209 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7448558458949441335, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
+--- !u!95 &1245604211 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8059879635910356872, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
   m_PrefabInstance: {fileID: 355407575110090794}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1245604211
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245604209}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 33fba0ae6aecbcb49afc4a682c1b69dc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1257069751
 GameObject:
   m_ObjectHideFlags: 0
@@ -11919,7 +11903,8 @@ MonoBehaviour:
   dialogText: {fileID: 1331855257}
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
-  blenderColorSpawn: {fileID: 0}
+  orangeColorSpawn: {fileID: 0}
+  blueColorSpawn: {fileID: 0}
   firstPhaseColor: {fileID: 0}
   secondPhaseColor: {fileID: 0}
   secondPhaseColorGlass: {fileID: 0}
@@ -14859,46 +14844,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d11febb403e188142a48d792704e6481, type: 3}
---- !u!1 &2096557207 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7757923579579430736, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-  m_PrefabInstance: {fileID: 355407575110090794}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &2096557208 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3004546548192334540, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
   m_PrefabInstance: {fileID: 355407575110090794}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2096557209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096557207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 6572138c375655649a116ac083902248, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2096557208}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: Play
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: BL_Dizzy_Loop
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &2101230648
 GameObject:
   m_ObjectHideFlags: 0
@@ -15552,26 +15502,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3902816500069754615, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4069837922956456603, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
-    - target: {fileID: 4145269146974402838, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     - target: {fileID: 4174993819549553466, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: m_Name
       value: Blender Boss Holder
       objectReference: {fileID: 0}
-    - target: {fileID: 4636629479062546656, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: platform
       value: 
@@ -15582,7 +15516,7 @@ PrefabInstance:
       objectReference: {fileID: 15680270}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: maxHealth
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4795659019768717932, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: playerModel
@@ -15624,10 +15558,6 @@ PrefabInstance:
       propertyPath: cherrySpawnPoints.Array.data[1]
       value: 
       objectReference: {fileID: 658918756}
-    - target: {fileID: 6069064167765240187, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     - target: {fileID: 6505356626559151734, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -15652,14 +15582,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6557384603702378117, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2ad323595d744fa46960b2b8c8a3a917, type: 2}
-    - target: {fileID: 7079762044309249954, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 440df321c3383b8489f44353b7295e38, type: 2}
     - target: {fileID: 7121274470466184174, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
       propertyPath: PhaseOneCutscene
       value: 
@@ -15672,20 +15594,10 @@ PrefabInstance:
       propertyPath: AnimatorRigidBody
       value: 
       objectReference: {fileID: 1777995641}
-    - target: {fileID: 7420987509783713046, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7757923579579430736, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2096557209}
-    - targetCorrespondingSourceObject: {fileID: 7448558458949441335, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1245604211}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd868f2a1ba20c44aa15a3bd5a73ddd9, type: 3}
 --- !u!4 &355407575110090795 stripped
 Transform:

@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
             {
                 healthAnimator.SetTrigger("Heal");
             }
-            else
+            else if(!healed)
             {
                 healthAnimator.SetTrigger("Damaged");
             }

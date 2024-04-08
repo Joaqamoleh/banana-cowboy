@@ -9,6 +9,9 @@ public class Collectable : MonoBehaviour
     DetectionTriggerHandler rangeTrigger, collectTrigger;
 
     [SerializeField]
+    Collider collectHotbox;
+
+    [SerializeField]
     Renderer[] renderers;
 
     [SerializeField]
@@ -101,7 +104,7 @@ public class Collectable : MonoBehaviour
             if (pickupVFX != null) {
                 Instantiate(pickupVFX, transform.position, transform.rotation);
             }
-
+            collectHotbox.enabled = false;
             // Collectable Effect
             if (type == Type.STAR)
             {

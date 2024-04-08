@@ -169,7 +169,7 @@ MonoBehaviour:
   spawnPointsBlueberry: []
   minions:
   - {fileID: 3406329834922141317, guid: ff552be70d20c574298cc4bc1e637942, type: 3}
-  - {fileID: 1097669473973715207, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
+  - {fileID: 3406329834922141317, guid: 16afad6a0b6a71e42b8cfc616c12c04c, type: 3}
   fruitInHand: {fileID: 138126019981489162}
   blueberryMinion: {fileID: 0}
   cameraOrienter: {fileID: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   playerModel: {fileID: 0}
   playerWinLocation: {fileID: 0}
   state: 0
-  maxHealth: 2
+  maxHealth: 1
   healthHolder: {fileID: 7058369862148893136}
   healthUI: {fileID: 1683391520140860730}
   normalColor: {fileID: -8047211330816495349, guid: 109f8303f7c06af45962f82475909670, type: 3}
@@ -203,7 +203,8 @@ MonoBehaviour:
   dialogText: {fileID: 8061973483947842468}
   youWinUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
-  blenderColorSpawn: {fileID: 2100000, guid: 2db78658a05c9b34d98ecddfd0663853, type: 2}
+  orangeColorSpawn: {fileID: 2100000, guid: 2db78658a05c9b34d98ecddfd0663853, type: 2}
+  blueColorSpawn: {fileID: 2100000, guid: e1e9fe1327e75d44ca27e62a0b06eb05, type: 2}
   firstPhaseColor: {fileID: 8934926406445219608, guid: 109f8303f7c06af45962f82475909670, type: 3}
   secondPhaseColor: {fileID: 2100000, guid: 4646cb57a07e1cf46b0adbb88ae053a0, type: 2}
   secondPhaseColorGlass: {fileID: 2100000, guid: d450db7be20646c4c9bde02cfa5498a3, type: 2}
@@ -6795,6 +6796,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 109f8303f7c06af45962f82475909670, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4577894711549968695}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 109f8303f7c06af45962f82475909670, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6758839414471266753}
   m_SourcePrefab: {fileID: 100100000, guid: 109f8303f7c06af45962f82475909670, type: 3}
 --- !u!137 &818069540079001024 stripped
 SkinnedMeshRenderer:
@@ -6875,6 +6879,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instance: {fileID: 4795659019768717932}
+--- !u!114 &6758839414471266753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757923579579430736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 6572138c375655649a116ac083902248, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3004546548192334540}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: BL_Dizzy_Loop
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!137 &7877812964233666995 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 737282549724031922, guid: 109f8303f7c06af45962f82475909670, type: 3}
@@ -6958,10 +6992,18 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4636926333789256931, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     - target: {fileID: 711480454300841412, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 711480454300841412, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 440df321c3383b8489f44353b7295e38, type: 2}
     - target: {fileID: 919132149155446097, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_Name
       value: Evil_Banana_Rigged_Model
@@ -6970,10 +7012,18 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 964708718486781808, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     - target: {fileID: 3154609173384397446, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3154609173384397446, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     - target: {fileID: 3503645652249679075, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -6982,19 +7032,60 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 92e5e07a541eee94da520f9be45ddcbc, type: 2}
+    - target: {fileID: 3503645652249679075, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2ad323595d744fa46960b2b8c8a3a917, type: 2}
     - target: {fileID: 5915766140548617072, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5915766140548617072, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     - target: {fileID: 6045248668441712893, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6045248668441712893, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f4ddf7915bfdb849a6ef4f580a41733, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8059879635910356872}
   m_SourcePrefab: {fileID: 100100000, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+--- !u!1 &7448558458949441335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}
+  m_PrefabInstance: {fileID: 7755182777253014118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8059879635910356872
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448558458949441335}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 33fba0ae6aecbcb49afc4a682c1b69dc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &7788211226661211533 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 074bcb0c1452f9a4d941cb85d37e7201, type: 3}

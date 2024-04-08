@@ -30,6 +30,8 @@ public class OrangeBoss : MonoBehaviour
     public GameObject origin;
     public GameObject player;
     public GameObject playerModel;
+    public GameObject playerShadow;
+
     public List<GameObject> boomerangObjects;
     public List<GameObject> weakSpots;
     public List<ParticleSystem> weakSpotVFX;
@@ -432,6 +434,8 @@ public class OrangeBoss : MonoBehaviour
         // reset player
         playerModel.SetActive(true);
         // This works now, don't change
+        playerShadow.transform.position = new Vector3(playerWinLocation.transform.position.x, 0, playerWinLocation.transform.position.z);
+
         playerModel.transform.position = playerWinLocation.transform.position;
         playerModel.transform.rotation = playerWinLocation.transform.rotation;
         playerAnimator.applyRootMotion = true;
