@@ -859,6 +859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1931342085310547686}
+  bossController: {fileID: 0}
 --- !u!1 &6553854772698092520
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,7 +912,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.25, y: 2.84, z: 6.0041265}
+  m_Size: {x: 2, y: 2.84, z: 6.0041265}
   m_Center: {x: 0, y: 0, z: 1.4620633}
 --- !u!114 &2093158669397683954
 MonoBehaviour:
@@ -1150,7 +1151,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8038817745672205755, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3378921304009961773}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1360801463561014904, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5365073089500172392}
   m_SourcePrefab: {fileID: 100100000, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
 --- !u!95 &1886122320096993558 stripped
 Animator:
@@ -1167,6 +1171,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8038817745672205755, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
   m_PrefabInstance: {fileID: 6064866905068160138}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5100385855189453554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1360801463561014904, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
+  m_PrefabInstance: {fileID: 6064866905068160138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5365073089500172392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5100385855189453554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f1fdc90400eed4db822eccf24e2c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackHitbox: {fileID: 559282942551075717}
 --- !u!137 &5307771977121003159 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2126334734636003869, guid: 14c66e0030894d741875c9466ae5e1c6, type: 3}
@@ -1245,6 +1267,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1335327235347390230, guid: 6a2f615d37c96f649838c171acf5d806, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335327235347390230, guid: 6a2f615d37c96f649838c171acf5d806, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7186756066354363540, guid: 6a2f615d37c96f649838c171acf5d806, type: 3}
       propertyPath: m_Name
       value: Smacker Attack Hitbox
@@ -1258,12 +1288,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a2f615d37c96f649838c171acf5d806, type: 3}
+--- !u!1 &559282942551075717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7186756066354363540, guid: 6a2f615d37c96f649838c171acf5d806, type: 3}
+  m_PrefabInstance: {fileID: 7241370729082410769}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5856587861630855145 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3834889775299522808, guid: 6a2f615d37c96f649838c171acf5d806, type: 3}
   m_PrefabInstance: {fileID: 7241370729082410769}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 559282942551075717}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 842288f6909719d41ae808194f038d42, type: 3}

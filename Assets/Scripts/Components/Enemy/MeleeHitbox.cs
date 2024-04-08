@@ -1,20 +1,25 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DetectionTriggerHandler;
 
 public class MeleeHitbox : MonoBehaviour
 {
 
     Health player = null;
 
-    public bool PerformAttack(int damage, Vector3 knockbackForce)
+    private bool damagePlayer;
+    private Vector3 knockbackRef;
+
+    public void SetKnockback(Vector3 knockbackForce)
     {
-        if (player != null)
-        {
-            player.Damage(damage, knockbackForce);
-            return true;
-        }
-        return false;
+        knockbackRef = knockbackForce;
+    }
+
+    public void SetDamagePlayer(bool val)
+    {
+        damagePlayer = val;
     }
 
     public bool PlayerInRange()
@@ -22,7 +27,7 @@ public class MeleeHitbox : MonoBehaviour
         return player != null;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other != null && other.transform.parent != null && other.CompareTag("Player"))
         {
@@ -30,11 +35,17 @@ public class MeleeHitbox : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void PerformAttack()
     {
-        if (other != null && other.transform.parent != null && other.transform.parent.GetComponentInParent<Health>() == player)
+        if (damagePlayer)
         {
-            player = null;
+            print("KNOCK BACK: " + knockbackRef);
+            player.Damage(0, knockbackRef);
         }
+    }
+
+    public void AttackEnded()
+    {
+        player = null;
     }
 }

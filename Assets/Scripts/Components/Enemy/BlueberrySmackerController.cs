@@ -197,8 +197,6 @@ public class BlueberrySmackerController : EnemyController
                 }
                 else if (Time.time - timeStateChange > 0.3f && !hasPerformedAttack)
                 {
-                    Vector3 knockback = Vector3.ProjectOnPlane((meleeHitbox.transform.position - transform.position), _gravObj.characterOrientation.up).normalized * knockbackForce;
-                    meleeHitbox.PerformAttack(0, knockback);
                     hasPerformedAttack = true;
                 }
                 break;
@@ -351,6 +349,8 @@ public class BlueberrySmackerController : EnemyController
                 timeStateEnd = animator.GetCurrentAnimatorStateInfo(0).length;
                 break;
             case SmackerState.SMACK_ATTACK:
+                Vector3 knockback = Vector3.ProjectOnPlane((meleeHitbox.transform.position - transform.position), _gravObj.characterOrientation.up).normalized * knockbackForce;
+                meleeHitbox.SetKnockback(knockback);
                 attackSuccess = meleeHitbox.PlayerInRange();
                 if (attackSuccess)
                 {

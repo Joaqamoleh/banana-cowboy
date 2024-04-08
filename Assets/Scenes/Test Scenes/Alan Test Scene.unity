@@ -366,6 +366,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42092200}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &44570783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5100385855189453554, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
+  m_PrefabInstance: {fileID: 1663863351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &44570786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44570783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f1fdc90400eed4db822eccf24e2c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackHitbox: {fileID: 1234138483}
 --- !u!1 &49322428
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,6 +2400,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &323446628
 GameObject:
@@ -3182,6 +3202,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &418095297
 GameObject:
@@ -3820,6 +3842,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0.1
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!4 &444502599
 Transform:
@@ -13420,6 +13444,11 @@ PlayableDirector:
     value: {fileID: 209654262}
   m_ExposedReferences:
     m_References: []
+--- !u!1 &1234138483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 559282942551075717, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
+  m_PrefabInstance: {fileID: 1663863351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1254166846
 GameObject:
   m_ObjectHideFlags: 0
@@ -21596,6 +21625,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blueberry Smacker
       objectReference: {fileID: 0}
+    - target: {fileID: 5552773416996179941, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8190882257291307517, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.803523
@@ -21640,10 +21673,17 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8572194265958402055, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5100385855189453554, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 44570786}
   m_SourcePrefab: {fileID: 100100000, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
 --- !u!1 &1671918409
 GameObject:
@@ -24406,6 +24446,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canSkipCutscene: 0
   scenes: []
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &2050692585
 GameObject:
@@ -29995,6 +30037,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &2125660953
 GameObject:
