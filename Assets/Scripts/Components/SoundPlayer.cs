@@ -25,10 +25,16 @@ public class SoundPlayer : MonoBehaviour
 
     void UpdateSFXVolume(float newVolumeMult)
     {
-        foreach (Sound s in sfxs)
+        if (sfxs != null)
         {
-            s.src.volume = s.volume * newVolumeMult;
-        }
+            foreach (Sound s in sfxs)
+            {
+                if (s.src != null)
+                {
+                    s.src.volume = s.volume * newVolumeMult;
+                }
+            }
+        } 
     }
 
     void Update()

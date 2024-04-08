@@ -13,6 +13,9 @@ public class BlueberryPhaseOne : BossController
     Material[] bossDamageMats;
 
     [SerializeField]
+    Animator bossAnimator;
+
+    [SerializeField]
     DetectionTriggerHandler bossAttackTrigger;
 
     [SerializeField]
@@ -24,17 +27,11 @@ public class BlueberryPhaseOne : BossController
     CutsceneObject phaseOneCutscene, phaseTwoCutscene, finalCutscene;
 
     [SerializeField]
-    Transform player, bossOrientation, bossRoot;
+    Transform player, bossOrientation, bossRoot, swordTip, swordRoot;
 
     [SerializeField, Min(0f)]
     float damageStunDuration = 0.5f, windupDuration = 1.0f, attackCooldown = 1.0f, stuckDuration = 2f;
     float timeStateChange = 0f, timeStateEnd = 0f;
-
-    [SerializeField, Range(-90f, 90f)]
-    float attackStartAngle = -45f, attackFinishAngle = 45f;
-    [SerializeField, Range(1f, 360f), Tooltip("In degrees per second")]
-    float attackSpeed = 15f;
-    float attackAngle = 0f;
 
     [Header("Phase 1")]
     [SerializeField]
@@ -168,6 +165,7 @@ public class BlueberryPhaseOne : BossController
                 print("Boss damaged!");
                 break;
             case State.LOOK_AT_PLAYER:
+                bossAnimator.Play("BB_Idle");
                 timeStateEnd = attackCooldown;
                 if (numBreakablePoles == poles.Count)
                 {
@@ -180,12 +178,13 @@ public class BlueberryPhaseOne : BossController
                 print("Looking at player!");
                 break;
             case State.WINDUP:
+                bossAnimator.Play("BB_Sword_Windup");
                 timeStateEnd = windupDuration;
-                attackAngle = attackStartAngle;
                 print("Boss windup!");
                 break;
             case State.ATTACK:
-                attackAngle = attackStartAngle;
+                bossAnimator.Play("BB_Sword_Attack_Success");
+                timeStateEnd = bossAnimator.GetCurrentAnimatorStateInfo(0).length + 0.1f;
                 print("Boss attack!");
                 break;
             case State.STUCK:
@@ -208,9 +207,16 @@ public class BlueberryPhaseOne : BossController
         }
         if (debugAttack != null)
         {
-            bossAttackTrigger.transform.rotation = bossOrientation.rotation * Quaternion.Euler(0f, attackAngle, 0f);
+            RepositionSwordAttackTrigger();
             debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP || state == State.STUCK);
         }
+    }
+
+    void RepositionSwordAttackTrigger()
+    {
+        Vector3 swordDir = Vector3.ProjectOnPlane((swordTip.position - swordRoot.position).normalized, bossOrientation.up);
+        bossAttackTrigger.transform.position = swordRoot.position;
+        bossAttackTrigger.transform.rotation = Quaternion.LookRotation(swordDir, bossOrientation.up);
     }
 
     void Update()
@@ -240,17 +246,20 @@ public class BlueberryPhaseOne : BossController
                     if (Time.time - timeStateChange > timeStateEnd)
                     {
                         UpdateState(State.ATTACK);
+                    } 
+                    else
+                    {
+                        RepositionSwordAttackTrigger();
                     }
                     break;
                 case State.ATTACK:
-                    if (attackAngle >= attackFinishAngle)
+                    if (Time.time - timeStateChange > timeStateEnd)
                     {
                         UpdateState(State.LOOK_AT_PLAYER);
                     }
                     else
                     {
-                        bossAttackTrigger.transform.rotation = bossOrientation.rotation * Quaternion.Euler(0f, attackAngle, 0f);
-                        attackAngle += attackSpeed * Time.deltaTime;
+                        RepositionSwordAttackTrigger();
                     }
                     break;
                 case State.STUCK:
