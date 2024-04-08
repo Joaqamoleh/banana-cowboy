@@ -2209,6 +2209,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &217591840
 GameObject:
@@ -3217,6 +3219,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!4 &389607060 stripped
 Transform:
@@ -4083,6 +4087,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!4 &558555133 stripped
 Transform:
@@ -5025,6 +5031,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!4 &717868208 stripped
 Transform:
@@ -9425,13 +9433,42 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18291a28e7dad684da9853e530454582, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1221388339}
   m_SourcePrefab: {fileID: 100100000, guid: 18291a28e7dad684da9853e530454582, type: 3}
 --- !u!4 &1221388337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 18291a28e7dad684da9853e530454582, type: 3}
   m_PrefabInstance: {fileID: 1221388336}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1221388338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 18291a28e7dad684da9853e530454582, type: 3}
+  m_PrefabInstance: {fileID: 1221388336}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1221388339
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221388338}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c501295bfebb5444bac7b3707724ce3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1244518227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13040,6 +13077,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &1829370644
 GameObject:
