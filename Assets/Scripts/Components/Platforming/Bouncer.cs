@@ -39,6 +39,11 @@ public class Bouncer : MonoBehaviour
 
     void ApplyBounce(Rigidbody rb)
     {
+        //if (rb.GetComponent<GravityObject>() != null)
+        //{
+        //    Transform t = rb.GetComponent<GravityObject>().characterOrientation;
+        //}
+        rb.velocity = Vector3.zero;
         rb.AddForce(transform.up * bounceForce, ForceMode.Impulse);
         if (sfx != null)
         {

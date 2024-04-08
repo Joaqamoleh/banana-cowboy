@@ -3234,6 +3234,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!4 &257506829 stripped
 Transform:
@@ -3460,14 +3462,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 300752173}
-  - component: {fileID: 300752172}
-  - component: {fileID: 300752171}
   - component: {fileID: 300752170}
   - component: {fileID: 300752169}
   - component: {fileID: 300752168}
   - component: {fileID: 300752174}
   m_Layer: 3
-  m_Name: Tutorial Bounce
+  m_Name: Jello Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3537,56 +3537,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.96531737
   m_Center: {x: -9.041062e-11, y: 0.4653174, z: -0.000000005429341}
---- !u!23 &300752171
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300752167}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: cd0d7d71db6406342895e9badc763682, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &300752172
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300752167}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &300752173
 Transform:
   m_ObjectHideFlags: 0
@@ -5271,6 +5221,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &526144147
 GameObject:
@@ -6539,6 +6491,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &647505835
 GameObject:
@@ -8846,6 +8800,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!4 &896473528 stripped
 Transform:
@@ -10151,6 +10107,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 0
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1 &1072986719
 GameObject:
@@ -10406,6 +10364,8 @@ MonoBehaviour:
       src: {fileID: 0}
     completionType: 2
     completionDelay: 0
+  playCutsceneOncePerLevel: 1
+  hasPlayed: 0
   index: 0
 --- !u!1001 &1094151781
 PrefabInstance:
@@ -10578,14 +10538,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1104795083}
-  - component: {fileID: 1104795082}
-  - component: {fileID: 1104795081}
   - component: {fileID: 1104795080}
   - component: {fileID: 1104795079}
   - component: {fileID: 1104795078}
   - component: {fileID: 1104795084}
   m_Layer: 3
-  m_Name: Tutorial Bounce (2)
+  m_Name: Jello Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10655,56 +10613,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.9879337
   m_Center: {x: 0.0000000028497142, y: 0.48793256, z: 9.520801e-10}
---- !u!23 &1104795081
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104795077}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: cd0d7d71db6406342895e9badc763682, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1104795082
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1104795077}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1104795083
 Transform:
   m_ObjectHideFlags: 0
@@ -15205,14 +15113,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1714185068}
-  - component: {fileID: 1714185067}
-  - component: {fileID: 1714185066}
   - component: {fileID: 1714185065}
   - component: {fileID: 1714185064}
   - component: {fileID: 1714185063}
   - component: {fileID: 1714185069}
   m_Layer: 3
-  m_Name: Tutorial Bounce (1)
+  m_Name: Jello Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15282,56 +15188,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.9632421
   m_Center: {x: 0.000000005543858, y: 0.46324307, z: -0.0000000039477546}
---- !u!23 &1714185066
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1714185062}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: cd0d7d71db6406342895e9badc763682, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1714185067
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1714185062}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1714185068
 Transform:
   m_ObjectHideFlags: 0
