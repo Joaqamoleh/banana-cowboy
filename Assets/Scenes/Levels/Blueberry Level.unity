@@ -3817,8 +3817,6 @@ PlayableDirector:
     value: {fileID: 375044540}
   - key: {fileID: 3198609931981799309, guid: 28c0944935c649141aff6b3a114c990d, type: 2}
     value: {fileID: 739176134}
-  - key: {fileID: 6530021522740551960, guid: 28c0944935c649141aff6b3a114c990d, type: 2}
-    value: {fileID: 589153560}
   m_ExposedReferences:
     m_References: []
 --- !u!1001 &458296487
@@ -13378,6 +13376,7 @@ GameObject:
   - component: {fileID: 1497631490}
   - component: {fileID: 1497631491}
   - component: {fileID: 1497631492}
+  - component: {fileID: 1497631493}
   m_Layer: 10
   m_Name: Phase 1 Cutscene Trigger
   m_TagString: Untagged
@@ -13397,7 +13396,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 8.4, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1510429314}
   m_Father: {fileID: 1575806158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1497631491
@@ -13435,6 +13435,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutsceneToPlay: Phase 1
   cutscenePlayOnce: 1
+--- !u!114 &1497631493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497631489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b777273eff8a0bc40bd53ac76c0ae183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <checkpointNum>k__BackingField: 2
+  NPC_Animator: {fileID: 0}
+--- !u!1 &1510429313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1510429314}
+  m_Layer: 10
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1510429314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510429313}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.3, y: 7.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1497631490}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1514413530
 GameObject:
   m_ObjectHideFlags: 0

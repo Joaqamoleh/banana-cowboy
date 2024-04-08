@@ -21,7 +21,10 @@ public class RespawnPoint : MonoBehaviour
             Debug.Log("Set checkpoint " + checkpointNum + ".");
             // set game managers respawn coords to set coordinates
             LevelData.SetCheckpoint(checkpointNum);
-            NPC_Animator.Play("Base Layer.NPC_B_OD_Checkpoint");
+            if (NPC_Animator != null)
+            {
+                NPC_Animator.Play("Base Layer.NPC_B_OD_Checkpoint");
+            }
             if (sfx != null)
             {
                 sfx.PlaySFX("Checkpoint");
