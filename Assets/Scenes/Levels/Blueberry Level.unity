@@ -200,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 32283781}
   m_Layer: 0
-  m_Name: Respawn Point (2)
+  m_Name: Respawn Point 3
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -231,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 34844357}
   m_Layer: 0
-  m_Name: Respawn Point (3)
+  m_Name: Respawn Point 4
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2517,7 +2517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 217591841}
   m_Layer: 0
-  m_Name: Respawn Point
+  m_Name: Respawn Point Start
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4663,7 +4663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3363123258851137253, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
       propertyPath: checkpoints.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3363123258851137253, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
       propertyPath: checkpoints.Array.data[0]
@@ -4676,17 +4676,21 @@ PrefabInstance:
     - target: {fileID: 3363123258851137253, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
       propertyPath: checkpoints.Array.data[2]
       value: 
-      objectReference: {fileID: 32283780}
+      objectReference: {fileID: 1510429313}
     - target: {fileID: 3363123258851137253, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
       propertyPath: checkpoints.Array.data[3]
       value: 
-      objectReference: {fileID: 34844356}
+      objectReference: {fileID: 32283780}
     - target: {fileID: 3363123258851137253, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
       propertyPath: checkpoints.Array.data[4]
       value: 
-      objectReference: {fileID: 687957551}
+      objectReference: {fileID: 34844356}
     - target: {fileID: 3363123258851137253, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
       propertyPath: checkpoints.Array.data[5]
+      value: 
+      objectReference: {fileID: 687957551}
+    - target: {fileID: 3363123258851137253, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
+      propertyPath: checkpoints.Array.data[6]
       value: 
       objectReference: {fileID: 2053313625}
     - target: {fileID: 6927962712715046292, guid: 9abd4ce0dcf89dd4a9cc7e727922d3c2, type: 3}
@@ -4942,7 +4946,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 645276646744352580, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_Name
-      value: NPC Template (1)
+      value: NPC Template 3
       objectReference: {fileID: 0}
     - target: {fileID: 1421385818289145085, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4962,7 +4966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5040685756122349629, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: <checkpointNum>k__BackingField
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalScale.x
@@ -5115,7 +5119,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 645276646744352580, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_Name
-      value: NPC Template
+      value: NPC Template 1
       objectReference: {fileID: 0}
     - target: {fileID: 1421385818289145085, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5419,7 +5423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 687957552}
   m_Layer: 0
-  m_Name: Respawn Point (4)
+  m_Name: Respawn Point 5
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -11176,7 +11180,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 645276646744352580, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_Name
-      value: NPC Template (3)
+      value: NPC Template 5
       objectReference: {fileID: 0}
     - target: {fileID: 1421385818289145085, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11188,7 +11192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5040685756122349629, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: <checkpointNum>k__BackingField
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalScale.x
@@ -13033,7 +13037,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 645276646744352580, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_Name
-      value: NPC Template (2)
+      value: NPC Template 4
       objectReference: {fileID: 0}
     - target: {fileID: 1421385818289145085, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13045,7 +13049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5040685756122349629, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: <checkpointNum>k__BackingField
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalScale.x
@@ -13459,7 +13463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1510429314}
   m_Layer: 10
-  m_Name: GameObject
+  m_Name: Boss Respawn Point 1
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -14305,7 +14309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1674543421}
   m_Layer: 0
-  m_Name: Respawn Point (1)
+  m_Name: Respawn Point 1
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -14873,11 +14877,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 645276646744352580, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_Name
-      value: NPC Template (4)
+      value: NPC Template 6
       objectReference: {fileID: 0}
     - target: {fileID: 5040685756122349629, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: <checkpointNum>k__BackingField
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
       propertyPath: m_LocalScale.x
@@ -16585,7 +16589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2053313626}
   m_Layer: 0
-  m_Name: Respawn Point (5)
+  m_Name: Respawn Point 6
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
