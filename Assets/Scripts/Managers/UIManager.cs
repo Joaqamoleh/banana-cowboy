@@ -96,11 +96,11 @@ public class UIManager : MonoBehaviour
     {
         if (health >= 0 && health < 4)
         {
-            if (healed && health != 3)
+            if (healed)
             {
                 healthAnimator.SetTrigger("Heal");
             }
-            else if(!healed)
+            else
             {
                 healthAnimator.SetTrigger("Damaged");
             }

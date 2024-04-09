@@ -57,6 +57,11 @@ public class Health : MonoBehaviour
     {
         if (damage < 0) // Got healed
         {
+            if (health == 3)
+            {
+                print("ALL READY FULL");
+                return;
+            }
             health = Mathf.Clamp(health - damage, 0, 3);
             playerUI.SetHealthUI(health, true);
             return;
