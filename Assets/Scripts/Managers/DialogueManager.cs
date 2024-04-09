@@ -118,6 +118,9 @@ public class DialogueManager : MonoBehaviour
             case TypeOfCharacter.EvilBanana:
                 dialogTextDisplay.color = new Color(240 / 255f, 166 / 255f, 22 / 255f);
                 break;
+            case TypeOfCharacter.Blueberry:
+            dialogTextDisplay.color = new Color(124 / 255f, 189 / 255f, 245 / 255f);
+                break;
         }
 
     }

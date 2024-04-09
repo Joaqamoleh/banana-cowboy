@@ -677,7 +677,7 @@ public class BlenderBoss : MonoBehaviour
             EnemyController[] allEnemies = GameObject.FindObjectsOfType<EnemyController>();
             foreach (EnemyController e in allEnemies)
             {
-                e.KillEnemy(EnemyController.DeathSource.OTHER, false, true);
+                e.KillEnemy(EnemyController.DeathSource.OTHER, false, false);
             }
             // Play final cutscenes
             FindAnyObjectByType<PlayerAnimator>().IgnorePlayerStateChange();
