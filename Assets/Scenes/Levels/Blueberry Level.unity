@@ -283,7 +283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65535847}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20110448, y: 0.1799106, z: -0.037603278, w: 0.96217215}
+  m_LocalRotation: {x: 0.19534795, y: 0.1591134, z: -0.03213633, w: 0.967207}
   m_LocalPosition: {x: -2.43367, y: 18.984152, z: -30.314243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3538,6 +3538,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1210730273}
+  - {fileID: 1468675756}
+  - {fileID: 1253491491}
+  - {fileID: 1752471168}
+  - {fileID: 1028648059}
+  - {fileID: 1197297222}
   - {fileID: 1738995673}
   m_Father: {fileID: 865620567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3599,13 +3604,13 @@ MonoBehaviour:
       typeOfCharacter: 2
       showClickToContinue: 1
       dialogFullyDisplayed: 0
-    isTimelineScene: 0
-    timelinePlayable: {fileID: 0}
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 1468675757}
     cinemachineCamController: {fileID: 65535849}
     cameraShake: 0
-    shakeIntensity: 0
-    shakeAmplitude: 0
-    shakeDuration: 0
+    shakeIntensity: 2
+    shakeAmplitude: 4
+    shakeDuration: 4
     cutsceneInput: 323
     altInputs: 
     splineMovement: {fileID: 0}
@@ -3635,8 +3640,8 @@ MonoBehaviour:
       typeOfCharacter: 2
       showClickToContinue: 1
       dialogFullyDisplayed: 0
-    isTimelineScene: 0
-    timelinePlayable: {fileID: 0}
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 1253491492}
     cinemachineCamController: {fileID: 65535849}
     cameraShake: 0
     shakeIntensity: 0
@@ -3671,8 +3676,8 @@ MonoBehaviour:
       typeOfCharacter: 2
       showClickToContinue: 1
       dialogFullyDisplayed: 0
-    isTimelineScene: 0
-    timelinePlayable: {fileID: 0}
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 1752471169}
     cinemachineCamController: {fileID: 65535849}
     cameraShake: 0
     shakeIntensity: 0
@@ -3706,8 +3711,8 @@ MonoBehaviour:
       typeOfCharacter: 2
       showClickToContinue: 1
       dialogFullyDisplayed: 0
-    isTimelineScene: 0
-    timelinePlayable: {fileID: 0}
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 1028648060}
     cinemachineCamController: {fileID: 65535849}
     cameraShake: 0
     shakeIntensity: 0
@@ -3742,13 +3747,13 @@ MonoBehaviour:
       typeOfCharacter: 2
       showClickToContinue: 1
       dialogFullyDisplayed: 0
-    isTimelineScene: 0
-    timelinePlayable: {fileID: 0}
+    isTimelineScene: 1
+    timelinePlayable: {fileID: 1197297223}
     cinemachineCamController: {fileID: 65535849}
-    cameraShake: 0
-    shakeIntensity: 0
-    shakeAmplitude: 0
-    shakeDuration: 0
+    cameraShake: 1
+    shakeIntensity: 2
+    shakeAmplitude: 4
+    shakeDuration: 4
     cutsceneInput: 323
     altInputs: 
     splineMovement: {fileID: 0}
@@ -4387,7 +4392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &535229240
 Transform:
   m_ObjectHideFlags: 0
@@ -4396,7 +4401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 535229239}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.36845186, y: -0.22193116, z: 0.0910422, w: 0.8981654}
+  m_LocalRotation: {x: 0.36845186, y: -0.22193113, z: 0.09104218, w: 0.8981654}
   m_LocalPosition: {x: 43.238754, y: 91.57984, z: -82.15259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8091,7 +8096,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -8117,8 +8122,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948909114}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15080655, y: -0.035599884, z: 0.005434413, w: 0.9879072}
-  m_LocalPosition: {x: -21.690674, y: 36.3462, z: -52.622326}
+  m_LocalRotation: {x: 0.15692571, y: 0.0072143925, z: -0.0011463574, w: 0.9875834}
+  m_LocalPosition: {x: -18.038239, y: 36.53235, z: -43.104267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8585,6 +8590,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1028648058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028648059}
+  - component: {fileID: 1028648060}
+  m_Layer: 0
+  m_Name: Talk 4 Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1028648059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028648058}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 375408250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1028648060
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028648058}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 923891b85507c37409449a09f5ebb6d1, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 8099546362979464742, guid: 923891b85507c37409449a09f5ebb6d1, type: 2}
+    value: {fileID: 1669080422}
+  m_ExposedReferences:
+    m_References: []
 --- !u!4 &1031641921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 889172417994022188, guid: 99e30c82df8996b4a96cb4c3dcd6f045, type: 3}
@@ -9765,6 +9821,57 @@ CapsuleCollider:
   m_Height: 70.78
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1197297221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1197297222}
+  - component: {fileID: 1197297223}
+  m_Layer: 0
+  m_Name: Talk 5 Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1197297222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197297221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 375408250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1197297223
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197297221}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 9fbe525860361de46bd29b4fda3e3a3f, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -1000837942943012689, guid: 9fbe525860361de46bd29b4fda3e3a3f, type: 2}
+    value: {fileID: 1669080422}
+  m_ExposedReferences:
+    m_References: []
 --- !u!4 &1205384599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 889172417994022188, guid: 99e30c82df8996b4a96cb4c3dcd6f045, type: 3}
@@ -11160,6 +11267,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
   m_PrefabInstance: {fileID: 1246151670}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1253491490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1253491491}
+  - component: {fileID: 1253491492}
+  m_Layer: 0
+  m_Name: Talk 2 Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1253491491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253491490}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 375408250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1253491492
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253491490}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: ed012c39eb6c73449bee06233c16726f, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 3959579934132517708, guid: ed012c39eb6c73449bee06233c16726f, type: 2}
+    value: {fileID: 1669080422}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &1259892195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12914,6 +13072,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 889172417994022188, guid: 99e30c82df8996b4a96cb4c3dcd6f045, type: 3}
   m_PrefabInstance: {fileID: 996588186}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1468675755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1468675756}
+  - component: {fileID: 1468675757}
+  m_Layer: 0
+  m_Name: Talk 1 Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1468675756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468675755}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 375408250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1468675757
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468675755}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 32bab297ceb3d7a48946324a6a4e5c12, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -4922221246256300112, guid: 32bab297ceb3d7a48946324a6a4e5c12, type: 2}
+    value: {fileID: 1669080422}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &1472004287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13727,7 +13936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1902035477}
-  m_PathPosition: 0
+  m_PathPosition: 8
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -14110,6 +14319,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ed7665407cec31c43ba722a330d69f5b, type: 2}
     - {fileID: 11400000, guid: a099bd8113733fb41876bd6ad87f4f7d, type: 2}
     - {fileID: 11400000, guid: 0f2f0949b030ebd4f8ad4dfaa5d8fcb3, type: 2}
+    - {fileID: 11400000, guid: 94be36c51825cda4f8fc05a3541552ba, type: 2}
+    - {fileID: 11400000, guid: ff7a7faa23d287c47b5b86954b4d8511, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -14151,6 +14362,34 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: BB_Run
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1669080422}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: BB_Talk_Jump
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1669080422}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: BB_Talk_Idle
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &1674543420
@@ -14500,6 +14739,57 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 810d8ce61da344045bb1e00385668e1f, type: 3}
+--- !u!1 &1752471167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1752471168}
+  - component: {fileID: 1752471169}
+  m_Layer: 0
+  m_Name: Talk 3 Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1752471168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752471167}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 375408250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &1752471169
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752471167}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 6c1b9658d35018245b557923e5cbc353, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 1062320301493554161, guid: 6c1b9658d35018245b557923e5cbc353, type: 2}
+    value: {fileID: 1669080422}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1754219930
 GameObject:
   m_ObjectHideFlags: 0
