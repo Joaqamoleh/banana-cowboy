@@ -13,6 +13,9 @@ public class CannonController : MonoBehaviour
     CutsceneObject introCutscene;
 
     [SerializeField]
+    Animator animator;
+
+    [SerializeField]
     BlueberryBomb bombPrefab;
 
     SoundPlayer soundPlayer;
@@ -50,6 +53,14 @@ public class CannonController : MonoBehaviour
 
     IEnumerator FireBomb()
     {
+        if (Random.Range(0f, 1f) < 0.5f)
+        {
+            animator.Play("BB_Cannon_Smack");
+        } 
+        else
+        {
+            animator.Play("BB_Cannon_Kick");
+        }
         lastBombShot = Time.time;
         soundPlayer.PlaySFX("Shoot");
         Vector3 spawnIndicatorPos = playerGravity.characterOrientation.position;

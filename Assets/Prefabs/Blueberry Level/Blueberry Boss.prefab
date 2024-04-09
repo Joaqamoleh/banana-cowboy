@@ -30,8 +30,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 9.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6437450148687581305}
+  m_Children: []
   m_Father: {fileID: 6691140767803601723}
   m_LocalEulerAnglesHint: {x: 0, y: -145, z: 0}
 --- !u!65 &6151783030813541879
@@ -190,11 +189,11 @@ Transform:
   m_GameObject: {fileID: 4597297677329321618}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.81, y: -3.9, z: 11.78}
-  m_LocalScale: {x: 3.26, y: 9, z: 23.27}
+  m_LocalPosition: {x: 0, y: 6.13, z: 10.84}
+  m_LocalScale: {x: 17.03, y: 13.2, z: 7.49}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5592078826057782137}
+  m_Father: {fileID: 6691140767803601723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4887576612332927550
 MeshFilter:
@@ -278,6 +277,7 @@ Transform:
   - {fileID: 5399120519831018}
   - {fileID: 355057613580935345}
   - {fileID: 5592078826057782137}
+  - {fileID: 6437450148687581305}
   m_Father: {fileID: 1954953924490932569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7429710864377819172
@@ -435,8 +435,10 @@ MonoBehaviour:
   - {fileID: 0}
   enableOnEnd:
   - {fileID: 0}
+  cannonPhaseOne: {fileID: 0}
   enableOnBegin:
   - {fileID: 0}
+  cannonPhaseTwo: {fileID: 0}
   healthUIHolder: {fileID: 0}
   healthUI: {fileID: 0}
   debugAttack: {fileID: 4597297677329321618}
@@ -454,13 +456,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombIndicatorPrefab: {fileID: 3211101266479911447, guid: 2900782729c3c574aadf0a4891801d50, type: 3}
   introCutscene: {fileID: 0}
+  animator: {fileID: 4200290969910436238}
   bombPrefab: {fileID: 5709064898770958064, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
   playerGravity: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 0
   delayBetweenBombShots: 10
-  delayBeforeFall: 1
   delayBeforeSpawning: 1
   spawnHeight: 60
 --- !u!114 &8111981177855018366
@@ -477,7 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxs:
   - name: Swing
-    audioClip: {fileID: 8300000, guid: 6fa282b6783cb9849a3adb72ef9dddd7, type: 3}
+    audioClip: {fileID: 8300000, guid: fd3d70656bc40204886b0ac51ea7cd2e, type: 3}
     alternatives: []
     volume: 1
     pitch: 1
@@ -489,7 +491,7 @@ MonoBehaviour:
     type: 0
     src: {fileID: 0}
   - name: Shoot
-    audioClip: {fileID: 8300000, guid: 076c1260e4dc3cb47831c174ac57e092, type: 3}
+    audioClip: {fileID: 8300000, guid: eddcc0497e2208f4db85c28b8b17e868, type: 3}
     alternatives: []
     volume: 1
     pitch: 1

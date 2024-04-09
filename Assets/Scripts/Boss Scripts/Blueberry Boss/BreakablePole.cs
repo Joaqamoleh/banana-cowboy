@@ -39,6 +39,10 @@ public class BreakablePole : MonoBehaviour
     public void RespawnPole()
     {
         poleObject.SetActive(true);
+        if (cherryBombBarrel != null)
+        {
+            cherryBombBarrel.gameObject.SetActive(true);
+        }
         cherryBombBarrel.transform.SetPositionAndRotation(initPos, initRot);
         if (cherrySpawner != null)
         {

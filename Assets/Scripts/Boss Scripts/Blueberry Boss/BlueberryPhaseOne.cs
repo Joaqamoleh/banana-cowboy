@@ -40,10 +40,16 @@ public class BlueberryPhaseOne : BossController
     GameObject[] disableOnEnd;
     [SerializeField]
     GameObject[] enableOnEnd;
+    [SerializeField]
+    BreakableCannon cannonPhaseOne;
 
     [Header("Phase 2")]
     [SerializeField]
     GameObject[] enableOnBegin;
+    [SerializeField]
+    BreakableCannon cannonPhaseTwo;
+
+
 
     [SerializeField]
     GameObject healthUIHolder;
@@ -164,6 +170,16 @@ public class BlueberryPhaseOne : BossController
                     poles.Add(p);
                     UpdateState(State.STUCK);
                 }
+            } 
+            else if (other.GetComponent<BreakableCannon>() != null)
+            {
+                BreakableCannon c = other.GetComponent<BreakableCannon>();
+                if (!c.IsBroken())
+                {
+                    c.BreakCannon();
+                    UpdateState(State.STUCK);
+                }
+
             }
             else if (other.gameObject.CompareTag("Player"))
             {
@@ -246,13 +262,21 @@ public class BlueberryPhaseOne : BossController
         if (debugAttack != null)
         {
             RepositionSwordAttackTrigger();
-            debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP || state == State.STUCK);
+            debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP);
         }
     }
 
     void OnEndFightCutscene(CutsceneObject obj)
     {
         GetComponent<CannonController>().ShouldFireBombs(true);
+        if (cannonPhaseOne != null && !cannonPhaseOne.IsBroken())
+        {
+            cannonPhaseOne.BreakCannon();
+        }
+        if (cannonPhaseTwo != null)
+        {
+            cannonPhaseTwo.gameObject.SetActive(true);
+        }
     }
 
     void RepositionSwordAttackTrigger()
