@@ -2091,6 +2091,7 @@ GameObject:
   - component: {fileID: 8227121646547314032}
   - component: {fileID: 6084915205613949158}
   - component: {fileID: 1903002008478302575}
+  - component: {fileID: 5285576327925717771}
   m_Layer: 14
   m_Name: Player Prefab
   m_TagString: Player
@@ -2373,6 +2374,27 @@ MonoBehaviour:
   hitboxLifetime: 0.1
   canPunch: 0
   evilBananaAnimator: {fileID: 0}
+--- !u!95 &5285576327925717771
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879603049845090681}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4128062965984371809
 GameObject:
   m_ObjectHideFlags: 0
@@ -3511,7 +3533,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4efe42d87c520f44594114421dddb817, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7de64fdb55ab7184ea2fdf711c790a9a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3680,14 +3702,14 @@ MonoBehaviour:
   highPowMat: {fileID: 2100000, guid: bc58659a5f64d4a4db950f6ae3bd98f9, type: 2}
   swingMat: {fileID: 2100000, guid: 39d88fbba4f0aa545bb207b72b0d4902, type: 2}
   hipLoopRadius: 0.4
-  smoothSpeed: 0.01
+  smoothSpeed: 0.002
   wiggleSpeed: 0.2
   wiggleAmplitude: 0.89
-  loopWiggleSpeed: 0.2
+  loopWiggleSpeed: 10.04
   loopWiggleDegree: 20
   numLoopSegments: 12
   numLineSegments: 12
-  numHipLoops: 3
+  numHipLoops: 1
   lassoLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -4026,7 +4048,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142, y: -150}
+  m_AnchoredPosition: {x: 15, y: -150}
   m_SizeDelta: {x: 600, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2372489050613850745
