@@ -14,7 +14,7 @@ public class BlenderBoss : MonoBehaviour
     [Header("Phases")]
     private readonly int _totalPhases = 2;
     private int _currentPhase = 1;
-    public static int temp = 2;
+    public static int temp = 1;
     bool canBeDamaged;
 
     [Header("Climbing")]
@@ -120,7 +120,7 @@ public class BlenderBoss : MonoBehaviour
         CutsceneManager.Instance().GetCutsceneByName("Intro").OnCutsceneComplete += IntroCutsceneEnd;
         cameraOrienter.SetCameraValues(defaultCameraSettings.x, defaultCameraSettings.y, defaultCameraSettings.z, false);
         health = maxHealth;
-        currMove = 3;
+        currMove = 0;
         _currentPhase = temp;
 
         player = GameObject.FindWithTag("Player");
