@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 1954953924490932569}
   - component: {fileID: 5328633425641119821}
   - component: {fileID: 6416553897955904711}
+  - component: {fileID: 8111981177855018366}
   m_Layer: 0
   m_Name: Blueberry Boss
   m_TagString: Untagged
@@ -438,6 +439,43 @@ MonoBehaviour:
   healthUIHolder: {fileID: 0}
   healthUI: {fileID: 0}
   debugAttack: {fileID: 4597297677329321618}
+--- !u!114 &8111981177855018366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671572450473172336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb778f7290266a64381858525a041c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxs:
+  - name: Swing
+    audioClip: {fileID: 8300000, guid: 6fa282b6783cb9849a3adb72ef9dddd7, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.722
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
+  - name: Shoot
+    audioClip: {fileID: 8300000, guid: 076c1260e4dc3cb47831c174ac57e092, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.636
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
 --- !u!1001 &7288817162977267591
 PrefabInstance:
   m_ObjectHideFlags: 0

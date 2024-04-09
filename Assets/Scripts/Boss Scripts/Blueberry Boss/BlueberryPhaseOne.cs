@@ -56,6 +56,8 @@ public class BlueberryPhaseOne : BossController
     [SerializeField]
     GameObject debugAttack;
 
+    SoundPlayer soundPlayer;
+
     enum State
     {
         DAMAGED,
@@ -85,6 +87,8 @@ public class BlueberryPhaseOne : BossController
         {
             debugAttack.SetActive(false);
         }
+
+        soundPlayer = GetComponent<SoundPlayer>();
     }
 
     void UpdateSwordAttackTriggerActive(bool active)
@@ -196,6 +200,7 @@ public class BlueberryPhaseOne : BossController
                 bossAnimator.Play("BB_Sword_Windup");
                 bossAnimator.speed = 1.0f;
                 timeStateEnd = windupDuration;
+                soundPlayer.PlaySFX("Swing");
                 print("Boss windup!");
                 break;
             case State.ATTACK:
@@ -205,11 +210,15 @@ public class BlueberryPhaseOne : BossController
                 print("Boss attack!");
                 break;
             case State.STUCK:
+                bossAnimator.Play("BB_Dizzy_Fall");
+                bossAnimator.speed = 1.0f;
                 timeStateEnd = stuckDuration;
                 print("Boss attack got stuck!");
                 break;
             case State.END_PHASE:
                 bossOrientation.rotation = bossRoot.rotation;
+                bossAnimator.Play("BB_Idle");
+                bossAnimator.speed = 1.0f;
                 if (inPhaseTwo)
                 {
                     print("Boss end phase 2!");
