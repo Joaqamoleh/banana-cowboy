@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LightningTest
+  m_Name: New Material
   m_Shader: {fileID: -6465566751694194690, guid: c9c7a61707bf87d4196197041658b3ba, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -95,11 +95,11 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fade_Amount: 175.1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Lightning_Scale: 21.65
+    - _Lightning_Scale: 30
+    - _Line_Width: 1
     - _Metallic: 0
     - _Noise_Power: 8
     - _OcclusionStrength: 1
@@ -120,11 +120,11 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Lightning_Color: {r: 0.33045918, g: 0.9169811, b: 0.7781189, a: 0}
-    - _Lightning_Speed: {r: 1, g: 2.5, b: 0, a: 0}
-    - _Secondary_Speed: {r: -2.5, g: -1, b: 0, a: 0}
+    - _Lightning_Speed: {r: 0.5, g: 1.5, b: 0, a: 0}
+    - _Secondary_Speed: {r: -1.5, g: -1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &6162949932112298159
+--- !u!114 &7175027282592394926
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
