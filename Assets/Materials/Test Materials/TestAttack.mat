@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TestAttack
-  m_Shader: {fileID: -6465566751694194690, guid: 9e455f76d3227404796aadbb8449fb16, type: 3}
+  m_Shader: {fileID: 4800000, guid: 9904f8ca7f4ec8a4083afbd177d02635, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -75,6 +75,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SurfaceDistortion:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SurfaceNoise:
+        m_Texture: {fileID: 2800000, guid: 818f26349d19fa144849fb2686a9928a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -98,6 +106,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DepthMaxDistance: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -108,6 +117,8 @@ Material:
     - _EdgeShadowAttenuation: 1
     - _EdgeSpecular: 0.001
     - _EnvironmentReflections: 1
+    - _FoamMaxDistance: 0.4
+    - _FoamMinDistance: 0.04
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -128,6 +139,8 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _SurfaceDistortionAmount: 0
+    - _SurfaceNoiseCutoff: 1
     - _Using_Normal_Map: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -135,8 +148,12 @@ Material:
     - _AmbientColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0}
     - _BaseColor: {r: 0.9547169, g: 0.88243026, b: 0.2575934, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DepthGradientDeep: {r: 0.8415094, g: 0.46838728, b: 0.80603635, a: 0.749}
+    - _DepthGradientShallow: {r: 0.354638, g: 0.3962264, b: 0.106906354, a: 0.725}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SurfaceNoiseScroll: {r: 0.03, g: 0.03, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2719360472731945729
 MonoBehaviour:
