@@ -40,10 +40,20 @@ public class BlueberryPhaseOne : BossController
     GameObject[] disableOnEnd;
     [SerializeField]
     GameObject[] enableOnEnd;
+    [SerializeField]
+    BreakableCannon cannonPhaseOne;
+    [SerializeField]
+    int phaseOneMaxHealth = 6;
 
     [Header("Phase 2")]
     [SerializeField]
     GameObject[] enableOnBegin;
+    [SerializeField]
+    BreakableCannon cannonPhaseTwo;
+    [SerializeField]
+    int phaseTwoMaxHealth = 6;
+
+
 
     [SerializeField]
     GameObject healthUIHolder;
@@ -68,7 +78,7 @@ public class BlueberryPhaseOne : BossController
         END_PHASE
     }
 
-    State _state;
+    State _state = State.LOOK_AT_PLAYER;
 
     // Start is called before the first frame update
     void Start()
@@ -105,7 +115,8 @@ public class BlueberryPhaseOne : BossController
     {
         GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = false;
-        health = 3;
+        health = phaseOneMaxHealth;
+        healthUIHolder.SetActive(true);
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
     }
@@ -114,7 +125,8 @@ public class BlueberryPhaseOne : BossController
     {
         GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = true;
-        health = 3;
+        health = phaseTwoMaxHealth;
+        healthUIHolder.SetActive(true);
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
         Invoke("EnablePhaseTwo", 0.1f);
@@ -164,6 +176,16 @@ public class BlueberryPhaseOne : BossController
                     poles.Add(p);
                     UpdateState(State.STUCK);
                 }
+            } 
+            else if (other.GetComponent<BreakableCannon>() != null)
+            {
+                BreakableCannon c = other.GetComponent<BreakableCannon>();
+                if (!c.IsBroken())
+                {
+                    c.BreakCannon();
+                    UpdateState(State.STUCK);
+                }
+
             }
             else if (other.gameObject.CompareTag("Player"))
             {
@@ -183,6 +205,14 @@ public class BlueberryPhaseOne : BossController
         {
             case State.DAMAGED:
                 timeStateEnd = damageStunDuration;
+                if (inPhaseTwo)
+                {
+                    healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
+                }
+                else
+                {
+                    healthUI.fillAmount = health / (1.0f * phaseOneMaxHealth);
+                }
                 print("Boss damaged!");
                 break;
             case State.LOOK_AT_PLAYER:
@@ -228,7 +258,7 @@ public class BlueberryPhaseOne : BossController
                 break;
             case State.END_PHASE:
                 bossOrientation.rotation = bossRoot.rotation;
-                bossAnimator.Play("BB_Idle");
+                bossAnimator.Play("BB_Dizzy_Reset");
                 bossAnimator.speed = 1.0f;
                 if (inPhaseTwo)
                 {
@@ -246,13 +276,21 @@ public class BlueberryPhaseOne : BossController
         if (debugAttack != null)
         {
             RepositionSwordAttackTrigger();
-            debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP || state == State.STUCK);
+            debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP);
         }
     }
 
     void OnEndFightCutscene(CutsceneObject obj)
     {
         GetComponent<CannonController>().ShouldFireBombs(true);
+        if (cannonPhaseOne != null && !cannonPhaseOne.IsBroken())
+        {
+            cannonPhaseOne.BreakCannon();
+        }
+        if (cannonPhaseTwo != null)
+        {
+            cannonPhaseTwo.gameObject.SetActive(true);
+        }
     }
 
     void RepositionSwordAttackTrigger()
@@ -320,6 +358,7 @@ public class BlueberryPhaseOne : BossController
                     {
                         o.SetActive(true);
                     }
+                    healthUIHolder.SetActive(false);
                     active = false;
                     break;
             }
