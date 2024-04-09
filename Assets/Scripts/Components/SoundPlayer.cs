@@ -54,6 +54,8 @@ public class SoundPlayer : MonoBehaviour
     {
         Sound s = System.Array.Find(sfxs, sound => sound.name == name);
         if (s == null) { return; }
+        print("AHHHHHH: " + name);
+
         PlaySound(s);
     }
 
