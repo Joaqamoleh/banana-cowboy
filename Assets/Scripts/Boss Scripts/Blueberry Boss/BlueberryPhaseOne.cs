@@ -164,6 +164,16 @@ public class BlueberryPhaseOne : BossController
                     poles.Add(p);
                     UpdateState(State.STUCK);
                 }
+            } 
+            else if (other.GetComponent<BreakableCannon>() != null)
+            {
+                BreakableCannon c = other.GetComponent<BreakableCannon>();
+                if (!c.IsBroken())
+                {
+                    c.BreakCannon();
+                    UpdateState(State.STUCK);
+                }
+
             }
             else if (other.gameObject.CompareTag("Player"))
             {

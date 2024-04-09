@@ -454,13 +454,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombIndicatorPrefab: {fileID: 3211101266479911447, guid: 2900782729c3c574aadf0a4891801d50, type: 3}
   introCutscene: {fileID: 0}
+  animator: {fileID: 4200290969910436238}
   bombPrefab: {fileID: 5709064898770958064, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
   playerGravity: {fileID: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 0
   delayBetweenBombShots: 10
-  delayBeforeFall: 1
   delayBeforeSpawning: 1
   spawnHeight: 60
 --- !u!114 &8111981177855018366
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxs:
   - name: Swing
-    audioClip: {fileID: 8300000, guid: 6fa282b6783cb9849a3adb72ef9dddd7, type: 3}
+    audioClip: {fileID: 8300000, guid: fd3d70656bc40204886b0ac51ea7cd2e, type: 3}
     alternatives: []
     volume: 1
     pitch: 1
@@ -489,7 +489,7 @@ MonoBehaviour:
     type: 0
     src: {fileID: 0}
   - name: Shoot
-    audioClip: {fileID: 8300000, guid: 076c1260e4dc3cb47831c174ac57e092, type: 3}
+    audioClip: {fileID: 8300000, guid: eddcc0497e2208f4db85c28b8b17e868, type: 3}
     alternatives: []
     volume: 1
     pitch: 1
