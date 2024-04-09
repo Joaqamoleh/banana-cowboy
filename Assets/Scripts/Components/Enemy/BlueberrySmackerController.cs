@@ -312,11 +312,15 @@ public class BlueberrySmackerController : EnemyController
                     break;
                 case SmackerState.DIZZY:
                     timeStateEnd = dizzyTime;
+                    GetComponentInChildren<ParticleSystem>().Play();
+                    // play dizzy sfx
                     break;
                 case SmackerState.HIT_SUCCESS:
                     timeStateEnd = 0.0f;
                     break;
                 case SmackerState.HELD:
+                    GetComponentInChildren<ParticleSystem>().Stop();
+                    // stop dizzy sfx
                     break;
                 case SmackerState.TOSSED:
                     enemyAIDisabled = true;
