@@ -103,6 +103,7 @@ public class BlueberryPhaseOne : BossController
 
     void StartPhaseOne(CutsceneObject o)
     {
+        GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = false;
         health = 3;
         active = true;
@@ -111,6 +112,7 @@ public class BlueberryPhaseOne : BossController
 
     void StartPhaseTwo(CutsceneObject o)
     {
+        GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = true;
         health = 3;
         active = true;
@@ -174,6 +176,7 @@ public class BlueberryPhaseOne : BossController
 
     void UpdateState(State state)
     {
+        State prev = _state;
         _state = state;
         timeStateChange = Time.time;
         switch (state)
@@ -183,7 +186,15 @@ public class BlueberryPhaseOne : BossController
                 print("Boss damaged!");
                 break;
             case State.LOOK_AT_PLAYER:
-                bossAnimator.Play("BB_Idle");
+                if (prev == State.DAMAGED || prev == State.STUCK)
+                {
+                    bossAnimator.Play("BB_Dizzy_Reset");
+                } 
+                else
+                {
+                    bossAnimator.Play("BB_Idle");
+
+                }
                 bossAnimator.speed = 1.0f;
                 timeStateEnd = attackCooldown;
                 if (numBreakablePoles == poles.Count)
@@ -228,6 +239,7 @@ public class BlueberryPhaseOne : BossController
                 {
                     print("Boss end phase 1!");
                     CutsceneManager.Instance().PlayCutsceneByName("Phase 1 End");
+                    CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += OnEndFightCutscene;
                 }
                 break;
         }
@@ -236,6 +248,11 @@ public class BlueberryPhaseOne : BossController
             RepositionSwordAttackTrigger();
             debugAttack.SetActive(state == State.ATTACK || state == State.WINDUP || state == State.STUCK);
         }
+    }
+
+    void OnEndFightCutscene(CutsceneObject obj)
+    {
+        GetComponent<CannonController>().ShouldFireBombs(true);
     }
 
     void RepositionSwordAttackTrigger()

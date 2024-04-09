@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 1954953924490932569}
   - component: {fileID: 5328633425641119821}
   - component: {fileID: 6416553897955904711}
+  - component: {fileID: 4133243257622556001}
   - component: {fileID: 8111981177855018366}
   m_Layer: 0
   m_Name: Blueberry Boss
@@ -439,6 +440,29 @@ MonoBehaviour:
   healthUIHolder: {fileID: 0}
   healthUI: {fileID: 0}
   debugAttack: {fileID: 4597297677329321618}
+--- !u!114 &4133243257622556001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671572450473172336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afcc088f1077f2a4897a6fff2d14bfe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombIndicatorPrefab: {fileID: 3211101266479911447, guid: 2900782729c3c574aadf0a4891801d50, type: 3}
+  introCutscene: {fileID: 0}
+  bombPrefab: {fileID: 5709064898770958064, guid: 0a171975c19a9c648915ddd335dab2de, type: 3}
+  playerGravity: {fileID: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  delayBetweenBombShots: 10
+  delayBeforeFall: 1
+  delayBeforeSpawning: 1
+  spawnHeight: 60
 --- !u!114 &8111981177855018366
 MonoBehaviour:
   m_ObjectHideFlags: 0
