@@ -53,8 +53,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 9.233583, z: 23.22793}
-  m_Center: {x: 0.00033096067, y: -3.9146216, z: 11.788235}
+  m_Size: {x: 2.729336, y: 9.233584, z: 23.22793}
+  m_Center: {x: 0.8650157, y: -3.914621, z: 11.788233}
 --- !u!114 &4293256129859459620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,8 +190,8 @@ Transform:
   m_GameObject: {fileID: 4597297677329321618}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.9, z: 11.78}
-  m_LocalScale: {x: 1, y: 9, z: 23.27}
+  m_LocalPosition: {x: 0.81, y: -3.9, z: 11.78}
+  m_LocalScale: {x: 3.26, y: 9, z: 23.27}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5592078826057782137}
@@ -414,6 +414,7 @@ MonoBehaviour:
   bossRenderers: []
   bossDamageMats: []
   bossAnimator: {fileID: 4200290969910436238}
+  animationHandler: {fileID: 3150650659949854717}
   bossAttackTrigger: {fileID: 4293256129859459620}
   numBreakablePoles: 3
   phaseOneCutscene: {fileID: 0}

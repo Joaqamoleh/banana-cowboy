@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class AnimationEventHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public delegate void SwordAnimationEvent(bool active);
+    public event SwordAnimationEvent OnSwordAnimChange;
+
+    public void SetSwordActive()
     {
-        
+        OnSwordAnimChange?.Invoke(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetSwordInactive()
     {
-        
+        OnSwordAnimChange?.Invoke(false);
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +13,9 @@ public class BlueberryPhaseOne : BossController
 
     [SerializeField]
     Animator bossAnimator;
+
+    [SerializeField]
+    AnimationEventHandler animationHandler;
 
     [SerializeField]
     DetectionTriggerHandler bossAttackTrigger;
@@ -73,6 +75,9 @@ public class BlueberryPhaseOne : BossController
         phaseTwoCutscene.OnCutsceneComplete += StartPhaseTwo;
         CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += MakeEndPhaseState;
         finalCutscene.OnCutsceneComplete += EndLevel;
+
+        animationHandler.OnSwordAnimChange += UpdateSwordAttackTriggerActive;
+
         onDamage += OnDamaged;
         bossAttackTrigger.OnTriggerEntered += DetectAttack;
         active = false;
@@ -80,6 +85,11 @@ public class BlueberryPhaseOne : BossController
         {
             debugAttack.SetActive(false);
         }
+    }
+
+    void UpdateSwordAttackTriggerActive(bool active)
+    {
+        bossAttackTrigger.gameObject.SetActive(active);
     }
 
     void MakeEndPhaseState(CutsceneObject o)
@@ -141,9 +151,13 @@ public class BlueberryPhaseOne : BossController
             if (other.transform.parent != null && other.transform.parent.GetComponentInParent<BreakablePole>() != null)
             {
                 BreakablePole p = other.transform.parent.GetComponentInParent<BreakablePole>();
-                p.BreakPole();
-                poles.Add(p);
-                UpdateState(State.STUCK);
+                print("Colliding attack with " + other.name);
+                if (!p.IsBroken())
+                {
+                    p.BreakPole();
+                    poles.Add(p);
+                    UpdateState(State.STUCK);
+                }
             }
             else if (other.gameObject.CompareTag("Player"))
             {
@@ -166,6 +180,7 @@ public class BlueberryPhaseOne : BossController
                 break;
             case State.LOOK_AT_PLAYER:
                 bossAnimator.Play("BB_Idle");
+                bossAnimator.speed = 1.0f;
                 timeStateEnd = attackCooldown;
                 if (numBreakablePoles == poles.Count)
                 {
@@ -179,11 +194,13 @@ public class BlueberryPhaseOne : BossController
                 break;
             case State.WINDUP:
                 bossAnimator.Play("BB_Sword_Windup");
+                bossAnimator.speed = 1.0f;
                 timeStateEnd = windupDuration;
                 print("Boss windup!");
                 break;
             case State.ATTACK:
                 bossAnimator.Play("BB_Sword_Attack_Success");
+                bossAnimator.speed = 0.7f;
                 timeStateEnd = bossAnimator.GetCurrentAnimatorStateInfo(0).length + 0.1f;
                 print("Boss attack!");
                 break;

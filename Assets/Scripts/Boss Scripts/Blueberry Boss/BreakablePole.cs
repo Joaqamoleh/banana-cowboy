@@ -48,6 +48,6 @@ public class BreakablePole : MonoBehaviour
 
     public bool IsBroken()
     {
-        return poleObject.activeSelf;
+        return !poleObject.activeSelf;
     }
 }
