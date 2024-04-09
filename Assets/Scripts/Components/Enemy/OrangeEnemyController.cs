@@ -414,6 +414,7 @@ public class OrangeEnemyController : EnemyController
                     break;
                 case OrangeState.HELD:
                     _soundPlayer.StopSFX("Dizzy");
+                    GetComponentInChildren<ParticleSystem>().Stop();
                     break;
                 case OrangeState.TOSSED:
                     _soundPlayer.PlaySFX("Thrown");
