@@ -39,7 +39,6 @@ public class MeleeHitbox : MonoBehaviour
     {
         if (damagePlayer)
         {
-            print("KNOCK BACK: " + knockbackRef);
             player.Damage(0, knockbackRef);
         }
     }
