@@ -126,6 +126,7 @@ public class BlueberryPhaseOne : BossController
         GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = false;
         health = phaseOneMaxHealth;
+        healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
         healthUIHolder.SetActive(true);
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
@@ -136,6 +137,7 @@ public class BlueberryPhaseOne : BossController
         GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = true;
         health = phaseTwoMaxHealth;
+        healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
         healthUIHolder.SetActive(true);
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
@@ -152,7 +154,7 @@ public class BlueberryPhaseOne : BossController
 
         // player transform and animation
         player.transform.position = endLoc.transform.position;
-        player.transform.rotation = endLoc.transform.rotation;
+        player.GetComponent<PlayerController>().model.transform.rotation = endLoc.transform.rotation;
         playerAnimator.applyRootMotion = true;
         playerAnimator.SetLayerWeight(1, 0.0f);
         playerAnimator.Play("Base Layer.BC_Cheer");
@@ -203,15 +205,23 @@ public class BlueberryPhaseOne : BossController
     {
         if (_state == State.STUCK)
         {
+            ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
+            health -= damage * 2;
+        } 
+        else
+        {
+            ScreenShakeManager.Instance.ShakeCamera(2, 1, 0.1f);
             health -= damage;
-            if (health <= 0)
-            {
-                UpdateState(State.END_PHASE);
-            }
-            else
-            {
-                UpdateState(State.DAMAGED);
-            }
+        }
+        if (health <= 0)
+        {
+            UpdateState(State.END_PHASE);
+        }
+        else
+        {
+            UpdateState(State.DAMAGED);
+            soundPlayer.PlaySFX("Damaged");
+            soundPlayer.PlaySFX("Hurt");
         }
     }
 
@@ -225,6 +235,7 @@ public class BlueberryPhaseOne : BossController
                 print("Colliding attack with " + other.name);
                 if (!p.IsBroken())
                 {
+                    soundPlayer.PlaySFX("HitWood");
                     p.BreakPole();
                     poles.Add(p);
                     UpdateState(State.STUCK);
@@ -235,6 +246,7 @@ public class BlueberryPhaseOne : BossController
                 BreakableCannon c = other.GetComponent<BreakableCannon>();
                 if (!c.IsBroken())
                 {
+                    soundPlayer.PlaySFX("Thud");
                     c.BreakCannon();
                     UpdateState(State.STUCK);
                 }
@@ -257,7 +269,14 @@ public class BlueberryPhaseOne : BossController
         switch (state)
         {
             case State.DAMAGED:
-                timeStateEnd = damageStunDuration;
+                if (prev == State.STUCK)
+                {
+                    timeStateEnd = damageStunDuration;
+                } 
+                else
+                {
+                    _state = State.WINDUP;
+                }
                 if (inPhaseTwo)
                 {
                     healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
@@ -294,7 +313,6 @@ public class BlueberryPhaseOne : BossController
                 bossAnimator.Play("BB_Sword_Windup");
                 bossAnimator.speed = 1.0f;
                 timeStateEnd = windupDuration;
-                soundPlayer.PlaySFX("Swing");
                 print("Boss windup!");
                 break;
             case State.ATTACK:

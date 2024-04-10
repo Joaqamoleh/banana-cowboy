@@ -59,7 +59,6 @@ public class Health : MonoBehaviour
         {
             if (health == 3)
             {
-                print("ALL READY FULL");
                 return;
             }
             health = Mathf.Clamp(health - damage, 0, 3);

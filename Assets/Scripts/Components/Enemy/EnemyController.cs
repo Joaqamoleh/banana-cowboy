@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
-    SoundPlayer sfxPlayer;
+    protected SoundPlayer sfxPlayer;
 
     [SerializeField]
     Renderer[] renderers;

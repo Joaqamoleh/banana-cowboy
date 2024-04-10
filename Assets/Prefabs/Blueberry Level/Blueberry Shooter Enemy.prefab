@@ -86,7 +86,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 20.95
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6376495880555238077
 MonoBehaviour:
@@ -278,6 +278,44 @@ MonoBehaviour:
     spatialMinDist: 25
     type: 0
     src: {fileID: 0}
+  - name: Alert
+    audioClip: {fileID: 8300000, guid: 66adf4ba49bffa84ca6fe5c829697746, type: 3}
+    alternatives:
+    - {fileID: 8300000, guid: b2668d8c822c75446997746424c7a1f1, type: 3}
+    - {fileID: 8300000, guid: 48fecc54b39a93e43a4d837ae6039ca7, type: 3}
+    volume: 0.5
+    pitch: 2
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.9
+    spatialMaxDist: 100
+    spatialMinDist: 25
+    type: 0
+    src: {fileID: 0}
+  - name: Toss
+    audioClip: {fileID: 8300000, guid: a78aa5e3ecd92aa4193225e1c070641d, type: 3}
+    alternatives: []
+    volume: 0.5
+    pitch: 2
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.9
+    spatialMaxDist: 100
+    spatialMinDist: 25
+    type: 0
+    src: {fileID: 0}
+  - name: Windup
+    audioClip: {fileID: 8300000, guid: 757195b2a86ebbf44850410e72df5ba8, type: 3}
+    alternatives: []
+    volume: 0.5
+    pitch: 1.8
+    pitchVariance: 0
+    loop: 1
+    spatialBlend: 0.9
+    spatialMaxDist: 100
+    spatialMinDist: 25
+    type: 0
+    src: {fileID: 0}
 --- !u!1 &7609271109174263506
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +368,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 25.7
+  m_Radius: 35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6964949058093831991
 MonoBehaviour:
@@ -446,6 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2126039739425931106}
+  bossController: {fileID: 0}
 --- !u!135 &5811433109501375964
 SphereCollider:
   m_ObjectHideFlags: 0

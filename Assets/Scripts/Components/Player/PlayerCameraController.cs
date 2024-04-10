@@ -501,10 +501,8 @@ public class PlayerCameraController : MonoBehaviour
 
     void DisableForCutscene(CutsceneObject s)
     {
-        Debug.Log("Disabled for " + s.name);
         if (_cinemachineCamController != null)
         {
-            print("Disable succeeded ");
             _cinemachineCamController.gameObject.SetActive(false);
         }
         lastCutsceneIndex = s.index;
@@ -512,12 +510,10 @@ public class PlayerCameraController : MonoBehaviour
 
     void EnableAfterCutscene(CutsceneObject s)
     {
-        Debug.Log("Enabled for " + s.name);
 
         if (s.index < lastCutsceneIndex) { return; }
         if (_cinemachineCamController != null)
         {
-            print("Enable succeeded ");
             _cinemachineCamController.gameObject.SetActive(true);
         }
     }

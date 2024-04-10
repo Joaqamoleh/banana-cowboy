@@ -61,6 +61,7 @@ public class BlueberrySmackerController : EnemyController
     void Start()
     {
         _gravObj = GetComponent<GravityObject>();
+        sfxPlayer = GetComponent<SoundPlayer>();
         _lassoComp = GetComponent<LassoableEnemy>();
         _lassoComp.isLassoable = false;
         _rb = GetComponent<Rigidbody>();
@@ -123,7 +124,6 @@ public class BlueberrySmackerController : EnemyController
                 {
                     if (!Physics.SphereCast(detectFallLocation.position, 0.5f, -_gravObj.characterOrientation.up, out _, 6f, chaseCollisionMask, QueryTriggerInteraction.Ignore))
                     {
-                        print("BRUH");
                         UpdateState(SmackerState.WAIT_AT_EDGE);
                     }
                     else if (!playerInAttackRange)
@@ -298,8 +298,10 @@ public class BlueberrySmackerController : EnemyController
                     // Substates?
                     break;
                 case SmackerState.PLAYER_SPOTTED:
+                    sfxPlayer.PlaySFX("Alert");
                     break;
                 case SmackerState.CHASING:
+                    sfxPlayer.PlaySFX("Chasing");
                     _rb.isKinematic = false;
                     // Max chasing time, 20 seconds for now
                     timeStateEnd = 20f;
@@ -309,12 +311,16 @@ public class BlueberrySmackerController : EnemyController
                     timeStateEnd = 5f; // Timeout time
                     break;
                 case SmackerState.SMACK_WINDUP:
+                    sfxPlayer.PlaySFX("Windup");
                     _rb.isKinematic = true;
                     hasPerformedAttack = false;
                     break;
                 case SmackerState.SMACK_ATTACK:
+                    sfxPlayer.PlaySFX("Swing");
                     break;
                 case SmackerState.DIZZY:
+                    sfxPlayer.PlaySFX("Dizzy");
+
                     timeStateEnd = dizzyTime;
                     GetComponentInChildren<ParticleSystem>().Play();
                     // play dizzy sfx

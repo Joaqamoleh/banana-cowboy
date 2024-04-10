@@ -20,6 +20,7 @@ public class ScreenShakeManager : MonoBehaviour
 
     public void ShakeCamera(float intensity, float frequency, float time)
     {
+        print("called");
         _shakeTimerTotal = time;
         cinCamera.m_AmplitudeGain = intensity;
         cinCamera.m_FrequencyGain = frequency;

@@ -41,7 +41,7 @@ public class SoundPlayer : MonoBehaviour
     {
         foreach (Sound s in _loopedSounds)
         {
-            if (!s.src.isPlaying)
+            if (!s.src.isPlaying && !PauseManager.pauseActive)
             {
                 s.src.volume = s.volume * SoundManager.Instance().SFXVolume;
                 s.src.pitch = s.pitch + UnityEngine.Random.Range(0.0f, s.pitchVariance);
@@ -110,7 +110,10 @@ public class SoundPlayer : MonoBehaviour
                 }
                 else
                 {
-                    s.src.clip = s.alternatives[random];
+                    if (random < s.alternatives.Length)
+                    {
+                        s.src.clip = s.alternatives[random];
+                    }
                 }
                 s.src.Play();
             }
