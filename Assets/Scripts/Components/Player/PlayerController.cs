@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
     Transform lassoSwingCenter;
     [SerializeField]
     Rigidbody controlPlayerConnection;
+    [SerializeField]
+    PlayerCameraController playerCameraController;
 
     private Transform _camera;
     private GravityObject _gravObject;
@@ -196,6 +198,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = Vector3.zero;
         }
+        playerCameraController.JumpToPlayer();
     }
 
     public void AttachToRigidbody(Rigidbody rb)

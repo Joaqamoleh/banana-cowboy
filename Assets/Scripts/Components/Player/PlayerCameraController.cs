@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,7 +30,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     LayerMask obstructionMask = -1;
 
-    float lastManualInputTime;
+    float lastManualInputTime = -20f;
 
     public const float orbitSensitivityMin = 1f, orbitSensitivityMax = 360f; // For the slider in menu
     [SerializeField, Range(orbitZoomSensitivityMin, orbitZoomSensitivityMax)]
@@ -54,7 +55,7 @@ public class PlayerCameraController : MonoBehaviour
 
 
     private float mouseX, mouseY, mouseScroll;
-    private bool rotationHeld = false;
+    private bool rotationHeld = false, jumpToPlayer = false;
     List<CameraHint> activeHints = new List<CameraHint>();
     int highestHintPrioIndex = -1;
 
@@ -203,6 +204,7 @@ public class PlayerCameraController : MonoBehaviour
             rectPosition = castFrom + castDirection * hit.distance;
             position = rectPosition - rectOffset;
         }
+
         pos = position;
         rot = lookRot;
     }
@@ -210,41 +212,56 @@ public class PlayerCameraController : MonoBehaviour
     void UpdateFocusPoint()
     {
         _previousFocusPoint = _focusPoint;
-        Vector3 targetPoint = _cameraFocus.position;
-        float refocusFactor = focusCenteringFactor;
-        if (Time.unscaledTime - lastManualInputTime > realignTime && highestHintPrioIndex != -1 && activeHints[highestHintPrioIndex].GetOverrideTargetPos() != Vector3.zero)
+        if (!jumpToPlayer)
         {
-            targetPoint = activeHints[highestHintPrioIndex].GetOverrideTargetPos();
-            refocusFactor = 0.9f;
+            Vector3 targetPoint = _cameraFocus.position;
+            float refocusFactor = focusCenteringFactor;
+            if (Time.unscaledTime - lastManualInputTime > realignTime && highestHintPrioIndex != -1 && activeHints[highestHintPrioIndex].GetOverrideTargetPos() != Vector3.zero)
+            {
+                targetPoint = activeHints[highestHintPrioIndex].GetOverrideTargetPos();
+                refocusFactor = 0.9f;
 
+            }
+            float distance = Vector3.Distance(targetPoint, _focusPoint);
+            float t = 1f;
+            if (distance > 0.01f && refocusFactor > 0f)
+            {
+                t = Mathf.Pow(1f - refocusFactor, Time.unscaledDeltaTime);
+            }
+            if (distance > realignRadius)
+            {
+                t = Mathf.Min(t, realignRadius / distance);
+            }
+            _focusPoint = Vector3.Lerp(targetPoint, _focusPoint, t);
+            _focusHeightOffset = Mathf.Lerp(targetHeightOffset, _focusHeightOffset, t);
         }
-        float distance = Vector3.Distance(targetPoint, _focusPoint);
-        float t = 1f;
-        if (distance > 0.01f && refocusFactor > 0f)
+        else
         {
-            t = Mathf.Pow(1f - refocusFactor, Time.unscaledDeltaTime);
+            _focusPoint = _cameraFocus.position;
+            _focusHeightOffset = targetHeightOffset;
         }
-        if (distance > realignRadius)
-        {
-            t = Mathf.Min(t, realignRadius / distance);
-        }
-        _focusPoint = Vector3.Lerp(targetPoint, _focusPoint, t);
-        _focusHeightOffset = Mathf.Lerp(targetHeightOffset, _focusHeightOffset, t);
     }
 
     void UpdateBasisRot()
     {
-        float t = 1f;
-        float roughDistance = Vector3.Distance(targetBasisRot.eulerAngles, basisRot.eulerAngles);
-        if (roughDistance > 0.01f && focusCenteringFactor > 0f)
+        if (!jumpToPlayer)
         {
-            t = Mathf.Pow(1f - focusCenteringFactor, Time.unscaledDeltaTime);
-        }
-        if (roughDistance > 180f)
+            float t = 1f;
+            float roughDistance = Vector3.Distance(targetBasisRot.eulerAngles, basisRot.eulerAngles);
+            if (roughDistance > 0.01f && focusCenteringFactor > 0f)
+            {
+                t = Mathf.Pow(1f - focusCenteringFactor, Time.unscaledDeltaTime);
+            }
+            if (roughDistance > 180f)
+            {
+                t = Mathf.Min(t, 180 / roughDistance);
+            }
+            basisRot = Quaternion.Slerp(basisRot, targetBasisRot, Time.unscaledDeltaTime);
+        } 
+        else
         {
-            t = Mathf.Min(t, 180 / roughDistance);
+            basisRot = targetBasisRot;
         }
-        basisRot = Quaternion.Slerp(basisRot, targetBasisRot, Time.unscaledDeltaTime);
     }
 
     bool PerformManualRotation()
@@ -304,6 +321,7 @@ public class PlayerCameraController : MonoBehaviour
         targetBasisRot = _focusBasis.rotation;
         targetHeightOffset = defaultHeightOffset;
         _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, angle, angleChange);
+
         return true;
     }
 
@@ -328,13 +346,21 @@ public class PlayerCameraController : MonoBehaviour
         {
             return false;
         }
+
         float horizontalAngle = hint.GetOrbitRotationAngle(_cameraFocus.position);
-        _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, horizontalAngle, GetSmoothedDeltaAngle(_orbitAngles.y, horizontalAngle));
-
         float verticalAngle = hint.GetOrbitVertAngle();
-        _orbitAngles.x = Mathf.MoveTowardsAngle(_orbitAngles.x, hint.GetOrbitVertAngle(), GetSmoothedDeltaAngle(_orbitAngles.x, verticalAngle));
-
-        orbitRadius = Mathf.Lerp(orbitRadius, orbitDist, Time.deltaTime);
+        if (!jumpToPlayer)
+        {
+            _orbitAngles.y = Mathf.MoveTowardsAngle(_orbitAngles.y, horizontalAngle, GetSmoothedDeltaAngle(_orbitAngles.y, horizontalAngle));
+            _orbitAngles.x = Mathf.MoveTowardsAngle(_orbitAngles.x, hint.GetOrbitVertAngle(), GetSmoothedDeltaAngle(_orbitAngles.x, verticalAngle));
+            orbitRadius = Mathf.Lerp(orbitRadius, orbitDist, Time.deltaTime);
+        }
+        else
+        {
+            _orbitAngles.y = horizontalAngle;
+            _orbitAngles.x = verticalAngle;
+            orbitRadius = orbitDist;
+        }
         targetBasisRot = basis.rotation;
         targetHeightOffset = hint.GetHeightOffset();
         performedHint = true;
@@ -469,32 +495,16 @@ public class PlayerCameraController : MonoBehaviour
         frozenCam = false;
     }
 
-    public void JumpTo(Vector3 position, Quaternion orientation)
+    IEnumerator StopJump()
     {
-        Camera.main.GetComponent<CinemachineBrain>().enabled = false;
-        Camera.main.transform.position = position;
-        Camera.main.transform.rotation = orientation;
-        Camera.main.GetComponent<CinemachineBrain>().enabled = true;
-        _cameraCurrent.SetPositionAndRotation(position, orientation);
+        yield return new WaitForSeconds(0.6f);
+        jumpToPlayer = false;
     }
 
     public void JumpToPlayer()
     {
-        if (highestHintPrioIndex != -1)
-        {
-            _orbitAngles.x = activeHints[highestHintPrioIndex].GetOrbitVertAngle();
-            _orbitAngles.y = activeHints[highestHintPrioIndex].GetOrbitRotationAngle(_focusPoint);
-        }
-        else
-        {
-            _orbitAngles.x = 45f;
-            _orbitAngles.y = 0;
-        }
-        basisRot = _focusBasis.rotation;
-        Quaternion lookRot = basisRot * Quaternion.Euler(_orbitAngles);
-        Vector3 lookDir = lookRot * Vector3.forward;
-        Vector3 position = _focusPoint - lookDir * orbitRadius + basisRot * Vector3.up * _focusHeightOffset;
-        _cameraCurrent.SetPositionAndRotation(position, lookRot);
+        jumpToPlayer = true;
+        StartCoroutine(StopJump());
     }
 
     int lastCutsceneIndex = -1;
