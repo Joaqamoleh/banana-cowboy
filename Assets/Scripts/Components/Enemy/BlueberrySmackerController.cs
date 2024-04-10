@@ -26,6 +26,9 @@ public class BlueberrySmackerController : EnemyController
     [SerializeField]
     Animator animator;
 
+    [Header("VFX")]
+    public ParticleSystem onHit;
+
 
     public enum SmackerState
     {
@@ -201,6 +204,7 @@ public class BlueberrySmackerController : EnemyController
                 }
                 break;
             case SmackerState.HIT_SUCCESS:
+                // other logic
                 if (target == null)
                 {
                     UpdateState(SmackerState.IDLE);
@@ -359,6 +363,8 @@ public class BlueberrySmackerController : EnemyController
                 if (attackSuccess)
                 {
                     animator.Play("BE_Melee_Success");
+                    // play onhit VFX here
+                    StartCoroutine(playOnHit());
                 }
                 else
                 {
@@ -376,6 +382,15 @@ public class BlueberrySmackerController : EnemyController
                 break;
             case SmackerState.TOSSED:
                 break;
+        }
+    }
+
+    // coroutine to time on hit vfx
+    IEnumerator playOnHit() {
+        yield return new WaitForSeconds(0.35f);
+        if (onHit != null)
+        {
+            onHit.Play();
         }
     }
 

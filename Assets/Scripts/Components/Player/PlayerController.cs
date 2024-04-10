@@ -778,6 +778,10 @@ public class PlayerController : MonoBehaviour
     {
         disabledForCutscene = true;
         UpdateState(State.IDLE);
+        if (_lassoState == LassoState.RETRACT)
+        {
+            UpdateLassoState(LassoState.NONE);
+        }
         _moveInput = Vector3.zero;
         _jumpHeld = false;
         _playerUI.HideThrowBar();
