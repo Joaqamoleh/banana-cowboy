@@ -126,6 +126,7 @@ public class BlueberryPhaseOne : BossController
         GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = false;
         health = phaseOneMaxHealth;
+        healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
         healthUIHolder.SetActive(true);
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
@@ -136,6 +137,7 @@ public class BlueberryPhaseOne : BossController
         GetComponent<CannonController>().ShouldFireBombs(false);
         inPhaseTwo = true;
         health = phaseTwoMaxHealth;
+        healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
         healthUIHolder.SetActive(true);
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
@@ -203,15 +205,19 @@ public class BlueberryPhaseOne : BossController
     {
         if (_state == State.STUCK)
         {
+            health -= damage * 2;
+        } 
+        else
+        {
             health -= damage;
-            if (health <= 0)
-            {
-                UpdateState(State.END_PHASE);
-            }
-            else
-            {
-                UpdateState(State.DAMAGED);
-            }
+        }
+        if (health <= 0)
+        {
+            UpdateState(State.END_PHASE);
+        }
+        else
+        {
+            UpdateState(State.DAMAGED);
         }
     }
 
