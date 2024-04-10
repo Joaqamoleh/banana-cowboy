@@ -108,8 +108,7 @@ public class BlenderBoss : MonoBehaviour
 
     [Header("VFX")]
     public ParticleSystem dizzyVFX;
-
-    [Header("Celebration VFX")]
+    public ParticleSystem juiceLaserVFX;
     public ParticleSystem confettiVFX;
 
 
@@ -207,6 +206,9 @@ public class BlenderBoss : MonoBehaviour
         doneMoving = false;
         modelAnimator.Play("BL_Juice_Attack_Windup");
         yield return new WaitForSeconds(0.75f);
+        if (juiceLaserVFX != null) {
+            juiceLaserVFX.Play();
+        }
         juiceProjectile.SetActive(true);
         if (positions.Length > 0)
         {
@@ -215,6 +217,10 @@ public class BlenderBoss : MonoBehaviour
 
             doneMoving = true;
             //modelAnimator.SetTrigger("ResetJuice");
+            if (juiceLaserVFX != null)
+            {
+                juiceLaserVFX.Stop();
+            }
             modelAnimator.Play("BL_Juice_Attack_Reset");
             juiceProjectile.SetActive(false);
 
