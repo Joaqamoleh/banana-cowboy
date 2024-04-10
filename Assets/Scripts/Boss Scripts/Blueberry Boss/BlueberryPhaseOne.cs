@@ -93,6 +93,7 @@ public class BlueberryPhaseOne : BossController
         CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += MakeEndPhaseState;
         CutsceneManager.Instance().GetCutsceneByName("Phase 2 End").OnCutsceneComplete += Celebration;
         // finalCutscene.OnCutsceneComplete += EndLevel;
+        CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += OnEndFightCutscene;
         CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += EndLevel;
 
         animationHandler.OnSwordAnimChange += UpdateSwordAttackTriggerActive;
@@ -321,7 +322,6 @@ public class BlueberryPhaseOne : BossController
                 {
                     print("Boss end phase 1!");
                     CutsceneManager.Instance().PlayCutsceneByName("Phase 1 End");
-                    CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += OnEndFightCutscene;
                 }
                 break;
         }
@@ -409,6 +409,19 @@ public class BlueberryPhaseOne : BossController
                     foreach (var o in enableOnEnd)
                     {
                         o.SetActive(true);
+                    }
+                    if (inPhaseTwo)
+                    {
+                        EnemyController[] enemies = FindObjectsOfType<EnemyController>();
+                        foreach (EnemyController enemy in enemies)
+                        {
+                            enemy.KillEnemy();
+                        }
+                        EnemySpawner[] spawners = FindObjectsOfType<EnemySpawner>();
+                        foreach (EnemySpawner spawn in spawners)
+                        {
+                            spawn.gameObject.SetActive(false);
+                        }
                     }
                     healthUIHolder.SetActive(false);
                     active = false;
