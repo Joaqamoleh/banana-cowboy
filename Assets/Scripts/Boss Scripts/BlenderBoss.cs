@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Android;
 public class BlenderBoss : MonoBehaviour
 {
     [Header("Phases")]
@@ -742,6 +743,9 @@ public class BlenderBoss : MonoBehaviour
 
     void CelebrationComplete(CutsceneObject o)
     {
+        // TODO: ADD LATER TO MAKE SURE IT DOESN'T BREAK STUFF
+        /*LevelData.SetCheckpoint(0);
+        LevelData.BeatLevel();*/
         ComicCutsceneManager.comicSelect = false;
         ComicSelectManager.SetComicUnlock("Cutscene3", true);
         LevelSwitch.ChangeScene("Cutscene3");

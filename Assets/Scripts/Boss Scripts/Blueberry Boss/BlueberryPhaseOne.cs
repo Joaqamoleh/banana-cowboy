@@ -208,6 +208,8 @@ public class BlueberryPhaseOne : BossController
 
     void EndLevel(CutsceneObject o)
     {
+        LevelData.SetCheckpoint(0);
+        LevelData.BeatLevel(); // save all your SS from last checkpoint
         LevelManager.SetLevelUnlock("Blender Boss Room", true);
         LevelSwitch.ChangeScene("Level Select");
     }
