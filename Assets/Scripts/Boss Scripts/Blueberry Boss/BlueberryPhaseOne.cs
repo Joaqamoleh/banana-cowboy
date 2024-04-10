@@ -80,14 +80,16 @@ public class BlueberryPhaseOne : BossController
         WINDUP,
         ATTACK,
         STUCK,
-        END_PHASE
+        END_PHASE,
+        NONE
     }
 
-    State _state = State.LOOK_AT_PLAYER;
+    State _state;
 
     // Start is called before the first frame update
     void Start()
     {
+        _state = State.NONE;
         phaseOneCutscene.OnCutsceneComplete += StartPhaseOne;
         phaseTwoCutscene.OnCutsceneComplete += StartPhaseTwo;
         CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += MakeEndPhaseState;
@@ -129,7 +131,7 @@ public class BlueberryPhaseOne : BossController
         healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
         healthUIHolder.SetActive(true);
         active = true;
-        UpdateState(State.LOOK_AT_PLAYER);
+        StartCoroutine(WaitBeforeAttacking());
     }
 
     void StartPhaseTwo(CutsceneObject o)
@@ -140,9 +142,17 @@ public class BlueberryPhaseOne : BossController
         healthUI.fillAmount = health / (1.0f * phaseTwoMaxHealth);
         healthUIHolder.SetActive(true);
         active = true;
-        UpdateState(State.LOOK_AT_PLAYER);
+        _state = State.NONE;
+        StartCoroutine(WaitBeforeAttacking());
         Invoke("EnablePhaseTwo", 0.1f);
     }
+
+    IEnumerator WaitBeforeAttacking()
+    {
+        yield return new WaitForSeconds(3f);
+        UpdateState(State.LOOK_AT_PLAYER);
+    }
+
 
     void Celebration(CutsceneObject o)
     {
