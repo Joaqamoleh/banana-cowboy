@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08877507, g: 0.02268681, b: 0.26058567, a: 1}
+  m_IndirectSpecularColor: {r: 0.08862659, g: 0.022568122, b: 0.26023108, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1095,7 +1095,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 8.4, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2053313626}
   m_Father: {fileID: 1070854780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &98597504
@@ -3873,9 +3874,8 @@ MonoBehaviour:
     dialog:
       typingSpeed: 0.02
       speakerName: Charlotte De Berry
-      speakerDialog: "Ye see, I've been workin' closely with the Banana King and
-        his blender contraption, keepin' the fear in the hearts of those who dare
-        challenge our rule.\r"
+      speakerDialog: Ye see, I've been workin' closely with the Banana King and his
+        blender contraption for the berry treasure from the depths of the seven seas.
       speakerImage: {fileID: 21300000, guid: d880d2b5dc94cb64699c7c0514e4fe31, type: 3}
       typeOfCharacter: 2
       showClickToContinue: 1
@@ -6044,20 +6044,56 @@ MonoBehaviour:
     completionDelay: 0
   - isDialogScene: 1
     dialog:
-      typingSpeed: 0
+      typingSpeed: 0.02
       speakerName: Charlotte De Berry
-      speakerDialog: Alright, end of the line buddy
+      speakerDialog: "The time has come to prove yer worth, to show the world what
+        ye're made of.\r"
       speakerImage: {fileID: 21300000, guid: d880d2b5dc94cb64699c7c0514e4fe31, type: 3}
       typeOfCharacter: 2
-      showClickToContinue: 0
+      showClickToContinue: 1
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
     cinemachineCamController: {fileID: 391979839}
     cameraShake: 0
-    shakeIntensity: 0
-    shakeAmplitude: 0
-    shakeDuration: 0
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
+    cutsceneInput: 323
+    altInputs: 
+    splineMovement: {fileID: 0}
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 0
+      pitch: 0
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0
+      spatialMaxDist: 0
+      spatialMinDist: 0
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 1
+    dialog:
+      typingSpeed: 0.02
+      speakerName: Charlotte De Berry
+      speakerDialog: So gather yer courage, draw yer lasso, and let the echoes of
+        battle ring across the Blueberry planet!
+      speakerImage: {fileID: 21300000, guid: d880d2b5dc94cb64699c7c0514e4fe31, type: 3}
+      typeOfCharacter: 2
+      showClickToContinue: 1
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 391979839}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
     splineMovement: {fileID: 0}
@@ -13696,7 +13732,7 @@ Transform:
   m_GameObject: {fileID: 1510429313}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.3, y: 7.2, z: 0}
+  m_LocalPosition: {x: -16.3, y: 7.2, z: -8.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13737,12 +13773,10 @@ Transform:
   - {fileID: 32283781}
   - {fileID: 34844357}
   - {fileID: 687957552}
-  - {fileID: 2053313626}
   - {fileID: 652288900}
   - {fileID: 637443379}
   - {fileID: 1462661022}
   - {fileID: 1246151671}
-  - {fileID: 1756194345}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1540434212
@@ -15139,96 +15173,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ece910829af8544ba02f2ea0a1002b0, type: 3}
---- !u!1001 &1756194344
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1514413531}
-    m_Modifications:
-    - target: {fileID: 645276646744352580, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_Name
-      value: NPC Template 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5040685756122349629, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: <checkpointNum>k__BackingField
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -118.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 143.48
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 187.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.71905476
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.1393165
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.27343354
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.62352663
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 8.085
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 34.935
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -79.312
-      objectReference: {fileID: 0}
-    - target: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: dialog.speakerName
-      value: Sally
-      objectReference: {fileID: 0}
-    - target: {fileID: 7681066512378368039, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-      propertyPath: dialog.speakerDialog
-      value: Seeing you at this checkpoint is BERRY exciting!!
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
---- !u!4 &1756194345 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5189294841936727178, guid: b9f5f4883dd473c4b8692fb05090a6d8, type: 3}
-  m_PrefabInstance: {fileID: 1756194344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1756426458
 GameObject:
   m_ObjectHideFlags: 0
@@ -15633,12 +15577,14 @@ MonoBehaviour:
     completionDelay: 0
   - isDialogScene: 1
     dialog:
-      typingSpeed: 0
+      typingSpeed: 0.02
       speakerName: Charlotte De Berry
-      speakerDialog: Fine, you win
+      speakerDialog: Ye've proven yerself to be a worthy opponent, Banana Cowboy.
+        But remember, this be just one battle in the war for dominion over the seven
+        seas.
       speakerImage: {fileID: 21300000, guid: d880d2b5dc94cb64699c7c0514e4fe31, type: 3}
       typeOfCharacter: 2
-      showClickToContinue: 0
+      showClickToContinue: 1
       dialogFullyDisplayed: 0
     isTimelineScene: 0
     timelinePlayable: {fileID: 0}
@@ -15647,6 +15593,77 @@ MonoBehaviour:
     shakeIntensity: 0
     shakeAmplitude: 0
     shakeDuration: 0
+    cutsceneInput: 323
+    altInputs: 
+    splineMovement: {fileID: 0}
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 0
+      pitch: 0
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0
+      spatialMaxDist: 0
+      spatialMinDist: 0
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 1
+    dialog:
+      typingSpeed: 0.02
+      speakerName: Charlotte De Berry
+      speakerDialog: The journey ahead be fraught with danger and adventure, but
+        I've no doubt ye'll face it all with the same courage and tenacity ye've
+        shown here today.
+      speakerImage: {fileID: 21300000, guid: d880d2b5dc94cb64699c7c0514e4fe31, type: 3}
+      typeOfCharacter: 2
+      showClickToContinue: 1
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 391979839}
+    cameraShake: 0
+    shakeIntensity: 0
+    shakeAmplitude: 0
+    shakeDuration: 0
+    cutsceneInput: 323
+    altInputs: 
+    splineMovement: {fileID: 0}
+    sfx:
+      name: 
+      audioClip: {fileID: 0}
+      alternatives: []
+      volume: 0
+      pitch: 0
+      pitchVariance: 0
+      loop: 0
+      spatialBlend: 0
+      spatialMaxDist: 0
+      spatialMinDist: 0
+      type: 0
+      src: {fileID: 0}
+    completionType: 0
+    completionDelay: 0
+  - isDialogScene: 1
+    dialog:
+      typingSpeed: 0.02
+      speakerName: Charlotte De Berry
+      speakerDialog: Until we meet again, may the winds be at yer back and the seas
+        be ever calm. Farewell, me hearty!
+      speakerImage: {fileID: 21300000, guid: d880d2b5dc94cb64699c7c0514e4fe31, type: 3}
+      typeOfCharacter: 2
+      showClickToContinue: 1
+      dialogFullyDisplayed: 0
+    isTimelineScene: 0
+    timelinePlayable: {fileID: 0}
+    cinemachineCamController: {fileID: 391979839}
+    cameraShake: 1
+    shakeIntensity: 4
+    shakeAmplitude: 6
+    shakeDuration: 2
     cutsceneInput: 323
     altInputs: 
     splineMovement: {fileID: 0}
@@ -16844,9 +16861,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2053313626}
   m_Layer: 0
-  m_Name: Respawn Point 6
+  m_Name: Boss Respawn Point 6
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -16858,12 +16875,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053313625}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -121.9, y: 162.65, z: 196.8}
+  m_LocalRotation: {x: -0.048001513, y: 0.68754166, z: 0.039692417, w: -0.7234686}
+  m_LocalPosition: {x: 4.29, y: 11.57, z: 16.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1514413531}
+  m_Father: {fileID: 98597503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2056130062 stripped
 Transform:
