@@ -43,6 +43,7 @@ public class BlueberrySmackerController : EnemyController
         HIT_SUCCESS,
         HELD,
         TOSSED,
+        FALLING
     }
     private SmackerState _state = SmackerState.TOSSED;
 
@@ -241,6 +242,20 @@ public class BlueberrySmackerController : EnemyController
                 break;
             case SmackerState.TOSSED:
                 break;
+            case SmackerState.FALLING:
+                if (_gravObj.IsOnGround())
+                {
+                    UpdateState(SmackerState.IDLE);
+                }
+                break;
+        }
+
+        if (_state != SmackerState.HELD && _state != SmackerState.TOSSED)
+        {
+            if (!_gravObj.IsOnGround())
+            {
+                UpdateState(SmackerState.FALLING);
+            }
         }
     }
     void OnSightEntered(Collider c)
@@ -335,6 +350,10 @@ public class BlueberrySmackerController : EnemyController
                 case SmackerState.TOSSED:
                     enemyAIDisabled = true;
                     break;
+                case SmackerState.FALLING:
+
+                    _rb.isKinematic = false;
+                    break;
             }
         }
     }
@@ -387,6 +406,9 @@ public class BlueberrySmackerController : EnemyController
             case SmackerState.HELD:
                 break;
             case SmackerState.TOSSED:
+                break;
+            case SmackerState.FALLING:
+                animator.Play("BE_Fall");
                 break;
         }
     }

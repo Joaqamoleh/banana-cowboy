@@ -94,6 +94,7 @@ public class BlueberryPhaseOne : BossController
         phaseTwoCutscene.OnCutsceneComplete += StartPhaseTwo;
         CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += MakeEndPhaseState;
         CutsceneManager.Instance().GetCutsceneByName("Phase 2 End").OnCutsceneComplete += Celebration;
+        CutsceneManager.Instance().GetCutsceneByName("Phase 2 End").OnCutsceneStart += CutMusic;
         // finalCutscene.OnCutsceneComplete += EndLevel;
         CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += OnEndFightCutscene;
         CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += EndLevel;
@@ -111,6 +112,14 @@ public class BlueberryPhaseOne : BossController
         soundPlayer = GetComponent<SoundPlayer>();
 
         youWinUI.SetActive(false);
+    }
+
+    void CutMusic(CutsceneObject obj)
+    {
+        if (SoundManager.Instance() != null)
+        {
+            SoundManager.Instance().StopAllMusic();
+        }
     }
 
     void UpdateSwordAttackTriggerActive(bool active)
@@ -149,7 +158,7 @@ public class BlueberryPhaseOne : BossController
 
     IEnumerator WaitBeforeAttacking()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         UpdateState(State.LOOK_AT_PLAYER);
     }
 
@@ -262,7 +271,7 @@ public class BlueberryPhaseOne : BossController
                 }
 
             }
-            else if (other.gameObject.CompareTag("Player"))
+            else if (other.gameObject.CompareTag("Player") && _state == State.ATTACK)
             {
                 print("Damaged Player!");
                 player.GetComponent<Health>().Damage(1, bossOrientation.up * 30f);
