@@ -20,7 +20,7 @@ public class BlenderBoss : MonoBehaviour
     [Header("Climbing")]
     public GameObject[] climbObjects;
 
-    [Header("Atacks")]
+    [Header("Attacks")]
     private readonly int moves = 4;
     private int currMove;
     public GameObject[] positions;
@@ -106,8 +106,13 @@ public class BlenderBoss : MonoBehaviour
     public Renderer[] blenderLimbs;
     public Renderer blenderGlass;
 
+    [Header("VFX")]
+    public ParticleSystem dizzyVFX;
+
     [Header("Celebration VFX")]
     public ParticleSystem confettiVFX;
+
+
     public enum BossStates
     {
         IDLE, JUICE, BLADE, BOMB, SPAWN, COOLDOWN, NONE
@@ -633,6 +638,9 @@ public class BlenderBoss : MonoBehaviour
         StopAllCoroutines();
         _soundPlayer.PlaySFX("Dizzy");
         modelAnimator.Play("BL_Dizzy_Loop");
+        if (dizzyVFX != null) {
+            dizzyVFX.Play();
+        }
         StartCoroutine(MoveToPosition(transform.position, origin.transform.position));
         SetClimbObjectsActive(true);
         if (_currentPhase == 1)
