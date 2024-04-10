@@ -205,10 +205,12 @@ public class BlueberryPhaseOne : BossController
     {
         if (_state == State.STUCK)
         {
+            ScreenShakeManager.Instance.ShakeCamera(6, 4, 1.5f);
             health -= damage * 2;
         } 
         else
         {
+            ScreenShakeManager.Instance.ShakeCamera(2, 1, 0.1f);
             health -= damage;
         }
         if (health <= 0)
