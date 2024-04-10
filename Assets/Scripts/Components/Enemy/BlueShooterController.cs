@@ -218,13 +218,16 @@ public class BlueShooterController : EnemyController
                 timeStateEnd = aimingTime;
                 break;
             case ShooterState.SHOOTING:
-                sfxPlayer.StopSFX("Windup");
                 sfxPlayer.PlaySFX("Toss");
                 break;
             case ShooterState.COOLDOWN:
                 projectileHeld = null;
                 timeStateEnd = cooldownTime;
                 break;
+        }
+        if (!(state == ShooterState.PREPARING_SHOT || state == ShooterState.AIMING))
+        {
+            sfxPlayer.StopSFX("Windup");
         }
     }
 

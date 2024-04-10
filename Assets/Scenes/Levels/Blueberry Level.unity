@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08862659, g: 0.022568122, b: 0.26023108, a: 1}
+  m_IndirectSpecularColor: {r: 0.08877507, g: 0.02268681, b: 0.26058567, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6329,7 +6329,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 04f39a296853b1341901fde002488afa, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -9828,13 +9828,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067140159}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.11287849, z: -0, w: 0.99360883}
+  m_LocalRotation: {x: 0.039091475, y: -0.5529082, z: 0.025980895, w: 0.83191913}
   m_LocalPosition: {x: -45.89, y: 199.94, z: 313.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 12.963, z: 0}
+  m_LocalEulerAnglesHint: {x: 5.381, y: -67.217, z: 0}
 --- !u!4 &1069641931 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 889172417994022188, guid: 99e30c82df8996b4a96cb4c3dcd6f045, type: 3}
@@ -12402,8 +12402,8 @@ MonoBehaviour:
       name: 
       audioClip: {fileID: 8300000, guid: 0b0a3aa8357ed6346bcd517b1d5345b8, type: 3}
       alternatives: []
-      volume: 0
-      pitch: 0
+      volume: 1
+      pitch: 1
       pitchVariance: 0
       loop: 0
       spatialBlend: 0
@@ -13923,53 +13923,53 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -5.046617
+        z: -4.4939427
       TangentOut:
         x: 0
         y: 0
-        z: 4.8664374
+        z: 3.717489
       Rotation:
         value:
-          x: -0.0050093
-          y: 0.9880301
-          z: 0.14835823
-          w: 0.041967455
+          x: -0.030679725
+          y: 0.9301174
+          z: 0.36469787
+          w: -0.030589743
     - Position:
-        x: -9.450256
-        y: 55.07816
-        z: -17.08699
+        x: -14.997681
+        y: 61.59733
+        z: -8.449417
       TangentIn:
         x: -0
         y: -0
-        z: -3.4733443
+        z: -4.4909844
       TangentOut:
         x: 0
         y: 0
-        z: 3.1209047
+        z: 6.2408834
       Rotation:
         value:
-          x: -0.14410299
-          y: 0.80356675
-          z: 0.48115703
-          w: 0.31937867
+          x: -0.16628662
+          y: 0.75276136
+          z: 0.55309665
+          w: 0.31588465
     - Position:
-        x: -9.556824
-        y: 67.18336
-        z: -12.439804
+        x: -7.4197083
+        y: 83.126854
+        z: -8.295212
       TangentIn:
         x: -0
         y: -0
-        z: -1.2967017
+        z: -2.2824767
       TangentOut:
         x: 0
         y: 0
-        z: 1.2967017
+        z: 2.2824767
       Rotation:
         value:
-          x: -0.23835838
-          y: 0.5138022
-          z: 0.7506257
-          w: 0.34022582
+          x: -0.1601089
+          y: 0.686285
+          z: 0.59822476
+          w: 0.38145137
     m_MetaData:
     - Mode: 0
       Tension: 0.5
@@ -17655,7 +17655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1097669473973715207, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8190882257291307517, guid: 350a2f53dfbd7464ebc96190fcd3f57c, type: 3}
       propertyPath: m_LocalPosition.x

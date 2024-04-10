@@ -311,12 +311,12 @@ public class BlueberrySmackerController : EnemyController
                     timeStateEnd = 5f; // Timeout time
                     break;
                 case SmackerState.SMACK_WINDUP:
-                    sfxPlayer.PlaySFX("Swing");
+                    sfxPlayer.PlaySFX("Windup");
                     _rb.isKinematic = true;
                     hasPerformedAttack = false;
                     break;
                 case SmackerState.SMACK_ATTACK:
-
+                    sfxPlayer.PlaySFX("Swing");
                     break;
                 case SmackerState.DIZZY:
                     sfxPlayer.PlaySFX("Dizzy");

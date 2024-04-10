@@ -154,7 +154,7 @@ public class BlueberryPhaseOne : BossController
 
         // player transform and animation
         player.transform.position = endLoc.transform.position;
-        player.transform.rotation = endLoc.transform.rotation;
+        player.GetComponent<PlayerController>().model.transform.rotation = endLoc.transform.rotation;
         playerAnimator.applyRootMotion = true;
         playerAnimator.SetLayerWeight(1, 0.0f);
         playerAnimator.Play("Base Layer.BC_Cheer");

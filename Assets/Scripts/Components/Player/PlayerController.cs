@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    Transform model;
+    public Transform model;
     [SerializeField]
     Transform lassoSwingCenter;
     [SerializeField]
@@ -778,8 +778,9 @@ public class PlayerController : MonoBehaviour
     {
         disabledForCutscene = true;
         UpdateState(State.IDLE);
-        if (_lassoState == LassoState.RETRACT)
+        if (_lassoState == LassoState.RETRACT || _lassoState == LassoState.SWING || _lassoState == LassoState.TOSS)
         {
+            print("Updating lasso for cutscene to noen");
             UpdateLassoState(LassoState.NONE);
         }
         _moveInput = Vector3.zero;
