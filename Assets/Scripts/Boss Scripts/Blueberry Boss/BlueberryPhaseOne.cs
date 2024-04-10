@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 public class BlueberryPhaseOne : BossController
@@ -68,6 +69,10 @@ public class BlueberryPhaseOne : BossController
 
     SoundPlayer soundPlayer;
 
+    public GameObject endLoc;
+    public Animator playerAnimator;
+    public GameObject youWinUI;
+
     enum State
     {
         DAMAGED,
@@ -86,7 +91,9 @@ public class BlueberryPhaseOne : BossController
         phaseOneCutscene.OnCutsceneComplete += StartPhaseOne;
         phaseTwoCutscene.OnCutsceneComplete += StartPhaseTwo;
         CutsceneManager.Instance().GetCutsceneByName("Phase 1 End").OnCutsceneComplete += MakeEndPhaseState;
-        finalCutscene.OnCutsceneComplete += EndLevel;
+        CutsceneManager.Instance().GetCutsceneByName("Phase 2 End").OnCutsceneComplete += Celebration;
+        // finalCutscene.OnCutsceneComplete += EndLevel;
+        CutsceneManager.Instance().GetCutsceneByName("Celebration").OnCutsceneComplete += EndLevel;
 
         animationHandler.OnSwordAnimChange += UpdateSwordAttackTriggerActive;
 
@@ -99,6 +106,8 @@ public class BlueberryPhaseOne : BossController
         }
 
         soundPlayer = GetComponent<SoundPlayer>();
+
+        youWinUI.SetActive(false);
     }
 
     void UpdateSwordAttackTriggerActive(bool active)
@@ -130,6 +139,49 @@ public class BlueberryPhaseOne : BossController
         active = true;
         UpdateState(State.LOOK_AT_PLAYER);
         Invoke("EnablePhaseTwo", 0.1f);
+    }
+
+    void Celebration(CutsceneObject o)
+    {
+        // cutscene
+        CutsceneManager.Instance().PlayCutsceneByName("Celebration");
+
+        // ui animation
+        StartCoroutine(winUIAnimation());
+
+        // player transform and animation
+        player.transform.position = endLoc.transform.position;
+        player.transform.rotation = endLoc.transform.rotation;
+        playerAnimator.applyRootMotion = true;
+        playerAnimator.SetLayerWeight(1, 0.0f);
+        playerAnimator.Play("Base Layer.BC_Cheer");
+
+        // confetti
+    }
+
+    IEnumerator winUIAnimation()
+    {
+        youWinUI.SetActive(true);
+        // pause before animation
+        yield return new WaitForSeconds(1.5f);
+
+        // letters appear
+        foreach (Transform child in youWinUI.transform)
+        {
+            child.transform.DOScale(0.9f, 1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // letters jump
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(2.0f);
+            foreach (Transform child in youWinUI.transform)
+            {
+                child.DOJump(child.transform.position, 25, 1, 0.5f);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
     }
 
     void EndLevel(CutsceneObject o)
