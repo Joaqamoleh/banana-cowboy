@@ -49,11 +49,16 @@ public class BlueShooterController : EnemyController
 
     private void Awake()
     {
-        UpdateState(ShooterState.IDLE);
         Debug.Assert(sightAgroRange != null);
         Debug.Assert(loseAgroRange != null);
         sightAgroRange.OnTriggerEntered += EnterSightRange;
         loseAgroRange.OnTriggerExited += LeftSightRange;
+    }
+
+
+    private void Start()
+    {
+        UpdateState(ShooterState.IDLE);
     }
 
     private void Update()
@@ -189,6 +194,10 @@ public class BlueShooterController : EnemyController
         {
             case ShooterState.IDLE:
             case ShooterState.PLAYER_SPOTTED:
+                if (state == ShooterState.PLAYER_SPOTTED)
+                {
+                    sfxPlayer.PlaySFX("Alert");
+                }
                 if (projectileHeld != null)
                 {
                     Destroy(projectileHeld.gameObject);
@@ -196,6 +205,8 @@ public class BlueShooterController : EnemyController
                 }
                 break;
             case ShooterState.PREPARING_SHOT:
+                sfxPlayer.PlaySFX("Windup");
+
                 if (projectileHeld != null)
                 {
                     Destroy(projectileHeld.gameObject);
@@ -207,6 +218,8 @@ public class BlueShooterController : EnemyController
                 timeStateEnd = aimingTime;
                 break;
             case ShooterState.SHOOTING:
+                sfxPlayer.StopSFX("Windup");
+                sfxPlayer.PlaySFX("Toss");
                 break;
             case ShooterState.COOLDOWN:
                 projectileHeld = null;

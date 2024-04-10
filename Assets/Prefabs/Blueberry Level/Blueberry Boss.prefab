@@ -1232,6 +1232,9 @@ MonoBehaviour:
   healthUIHolder: {fileID: 8046759053789938897}
   healthUI: {fileID: 2457752669555109960}
   debugAttack: {fileID: 4597297677329321618}
+  endLoc: {fileID: 0}
+  playerAnimator: {fileID: 0}
+  youWinUI: {fileID: 0}
 --- !u!114 &4133243257622556001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1269,7 +1272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxs:
   - name: Swing
-    audioClip: {fileID: 8300000, guid: fd3d70656bc40204886b0ac51ea7cd2e, type: 3}
+    audioClip: {fileID: 8300000, guid: 3a7fffa437ce95e458e048fb2e168b79, type: 3}
     alternatives: []
     volume: 1
     pitch: 1
@@ -1282,6 +1285,78 @@ MonoBehaviour:
     src: {fileID: 0}
   - name: Shoot
     audioClip: {fileID: 8300000, guid: eddcc0497e2208f4db85c28b8b17e868, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.636
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
+  - name: Draw
+    audioClip: {fileID: 8300000, guid: 54ae23c373b4116479d3fe190220b15b, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.636
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
+  - name: Damaged
+    audioClip: {fileID: 8300000, guid: 67490cd2aa818c64ba69f60538015a4b, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1.1
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.636
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
+  - name: Hurt
+    audioClip: {fileID: 8300000, guid: 661759272e58f7044a7c313e1463b0a3, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 1.6
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.636
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
+  - name: Thud
+    audioClip: {fileID: 8300000, guid: c8e930362c4701841a255c00171ef4d5, type: 3}
+    alternatives: []
+    volume: 1
+    pitch: 2
+    pitchVariance: 0
+    loop: 0
+    spatialBlend: 0.636
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
+  - name: Dizzy
+    audioClip: {fileID: 8300000, guid: be30f196042b76142a76698d3cf28f7e, type: 3}
+    alternatives: []
+    volume: 0.3
+    pitch: 0.6
+    pitchVariance: 0
+    loop: 1
+    spatialBlend: 0.636
+    spatialMaxDist: 40
+    spatialMinDist: 20
+    type: 0
+    src: {fileID: 0}
+  - name: HitWood
+    audioClip: {fileID: 8300000, guid: 6e2cc0b5e22eedd458a72b4fce5f038c, type: 3}
     alternatives: []
     volume: 1
     pitch: 1
@@ -1454,3 +1529,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac6602905d791d438ff158f94975ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxPlayer: {fileID: 8111981177855018366}
